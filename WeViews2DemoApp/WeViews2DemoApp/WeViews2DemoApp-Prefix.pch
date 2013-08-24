@@ -1,0 +1,18 @@
+//
+//  WeViews2DemoApp-Prefix.pch
+//  WeViews2DemoApp
+//
+//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_4_0
+#warning "This project uses features only available in iOS SDK 4.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#endif

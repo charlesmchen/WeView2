@@ -1,0 +1,41 @@
+//
+//  LinearDemo1.m
+//  WeViews2DemoApp
+//
+//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//
+
+#import "WeView2.h"
+#import "LinearDemo1.h"
+
+@implementation LinearDemo1
+
+- (NSString *)name
+{
+    return @"Horizontal Linear 1";
+}
+
+- (UIView *)demoView
+{
+    WeView2 *result = [[WeView2 alloc] init];
+
+    [[result withHLinearLayout]
+    addSubviews:@[
+     [self createLabel:@"Welcome"
+              fontSize:16.f],
+     [self createLabel:@"To"
+              fontSize:24.f],
+     [self createLabel:@"WeView2"
+              fontSize:32.f],
+     ]];
+    [[[result setVMargin:10]
+      setHMargin:20]
+     setSpacing:5];
+
+    [self assignRandomBackgroundColors:[self collectSubviews:result]];
+//    result.debugLayout = YES;
+    result.debugName = @"LinearDemo1";
+    return result;
+}
+
+@end
