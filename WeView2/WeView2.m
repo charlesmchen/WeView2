@@ -12,6 +12,8 @@
 #import "WeView2Layout.h"
 #import "WeView2LinearLayout.h"
 #import "WeView2Macros.h"
+#import "WeView2NoopLayout.h"
+#import "WeView2Macros.h"
 
 @interface WeView2 ()
 
@@ -26,7 +28,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        [self withHLinearLayout];
+        [self setHLinearLayout];
     }
     return self;
 }
@@ -44,15 +46,21 @@
 {
 }
 
-- (id)withHLinearLayout
+- (WeView2 *)setHLinearLayout
 {
     self.layout = [WeView2LinearLayout hLinearLayout];
     return self;
 }
 
-- (id)withVLinearLayout
+- (WeView2 *)setVLinearLayout
 {
     self.layout = [WeView2LinearLayout vLinearLayout];
+    return self;
+}
+
+- (WeView2 *)setNoopLayout
+{
+    self.layout = [WeView2NoopLayout noopLayout];
     return self;
 }
 

@@ -7,13 +7,16 @@
 
 #import "WeView2.h"
 #import "DemoViewController.h"
+#import "WeView2Macros.h"
 
 @interface DemoViewController ()
 
 @property (nonatomic) WeView2 *rootView;
+@property (nonatomic) UIView *resizeHandle;
 
-@property (nonatomic) Demo *demo;
-@property (nonatomic) UIView *demoView;
+@property (nonatomic) DemoModel *demoModel;
+//@property (nonatomic) Demo *demo;
+//@property (nonatomic) UIView *demoView;
 
 @end
 
@@ -33,12 +36,14 @@
 - (void)loadView
 {
     self.rootView = [[[WeView2 alloc] init]
-                      withVLinearLayout];
+                      setVLinearLayout];
     self.rootView.margin = 40;
     self.rootView.opaque = YES;
     self.rootView.backgroundColor = [UIColor whiteColor];
     self.rootView.debugName = @"DemoViewController.rootView";
     self.view = self.rootView;
+
+    [self.rootView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];
 }
 
 - (void)viewDidLoad
@@ -52,12 +57,33 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)handlePan:(UIPanGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan ||
+        sender.state == UIGestureRecognizerStateChanged ||
+        sender.state == UIGestureRecognizerStateEnded)
+    {
+        CGPoint rootViewCenter = [self.rootView convertPoint:self.rootView.center
+                                  fromView:self.rootView.superview];
+        CGPoint gesturePoint = [sender locationInView:self.rootView];
+        CGPoint distance = CGPointAbs(CGPointSubtract(rootViewCenter, gesturePoint));
+
+        [self.rootView setNoopLayout];
+        self.demoModel.rootView.size = CGSizeRound(CGSizeMake(distance.x * 2.f,
+                                                    distance.y * 2.f));
+        [self.demoModel.rootView centerHorizontallyInSuperview];
+        [self.demoModel.rootView centerVerticallyInSuperview];
+//        DebugRect(@"self.demoModel.rootView", self.demoModel.rootView.frame);
+    }
+}
+
 - (void)displayDemo:(Demo *)demo
 {
     [self.rootView removeAllSubviews];
-    self.demoView = [demo demoView];
+    [self.rootView setHLinearLayout];
+    self.demoModel = [demo demoModel];
     [self.rootView addSubviews:@[
-     self.demoView,
+     self.demoModel.rootView,
      ]];
 }
 
@@ -69,7 +95,12 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
 //        [self.delegate demoViewChanged:self.rootView];
-        [self.delegate demoViewChanged:self.demoView];
+//        [self.delegate demoViewChanged:self.demoModel.rootView];
+
+        NSLog(@"viewDidLayoutSubviews: %@ %d",
+              [self.demoModel.rootView debugName],
+              [self.demoModel.rootView.subviews count]);
+        [self.delegate demoModelChanged:self.demoModel];
     });
 }
 

@@ -15,11 +15,11 @@
     return @"Horizontal Linear 1";
 }
 
-- (UIView *)demoView
+- (DemoModel *)demoModel
 {
-    WeView2 *result = [[WeView2 alloc] init];
+    DemoModel *result = [DemoModel create];
 
-    [[result withHLinearLayout]
+    [[result.rootView setHLinearLayout]
     addSubviews:@[
      [self createLabel:@"Welcome"
               fontSize:16.f],
@@ -28,13 +28,13 @@
      [self createLabel:@"WeView2"
               fontSize:32.f],
      ]];
-    [[[result setVMargin:10]
+    [[[result.rootView setVMargin:10]
       setHMargin:20]
      setSpacing:5];
 
-    [self assignRandomBackgroundColors:[self collectSubviews:result]];
+    [self assignRandomBackgroundColors:[self collectSubviews:result.rootView]];
 //    result.debugLayout = YES;
-    result.debugName = @"LinearDemo1";
+    result.rootView.debugName = @"LinearDemo1";
     return result;
 }
 

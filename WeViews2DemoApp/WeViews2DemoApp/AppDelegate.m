@@ -12,10 +12,11 @@
 #import "DemoViewController.h"
 #import "SidebarViewController.h"
 
-@interface AppDelegate () <SelectDemoViewControllerDelegate, DemoViewControllerDelegate>
+@interface AppDelegate () <SelectDemoViewControllerDelegate, DemoViewControllerDelegate, DemoModelDelegate>
 
 @property (nonatomic) DemoViewController *demoViewController;
 @property (nonatomic) SidebarViewController *sidebarViewController;
+@property (nonatomic) DemoModel *demoModel;
 
 @end
 
@@ -82,9 +83,25 @@
 
 #pragma mark - DemoViewControllerDelegate
 
-- (void)demoViewChanged:(UIView *)view
+- (void)demoModelChanged:(DemoModel *)demoModel
 {
-    [self.sidebarViewController.demoDescriptionViewController displayView:view];
+    self.demoModel.delegate = nil;
+    self.demoModel = demoModel;
+    self.demoModel.delegate = self;
+    [self.sidebarViewController.demoDescriptionViewController displayView:demoModel.rootView];
+    [self.sidebarViewController.viewTreeViewController updateDemoModel:demoModel];
+}
+
+//- (void)demoViewChanged:(UIView *)view
+//{
+//    [self.sidebarViewController.demoDescriptionViewController displayView:view];
+//}
+
+#pragma mark - DemoModelDelegate
+
+- (void)selectionChanged:(id)selection
+{
+
 }
 
 @end

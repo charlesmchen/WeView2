@@ -13,7 +13,8 @@
 
 @protocol DemoViewControllerDelegate <NSObject>
 
-- (void)demoViewChanged:(UIView *)view;
+//- (void)demoViewChanged:(UIView *)view;
+- (void)demoModelChanged:(DemoModel *)demoModel;
 
 @end
 

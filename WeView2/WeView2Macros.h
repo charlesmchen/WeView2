@@ -11,9 +11,9 @@
 #import <UIKit/UIKit.h>
 
 #if defined(DEBUG)
-#define WeView2Assert(CONDITION) assert(CONDITION)
+#define WeView2Assert(Condition) assert(Condition)
 #else
-#define WeView2Assert(CONDITION)
+#define WeView2Assert(Condition)
 #endif
 
 #ifndef FormatCGSize
@@ -88,6 +88,13 @@ CGPointRound(const CGPoint p1)
 {
     return CGPointMake(roundf(p1.x),
                        roundf(p1.y));
+}
+
+CG_INLINE CGPoint
+CGPointAbs(const CGPoint p1)
+{
+    return CGPointMake(fabsf(p1.x),
+                       fabsf(p1.y));
 }
 
 CG_INLINE CGFloat

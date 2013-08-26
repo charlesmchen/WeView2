@@ -12,8 +12,9 @@
 @interface SidebarViewController ()
 
 @property (nonatomic) WeView2 *rootView;
-@property (nonatomic) UINavigationController *nav0;
-@property (nonatomic) UINavigationController *nav1;
+//@property (nonatomic) UINavigationController *nav0;
+//@property (nonatomic) UINavigationController *nav1;
+//@property (nonatomic) UINavigationController *nav2;
 
 @end
 
@@ -27,22 +28,27 @@
     if (self)
     {
         self.selectDemoViewController = [[SelectDemoViewController alloc] init];
-        //        UINavigationController *masterNavigationController = ;
-        //    [self addChildViewController:self.selectDemoViewController];
-        self.nav0 = [[UINavigationController alloc] initWithRootViewController:self.selectDemoViewController];
-        [self addChildViewController:self.nav0];
+        [self addWrappedViewController:self.selectDemoViewController];
 
         self.demoDescriptionViewController = [[DemoDescriptionViewController alloc] init];
-        self.nav1 = [[UINavigationController alloc] initWithRootViewController:self.demoDescriptionViewController];
-        [self addChildViewController:self.nav1];
+        [self addWrappedViewController:self.demoDescriptionViewController];
+
+        self.viewTreeViewController = [[ViewTreeViewController alloc] init];
+        [self addWrappedViewController:self.viewTreeViewController];
     }
     return self;
+}
+
+- (void)addWrappedViewController:(UIViewController *)viewController
+{
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self addChildViewController:navigationController];
 }
 
 - (void)loadView
 {
     self.rootView = [[[WeView2 alloc] init]
-                     withVLinearLayout];
+                     setVLinearLayout];
     //    self.rootView.debugLayout = YES;
     self.rootView.opaque = YES;
     self.rootView.backgroundColor = [UIColor whiteColor];
@@ -53,10 +59,13 @@
 {
     [super viewDidLoad];
 
-    [self.rootView addSubviews:@[
-     [self.nav0.view withPureStretch],
-     [self.nav1.view withPureStretch],
-     ]];
+    NSMutableArray *subviews = [NSMutableArray array];
+    for (UIViewController *childViewController in self.childViewControllers)
+    {
+        [subviews addObject:[childViewController.view withPureStretch]];
+    }
+
+    [self.rootView addSubviews:subviews];
 }
 
 - (void)didReceiveMemoryWarning

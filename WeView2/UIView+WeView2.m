@@ -536,6 +536,20 @@ CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlig
     return [NSString stringWithFormat:@"%@: %@, ", key, value];
 }
 
+- (void)centerHorizontallyInSuperview
+{
+    WeView2Assert(self.superview);
+    self.x = roundf((self.superview.width - self.width) * 0.5f);
+}
+
+- (void)centerVerticallyInSuperview
+{
+    WeView2Assert(self.superview);
+    self.y = roundf((self.superview.height - self.height) * 0.5f);
+}
+
+#pragma mark - Debug
+
 - (NSString *)layoutDescription
 {
     NSMutableString *result = [@"" mutableCopy];

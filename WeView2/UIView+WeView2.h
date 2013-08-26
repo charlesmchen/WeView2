@@ -141,6 +141,9 @@ typedef enum
 - (CGFloat)bottom;
 - (CGFloat)right;
 
+- (void)centerHorizontallyInSuperview;
+- (void)centerVerticallyInSuperview;
+
 - (NSString *)layoutDescription;
 
 @end

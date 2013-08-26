@@ -14,7 +14,7 @@
     return nil;
 }
 
-- (UIView *)demoView
+- (DemoModel *)demoModel
 {
     return nil;
 }

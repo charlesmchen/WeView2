@@ -18,8 +18,9 @@
 
 @property (nonatomic) WeView2Layout *layout;
 
-- (id)withHLinearLayout;
-- (id)withVLinearLayout;
+- (WeView2 *)setHLinearLayout;
+- (WeView2 *)setVLinearLayout;
+- (WeView2 *)setNoopLayout;
 
 - (id)addSubviews:(NSArray *)subviews;
 - (void)removeAllSubviews;

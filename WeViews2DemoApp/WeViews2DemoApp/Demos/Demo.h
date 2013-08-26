@@ -8,12 +8,13 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
+#import "DemoModel.h"
 
 @interface Demo : NSObject
 
 - (NSString *)name;
 
-- (UIView *)demoView;
+- (DemoModel *)demoModel;
 
 - (UILabel *)createLabel:(NSString *)text
                 fontSize:(CGFloat)fontSize;

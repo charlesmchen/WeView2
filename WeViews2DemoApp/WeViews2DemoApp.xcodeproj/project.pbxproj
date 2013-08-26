@@ -23,8 +23,6 @@
 		34195FBA17CA80A90036F8DC /* WeViews2DemoAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FB917CA80A90036F8DC /* WeViews2DemoAppTests.m */; };
 		34195FCD17CA80E00036F8DC /* UIView+WeView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FC517CA80E00036F8DC /* UIView+WeView2.m */; };
 		34195FCE17CA80E00036F8DC /* WeView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FC717CA80E00036F8DC /* WeView2.m */; };
-		34195FCF17CA80E00036F8DC /* WeView2Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FC917CA80E00036F8DC /* WeView2Layout.m */; };
-		34195FD017CA80E00036F8DC /* WeView2LinearLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FCB17CA80E00036F8DC /* WeView2LinearLayout.m */; };
 		34195FD417CA82300036F8DC /* Demo.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FD317CA82300036F8DC /* Demo.m */; };
 		34195FD717CA82520036F8DC /* LinearDemo1.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FD617CA82520036F8DC /* LinearDemo1.m */; };
 		34195FEB17CA87400036F8DC /* SidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FE717CA87400036F8DC /* SidebarViewController.m */; };
@@ -33,6 +31,12 @@
 		34195FF217CA979E0036F8DC /* DemoDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FF117CA979E0036F8DC /* DemoDescriptionViewController.m */; };
 		344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */; };
 		344435C917CACFEB00EFF341 /* ViewHierarchyTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C717CACFEB00EFF341 /* ViewHierarchyTree.m */; };
+		344435CF17CAD20F00EFF341 /* DemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435CE17CAD20F00EFF341 /* DemoModel.m */; };
+		344435D617CAD9A600EFF341 /* WeView2DemoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435D517CAD9A600EFF341 /* WeView2DemoUtils.m */; };
+		344435D917CAFA1D00EFF341 /* ViewTreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435D817CAFA1C00EFF341 /* ViewTreeViewController.m */; };
+		344435DF17CB055B00EFF341 /* WeView2Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435DC17CB055B00EFF341 /* WeView2Layout.m */; };
+		344435E017CB055B00EFF341 /* WeView2LinearLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435DE17CB055B00EFF341 /* WeView2LinearLayout.m */; };
+		344435E317CB057300EFF341 /* WeView2NoopLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435E217CB057300EFF341 /* WeView2NoopLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,10 +73,6 @@
 		34195FC517CA80E00036F8DC /* UIView+WeView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WeView2.m"; sourceTree = "<group>"; };
 		34195FC617CA80E00036F8DC /* WeView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2.h; sourceTree = "<group>"; };
 		34195FC717CA80E00036F8DC /* WeView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2.m; sourceTree = "<group>"; };
-		34195FC817CA80E00036F8DC /* WeView2Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2Layout.h; sourceTree = "<group>"; };
-		34195FC917CA80E00036F8DC /* WeView2Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2Layout.m; sourceTree = "<group>"; };
-		34195FCA17CA80E00036F8DC /* WeView2LinearLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2LinearLayout.h; sourceTree = "<group>"; };
-		34195FCB17CA80E00036F8DC /* WeView2LinearLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2LinearLayout.m; sourceTree = "<group>"; };
 		34195FCC17CA80E00036F8DC /* WeView2Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2Macros.h; sourceTree = "<group>"; };
 		34195FD217CA82300036F8DC /* Demo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Demo.h; sourceTree = "<group>"; };
 		34195FD317CA82300036F8DC /* Demo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Demo.m; sourceTree = "<group>"; };
@@ -90,6 +90,19 @@
 		344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDescriptionViewController.m; sourceTree = "<group>"; };
 		344435C617CACFEA00EFF341 /* ViewHierarchyTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewHierarchyTree.h; sourceTree = "<group>"; };
 		344435C717CACFEB00EFF341 /* ViewHierarchyTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewHierarchyTree.m; sourceTree = "<group>"; };
+		344435CD17CAD20F00EFF341 /* DemoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoModel.h; sourceTree = "<group>"; };
+		344435CE17CAD20F00EFF341 /* DemoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoModel.m; sourceTree = "<group>"; };
+		344435D017CAD2BA00EFF341 /* WeView2DemoConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2DemoConstants.h; sourceTree = "<group>"; };
+		344435D417CAD9A600EFF341 /* WeView2DemoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2DemoUtils.h; sourceTree = "<group>"; };
+		344435D517CAD9A600EFF341 /* WeView2DemoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2DemoUtils.m; sourceTree = "<group>"; };
+		344435D717CAFA1C00EFF341 /* ViewTreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewTreeViewController.h; sourceTree = "<group>"; };
+		344435D817CAFA1C00EFF341 /* ViewTreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewTreeViewController.m; sourceTree = "<group>"; };
+		344435DB17CB055B00EFF341 /* WeView2Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2Layout.h; sourceTree = "<group>"; };
+		344435DC17CB055B00EFF341 /* WeView2Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2Layout.m; sourceTree = "<group>"; };
+		344435DD17CB055B00EFF341 /* WeView2LinearLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2LinearLayout.h; sourceTree = "<group>"; };
+		344435DE17CB055B00EFF341 /* WeView2LinearLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2LinearLayout.m; sourceTree = "<group>"; };
+		344435E117CB057300EFF341 /* WeView2NoopLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2NoopLayout.h; sourceTree = "<group>"; };
+		344435E217CB057300EFF341 /* WeView2NoopLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2NoopLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,14 +163,12 @@
 		34195F8217CA80A90036F8DC /* WeViews2DemoApp */ = {
 			isa = PBXGroup;
 			children = (
-				344435C417CACFEA00EFF341 /* ViewDescriptionViewController.h */,
-				344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */,
-				344435C617CACFEA00EFF341 /* ViewHierarchyTree.h */,
-				344435C717CACFEB00EFF341 /* ViewHierarchyTree.m */,
 				34195F8B17CA80A90036F8DC /* AppDelegate.h */,
 				34195F8C17CA80A90036F8DC /* AppDelegate.m */,
 				34195FF017CA979E0036F8DC /* DemoDescriptionViewController.h */,
 				34195FF117CA979E0036F8DC /* DemoDescriptionViewController.m */,
+				344435CD17CAD20F00EFF341 /* DemoModel.h */,
+				344435CE17CAD20F00EFF341 /* DemoModel.m */,
 				34195FD117CA82270036F8DC /* Demos */,
 				34195FED17CA88140036F8DC /* DemoViewController.h */,
 				34195FEE17CA88140036F8DC /* DemoViewController.m */,
@@ -166,6 +177,15 @@
 				34195FEA17CA87400036F8DC /* SidebarViewController.h */,
 				34195FE717CA87400036F8DC /* SidebarViewController.m */,
 				34195F8317CA80A90036F8DC /* Supporting Files */,
+				344435C417CACFEA00EFF341 /* ViewDescriptionViewController.h */,
+				344435D717CAFA1C00EFF341 /* ViewTreeViewController.h */,
+				344435D817CAFA1C00EFF341 /* ViewTreeViewController.m */,
+				344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */,
+				344435C617CACFEA00EFF341 /* ViewHierarchyTree.h */,
+				344435C717CACFEB00EFF341 /* ViewHierarchyTree.m */,
+				344435D017CAD2BA00EFF341 /* WeView2DemoConstants.h */,
+				344435D417CAD9A600EFF341 /* WeView2DemoUtils.h */,
+				344435D517CAD9A600EFF341 /* WeView2DemoUtils.m */,
 			);
 			path = WeViews2DemoApp;
 			sourceTree = "<group>";
@@ -206,14 +226,11 @@
 		34195FC317CA80E00036F8DC /* WeView2 */ = {
 			isa = PBXGroup;
 			children = (
+				344435DA17CB055B00EFF341 /* Layouts */,
 				34195FC417CA80E00036F8DC /* UIView+WeView2.h */,
 				34195FC517CA80E00036F8DC /* UIView+WeView2.m */,
 				34195FC617CA80E00036F8DC /* WeView2.h */,
 				34195FC717CA80E00036F8DC /* WeView2.m */,
-				34195FC817CA80E00036F8DC /* WeView2Layout.h */,
-				34195FC917CA80E00036F8DC /* WeView2Layout.m */,
-				34195FCA17CA80E00036F8DC /* WeView2LinearLayout.h */,
-				34195FCB17CA80E00036F8DC /* WeView2LinearLayout.m */,
 				34195FCC17CA80E00036F8DC /* WeView2Macros.h */,
 			);
 			name = WeView2;
@@ -229,6 +246,19 @@
 				34195FD617CA82520036F8DC /* LinearDemo1.m */,
 			);
 			path = Demos;
+			sourceTree = "<group>";
+		};
+		344435DA17CB055B00EFF341 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				344435E117CB057300EFF341 /* WeView2NoopLayout.h */,
+				344435E217CB057300EFF341 /* WeView2NoopLayout.m */,
+				344435DB17CB055B00EFF341 /* WeView2Layout.h */,
+				344435DC17CB055B00EFF341 /* WeView2Layout.m */,
+				344435DD17CB055B00EFF341 /* WeView2LinearLayout.h */,
+				344435DE17CB055B00EFF341 /* WeView2LinearLayout.m */,
+			);
+			path = Layouts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,8 +373,6 @@
 				34195F8D17CA80A90036F8DC /* AppDelegate.m in Sources */,
 				34195FCD17CA80E00036F8DC /* UIView+WeView2.m in Sources */,
 				34195FCE17CA80E00036F8DC /* WeView2.m in Sources */,
-				34195FCF17CA80E00036F8DC /* WeView2Layout.m in Sources */,
-				34195FD017CA80E00036F8DC /* WeView2LinearLayout.m in Sources */,
 				34195FD417CA82300036F8DC /* Demo.m in Sources */,
 				34195FD717CA82520036F8DC /* LinearDemo1.m in Sources */,
 				34195FEB17CA87400036F8DC /* SidebarViewController.m in Sources */,
@@ -353,6 +381,12 @@
 				34195FF217CA979E0036F8DC /* DemoDescriptionViewController.m in Sources */,
 				344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */,
 				344435C917CACFEB00EFF341 /* ViewHierarchyTree.m in Sources */,
+				344435CF17CAD20F00EFF341 /* DemoModel.m in Sources */,
+				344435D617CAD9A600EFF341 /* WeView2DemoUtils.m in Sources */,
+				344435D917CAFA1D00EFF341 /* ViewTreeViewController.m in Sources */,
+				344435DF17CB055B00EFF341 /* WeView2Layout.m in Sources */,
+				344435E017CB055B00EFF341 /* WeView2LinearLayout.m in Sources */,
+				344435E317CB057300EFF341 /* WeView2NoopLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
