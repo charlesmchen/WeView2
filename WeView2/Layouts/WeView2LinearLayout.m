@@ -202,6 +202,8 @@
     }
 }
 
+// TODO: Honor max/min widths in the earlier phases, of "min size" and "layout" functions.
+// TODO: Do we need to honor other params as well?
 - (CGSize)minSizeOfContentsView:(UIView *)view
                    thatFitsSize:(CGSize)guideSize
 {
