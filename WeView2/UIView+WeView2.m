@@ -5,46 +5,47 @@
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
 
-#import "UIView+WeView2.h"
-
-//#import "NSObject+Extension.h"
 #import <assert.h>
 #import <objc/runtime.h>
 
+#import "UIView+WeView2.h"
 #import "WeView2Macros.h"
 
-/* CODEGEN MARKER: Keys Start */
+static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
 
-static const void *kWeView2Key_MinWidth = &kWeView2Key_MinWidth;
-static const void *kWeView2Key_MaxWidth = &kWeView2Key_MaxWidth;
-static const void *kWeView2Key_MinHeight = &kWeView2Key_MinHeight;
-static const void *kWeView2Key_MaxHeight = &kWeView2Key_MaxHeight;
+NSString* FormatHAlign(HAlign value) {
+    switch (value) {
+        case H_ALIGN_LEFT:
+            return @"Left";
+        case H_ALIGN_CENTER:
+            return @"Center";
+        case H_ALIGN_RIGHT:
+            return @"Right";
+        default:
+            WeView2Assert(0);
+            return nil;
+    }
+}
 
-static const void *kWeView2Key_HStretchWeight = &kWeView2Key_HStretchWeight;
-static const void *kWeView2Key_VStretchWeight = &kWeView2Key_VStretchWeight;
-static const void *kWeView2Key_IgnoreNaturalSize = &kWeView2Key_IgnoreNaturalSize;
-
-static const void *kWeView2Key_LeftMargin = &kWeView2Key_LeftMargin;
-static const void *kWeView2Key_RightMargin = &kWeView2Key_RightMargin;
-static const void *kWeView2Key_TopMargin = &kWeView2Key_TopMargin;
-static const void *kWeView2Key_BottomMargin = &kWeView2Key_BottomMargin;
-
-static const void *kWeView2Key_VSpacing = &kWeView2Key_VSpacing;
-static const void *kWeView2Key_HSpacing = &kWeView2Key_HSpacing;
-
-static const void *kWeView2Key_DebugName = &kWeView2Key_DebugName;
-static const void *kWeView2Key_DebugLayout = &kWeView2Key_DebugLayout;
-
-/* CODEGEN MARKER: Keys End */
-
-static const void *kWeView2Key_HAlign = &kWeView2Key_HAlign;
-static const void *kWeView2Key_VAlign = &kWeView2Key_VAlign;
+NSString* FormatVAlign(VAlign value) {
+    switch (value) {
+        case V_ALIGN_TOP:
+            return @"Top";
+        case H_ALIGN_CENTER:
+            return @"Center";
+        case V_ALIGN_BOTTOM:
+            return @"Bottom";
+        default:
+            WeView2Assert(0);
+            return nil;
+    }
+}
 
 CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlign)
 {
     CGRect result;
     result.size = size;
-
+    
     switch (hAlign)
     {
         case H_ALIGN_LEFT:
@@ -81,274 +82,366 @@ CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlig
     return result;
 }
 
+#pragma mark -
+
+@implementation WeView2ViewInfo
+
+- (void)dealloc {
+}
+
+- (id)init {
+    if (self = [super init]) {
+        self.hAlign = H_ALIGN_CENTER;
+        self.vAlign = V_ALIGN_CENTER;
+
+        self.maxWidth = CGFLOAT_MAX;
+        self.maxHeight = CGFLOAT_MAX;
+    }
+    
+    return self;
+}
+
+// TODO: Add asserts in the setters.
+
+/* CODEGEN MARKER: View Info Start */
+
+- (CGSize)minSize
+{
+    return CGSizeMake(self.minWidth, self.minHeight);
+}
+
+- (void)setMinSize:(CGSize)value
+{
+    [self setMinWidth:value.width];
+    [self setMinHeight:value.height];
+}
+
+- (CGSize)maxSize
+{
+    return CGSizeMake(self.maxWidth, self.maxHeight);
+}
+
+- (void)setMaxSize:(CGSize)value
+{
+    [self setMaxWidth:value.width];
+    [self setMaxHeight:value.height];
+}
+
+- (void)setFixedWidth:(CGFloat)value
+{
+    [self setMinWidth:value];
+    [self setMaxWidth:value];
+}
+
+- (void)setFixedHeight:(CGFloat)value
+{
+    [self setMinHeight:value];
+    [self setMaxHeight:value];
+}
+
+- (void)setFixedSize:(CGSize)value
+{
+    [self setMinWidth:value.width];
+    [self setMinHeight:value.height];
+    [self setMaxWidth:value.width];
+    [self setMaxHeight:value.height];
+}
+
+- (void)setStretchWeight:(CGFloat)value
+{
+    [self setVStretchWeight:value];
+    [self setHStretchWeight:value];
+}
+
+- (void)setHMargin:(CGFloat)value
+{
+    [self setLeftMargin:value];
+    [self setRightMargin:value];
+}
+
+- (void)setVMargin:(CGFloat)value
+{
+    [self setTopMargin:value];
+    [self setBottomMargin:value];
+}
+
+- (void)setMargin:(CGFloat)value
+{
+    [self setLeftMargin:value];
+    [self setRightMargin:value];
+    [self setTopMargin:value];
+    [self setBottomMargin:value];
+}
+
+- (void)setSpacing:(CGFloat)value
+{
+    [self setHSpacing:value];
+    [self setVSpacing:value];
+}
+
+/* CODEGEN MARKER: View Info End */
+
+- (NSString *)formatLayoutDescriptionItem:(NSString *)key
+                                    value:(id)value
+{
+    return [NSString stringWithFormat:@"%@: %@, ", key, value];
+}
+
+- (NSString *)layoutDescription
+{
+    NSMutableString *result = [@"" mutableCopy];
+    
+    /* CODEGEN MARKER: Debug Start */
+
+    [result appendString:[self formatLayoutDescriptionItem:@"minWidth" value:@(self.minWidth)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"maxWidth" value:@(self.maxWidth)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"minHeight" value:@(self.minHeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"maxHeight" value:@(self.maxHeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"hStretchWeight" value:@(self.hStretchWeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"vStretchWeight" value:@(self.vStretchWeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"ignoreNaturalSize" value:@(self.ignoreNaturalSize)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"leftMargin" value:@(self.leftMargin)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"rightMargin" value:@(self.rightMargin)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"topMargin" value:@(self.topMargin)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"bottomMargin" value:@(self.bottomMargin)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"vSpacing" value:@(self.vSpacing)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"hSpacing" value:@(self.hSpacing)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"debugName" value:self.debugName]];
+    [result appendString:[self formatLayoutDescriptionItem:@"debugLayout" value:@(self.debugLayout)]];
+
+/* CODEGEN MARKER: Debug End */
+
+    [result appendString:[self formatLayoutDescriptionItem:@"hAlign" value:FormatHAlign(self.hAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"vAlign" value:FormatVAlign(self.vAlign)]];
+
+    return result;
+}
+
+@end
+
+#pragma mark -
+
 @implementation UIView (WeView2)
 
 #pragma mark - Associated Values
 
-- (CGFloat)associatedFloat:(const void *)key
-              defaultValue:(CGFloat)defaultValue
+- (WeView2ViewInfo *)viewInfo
 {
-    NSNumber *value = objc_getAssociatedObject(self, key);
-    return (value
-            ? [value floatValue]
-            : defaultValue);
-}
-
-- (CGFloat)associatedFloat:(const void *)key
-{
-    return [self associatedFloat:key
-                    defaultValue:0];
-}
-
-- (void)setAssociatedFloat:(CGFloat)value
-                       key:(const void *)key
-{
-    objc_setAssociatedObject(self, key, @(value), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)associatedBoolean:(const void *)key
-{
-    return [objc_getAssociatedObject(self, key) boolValue];
-}
-
-- (void)setAssociatedBoolean:(BOOL)value
-                         key:(const void *)key
-{
-    objc_setAssociatedObject(self, key, @(value), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (int)associatedInt:(const void *)key
-        defaultValue:(int)defaultValue
-{
-    NSNumber *value = objc_getAssociatedObject(self, key);
-    return (value
-            ? [value intValue]
-            : defaultValue);
-}
-
-- (void)setAssociatedInt:(int)value
-                     key:(const void *)key
-{
-    objc_setAssociatedObject(self, key, @(value), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NSString *)associatedString:(const void *)key
-                  defaultValue:(NSString *)defaultValue
-{
-    NSString *value = objc_getAssociatedObject(self, key);
-    return (value
-            ? value
-            : defaultValue);
-}
-
-- (void)setAssociatedString:(NSString *)value
-                        key:(const void *)key
-{
-    objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    WeView2ViewInfo *value = objc_getAssociatedObject(self, kWeView2Key_ViewInfo);
+    if (!value)
+    {
+        value = [[WeView2ViewInfo alloc] init];
+        objc_setAssociatedObject(self, kWeView2Key_ViewInfo, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return value;
 }
 
 /* CODEGEN MARKER: Accessors Start */
 
 - (CGFloat)minWidth
 {
-    return [self associatedFloat:kWeView2Key_MinWidth];
+    return [self.viewInfo minWidth];
 }
 
-- (id)setMinWidth:(CGFloat)value
+- (UIView *)setMinWidth:(CGFloat)value
 {
-    WeView2Assert(value >= 0);
-    [self setAssociatedFloat:value key:kWeView2Key_MinWidth];
+    [self.viewInfo setMinWidth:value];
     return self;
 }
 
 - (CGFloat)maxWidth
 {
-    return [self associatedFloat:kWeView2Key_MaxWidth defaultValue:CGFLOAT_MAX];
+    return [self.viewInfo maxWidth];
 }
 
-- (id)setMaxWidth:(CGFloat)value
+- (UIView *)setMaxWidth:(CGFloat)value
 {
-    WeView2Assert(value >= 0);
-    [self setAssociatedFloat:value key:kWeView2Key_MaxWidth];
+    [self.viewInfo setMaxWidth:value];
     return self;
 }
 
 - (CGFloat)minHeight
 {
-    return [self associatedFloat:kWeView2Key_MinHeight];
+    return [self.viewInfo minHeight];
 }
 
-- (id)setMinHeight:(CGFloat)value
+- (UIView *)setMinHeight:(CGFloat)value
 {
-    WeView2Assert(value >= 0);
-    [self setAssociatedFloat:value key:kWeView2Key_MinHeight];
+    [self.viewInfo setMinHeight:value];
     return self;
 }
 
 - (CGFloat)maxHeight
 {
-    return [self associatedFloat:kWeView2Key_MaxHeight defaultValue:CGFLOAT_MAX];
+    return [self.viewInfo maxHeight];
 }
 
-- (id)setMaxHeight:(CGFloat)value
+- (UIView *)setMaxHeight:(CGFloat)value
 {
-    WeView2Assert(value >= 0);
-    [self setAssociatedFloat:value key:kWeView2Key_MaxHeight];
+    [self.viewInfo setMaxHeight:value];
     return self;
 }
 
 - (CGFloat)hStretchWeight
 {
-    return [self associatedFloat:kWeView2Key_HStretchWeight];
+    return [self.viewInfo hStretchWeight];
 }
 
-- (id)setHStretchWeight:(CGFloat)value
+- (UIView *)setHStretchWeight:(CGFloat)value
 {
-    WeView2Assert(value >= 0);
-    [self setAssociatedFloat:value key:kWeView2Key_HStretchWeight];
+    [self.viewInfo setHStretchWeight:value];
     return self;
 }
 
 - (CGFloat)vStretchWeight
 {
-    return [self associatedFloat:kWeView2Key_VStretchWeight];
+    return [self.viewInfo vStretchWeight];
 }
 
-- (id)setVStretchWeight:(CGFloat)value
+- (UIView *)setVStretchWeight:(CGFloat)value
 {
-    WeView2Assert(value >= 0);
-    [self setAssociatedFloat:value key:kWeView2Key_VStretchWeight];
+    [self.viewInfo setVStretchWeight:value];
     return self;
 }
 
 - (BOOL)ignoreNaturalSize
 {
-    return [self associatedBoolean:kWeView2Key_IgnoreNaturalSize];
+    return [self.viewInfo ignoreNaturalSize];
 }
 
-- (id)setIgnoreNaturalSize:(BOOL)value
+- (UIView *)setIgnoreNaturalSize:(BOOL)value
 {
-    [self setAssociatedBoolean:value key:kWeView2Key_IgnoreNaturalSize];
+    [self.viewInfo setIgnoreNaturalSize:value];
     return self;
 }
 
 - (CGFloat)leftMargin
 {
-    return [self associatedFloat:kWeView2Key_LeftMargin];
+    return [self.viewInfo leftMargin];
 }
 
-- (id)setLeftMargin:(CGFloat)value
+- (UIView *)setLeftMargin:(CGFloat)value
 {
-    [self setAssociatedFloat:value key:kWeView2Key_LeftMargin];
+    [self.viewInfo setLeftMargin:value];
     return self;
 }
 
 - (CGFloat)rightMargin
 {
-    return [self associatedFloat:kWeView2Key_RightMargin];
+    return [self.viewInfo rightMargin];
 }
 
-- (id)setRightMargin:(CGFloat)value
+- (UIView *)setRightMargin:(CGFloat)value
 {
-    [self setAssociatedFloat:value key:kWeView2Key_RightMargin];
+    [self.viewInfo setRightMargin:value];
     return self;
 }
 
 - (CGFloat)topMargin
 {
-    return [self associatedFloat:kWeView2Key_TopMargin];
+    return [self.viewInfo topMargin];
 }
 
-- (id)setTopMargin:(CGFloat)value
+- (UIView *)setTopMargin:(CGFloat)value
 {
-    [self setAssociatedFloat:value key:kWeView2Key_TopMargin];
+    [self.viewInfo setTopMargin:value];
     return self;
 }
 
 - (CGFloat)bottomMargin
 {
-    return [self associatedFloat:kWeView2Key_BottomMargin];
+    return [self.viewInfo bottomMargin];
 }
 
-- (id)setBottomMargin:(CGFloat)value
+- (UIView *)setBottomMargin:(CGFloat)value
 {
-    [self setAssociatedFloat:value key:kWeView2Key_BottomMargin];
+    [self.viewInfo setBottomMargin:value];
     return self;
 }
 
 - (CGFloat)vSpacing
 {
-    return [self associatedFloat:kWeView2Key_VSpacing];
+    return [self.viewInfo vSpacing];
 }
 
-- (id)setVSpacing:(CGFloat)value
+- (UIView *)setVSpacing:(CGFloat)value
 {
-    [self setAssociatedFloat:value key:kWeView2Key_VSpacing];
+    [self.viewInfo setVSpacing:value];
     return self;
 }
 
 - (CGFloat)hSpacing
 {
-    return [self associatedFloat:kWeView2Key_HSpacing];
+    return [self.viewInfo hSpacing];
 }
 
-- (id)setHSpacing:(CGFloat)value
+- (UIView *)setHSpacing:(CGFloat)value
 {
-    [self setAssociatedFloat:value key:kWeView2Key_HSpacing];
+    [self.viewInfo setHSpacing:value];
     return self;
 }
 
 - (NSString *)debugName
 {
-    return [self associatedString:kWeView2Key_DebugName defaultValue:@"?"];
+    return [self.viewInfo debugName];
 }
 
-- (id)setDebugName:(NSString *)value
+- (UIView *)setDebugName:(NSString *)value
 {
-    [self setAssociatedString:value key:kWeView2Key_DebugName];
+    [self.viewInfo setDebugName:value];
     return self;
 }
 
 - (BOOL)debugLayout
 {
-    return [self associatedBoolean:kWeView2Key_DebugLayout];
+    return [self.viewInfo debugLayout];
 }
 
-- (id)setDebugLayout:(BOOL)value
+- (UIView *)setDebugLayout:(BOOL)value
 {
-    [self setAssociatedBoolean:value key:kWeView2Key_DebugLayout];
+    [self.viewInfo setDebugLayout:value];
     return self;
 }
 
-- (id)setMinSize:(CGSize)value
+- (CGSize)minSize
+{
+    return [self.viewInfo minSize];
+}
+
+- (UIView *)setMinSize:(CGSize)value
 {
     [self setMinWidth:value.width];
     [self setMinHeight:value.height];
     return self;
 }
 
-- (id)setMaxSize:(CGSize)value
+- (CGSize)maxSize
+{
+    return [self.viewInfo maxSize];
+}
+
+- (UIView *)setMaxSize:(CGSize)value
 {
     [self setMaxWidth:value.width];
     [self setMaxHeight:value.height];
     return self;
 }
 
-- (id)setFixedWidth:(CGFloat)value
+- (UIView *)setFixedWidth:(CGFloat)value
 {
     [self setMinWidth:value];
     [self setMaxWidth:value];
     return self;
 }
 
-- (id)setFixedHeight:(CGFloat)value
+- (UIView *)setFixedHeight:(CGFloat)value
 {
     [self setMinHeight:value];
     [self setMaxHeight:value];
     return self;
 }
 
-- (id)setFixedSize:(CGSize)value
+- (UIView *)setFixedSize:(CGSize)value
 {
     [self setMinWidth:value.width];
     [self setMinHeight:value.height];
@@ -357,28 +450,28 @@ CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlig
     return self;
 }
 
-- (id)setStretchWeight:(CGFloat)value
+- (UIView *)setStretchWeight:(CGFloat)value
 {
     [self setVStretchWeight:value];
     [self setHStretchWeight:value];
     return self;
 }
 
-- (id)setHMargin:(CGFloat)value
+- (UIView *)setHMargin:(CGFloat)value
 {
     [self setLeftMargin:value];
     [self setRightMargin:value];
     return self;
 }
 
-- (id)setVMargin:(CGFloat)value
+- (UIView *)setVMargin:(CGFloat)value
 {
     [self setTopMargin:value];
     [self setBottomMargin:value];
     return self;
 }
 
-- (id)setMargin:(CGFloat)value
+- (UIView *)setMargin:(CGFloat)value
 {
     [self setLeftMargin:value];
     [self setRightMargin:value];
@@ -387,7 +480,7 @@ CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlig
     return self;
 }
 
-- (id)setSpacing:(CGFloat)value
+- (UIView *)setSpacing:(CGFloat)value
 {
     [self setHSpacing:value];
     [self setVSpacing:value];
@@ -398,25 +491,23 @@ CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlig
 
 - (HAlign)hAlign
 {
-    return [self associatedInt:kWeView2Key_HAlign
-                  defaultValue:H_ALIGN_CENTER];
+    return [self.viewInfo hAlign];
 }
 
 - (id)setHAlign:(HAlign)value
 {
-    [self setAssociatedInt:value key:kWeView2Key_HAlign];
+    [self.viewInfo setHAlign:value];
     return self;
 }
 
 - (VAlign)vAlign
 {
-    return [self associatedInt:kWeView2Key_VAlign
-                  defaultValue:V_ALIGN_CENTER];
+    return [self.viewInfo vAlign];
 }
 
 - (id)setVAlign:(VAlign)value
 {
-    [self setAssociatedInt:value key:kWeView2Key_VAlign];
+    [self.viewInfo setVAlign:value];
     return self;
 }
 
@@ -434,16 +525,6 @@ CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlig
     [self setStretchWeight:1.f];
     self.ignoreNaturalSize = YES;
     return self;
-}
-
-- (CGSize)minSize
-{
-    return CGSizeMake(self.minWidth, self.minHeight);
-}
-
-- (CGSize)maxSize
-{
-    return CGSizeMake(self.maxWidth, self.maxHeight);
 }
 
 #pragma mark - Convenience Accessors
@@ -520,20 +601,24 @@ CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlig
     self.frame = r;
 }
 
-- (CGFloat)bottom
-{
-    return self.y + self.height;
-}
-
 - (CGFloat)right
 {
     return self.x + self.width;
 }
 
-- (NSString *)formatLayoutDescriptionItem:(NSString *)key
-                                    value:(id)value
+- (void)setRight:(CGFloat)value
 {
-    return [NSString stringWithFormat:@"%@: %@, ", key, value];
+    self.x = value - self.width;
+}
+
+- (CGFloat)bottom
+{
+    return self.y + self.height;
+}
+
+- (void)setBottom:(CGFloat)value
+{
+    self.y = value - self.height;
 }
 
 - (void)centerHorizontallyInSuperview
@@ -552,103 +637,7 @@ CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlig
 
 - (NSString *)layoutDescription
 {
-    NSMutableString *result = [@"" mutableCopy];
-
-/* CODEGEN MARKER: Debug Start */
-
-    if (objc_getAssociatedObject(self, kWeView2Key_MinWidth))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"minWidth"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_MinWidth)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_MaxWidth))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"maxWidth"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_MaxWidth)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_MinHeight))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"minHeight"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_MinHeight)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_MaxHeight))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"maxHeight"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_MaxHeight)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_HStretchWeight))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"hStretchWeight"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_HStretchWeight)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_VStretchWeight))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"vStretchWeight"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_VStretchWeight)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_IgnoreNaturalSize))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"ignoreNaturalSize"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_IgnoreNaturalSize)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_LeftMargin))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"leftMargin"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_LeftMargin)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_RightMargin))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"rightMargin"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_RightMargin)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_TopMargin))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"topMargin"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_TopMargin)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_BottomMargin))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"bottomMargin"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_BottomMargin)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_VSpacing))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"vSpacing"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_VSpacing)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_HSpacing))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"hSpacing"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_HSpacing)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_DebugName))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"debugName"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_DebugName)]];
-    }
-
-    if (objc_getAssociatedObject(self, kWeView2Key_DebugLayout))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"debugLayout"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_DebugLayout)]];
-    }
-
-/* CODEGEN MARKER: Debug End */
-
-    return result;
+    return [self.viewInfo layoutDescription];
 }
 
 @end

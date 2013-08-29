@@ -22,7 +22,7 @@
 - (WeView2 *)setVLinearLayout;
 - (WeView2 *)setNoopLayout;
 
-- (id)addSubviews:(NSArray *)subviews;
+- (WeView2 *)addSubviews:(NSArray *)subviews;
 - (void)removeAllSubviews;
 
 @end

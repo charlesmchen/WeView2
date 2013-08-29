@@ -30,96 +30,166 @@ typedef enum
     V_ALIGN_BOTTOM = 2,
 } VAlign;
 
-@interface UIView (WeView2)
+NSString* FormatVAlign(VAlign value);
+NSString* FormatHAlign(HAlign value);
 
-#pragma mark - Associated Values
+CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlign);
+
+#pragma mark -
+
+@interface WeView2ViewInfo : NSObject
+
+@property (nonatomic) HAlign hAlign;
+@property (nonatomic) VAlign vAlign;
+
+/* CODEGEN MARKER: View Info Start */
+
+@property (nonatomic) CGFloat minWidth;
+@property (nonatomic) CGFloat maxWidth;
+@property (nonatomic) CGFloat minHeight;
+@property (nonatomic) CGFloat maxHeight;
+
+@property (nonatomic) CGFloat hStretchWeight;
+@property (nonatomic) CGFloat vStretchWeight;
+@property (nonatomic) BOOL ignoreNaturalSize;
+
+@property (nonatomic) CGFloat leftMargin;
+@property (nonatomic) CGFloat rightMargin;
+@property (nonatomic) CGFloat topMargin;
+@property (nonatomic) CGFloat bottomMargin;
+
+@property (nonatomic) CGFloat vSpacing;
+@property (nonatomic) CGFloat hSpacing;
+
+@property (nonatomic) NSString * debugName;
+@property (nonatomic) BOOL debugLayout;
+
+// Convenience accessor(s) for the minWidth and minHeight properties.
+- (CGSize)minSize;
+- (void)setMinSize:(CGSize)value;
+
+// Convenience accessor(s) for the maxWidth and maxHeight properties.
+- (CGSize)maxSize;
+- (void)setMaxSize:(CGSize)value;
+
+// Convenience accessor(s) for the minWidth and maxWidth properties.
+- (void)setFixedWidth:(CGFloat)value;
+
+// Convenience accessor(s) for the minHeight and maxHeight properties.
+- (void)setFixedHeight:(CGFloat)value;
+
+// Convenience accessor(s) for the minWidth, minHeight, maxWidth and maxHeight properties.
+- (void)setFixedSize:(CGSize)value;
+
+// Convenience accessor(s) for the vStretchWeight and hStretchWeight properties.
+- (void)setStretchWeight:(CGFloat)value;
+
+// Convenience accessor(s) for the leftMargin and rightMargin properties.
+- (void)setHMargin:(CGFloat)value;
+
+// Convenience accessor(s) for the topMargin and bottomMargin properties.
+- (void)setVMargin:(CGFloat)value;
+
+// Convenience accessor(s) for the leftMargin, rightMargin, topMargin and bottomMargin properties.
+- (void)setMargin:(CGFloat)value;
+
+// Convenience accessor(s) for the hSpacing and vSpacing properties.
+- (void)setSpacing:(CGFloat)value;
+
+/* CODEGEN MARKER: View Info End */
+
+- (NSString *)layoutDescription;
+
+@end
+
+#pragma mark -
+
+@interface UIView (WeView2)
 
 /* CODEGEN MARKER: Start */
 
 - (CGFloat)minWidth;
-- (id)setMinWidth:(CGFloat)value;
+- (UIView *)setMinWidth:(CGFloat)value;
 - (CGFloat)maxWidth;
-- (id)setMaxWidth:(CGFloat)value;
+- (UIView *)setMaxWidth:(CGFloat)value;
 - (CGFloat)minHeight;
-- (id)setMinHeight:(CGFloat)value;
+- (UIView *)setMinHeight:(CGFloat)value;
 - (CGFloat)maxHeight;
-- (id)setMaxHeight:(CGFloat)value;
+- (UIView *)setMaxHeight:(CGFloat)value;
 
 - (CGFloat)hStretchWeight;
-- (id)setHStretchWeight:(CGFloat)value;
+- (UIView *)setHStretchWeight:(CGFloat)value;
 - (CGFloat)vStretchWeight;
-- (id)setVStretchWeight:(CGFloat)value;
+- (UIView *)setVStretchWeight:(CGFloat)value;
 - (BOOL)ignoreNaturalSize;
-- (id)setIgnoreNaturalSize:(BOOL)value;
+- (UIView *)setIgnoreNaturalSize:(BOOL)value;
 
 - (CGFloat)leftMargin;
-- (id)setLeftMargin:(CGFloat)value;
+- (UIView *)setLeftMargin:(CGFloat)value;
 - (CGFloat)rightMargin;
-- (id)setRightMargin:(CGFloat)value;
+- (UIView *)setRightMargin:(CGFloat)value;
 - (CGFloat)topMargin;
-- (id)setTopMargin:(CGFloat)value;
+- (UIView *)setTopMargin:(CGFloat)value;
 - (CGFloat)bottomMargin;
-- (id)setBottomMargin:(CGFloat)value;
+- (UIView *)setBottomMargin:(CGFloat)value;
 
 - (CGFloat)vSpacing;
-- (id)setVSpacing:(CGFloat)value;
+- (UIView *)setVSpacing:(CGFloat)value;
 - (CGFloat)hSpacing;
-- (id)setHSpacing:(CGFloat)value;
+- (UIView *)setHSpacing:(CGFloat)value;
 
 - (NSString *)debugName;
-- (id)setDebugName:(NSString *)value;
+- (UIView *)setDebugName:(NSString *)value;
 - (BOOL)debugLayout;
-- (id)setDebugLayout:(BOOL)value;
+- (UIView *)setDebugLayout:(BOOL)value;
 
-// Sets the minWidth and minHeight properties.
-- (id)setMinSize:(CGSize)value;
+// Convenience accessor(s) for the minWidth and minHeight properties.
+- (CGSize)minSize;
+- (UIView *)setMinSize:(CGSize)value;
 
-// Sets the maxWidth and maxHeight properties.
-- (id)setMaxSize:(CGSize)value;
+// Convenience accessor(s) for the maxWidth and maxHeight properties.
+- (CGSize)maxSize;
+- (UIView *)setMaxSize:(CGSize)value;
 
-// Sets the minWidth and maxWidth properties.
-- (id)setFixedWidth:(CGFloat)value;
+// Convenience accessor(s) for the minWidth and maxWidth properties.
+- (UIView *)setFixedWidth:(CGFloat)value;
 
-// Sets the minHeight and maxHeight properties.
-- (id)setFixedHeight:(CGFloat)value;
+// Convenience accessor(s) for the minHeight and maxHeight properties.
+- (UIView *)setFixedHeight:(CGFloat)value;
 
-// Sets the minWidth, minHeight, maxWidth and maxHeight properties.
-- (id)setFixedSize:(CGSize)value;
+// Convenience accessor(s) for the minWidth, minHeight, maxWidth and maxHeight properties.
+- (UIView *)setFixedSize:(CGSize)value;
 
-// Sets the vStretchWeight and hStretchWeight properties.
-- (id)setStretchWeight:(CGFloat)value;
+// Convenience accessor(s) for the vStretchWeight and hStretchWeight properties.
+- (UIView *)setStretchWeight:(CGFloat)value;
 
-// Sets the leftMargin and rightMargin properties.
-- (id)setHMargin:(CGFloat)value;
+// Convenience accessor(s) for the leftMargin and rightMargin properties.
+- (UIView *)setHMargin:(CGFloat)value;
 
-// Sets the topMargin and bottomMargin properties.
-- (id)setVMargin:(CGFloat)value;
+// Convenience accessor(s) for the topMargin and bottomMargin properties.
+- (UIView *)setVMargin:(CGFloat)value;
 
-// Sets the leftMargin, rightMargin, topMargin and bottomMargin properties.
-- (id)setMargin:(CGFloat)value;
+// Convenience accessor(s) for the leftMargin, rightMargin, topMargin and bottomMargin properties.
+- (UIView *)setMargin:(CGFloat)value;
 
-// Sets the hSpacing and vSpacing properties.
-- (id)setSpacing:(CGFloat)value;
+// Convenience accessor(s) for the hSpacing and vSpacing properties.
+- (UIView *)setSpacing:(CGFloat)value;
 
 /* CODEGEN MARKER: End */
 
 // Describes the horizontal alignment of subviews within this view.
 - (HAlign)hAlign;
-- (id)setHAlign:(HAlign)value;
+- (UIView *)setHAlign:(HAlign)value;
 
 // Describes the vertical alignment of subviews within this view.
 - (VAlign)vAlign;
-- (id)setVAlign:(VAlign)value;
+- (UIView *)setVAlign:(VAlign)value;
 
 // Layout should stretch this subview to fit any available space.
-- (id)withStretch;
+- (UIView *)withStretch;
 
 // Layout should stretch this subview to fit any available space, ignoring its natural size.
-- (id)withPureStretch;
-
-- (CGSize)minSize;
-
-- (CGSize)maxSize;
+- (UIView *)withPureStretch;
 
 #pragma mark - Convenience Accessors
 
@@ -138,8 +208,10 @@ typedef enum
 - (CGFloat)height;
 - (void)setHeight:(CGFloat)value;
 
-- (CGFloat)bottom;
 - (CGFloat)right;
+- (void)setRight:(CGFloat)value;
+- (CGFloat)bottom;
+- (void)setBottom:(CGFloat)value;
 
 - (void)centerHorizontallyInSuperview;
 - (void)centerVerticallyInSuperview;

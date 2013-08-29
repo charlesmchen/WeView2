@@ -77,7 +77,7 @@
                           thatFitsSize:size];
 }
 
-- (id)addSubviews:(NSArray *)subviews
+- (WeView2 *)addSubviews:(NSArray *)subviews
 {
     WeView2Assert(subviews);
     for (UIView *subview in subviews)

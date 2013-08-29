@@ -93,17 +93,18 @@ def FormatList(values):
 
 def FormatComment(comment):
     # TODO: linewrap the comments.
-    return '// %s\n' % comment
+    return '// %s' % comment
 
 def UpperName(name):
     return name[0].upper() + name[1:]
 
-class PseudoProperty:
-    def __init__(self, name, typeName, propertyList, valueList=None, comments=None):
+class CustomAccessor:
+    def __init__(self, name, typeName, propertyList, setterValues=None, getterValue=None, comments=None):
         self.name = name
         self.typeName = typeName
         self.propertyList = propertyList
-        self.valueList = valueList
+        self.setterValues = setterValues
+        self.getterValue = getterValue
         self.comments = comments
 
     def propertyNames(self):
@@ -112,22 +113,49 @@ class PseudoProperty:
     def UpperName(self):
         return UpperName(self.name)
 
-pseudoProperties = (
-                    PseudoProperty('minSize', 'CGSize', ('minWidth', 'minHeight',), ('.width', '.height',)),
-                    PseudoProperty('maxSize', 'CGSize', ('maxWidth', 'maxHeight',), ('.width', '.height',)),
 
-                    PseudoProperty('fixedWidth', 'CGFloat', ('minWidth', 'maxWidth',)),
-                    PseudoProperty('fixedHeight', 'CGFloat', ('minHeight', 'maxHeight',)),
-                    PseudoProperty('fixedSize', 'CGSize', ('minWidth', 'minHeight', 'maxWidth', 'maxHeight',), ('.width', '.height', '.width', '.height',)),
+customAccessors = (
+                    CustomAccessor('minSize', 'CGSize', ('minWidth', 'minHeight',), ('.width', '.height',), getterValue='CGSizeMake(self.minWidth, self.minHeight)'),
+                    CustomAccessor('maxSize', 'CGSize', ('maxWidth', 'maxHeight',), ('.width', '.height',), getterValue='CGSizeMake(self.maxWidth, self.maxHeight)'),
 
-                    PseudoProperty('stretchWeight', 'CGFloat', ('vStretchWeight', 'hStretchWeight',)),
+                    CustomAccessor('fixedWidth', 'CGFloat', ('minWidth', 'maxWidth',)),
+                    CustomAccessor('fixedHeight', 'CGFloat', ('minHeight', 'maxHeight',)),
+                    CustomAccessor('fixedSize', 'CGSize', ('minWidth', 'minHeight', 'maxWidth', 'maxHeight',), ('.width', '.height', '.width', '.height',)),
 
-                    PseudoProperty('hMargin', 'CGFloat', ('leftMargin', 'rightMargin',)),
-                    PseudoProperty('vMargin', 'CGFloat', ('topMargin', 'bottomMargin',)),
-                    PseudoProperty('margin', 'CGFloat', ('leftMargin', 'rightMargin', 'topMargin', 'bottomMargin',)),
+                    CustomAccessor('stretchWeight', 'CGFloat', ('vStretchWeight', 'hStretchWeight',)),
 
-                    PseudoProperty('spacing', 'CGFloat', ('hSpacing', 'vSpacing',)),
+                    CustomAccessor('hMargin', 'CGFloat', ('leftMargin', 'rightMargin',)),
+                    CustomAccessor('vMargin', 'CGFloat', ('topMargin', 'bottomMargin',)),
+                    CustomAccessor('margin', 'CGFloat', ('leftMargin', 'rightMargin', 'topMargin', 'bottomMargin',)),
+
+                    CustomAccessor('spacing', 'CGFloat', ('hSpacing', 'vSpacing',)),
                     )
+
+# --------
+
+lines = []
+lines.append('')
+lines.append('')
+for propertyGroup in propertyGroups:
+    for property in propertyGroup:
+        lines.append('@property (nonatomic) %s %s;' % (property.typeName, property.name, ))
+    lines.append('')
+
+for customAccessor in customAccessors:
+    comments = []
+    comments.append(FormatComment('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames())))
+    lines.append('%s' % ('\n'.join(comments), ))
+    # Getter
+    if customAccessor.getterValue:
+        lines.append('- (%s)%s;' % (customAccessor.typeName, customAccessor.name, ))
+    # Setter
+    lines.append('- (void)set%s:(%s)value;\n' % (customAccessor.UpperName(), customAccessor.typeName, ))
+lines.append('')
+block = '\n'.join(lines)
+
+replaceBlock(hFilePath, 'View Info Start', 'View Info End', block)
+
+# --------
 
 lines = []
 lines.append('')
@@ -137,14 +165,19 @@ for propertyGroup in propertyGroups:
         # Getter
         lines.append('- (%s)%s;' % (property.typeName, property.name, ))
         # Setter
-        lines.append('- (id)set%s:(%s)value;' % (property.UpperName(), property.typeName, ))
+        lines.append('- (UIView *)set%s:(%s)value;' % (property.UpperName(), property.typeName, ))
 
     lines.append('')
 
-for pseudoProperty in pseudoProperties:
+for customAccessor in customAccessors:
     comments = []
-    comments.append(FormatComment('Sets the %s properties.' % FormatList(pseudoProperty.propertyNames())))
-    lines.append('%s- (id)set%s:(%s)value;\n' % ('\n'.join(comments), pseudoProperty.UpperName(), pseudoProperty.typeName, ))
+    comments.append(FormatComment('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames())))
+    lines.append('%s' % ('\n'.join(comments), ))
+    # Getter
+    if customAccessor.getterValue:
+        lines.append('- (%s)%s;' % (customAccessor.typeName, customAccessor.name, ))
+    # Setter
+    lines.append('- (UIView *)set%s:(%s)value;\n' % (customAccessor.UpperName(), customAccessor.typeName, ))
 lines.append('')
 block = '\n'.join(lines)
 
@@ -152,20 +185,59 @@ replaceBlock(hFilePath, 'Start', 'End', block)
 
 # --------
 
+# lines = []
+# lines.append('')
+# lines.append('')
+# for propertyGroup in propertyGroups:
+#     for property in propertyGroup:
+#         lines.append('static const void *kWeView2Key_%s = &kWeView2Key_%s;' % (property.UpperName(), property.UpperName(), ))
+# 
+#     lines.append('')
+# lines.append('')
+# block = '\n'.join(lines)
+# 
+# replaceBlock(mFilePath, 'Keys Start', 'Keys End', block)
+
+# -------- 
+
 lines = []
 lines.append('')
-lines.append('')
-for propertyGroup in propertyGroups:
-    for property in propertyGroup:
-        lines.append('static const void *kWeView2Key_%s = &kWeView2Key_%s;' % (property.UpperName(), property.UpperName(), ))
+for customAccessor in customAccessors:
+    asserts = ''
+    #     if pseudoProperty.asserts:
+    #         if type(pseudoProperty.asserts) == types.StringType:
+    #             asserts ='\n    WeView2Assert(%s);' % (property.asserts % 'value', )
+    #             pass
+    #         else:
+    #             raise Exception('Unknown asserts: %s' % str(property.asserts))
 
-    lines.append('')
+    if customAccessor.getterValue:
+        lines.append('''
+- (%s)%s
+{
+    return %s;
+}''' % (customAccessor.typeName, customAccessor.name, customAccessor.getterValue, ))
+
+    subsetters = []
+    for index, propertyName in enumerate(customAccessor.propertyNames()):
+        valueName = 'value'
+        if customAccessor.setterValues:
+            valueName += customAccessor.setterValues[index]
+        subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
+
+    lines.append('''
+- (void)set%s:(%s)value
+{
+%s
+}''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
+    
+lines.append('')
 lines.append('')
 block = '\n'.join(lines)
 
-replaceBlock(mFilePath, 'Keys Start', 'Keys End', block)
+replaceBlock(mFilePath, 'View Info Start', 'View Info End', block)
 
-# --------
+# -------- 
 
 lines = []
 lines.append('')
@@ -195,16 +267,16 @@ for propertyGroup in propertyGroups:
         lines.append('''
 - (%s)%s
 {
-    return [self %s:kWeView2Key_%s%s];
+    return [self.viewInfo %s];
 }
 
-- (id)set%s:(%s)value
-{%s
-    [self %s:value key:kWeView2Key_%s];
+- (UIView *)set%s:(%s)value
+{
+    [self.viewInfo set%s:value];
     return self;
-}''' % (property.typeName, property.name, getterName, property.UpperName(), defaultValue, property.UpperName(), property.typeName, asserts, setterName, property.UpperName(), ))
+}''' % (property.typeName, property.name, property.name, property.UpperName(), property.typeName, property.UpperName(), ))
 
-for pseudoProperty in pseudoProperties:
+for customAccessor in customAccessors:
     asserts = ''
     #     if pseudoProperty.asserts:
     #         if type(pseudoProperty.asserts) == types.StringType:
@@ -212,19 +284,28 @@ for pseudoProperty in pseudoProperties:
     #             pass
     #         else:
     #             raise Exception('Unknown asserts: %s' % str(property.asserts))
+
+    # Getter
+    if customAccessor.getterValue:
+        lines.append('''
+- (%s)%s
+{
+    return [self.viewInfo %s];
+}''' % (customAccessor.typeName, customAccessor.name, customAccessor.name, ))
+    # Setter
     subsetters = []
-    for index, propertyName in enumerate(pseudoProperty.propertyNames()):
+    for index, propertyName in enumerate(customAccessor.propertyNames()):
         valueName = 'value'
-        if pseudoProperty.valueList:
-            valueName += pseudoProperty.valueList[index]
+        if customAccessor.setterValues:
+            valueName += customAccessor.setterValues[index]
         subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
 
     lines.append('''
-- (id)set%s:(%s)value
+- (UIView *)set%s:(%s)value
 {
 %s
     return self;
-}''' % (pseudoProperty.UpperName(), pseudoProperty.typeName, '\n'.join(subsetters), ))
+}''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
 
 lines.append('')
 lines.append('')
@@ -234,16 +315,82 @@ replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
 
 # --------
 
+# lines = [] 
+# lines.append('')
+# for propertyGroup in propertyGroups:
+#     for property in propertyGroup:
+#         asserts = ''
+#         if property.asserts:
+#             if type(property.asserts) == types.StringType:
+#                 asserts ='\n    WeView2Assert(%s);' % (property.asserts % 'value', )
+#                 pass
+#             else:
+#                 raise Exception('Unknown asserts: %s' % str(property.asserts))
+#         if property.typeName == 'CGFloat':
+#             getterName = 'associatedFloat'
+#             setterName = 'setAssociatedFloat'
+#         elif property.typeName == 'BOOL':
+#             getterName = 'associatedBoolean'
+#             setterName = 'setAssociatedBoolean'
+#         elif property.typeName == 'NSString *':
+#             getterName = 'associatedString'
+#             setterName = 'setAssociatedString'
+#         else:
+#             raise Exception('Unknown typeName: %s' % str(property.typeName))
+#         defaultValue = ''
+#         if property.defaultValue:
+#             defaultValue = ' defaultValue:%s' % property.defaultValue
+#         lines.append('''
+# - (%s)%s
+# {
+#     return [self.viewInfo %s];
+# }
+# 
+# - (id)set%s:(%s)value
+# {%s
+#     [self %s:value key:kWeView2Key_%s];
+#     return self;
+# }''' % (property.typeName, property.name, property.name, property.UpperName(), property.typeName, asserts, setterName, property.UpperName(), ))
+# 
+# for customAccessor in customAccessors:
+#     asserts = ''
+#     #     if pseudoProperty.asserts:
+#     #         if type(pseudoProperty.asserts) == types.StringType:
+#     #             asserts ='\n    WeView2Assert(%s);' % (property.asserts % 'value', )
+#     #             pass
+#     #         else:
+#     #             raise Exception('Unknown asserts: %s' % str(property.asserts))
+#     subsetters = []
+#     for index, propertyName in enumerate(customAccessor.propertyNames()):
+#         valueName = 'value'
+#         if customAccessor.setterValues:
+#             valueName += customAccessor.setterValues[index]
+#         subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
+# 
+#     lines.append('''
+# - (id)set%s:(%s)value
+# {
+# %s
+#     return self;
+# }''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
+# 
+# lines.append('')
+# lines.append('')
+# block = '\n'.join(lines)
+# 
+# replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
+
+# --------
+
 lines = []
+lines.append('')
 lines.append('')
 for propertyGroup in propertyGroups:
     for property in propertyGroup:
-        lines.append('''
-    if (objc_getAssociatedObject(self, kWeView2Key_%s))
-    {
-        [result appendString:[self formatLayoutDescriptionItem:@"%s"
-                                                         value:objc_getAssociatedObject(self, kWeView2Key_%s)]];
-    }''' % (property.UpperName(), property.name, property.UpperName(), ))
+        value = '@(self.%s)' % property.name
+        if property.typeName.endswith(' *'):
+            value = 'self.%s' % property.name
+        lines.append('    [result appendString:[self formatLayoutDescriptionItem:@"%s" value:%s]];' % (property.name, value, ))
 
 lines.append('')
 lines.append('')
