@@ -10,8 +10,10 @@ if (not os.path.exists(folderPath) or
 
 hFilePath = os.path.join(folderPath, 'UIView+WeView2.h')
 mFilePath = os.path.join(folderPath, 'UIView+WeView2.m')
+viewInfohFilePath = os.path.join(folderPath, 'WeView2ViewInfo.h')
+viewInfomFilePath = os.path.join(folderPath, 'WeView2ViewInfo.m')
 
-for filePath in (hFilePath, mFilePath, ):
+for filePath in (hFilePath, mFilePath, viewInfohFilePath, viewInfomFilePath, ):
     if (not os.path.exists(filePath) or
         not os.path.isfile(filePath)):
         raise Exception('Invalid filePath: %s' % filePath)
@@ -26,9 +28,9 @@ def replaceBlock(filePath, blockStartKey, blockEndKey, block):
     startIndex = text.find(startMarker)
     endIndex = text.find(endMarker)
     if startIndex < 0:
-        raise Exception('Missing block marker: %s in file:' % (startMarker, filePath, ))
+        raise Exception('Missing block marker: %s in file: %s' % (startMarker, filePath, ))
     if endIndex < 0:
-        raise Exception('Missing block marker: %s in file:' % (endMarker, filePath, ))
+        raise Exception('Missing block marker: %s in file: %s' % (endMarker, filePath, ))
 
     before = text[0:startIndex + len(startMarker)]
     after = text[endIndex:]
@@ -153,7 +155,9 @@ for customAccessor in customAccessors:
 lines.append('')
 block = '\n'.join(lines)
 
-replaceBlock(hFilePath, 'View Info Start', 'View Info End', block)
+replaceBlock(viewInfohFilePath, 'View Info Start', 'View Info End', block)
+# viewInfohFilePath = os.path.join(folderPath, 'WeView2ViewInfo.h')
+# viewInfomFilePath = os.path.join(folderPath, 'WeView2ViewInfo.m')
 
 # --------
 
@@ -235,7 +239,7 @@ lines.append('')
 lines.append('')
 block = '\n'.join(lines)
 
-replaceBlock(mFilePath, 'View Info Start', 'View Info End', block)
+replaceBlock(viewInfomFilePath, 'View Info Start', 'View Info End', block)
 
 # --------
 
@@ -396,7 +400,7 @@ lines.append('')
 lines.append('')
 block = '\n'.join(lines)
 
-replaceBlock(mFilePath, 'Debug Start', 'Debug End', block)
+replaceBlock(viewInfomFilePath, 'Debug Start', 'Debug End', block)
 
 # --------
 
