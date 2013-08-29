@@ -58,6 +58,7 @@
     self.rootView.opaque = YES;
     self.rootView.backgroundColor = [UIColor whiteColor];
     self.rootView.debugName = @"DemoViewController.rootView";
+//    self.rootView.debugLayout = YES;
     self.view = self.rootView;
 
     [self.rootView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];
@@ -99,6 +100,7 @@
     [self.rootView removeAllSubviews];
     [self.rootView setHLinearLayout];
     self.demoModel = [demo demoModel];
+    self.demoModel.selection = self.demoModel.rootView;
     [self.rootView addSubviews:@[
      self.demoModel.rootView,
      ]];

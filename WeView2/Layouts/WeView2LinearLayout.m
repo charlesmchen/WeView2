@@ -628,16 +628,16 @@
                     stretchCountRemainder--;
                     stretchRemainder -= subviewStretch;
 
-                    CGSize subviewSize;
+                    CGSize subviewSize = subviewSizes[i];
                     if (horizontal)
                     {
-                        subviewSize.width = subviewStretch;
-                        subviewSize.height = maxContentSize.height;
+                        subviewSize.width += subviewStretch;
+//                        subviewSize.height = maxContentSize.height;
                     }
                     else
                     {
-                        subviewSize.width = maxContentSize.width;
-                        subviewSize.height = subviewStretch;
+//                        subviewSize.width = maxContentSize.width;
+                        subviewSize.height += subviewStretch;
                     }
                     subviewSizes[i] = subviewSize;
                 }
@@ -728,10 +728,6 @@
         }
 
         int crossIndex = horizontal ? contentBounds.origin.y : contentBounds.origin.x;
-
-        NSLog(@"viewStretchesAlongCrossAxis %@ %@ %d",
-              [subview class], subview.debugName,
-              [self viewStretchesAlongCrossAxis:subview]);
 
         if ([self viewStretchesAlongCrossAxis:subview])
         {

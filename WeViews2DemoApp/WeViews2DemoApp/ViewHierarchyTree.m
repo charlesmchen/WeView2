@@ -175,6 +175,7 @@
     self.table = [[UITableView alloc] init];
     self.table.backgroundColor = [UIColor whiteColor];
     self.table.opaque = YES;
+//    self.table.rowHeight = 5;
 
     [self.table withPureStretch];
     [[self addSubviews:@[self.table,]]

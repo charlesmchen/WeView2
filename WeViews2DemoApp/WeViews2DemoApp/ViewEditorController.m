@@ -152,6 +152,7 @@ typedef void (^SetterBlock)(UIView *view);
     NSMutableArray *subviews = [@[
                                 nameLabel,
                                 valueLabel,
+                                [[[UIView alloc] init] withPureStretch],
                                 ] mutableCopy];
 
     for (ViewParameterSetter *setter in self.setters)
@@ -176,8 +177,11 @@ typedef void (^SetterBlock)(UIView *view);
     [[[[[container addSubviews:subviews]
         setHAlign:H_ALIGN_LEFT]
        setHMargin:10]
-      setVMargin:5]
-     setSpacing:10];
+      setVMargin:2]
+     setSpacing:5];
+
+    cell.height = container.height = [container sizeThatFits:CGSizeMake(cell.width, CGFLOAT_MAX)].height;
+//    [container
     //    WeView2 *container = [[WeView2 alloc] init];
 
 }
@@ -584,6 +588,8 @@ typedef void (^SetterBlock)(UIView *view);
 //                             [LinearDemo1 class],
                              ];
 
+//        self.tableView.rowHeight = 25;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(handleSelectionChanged:)
                                                      name:NOTIFICATION_SELECTION_CHANGED
@@ -692,6 +698,10 @@ typedef void (^SetterBlock)(UIView *view);
 //    Class clazz = self.demoClasses[indexPath.row];
 //    Demo *demo = [[clazz alloc] init];
 //    [self.delegate demoSelected:demo];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
 }
 
 @end

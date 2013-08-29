@@ -30,8 +30,8 @@
         self.selectDemoViewController = [[SelectDemoViewController alloc] init];
         [self addWrappedViewController:self.selectDemoViewController];
 
-        self.demoDescriptionViewController = [[DemoDescriptionViewController alloc] init];
-        [self addWrappedViewController:self.demoDescriptionViewController];
+//        self.demoDescriptionViewController = [[DemoDescriptionViewController alloc] init];
+//        [self addWrappedViewController:self.demoDescriptionViewController];
 
         self.viewTreeViewController = [[ViewTreeViewController alloc] init];
         [self addWrappedViewController:self.viewTreeViewController];

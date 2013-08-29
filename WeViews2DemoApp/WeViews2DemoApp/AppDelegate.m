@@ -88,7 +88,7 @@
     self.demoModel.delegate = nil;
     self.demoModel = demoModel;
     self.demoModel.delegate = self;
-    [self.sidebarViewController.demoDescriptionViewController displayView:demoModel.rootView];
+//    [self.sidebarViewController.demoDescriptionViewController displayView:demoModel.rootView];
     [self.sidebarViewController.viewTreeViewController updateDemoModel:demoModel];
 }
 

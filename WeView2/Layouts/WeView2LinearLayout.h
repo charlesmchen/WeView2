@@ -23,6 +23,8 @@
 // TODO: Discuss pixel-, subpixel-, and point- alignment.
 //
 // TODO: Discuss container alignment vs. subview alignment.
+//
+// TODO: Discuss what happens when subviews insist upon exceeding axis or cross size of container.
 @interface WeView2LinearLayout : WeView2Layout
 
 @property (nonatomic) BOOL isHorizontal;

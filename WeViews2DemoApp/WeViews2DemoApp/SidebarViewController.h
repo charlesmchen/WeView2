@@ -18,7 +18,7 @@
 
 @property (nonatomic) SelectDemoViewController *selectDemoViewController;
 
-@property (nonatomic) DemoDescriptionViewController *demoDescriptionViewController;
+//@property (nonatomic) DemoDescriptionViewController *demoDescriptionViewController;
 
 @property (nonatomic) ViewTreeViewController *viewTreeViewController;
 
