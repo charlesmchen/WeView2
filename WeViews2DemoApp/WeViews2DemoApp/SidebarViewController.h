@@ -12,6 +12,7 @@
 #import "DemoDescriptionViewController.h"
 #import "SelectDemoViewController.h"
 #import "ViewTreeViewController.h"
+#import "ViewEditorController.h"
 
 @interface SidebarViewController : UIViewController
 
@@ -20,5 +21,7 @@
 @property (nonatomic) DemoDescriptionViewController *demoDescriptionViewController;
 
 @property (nonatomic) ViewTreeViewController *viewTreeViewController;
+
+@property (nonatomic) ViewEditorController *viewEditorController;
 
 @end

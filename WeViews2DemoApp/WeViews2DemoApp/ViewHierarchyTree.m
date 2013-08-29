@@ -302,11 +302,11 @@
 //        NSLog(@"self.expandedViews raw: %@", [item class]);
 //    }
 //    NSLog(@"self.expandedViews raw: %d", [self.expandedViews count]);
-    for (int i=0; i < [self.visibleViews count]; i++) {
-        id item = [self.visibleViews objectAtIndex:i];
-        id indent = [self.indents objectAtIndex:i];
+//    for (int i=0; i < [self.visibleViews count]; i++) {
+//        id item = [self.visibleViews objectAtIndex:i];
+//        id indent = [self.indents objectAtIndex:i];
 //        NSLog(@"self.visibleViews raw: %@ (%@)", [item class], indent);
-    }
+//    }
 //    NSLog(@"self.visibleViews raw: %d", [self.visibleViews count]);
 
     // Cull views from self.expandedViews which are not currently visible.
@@ -345,6 +345,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    NSLog(@"numberOfRowsInSection: %d", [[self items] count]);
     return [[self items] count];
 }
 

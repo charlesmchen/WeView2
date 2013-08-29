@@ -39,6 +39,7 @@
 		344435E317CB057300EFF341 /* WeView2NoopLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435E217CB057300EFF341 /* WeView2NoopLayout.m */; };
 		344435EE17CED68100EFF341 /* WeView2ViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435ED17CED68100EFF341 /* WeView2ViewInfo.m */; };
 		344435F117CED6FE00EFF341 /* WeView2Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435F017CED6FE00EFF341 /* WeView2Common.m */; };
+		344435F417CF6DEA00EFF341 /* ViewEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435F317CF6DEA00EFF341 /* ViewEditorController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,8 @@
 		344435ED17CED68100EFF341 /* WeView2ViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2ViewInfo.m; sourceTree = "<group>"; };
 		344435EF17CED6FE00EFF341 /* WeView2Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2Common.h; sourceTree = "<group>"; };
 		344435F017CED6FE00EFF341 /* WeView2Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2Common.m; sourceTree = "<group>"; };
+		344435F217CF6DEA00EFF341 /* ViewEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewEditorController.h; sourceTree = "<group>"; };
+		344435F317CF6DEA00EFF341 /* ViewEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewEditorController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,11 +187,13 @@
 				34195FE717CA87400036F8DC /* SidebarViewController.m */,
 				34195F8317CA80A90036F8DC /* Supporting Files */,
 				344435C417CACFEA00EFF341 /* ViewDescriptionViewController.h */,
-				344435D717CAFA1C00EFF341 /* ViewTreeViewController.h */,
-				344435D817CAFA1C00EFF341 /* ViewTreeViewController.m */,
 				344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */,
+				344435F217CF6DEA00EFF341 /* ViewEditorController.h */,
+				344435F317CF6DEA00EFF341 /* ViewEditorController.m */,
 				344435C617CACFEA00EFF341 /* ViewHierarchyTree.h */,
 				344435C717CACFEB00EFF341 /* ViewHierarchyTree.m */,
+				344435D717CAFA1C00EFF341 /* ViewTreeViewController.h */,
+				344435D817CAFA1C00EFF341 /* ViewTreeViewController.m */,
 				344435D017CAD2BA00EFF341 /* WeView2DemoConstants.h */,
 				344435D417CAD9A600EFF341 /* WeView2DemoUtils.h */,
 				344435D517CAD9A600EFF341 /* WeView2DemoUtils.m */,
@@ -399,6 +404,7 @@
 				344435E317CB057300EFF341 /* WeView2NoopLayout.m in Sources */,
 				344435EE17CED68100EFF341 /* WeView2ViewInfo.m in Sources */,
 				344435F117CED6FE00EFF341 /* WeView2Common.m in Sources */,
+				344435F417CF6DEA00EFF341 /* ViewEditorController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

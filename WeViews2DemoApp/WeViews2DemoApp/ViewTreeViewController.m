@@ -48,6 +48,7 @@
 {
     [self.rootView removeAllSubviews];
     self.viewHierarchyTree = [ViewHierarchyTree create:demoModel];
+    [self.viewHierarchyTree withPureStretch];
     [self.rootView addSubviews:@[self.viewHierarchyTree]];
 }
 

@@ -35,7 +35,11 @@
 
         self.viewTreeViewController = [[ViewTreeViewController alloc] init];
         [self addWrappedViewController:self.viewTreeViewController];
+
+        self.viewEditorController = [[ViewEditorController alloc] init];
+        [self addWrappedViewController:self.viewEditorController];
     }
+
     return self;
 }
 
