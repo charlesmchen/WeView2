@@ -12,8 +12,14 @@ hFilePath = os.path.join(folderPath, 'UIView+WeView2.h')
 mFilePath = os.path.join(folderPath, 'UIView+WeView2.m')
 viewInfohFilePath = os.path.join(folderPath, 'WeView2ViewInfo.h')
 viewInfomFilePath = os.path.join(folderPath, 'WeView2ViewInfo.m')
+ViewEditorController_hFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.h')
+ViewEditorController_mFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.m')
 
-for filePath in (hFilePath, mFilePath, viewInfohFilePath, viewInfomFilePath, ):
+for filePath in (hFilePath, mFilePath,
+                    viewInfohFilePath, viewInfomFilePath,
+                    ViewEditorController_hFilePath,
+                    ViewEditorController_mFilePath,
+                     ):
     if (not os.path.exists(filePath) or
         not os.path.isfile(filePath)):
         raise Exception('Invalid filePath: %s' % filePath)
@@ -403,5 +409,105 @@ block = '\n'.join(lines)
 replaceBlock(viewInfomFilePath, 'Debug Start', 'Debug End', block)
 
 # --------
+
+lines = []
+lines.append('')
+lines.append('')
+for propertyGroup in propertyGroups:
+    for property in propertyGroup:
+        if property.typeName == 'CGFloat':
+            lines.append('''
+// --- %s ---
+                            [ViewParameterSimple create:@"%s"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatFloat(view.%s);
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"-1"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = view.%s - 1;
+                                             }
+                              ],
+                             [ViewParameterSetter create:@"0"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = 0;
+                                             }
+                              ],
+                             [ViewParameterSetter create:@"+1"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = view.%s + 1;
+                                             }
+                              ],
+                             ]],''' % (property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, ) )
+        elif property.typeName == 'BOOL':
+            lines.append('''
+// --- %s ---
+                            [ViewParameterSimple create:@"%s"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return [@(view.%s) description];
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"YES"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = YES;
+                                             }
+                              ],
+                             [ViewParameterSetter create:@"NO"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = NO;
+                                             }
+                              ],
+                             ]],''' % (property.name, property.name, property.name, property.name, property.name,  ) )
+        else:
+            print 'Unknown typeName:', property.typeName
+
+        # value = '@(self.%s)' % property.name
+        # if property.typeName.endswith(' *'):
+        #     value = 'self.%s' % property.name
+        # lines.append('    [result appendString:[self formatLayoutDescriptionItem:@"%s" value:%s]];' % (property.name, value, ))
+        pass
+lines.append('')
+lines.append('')
+block = '\n'.join(lines)
+
+# propertyGroups = (
+#                   (
+#                    Property('minWidth', 'CGFloat', asserts='%s >= 0', ),
+#                    Property('maxWidth', 'CGFloat', defaultValue="CGFLOAT_MAX", asserts='%s >= 0',  ),
+#                    Property('minHeight', 'CGFloat', asserts='%s >= 0', ),
+#                    Property('maxHeight', 'CGFloat', defaultValue="CGFLOAT_MAX", asserts='%s >= 0', ),
+#                    ),
+#                   (
+#                    Property('hStretchWeight', 'CGFloat', asserts='%s >= 0', ),
+#                    Property('vStretchWeight', 'CGFloat', asserts='%s >= 0', ),
+#                    Property('ignoreNaturalSize', 'BOOL', ),
+#                    ),
+#                   (
+#                    Property('leftMargin', 'CGFloat', ),
+#                    Property('rightMargin', 'CGFloat', ),
+#                    Property('topMargin', 'CGFloat', ),
+#                    Property('bottomMargin', 'CGFloat', ),
+#                    ),
+#                   (
+#                    Property('vSpacing', 'CGFloat', ),
+#                    Property('hSpacing', 'CGFloat', ),
+#                    ),
+#                   # (
+#                   #  Property('hAlign', 'HAlign', ),
+#                   #  Property('vAlign', 'VAlign', ),
+#                   #  ),
+#                   (
+#                    Property('debugName', 'NSString *', defaultValue="@\"?\"", ),
+#                    Property('debugLayout', 'BOOL', ),
+#                    ),
+#
+#                   )
+
+replaceBlock(ViewEditorController_mFilePath, 'Parameters Start', 'Parameters End', block)
+
+# --------
+
+                    # ViewEditorController_hFilePath,
+                    # ViewEditorController_mFilePath,
 
 print 'Complete.'

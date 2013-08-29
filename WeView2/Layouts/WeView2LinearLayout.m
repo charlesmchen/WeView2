@@ -139,9 +139,9 @@
 
 - (BOOL)viewStretchesAlongCrossAxis:(UIView *)view
 {
-    return (self.isHorizontal
-            ? view.vStretchWeight
-            : view.hStretchWeight) > 0;
+    return (!self.isHorizontal
+            ? view.hStretchWeight
+            : view.vStretchWeight) > 0;
 }
 
 - (void)getStretchWeightsForSubviews:(NSArray *)subviews
@@ -728,6 +728,11 @@
         }
 
         int crossIndex = horizontal ? contentBounds.origin.y : contentBounds.origin.x;
+
+        NSLog(@"viewStretchesAlongCrossAxis %@ %@ %d",
+              [subview class], subview.debugName,
+              [self viewStretchesAlongCrossAxis:subview]);
+
         if ([self viewStretchesAlongCrossAxis:subview])
         {
             subviewCrossSize = crossSize;

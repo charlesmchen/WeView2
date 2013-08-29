@@ -8,6 +8,7 @@
 #import "WeView2.h"
 #import "DemoViewController.h"
 #import "WeView2Macros.h"
+#import "WeView2DemoConstants.h"
 
 @interface DemoViewController ()
 
@@ -28,15 +29,31 @@
 {
     self = [super init];
     if (self)
-{
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleSelectionAltered:)
+                                                     name:NOTIFICATION_SELECTION_ALTERED
+                                                   object:nil];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)handleSelectionAltered:(NSNotification *)notification {
+    NSLog(@"tree handleSelectionAltered");
+    [self.rootView setNeedsLayout];
+//    self.currentView = notification.object;
+//    //    [self updateState];
+//    [self updateContent];
 }
 
 - (void)loadView
 {
     self.rootView = [[[WeView2 alloc] init]
-                      setVLinearLayout];
+                     setVLinearLayout];
     self.rootView.margin = 40;
     self.rootView.opaque = YES;
     self.rootView.backgroundColor = [UIColor whiteColor];
@@ -64,16 +81,16 @@
         sender.state == UIGestureRecognizerStateEnded)
     {
         CGPoint rootViewCenter = [self.rootView convertPoint:self.rootView.center
-                                  fromView:self.rootView.superview];
+                                                    fromView:self.rootView.superview];
         CGPoint gesturePoint = [sender locationInView:self.rootView];
         CGPoint distance = CGPointAbs(CGPointSubtract(rootViewCenter, gesturePoint));
 
         [self.rootView setNoopLayout];
         self.demoModel.rootView.size = CGSizeRound(CGSizeMake(distance.x * 2.f,
-                                                    distance.y * 2.f));
+                                                              distance.y * 2.f));
         [self.demoModel.rootView centerHorizontallyInSuperview];
         [self.demoModel.rootView centerVerticallyInSuperview];
-//        DebugRect(@"self.demoModel.rootView", self.demoModel.rootView.frame);
+        //        DebugRect(@"self.demoModel.rootView", self.demoModel.rootView.frame);
     }
 }
 
@@ -94,8 +111,8 @@
 - (void)viewDidLayoutSubviews
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.delegate demoViewChanged:self.rootView];
-//        [self.delegate demoViewChanged:self.demoModel.rootView];
+        //        [self.delegate demoViewChanged:self.rootView];
+        //        [self.delegate demoViewChanged:self.demoModel.rootView];
 
         NSLog(@"viewDidLayoutSubviews: %@ %d",
               [self.demoModel.rootView debugName],
