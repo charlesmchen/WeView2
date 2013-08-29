@@ -37,6 +37,8 @@
 		344435DF17CB055B00EFF341 /* WeView2Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435DC17CB055B00EFF341 /* WeView2Layout.m */; };
 		344435E017CB055B00EFF341 /* WeView2LinearLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435DE17CB055B00EFF341 /* WeView2LinearLayout.m */; };
 		344435E317CB057300EFF341 /* WeView2NoopLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435E217CB057300EFF341 /* WeView2NoopLayout.m */; };
+		344435EE17CED68100EFF341 /* WeView2ViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435ED17CED68100EFF341 /* WeView2ViewInfo.m */; };
+		344435F117CED6FE00EFF341 /* WeView2Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435F017CED6FE00EFF341 /* WeView2Common.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +105,10 @@
 		344435DE17CB055B00EFF341 /* WeView2LinearLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2LinearLayout.m; sourceTree = "<group>"; };
 		344435E117CB057300EFF341 /* WeView2NoopLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2NoopLayout.h; sourceTree = "<group>"; };
 		344435E217CB057300EFF341 /* WeView2NoopLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2NoopLayout.m; sourceTree = "<group>"; };
+		344435EC17CED68100EFF341 /* WeView2ViewInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2ViewInfo.h; sourceTree = "<group>"; };
+		344435ED17CED68100EFF341 /* WeView2ViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2ViewInfo.m; sourceTree = "<group>"; };
+		344435EF17CED6FE00EFF341 /* WeView2Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2Common.h; sourceTree = "<group>"; };
+		344435F017CED6FE00EFF341 /* WeView2Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2Common.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,7 +237,11 @@
 				34195FC517CA80E00036F8DC /* UIView+WeView2.m */,
 				34195FC617CA80E00036F8DC /* WeView2.h */,
 				34195FC717CA80E00036F8DC /* WeView2.m */,
+				344435EF17CED6FE00EFF341 /* WeView2Common.h */,
+				344435F017CED6FE00EFF341 /* WeView2Common.m */,
 				34195FCC17CA80E00036F8DC /* WeView2Macros.h */,
+				344435EC17CED68100EFF341 /* WeView2ViewInfo.h */,
+				344435ED17CED68100EFF341 /* WeView2ViewInfo.m */,
 			);
 			name = WeView2;
 			path = ../WeView2;
@@ -387,6 +397,8 @@
 				344435DF17CB055B00EFF341 /* WeView2Layout.m in Sources */,
 				344435E017CB055B00EFF341 /* WeView2LinearLayout.m in Sources */,
 				344435E317CB057300EFF341 /* WeView2NoopLayout.m in Sources */,
+				344435EE17CED68100EFF341 /* WeView2ViewInfo.m in Sources */,
+				344435F117CED6FE00EFF341 /* WeView2Common.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

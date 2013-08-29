@@ -191,14 +191,14 @@ replaceBlock(hFilePath, 'Start', 'End', block)
 # for propertyGroup in propertyGroups:
 #     for property in propertyGroup:
 #         lines.append('static const void *kWeView2Key_%s = &kWeView2Key_%s;' % (property.UpperName(), property.UpperName(), ))
-# 
+#
 #     lines.append('')
 # lines.append('')
 # block = '\n'.join(lines)
-# 
+#
 # replaceBlock(mFilePath, 'Keys Start', 'Keys End', block)
 
-# -------- 
+# --------
 
 lines = []
 lines.append('')
@@ -230,14 +230,14 @@ for customAccessor in customAccessors:
 {
 %s
 }''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
-    
+
 lines.append('')
 lines.append('')
 block = '\n'.join(lines)
 
 replaceBlock(mFilePath, 'View Info Start', 'View Info End', block)
 
-# -------- 
+# --------
 
 lines = []
 lines.append('')
@@ -315,7 +315,7 @@ replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
 
 # --------
 
-# lines = [] 
+# lines = []
 # lines.append('')
 # for propertyGroup in propertyGroups:
 #     for property in propertyGroup:
@@ -345,13 +345,13 @@ replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
 # {
 #     return [self.viewInfo %s];
 # }
-# 
+#
 # - (id)set%s:(%s)value
 # {%s
 #     [self %s:value key:kWeView2Key_%s];
 #     return self;
 # }''' % (property.typeName, property.name, property.name, property.UpperName(), property.typeName, asserts, setterName, property.UpperName(), ))
-# 
+#
 # for customAccessor in customAccessors:
 #     asserts = ''
 #     #     if pseudoProperty.asserts:
@@ -366,18 +366,18 @@ replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
 #         if customAccessor.setterValues:
 #             valueName += customAccessor.setterValues[index]
 #         subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
-# 
+#
 #     lines.append('''
 # - (id)set%s:(%s)value
 # {
 # %s
 #     return self;
 # }''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
-# 
+#
 # lines.append('')
 # lines.append('')
 # block = '\n'.join(lines)
-# 
+#
 # replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
 
 # --------
