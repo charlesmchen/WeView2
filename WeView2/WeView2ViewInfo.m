@@ -29,6 +29,8 @@
 }
 
 // TODO: Add asserts in the setters.
+// TODO: hAlign and vAlign control how subviews of the view are aligned within the view, not the
+// alignment of the view itself.
 
 /* CODEGEN MARKER: View Info Start */
 

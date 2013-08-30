@@ -14,8 +14,12 @@
 #import "WeView2Macros.h"
 #import "WeView2NoopLayout.h"
 #import "WeView2Macros.h"
+#import "WeView2CenterLayout.h"
 
 @interface WeView2 ()
+
+@property (nonatomic) WeView2Layout *defaultLayout;
+@property (nonatomic) NSMutableDictionary *subviewLayoutMap;
 
 @end
 
@@ -23,12 +27,18 @@
 
 @implementation WeView2
 
+- (void)commonInit
+{
+    [self setHLinearLayout];
+    self.subviewLayoutMap = [NSMutableDictionary dictionary];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self)
     {
-        [self setHLinearLayout];
+        [self commonInit];
     }
     return self;
 }
@@ -38,6 +48,7 @@
     self = [super init];
     if (self)
     {
+        [self commonInit];
     }
     return self;
 }
@@ -48,33 +59,63 @@
 
 - (WeView2 *)setHLinearLayout
 {
-    self.layout = [WeView2LinearLayout hLinearLayout];
+    self.defaultLayout = [WeView2LinearLayout hLinearLayout];
     return self;
 }
 
 - (WeView2 *)setVLinearLayout
 {
-    self.layout = [WeView2LinearLayout vLinearLayout];
+    self.defaultLayout = [WeView2LinearLayout vLinearLayout];
     return self;
 }
 
 - (WeView2 *)setNoopLayout
 {
-    self.layout = [WeView2NoopLayout noopLayout];
+    self.defaultLayout = [WeView2NoopLayout noopLayout];
     return self;
+}
+
+- (WeView2 *)setCenterLayout
+{
+    self.defaultLayout = [WeView2CenterLayout centerLayout];
+    return self;
+}
+
+- (NSArray *)subviewsForLayout:(WeView2Layout *)layout
+{
+    NSMutableArray *result = [NSMutableArray array];
+    for (UIView *subview in self.subviews)
+    {
+        if (self.subviewLayoutMap[subview] == layout)
+        {
+            [result addObject:subview];
+        }
+    }
+    return result;
 }
 
 - (void)layoutSubviews
 {
-    WeView2Assert(self.layout);
-    [self.layout layoutContentsOfView:self];
+    WeView2Assert(self.defaultLayout);
+    NSSet *layouts = [NSSet setWithArray:[self.subviewLayoutMap allValues]];
+    for (WeView2Layout *layout in layouts)
+    {
+        NSArray *layoutSubviews = [self subviewsForLayout:layout];
+        WeView2Assert(layoutSubviews);
+        WeView2Assert([layoutSubviews count] > 0);
+        [layout layoutContentsOfView:self
+                            subviews:layoutSubviews];
+    }
+    [self.defaultLayout layoutContentsOfView:self
+                                    subviews:[self subviewsForLayout:nil]];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    WeView2Assert(self.layout);
-    return [self.layout minSizeOfContentsView:self
-                          thatFitsSize:size];
+    WeView2Assert(self.defaultLayout);
+    return [self.defaultLayout minSizeOfContentsView:self
+                                            subviews:[self subviewsForLayout:nil]
+                                        thatFitsSize:size];
 }
 
 - (WeView2 *)addSubviews:(NSArray *)subviews
@@ -94,6 +135,22 @@
     for (UIView *subview in self.subviews)
     {
         [subview removeFromSuperview];
+    }
+    WeView2Assert(self.subviewLayoutMap);
+    WeView2Assert([self.subviewLayoutMap count] == 0);
+}
+
+- (void)didAddSubview:(UIView *)subview
+{
+    WeView2Assert(subview);
+}
+
+- (void)willRemoveSubview:(UIView *)subview
+{
+    WeView2Assert(subview);
+    if (self.subviewLayoutMap[subview])
+    {
+        [self.subviewLayoutMap removeObjectForKey:subview];
     }
 }
 

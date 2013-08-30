@@ -13,7 +13,9 @@
 #import "WeView2Common.h"
 #import "WeView2ViewInfo.h"
 
-@interface UIView (WeView2)
+@interface UIView (WeView2) <NSCopying>
+
+// See comments in WeView2ViewInfo.
 
 /* CODEGEN MARKER: Start */
 

@@ -423,28 +423,33 @@ for propertyGroup in propertyGroups:
                                                 return FormatFloat(view.%s);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = view.%s - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.%s = view.%s - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.%s = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.%s = view.%s + 1;
-                                             }
-                              ],
-                             ]],''' % (property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, ) )
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = view.%s + 5;
+                                             }],
+                             ]],''' % (property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, ) )
         elif property.typeName == 'BOOL':
             lines.append('''
 // --- %s ---
                             [ViewParameterSimple create:@"%s"
                                             getterBlock:^NSString *(UIView *view) {
-                                                return [@(view.%s) description];
+                                                return FormatBoolean(view.%s);
                                             }
                                                 setters:@[
                              [ViewParameterSetter create:@"YES"

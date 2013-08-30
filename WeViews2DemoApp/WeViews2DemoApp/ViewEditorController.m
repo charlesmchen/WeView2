@@ -277,21 +277,26 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.minWidth);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.minWidth = view.minWidth - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.minWidth = view.minWidth - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.minWidth = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.minWidth = view.minWidth + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.minWidth = view.minWidth + 5;
+                                             }],
                              ]],
 
 // --- maxWidth ---
@@ -300,21 +305,26 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.maxWidth);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.maxWidth = view.maxWidth - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.maxWidth = view.maxWidth - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.maxWidth = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.maxWidth = view.maxWidth + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.maxWidth = view.maxWidth + 5;
+                                             }],
                              ]],
 
 // --- minHeight ---
@@ -323,21 +333,26 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.minHeight);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.minHeight = view.minHeight - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.minHeight = view.minHeight - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.minHeight = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.minHeight = view.minHeight + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.minHeight = view.minHeight + 5;
+                                             }],
                              ]],
 
 // --- maxHeight ---
@@ -346,21 +361,26 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.maxHeight);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.maxHeight = view.maxHeight - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.maxHeight = view.maxHeight - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.maxHeight = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.maxHeight = view.maxHeight + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.maxHeight = view.maxHeight + 5;
+                                             }],
                              ]],
 
 // --- hStretchWeight ---
@@ -369,21 +389,26 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.hStretchWeight);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.hStretchWeight = view.hStretchWeight - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.hStretchWeight = view.hStretchWeight - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.hStretchWeight = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.hStretchWeight = view.hStretchWeight + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.hStretchWeight = view.hStretchWeight + 5;
+                                             }],
                              ]],
 
 // --- vStretchWeight ---
@@ -392,27 +417,32 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.vStretchWeight);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.vStretchWeight = view.vStretchWeight - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.vStretchWeight = view.vStretchWeight - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.vStretchWeight = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.vStretchWeight = view.vStretchWeight + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.vStretchWeight = view.vStretchWeight + 5;
+                                             }],
                              ]],
 
 // --- ignoreNaturalSize ---
                             [ViewParameterSimple create:@"ignoreNaturalSize"
                                             getterBlock:^NSString *(UIView *view) {
-                                                return [@(view.ignoreNaturalSize) description];
+                                                return FormatBoolean(view.ignoreNaturalSize);
                                             }
                                                 setters:@[
                              [ViewParameterSetter create:@"YES"
@@ -433,21 +463,26 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.leftMargin);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.leftMargin = view.leftMargin - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.leftMargin = view.leftMargin - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.leftMargin = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.leftMargin = view.leftMargin + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.leftMargin = view.leftMargin + 5;
+                                             }],
                              ]],
 
 // --- rightMargin ---
@@ -456,21 +491,26 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.rightMargin);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.rightMargin = view.rightMargin - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.rightMargin = view.rightMargin - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.rightMargin = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.rightMargin = view.rightMargin + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.rightMargin = view.rightMargin + 5;
+                                             }],
                              ]],
 
 // --- topMargin ---
@@ -479,21 +519,26 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.topMargin);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.topMargin = view.topMargin - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.topMargin = view.topMargin - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.topMargin = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.topMargin = view.topMargin + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.topMargin = view.topMargin + 5;
+                                             }],
                              ]],
 
 // --- bottomMargin ---
@@ -502,21 +547,26 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.bottomMargin);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.bottomMargin = view.bottomMargin - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.bottomMargin = view.bottomMargin - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.bottomMargin = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.bottomMargin = view.bottomMargin + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.bottomMargin = view.bottomMargin + 5;
+                                             }],
                              ]],
 
 // --- vSpacing ---
@@ -525,21 +575,26 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.vSpacing);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.vSpacing = view.vSpacing - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.vSpacing = view.vSpacing - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.vSpacing = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.vSpacing = view.vSpacing + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.vSpacing = view.vSpacing + 5;
+                                             }],
                              ]],
 
 // --- hSpacing ---
@@ -548,27 +603,32 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatFloat(view.hSpacing);
                                             }
                                                 setters:@[
+                             [ViewParameterSetter create:@"-5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.hSpacing = view.hSpacing - 5;
+                                             }],
                              [ViewParameterSetter create:@"-1"
                                              setterBlock:^(UIView *view) {
                                                  view.hSpacing = view.hSpacing - 1;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"0"
                                              setterBlock:^(UIView *view) {
                                                  view.hSpacing = 0;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"+1"
                                              setterBlock:^(UIView *view) {
                                                  view.hSpacing = view.hSpacing + 1;
-                                             }
-                              ],
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.hSpacing = view.hSpacing + 5;
+                                             }],
                              ]],
 
 // --- debugLayout ---
                             [ViewParameterSimple create:@"debugLayout"
                                             getterBlock:^NSString *(UIView *view) {
-                                                return [@(view.debugLayout) description];
+                                                return FormatBoolean(view.debugLayout);
                                             }
                                                 setters:@[
                              [ViewParameterSetter create:@"YES"

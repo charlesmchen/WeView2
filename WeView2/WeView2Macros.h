@@ -91,6 +91,20 @@ CGPointRound(const CGPoint p1)
 }
 
 CG_INLINE CGPoint
+CGPointCeil(const CGPoint p1)
+{
+    return CGPointMake(ceilf(p1.x),
+                       ceilf(p1.y));
+}
+
+CG_INLINE CGPoint
+CGPointFloor(const CGPoint p1)
+{
+    return CGPointMake(floorf(p1.x),
+                       floorf(p1.y));
+}
+
+CG_INLINE CGPoint
 CGPointAbs(const CGPoint p1)
 {
     return CGPointMake(fabsf(p1.x),
@@ -191,6 +205,20 @@ CGSizeRound(const CGSize p1)
 {
     return CGSizeMake(roundf(p1.width),
                       roundf(p1.height));
+}
+
+CG_INLINE CGSize
+CGSizeCeil(const CGSize p1)
+{
+    return CGSizeMake(ceilf(p1.width),
+                      ceilf(p1.height));
+}
+
+CG_INLINE CGSize
+CGSizeFloor(const CGSize p1)
+{
+    return CGSizeMake(floorf(p1.width),
+                      floorf(p1.height));
 }
 
 CG_INLINE CGSize

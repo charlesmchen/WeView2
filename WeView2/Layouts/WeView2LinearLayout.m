@@ -46,42 +46,12 @@
     return layout;
 }
 
-- (CGSize)desiredItemSize:(UIView *)subview
-                  maxSize:(CGSize)maxSize
-{
-    return [subview sizeThatFits:maxSize];
-}
-
-- (CGPoint)insetOriginOfView:(UIView *)view
-{
-    // TODO: We need to always round (up) the border width.
-    // TODO: Should we round margins?  Where?
-    int borderWidth = ceilf(view.layer.borderWidth);
-    return CGPointMake(view.leftMargin + borderWidth,
-                       view.topMargin + borderWidth);
-}
-
-- (CGSize)insetSizeOfView:(UIView *)view
-{
-    int borderWidth = ceilf(view.layer.borderWidth);
-    return CGSizeMake(view.leftMargin + view.rightMargin + 2 * borderWidth,
-                      view.topMargin + view.bottomMargin + 2 * borderWidth);
-}
-
-- (CGRect)contentBoundsOfView:(UIView *)view
-                      forSize:(CGSize)size
-{
-    CGRect result;
-    result.origin = [self insetOriginOfView:view];
-    result.size = CGSizeMax(CGSizeZero, CGSizeSubtract(size, [self insetSizeOfView:view]));
-    return result;
-}
-
 - (CGSize)emptySizeOfView:(UIView *)view
+                 subviews:(NSArray *)subviews
 {
     // Calculate the maximum size of any given subview,
     // ie. the total size less margins and spacing.
-    int subviewCount = [[view subviews] count];
+    int subviewCount = [subviews count];
     BOOL horizontal = self.isHorizontal;
     CGSize result = [self insetSizeOfView:view];
     CGFloat spacing = horizontal ? view.hSpacing : view.vSpacing;
@@ -98,10 +68,12 @@
 
 - (CGSize)getMaxContentSize:(CGSize)size
                        view:(UIView *)view
+                   subviews:(NSArray *)subviews
 {
     // Calculate the maximum size of any given subview,
     // ie. the total size less margins and spacing.
-    CGSize result = CGSizeSubtract(size, [self emptySizeOfView:view]);
+    CGSize result = CGSizeSubtract(size, [self emptySizeOfView:view
+                                                      subviews:subviews]);
 
     result = CGSizeMax(result, CGSizeZero);
     return result;
@@ -205,6 +177,7 @@
 // TODO: Honor max/min widths in the earlier phases, of "min size" and "layout" functions.
 // TODO: Do we need to honor other params as well?
 - (CGSize)minSizeOfContentsView:(UIView *)view
+                       subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize
 {
     BOOL debugLayout = view.debugLayout;
@@ -213,9 +186,12 @@
         NSLog(@"+ minSizeOfContentsView: %@ thatFitsSize: %@", [view class], NSStringFromCGSize(guideSize));
     }
 
+    //    // TODO: Rewrite to use contentBounds.
+    //    CGRect contentBounds = [self contentBoundsOfView:view
+    //                                             forSize:view.size];
+
     BOOL horizontal = self.isHorizontal;
-    NSArray *subviews = view.subviews;
-    int subviewCount = [view.subviews count];
+    int subviewCount = [subviews count];
 
     CGFloat totalStretchWeight;
     int stretchCount;
@@ -227,7 +203,8 @@
                           stretchCount:&stretchCount];
 
     CGSize maxContentSize = [self getMaxContentSize:guideSize
-                                               view:view];
+                                               view:view
+                                           subviews:subviews];
 
     if (debugLayout)
     {
@@ -235,7 +212,8 @@
               FormatSize(maxContentSize),
               FormatSize(guideSize),
               FormatSize([self insetSizeOfView:view]),
-              FormatSize([self emptySizeOfView:view]));
+              FormatSize([self emptySizeOfView:view
+                                      subviews:subviews]));
     }
 
     // On the first pass, we want to calculate the desired size of all subviews.
@@ -406,7 +384,8 @@
 
     // Add margins and return.
     CGSize result = CGSizeAdd(CGSizeFromIntSize(contentSize),
-                              [self emptySizeOfView:view]);
+                              [self emptySizeOfView:view
+                                           subviews:subviews]);
     if (debugLayout)
     {
         NSLog(@"- minSizeOfContentsView: %@ thatFitsSize: = %@", [view class], NSStringFromCGSize(result));
@@ -435,6 +414,7 @@
 }
 
 - (void)layoutContentsOfView:(UIView *)view
+                    subviews:(NSArray *)subviews
 {
     BOOL debugLayout = view.debugLayout;
     if (debugLayout)
@@ -444,8 +424,11 @@
     }
 
     BOOL horizontal = self.isHorizontal;
-    NSArray *subviews = view.subviews;
-    int subviewCount = [view.subviews count];
+    int subviewCount = [subviews count];
+
+//    // TODO: Rewrite to use contentBounds.
+//    CGRect contentBounds = [self contentBoundsOfView:view
+//                                             forSize:view.size];
 
     CGFloat totalStretchWeight;
     int stretchCount;
@@ -457,7 +440,8 @@
                           stretchCount:&stretchCount];
 
     CGSize maxContentSize = [self getMaxContentSize:view.size
-                                               view:view];
+                                               view:view
+                                           subviews:subviews];
 
     if (debugLayout)
     {
@@ -466,7 +450,8 @@
               FormatSize(maxContentSize),
               FormatSize(view.size),
               FormatSize([self insetSizeOfView:view]),
-              FormatSize([self emptySizeOfView:view]));
+              FormatSize([self emptySizeOfView:view
+                                      subviews:subviews]));
     }
 
     // On the first pass, we want to calculate the desired size of all subviews.
@@ -715,83 +700,16 @@
         UIView* subview = subviews[i];
         CGSize subviewSize = subviewSizes[i];
 
-        int subviewCrossSize, subviewAxisSize;
-        if (horizontal)
-        {
-            subviewAxisSize = subviewSize.width;
-            subviewCrossSize = subviewSize.height;
-        }
-        else
-        {
-            subviewCrossSize = subviewSize.width;
-            subviewAxisSize = subviewSize.height;
-        }
-
         int crossIndex = horizontal ? contentBounds.origin.y : contentBounds.origin.x;
+        CGRect cellBounds = CGRectMake(horizontal ? axisIndex : crossIndex,
+                                       horizontal ? crossIndex : axisIndex,
+                                       horizontal ? subviewSize.width : crossSize,
+                                       horizontal ? crossSize : subviewSize.height);
 
-        if ([self viewStretchesAlongCrossAxis:subview])
-        {
-            subviewCrossSize = crossSize;
-        }
-        else
-        {
-            // Limit cross size to container cross size.
-            subviewCrossSize = MIN(subviewCrossSize, crossSize);
-
-            // Respect cross alignment.
-            if (horizontal)
-            {
-                switch (vAlign)
-                {
-                    case V_ALIGN_BOTTOM:
-                        crossIndex += crossSize - subviewCrossSize;
-                        break;
-                    case V_ALIGN_CENTER:
-                        crossIndex += (crossSize - subviewCrossSize) / 2;
-                        break;
-                    case V_ALIGN_TOP:
-                        break;
-                    default:
-                        WeView2Assert(0);
-                        break;
-                }
-            }
-            else
-            {
-                switch (hAlign)
-                {
-                    case H_ALIGN_LEFT:
-                        break;
-                    case H_ALIGN_CENTER:
-                        crossIndex += (crossSize - subviewCrossSize) / 2;
-                        break;
-                    case H_ALIGN_RIGHT:
-                        crossIndex += crossSize - subviewCrossSize;
-                        break;
-                    default:
-                        WeView2Assert(0);
-                        break;
-                }
-            }
-        }
-
-        CGRect subviewFrame;
-        if (horizontal)
-        {
-            subviewFrame = CGRectMake(axisIndex,
-                                      crossIndex,
-                                      subviewAxisSize,
-                                      subviewCrossSize);
-        }
-        else
-        {
-            subviewFrame = CGRectMake(crossIndex,
-                                      axisIndex,
-                                      subviewCrossSize,
-                                      subviewAxisSize);
-        }
-        [self setSubviewFrame:subviewFrame
-                      subview:subview];
+        [self positionSubview:subview
+                  inSuperview:view
+                     withSize:subviewSize
+                 inCellBounds:cellBounds];
 
         if (debugLayout)
         {
@@ -800,7 +718,9 @@
                   [subview class], FormatRect(subview.frame), FormatCGSize(subviewSize));
         }
 
-        axisIndex += subviewAxisSize + spacing;
+        axisIndex = (horizontal ? subview.right : subview.bottom) + spacing;
+//
+//        axisIndex += subviewAxisSize + spacing;
     }
 }
 

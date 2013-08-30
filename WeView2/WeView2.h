@@ -16,11 +16,12 @@
 
 @interface WeView2 : UIView
 
-@property (nonatomic) WeView2Layout *layout;
+// Set the default layout for subviews of this view.
 
 - (WeView2 *)setHLinearLayout;
 - (WeView2 *)setVLinearLayout;
 - (WeView2 *)setNoopLayout;
+- (WeView2 *)setCenterLayout;
 
 - (WeView2 *)addSubviews:(NSArray *)subviews;
 - (void)removeAllSubviews;

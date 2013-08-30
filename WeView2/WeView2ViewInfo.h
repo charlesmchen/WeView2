@@ -17,6 +17,8 @@
 @property (nonatomic) HAlign hAlign;
 @property (nonatomic) VAlign vAlign;
 
+// TODO: Comment that min width trumps max width.
+
 /* CODEGEN MARKER: View Info Start */
 
 @property (nonatomic) CGFloat minWidth;

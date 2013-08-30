@@ -12,12 +12,26 @@
 
 @interface WeView2Layout : NSObject
 
-- (void)layoutContentsOfView:(UIView *)view;
+- (void)layoutContentsOfView:(UIView *)view
+                    subviews:(NSArray *)subviews;
 
 - (CGSize)minSizeOfContentsView:(UIView *)view
+                       subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)size;
 
-- (void)setSubviewFrame:(CGRect)frame
-                subview:(UIView *)subview;
+- (void)positionSubview:(UIView *)subview
+            inSuperview:(UIView *)superview
+               withSize:(CGSize)subviewSize
+           inCellBounds:(CGRect)cellBounds;
+
+- (CGPoint)insetOriginOfView:(UIView *)view;
+
+- (CGRect)contentBoundsOfView:(UIView *)view
+                      forSize:(CGSize)size;
+
+- (CGSize)insetSizeOfView:(UIView *)view;
+
+- (CGSize)desiredItemSize:(UIView *)subview
+                  maxSize:(CGSize)maxSize;
 
 @end

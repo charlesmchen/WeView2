@@ -432,4 +432,11 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     return [self.viewInfo layoutDescription];
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
+}
+
 @end

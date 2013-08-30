@@ -40,6 +40,7 @@
 		344435EE17CED68100EFF341 /* WeView2ViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435ED17CED68100EFF341 /* WeView2ViewInfo.m */; };
 		344435F117CED6FE00EFF341 /* WeView2Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435F017CED6FE00EFF341 /* WeView2Common.m */; };
 		344435F417CF6DEA00EFF341 /* ViewEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435F317CF6DEA00EFF341 /* ViewEditorController.m */; };
+		344435F717D0454600EFF341 /* WeView2CenterLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435F617D0454500EFF341 /* WeView2CenterLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,8 @@
 		344435F017CED6FE00EFF341 /* WeView2Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2Common.m; sourceTree = "<group>"; };
 		344435F217CF6DEA00EFF341 /* ViewEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewEditorController.h; sourceTree = "<group>"; };
 		344435F317CF6DEA00EFF341 /* ViewEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewEditorController.m; sourceTree = "<group>"; };
+		344435F517D0454500EFF341 /* WeView2CenterLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2CenterLayout.h; sourceTree = "<group>"; };
+		344435F617D0454500EFF341 /* WeView2CenterLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2CenterLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,12 +269,14 @@
 		344435DA17CB055B00EFF341 /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				344435E117CB057300EFF341 /* WeView2NoopLayout.h */,
-				344435E217CB057300EFF341 /* WeView2NoopLayout.m */,
+				344435F517D0454500EFF341 /* WeView2CenterLayout.h */,
+				344435F617D0454500EFF341 /* WeView2CenterLayout.m */,
 				344435DB17CB055B00EFF341 /* WeView2Layout.h */,
 				344435DC17CB055B00EFF341 /* WeView2Layout.m */,
 				344435DD17CB055B00EFF341 /* WeView2LinearLayout.h */,
 				344435DE17CB055B00EFF341 /* WeView2LinearLayout.m */,
+				344435E117CB057300EFF341 /* WeView2NoopLayout.h */,
+				344435E217CB057300EFF341 /* WeView2NoopLayout.m */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
@@ -405,6 +410,7 @@
 				344435EE17CED68100EFF341 /* WeView2ViewInfo.m in Sources */,
 				344435F117CED6FE00EFF341 /* WeView2Common.m in Sources */,
 				344435F417CF6DEA00EFF341 /* ViewEditorController.m in Sources */,
+				344435F717D0454600EFF341 /* WeView2CenterLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

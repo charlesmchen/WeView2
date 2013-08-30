@@ -33,24 +33,72 @@
 }
 
 - (void)layoutContentsOfView:(UIView *)view
+                    subviews:(NSArray *)subviews
 {
     assert(0);
 }
 
 - (CGSize)minSizeOfContentsView:(UIView *)view
+                       subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize
 {
     assert(0);
     return CGSizeZero;
 }
 
-- (void)setSubviewFrame:(CGRect)frame
-                subview:(UIView *)subview
+- (void)positionSubview:(UIView *)subview
+            inSuperview:(UIView *)superview
+               withSize:(CGSize)subviewSize
+           inCellBounds:(CGRect)cellBounds
 {
-    // Make sure the subview doesn't have a negative width or height.
-    frame.origin = CGPointRound(frame.origin);
-    frame.size = CGSizeMax(CGSizeZero, CGSizeRound(frame.size));
-    subview.frame = frame;
+    if (subview.hStretchWeight > 0)
+    {
+        subviewSize.width = cellBounds.size.width;
+    }
+    if (subview.vStretchWeight > 0)
+    {
+        subviewSize.height = cellBounds.size.height;
+    }
+    subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(CGSizeMin(cellBounds.size, subviewSize)));
+    subview.frame = alignSizeWithinRect(subviewSize, cellBounds, superview.hAlign, superview.vAlign);
+}
+
+- (CGPoint)insetOriginOfView:(UIView *)view
+{
+    return [self contentBoundsOfView:view
+                             forSize:view.size].origin;
+}
+
+- (CGRect)contentBoundsOfView:(UIView *)view
+                      forSize:(CGSize)size
+{
+    CGFloat borderWidth = view.layer.borderWidth;
+
+    int left = ceilf(view.leftMargin + borderWidth);
+    int top = ceilf(view.topMargin + borderWidth);
+    int right = ceilf(size.width - (view.rightMargin + borderWidth));
+    int bottom = ceilf(size.height - (view.bottomMargin + borderWidth));
+
+    return CGRectMake(left,
+                      top,
+                      MAX(0, right - left),
+                      MAX(0, bottom - top));
+}
+
+- (CGSize)insetSizeOfView:(UIView *)view
+{
+    int borderWidth = ceilf(view.layer.borderWidth);
+    return CGSizeFloor(CGSizeMake(view.leftMargin + view.rightMargin + 2 * borderWidth,
+                                  view.topMargin + view.bottomMargin + 2 * borderWidth));
+}
+
+- (CGSize)desiredItemSize:(UIView *)subview
+                  maxSize:(CGSize)maxSize
+{
+    return CGSizeMax(CGSizeZero,
+                     CGSizeCeil(CGSizeMax(subview.minSize,
+                                          CGSizeMin(subview.maxSize,
+                                                    [subview sizeThatFits:maxSize]))));
 }
 
 @end

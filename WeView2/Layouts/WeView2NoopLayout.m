@@ -18,12 +18,14 @@
 }
 
 - (CGSize)minSizeOfContentsView:(UIView *)view
+                       subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize
 {
     return CGSizeZero;
 }
 
 - (void)layoutContentsOfView:(UIView *)view
+                    subviews:(NSArray *)subviews
 {
 }
 
