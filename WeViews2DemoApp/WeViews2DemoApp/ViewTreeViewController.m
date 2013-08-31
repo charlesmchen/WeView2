@@ -8,6 +8,7 @@
 #import "UIView+WeView2.h"
 #import "ViewTreeViewController.h"
 #import "ViewHierarchyTree.h"
+#import "WeView2DemoConstants.h"
 
 @interface ViewTreeViewController ()
 
@@ -27,8 +28,21 @@
     if (self)
     {
         self.title = NSLocalizedString(@"View Hierarchy", nil);
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleDemoChanged:)
+                                                     name:NOTIFICATION_DEMO_CHANGED
+                                                   object:nil];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)handleDemoChanged:(NSNotification *)notification {
+    [self updateDemoModel:notification.object];
 }
 
 - (void)loadView

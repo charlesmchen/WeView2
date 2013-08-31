@@ -8,6 +8,8 @@
 #import "SelectDemoViewController.h"
 
 #import "LinearDemo1.h"
+#import "LinearDemo2.h"
+#import "CenterDemo1.h"
 
 @interface SelectDemoViewController ()
 
@@ -29,6 +31,8 @@
         }
         self.demoClasses = @[
                              [LinearDemo1 class],
+                             [LinearDemo2 class],
+                             [CenterDemo1 class],
                              ];
     }
     return self;

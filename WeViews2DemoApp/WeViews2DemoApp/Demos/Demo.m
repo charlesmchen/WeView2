@@ -35,7 +35,9 @@
     result.opaque = NO;
     result.backgroundColor = [UIColor clearColor];
     result.textColor = textColor;
-    result.font = [UIFont systemFontOfSize:fontSize];
+//    result.font = [UIFont systemFontOfSize:fontSize];
+    result.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
+                                  size:fontSize];    
     result.text = text;
     return result;
 }
