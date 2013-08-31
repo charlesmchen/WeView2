@@ -13,11 +13,14 @@
 
 @implementation WeView2ViewInfo
 
-- (void)dealloc {
+- (void)dealloc
+{
 }
 
-- (id)init {
-    if (self = [super init]) {
+- (id)init
+{
+    if (self = [super init])
+    {
         self.hAlign = H_ALIGN_CENTER;
         self.vAlign = V_ALIGN_CENTER;
 

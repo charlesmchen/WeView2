@@ -194,13 +194,13 @@
 
 - (void)handleItemAdded:(NSNotification *)notification
 {
-    NSLog(@"tree handleItemAdded: %@", notification.object);
+//    NSLog(@"tree handleItemAdded: %@", notification.object);
     [self.expandedViews addObject:notification.object];
 }
 
 - (void)handleSelectionChanged
 {
-    NSLog(@"tree handleSelectionChanged");
+//    NSLog(@"tree handleSelectionChanged");
     [self updateState];
 }
 

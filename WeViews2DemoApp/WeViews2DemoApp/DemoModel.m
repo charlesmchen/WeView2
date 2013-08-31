@@ -10,7 +10,8 @@
 
 @implementation DemoModel
 
-+ (DemoModel *)create {
++ (DemoModel *)create
+{
     DemoModel* result = [[DemoModel alloc] init];
     result.rootView = [[WeView2 alloc] init];
 

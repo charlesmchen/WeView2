@@ -5,6 +5,8 @@
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "DemoViewFactory.h"
 
 @implementation DemoViewFactory
@@ -44,6 +46,30 @@
                            green:g / 255.0f
                             blue:b / 255.0f
                            alpha:1.0f];
+}
+
++ (UIButton *)createFlatUIButton:(NSString *)label
+                       textColor:(UIColor *)textColor
+                     buttonColor:(UIColor *)buttonColor
+                          target:(id)target
+                        selector:(SEL)selector
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.opaque = NO;
+    button.backgroundColor = buttonColor;
+    button.layer.cornerRadius = 5.f;
+    button.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+    [button setTitle:label
+                  forState:UIControlStateNormal];
+    [button setTitleColor:textColor
+                       forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
+                                                   size:14];
+    [button addTarget:target
+                     action:selector
+     forControlEvents:UIControlEventTouchUpInside];
+    [button sizeToFit];
+    return button;
 }
 
 @end

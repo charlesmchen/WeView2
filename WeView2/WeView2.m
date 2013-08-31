@@ -81,6 +81,12 @@
     return self;
 }
 
+- (void)setDefaultLayout:(WeView2Layout *)defaultLayout
+{
+    _defaultLayout = defaultLayout;
+    [self setNeedsLayout];
+}
+
 - (NSArray *)subviewsForLayout:(WeView2Layout *)layout
 {
     NSMutableArray *result = [NSMutableArray array];

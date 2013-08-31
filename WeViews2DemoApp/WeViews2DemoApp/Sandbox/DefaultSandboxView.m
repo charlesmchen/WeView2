@@ -51,6 +51,26 @@
         subview.right = subview.superview.width - kHMargin;
         subview.bottom = subview.superview.height - kVMargin;
     }]];
+
+    UIButton *desiredSizeButton = [DemoViewFactory createFlatUIButton:@"Snap To Desired Size"
+                                                            textColor:[UIColor colorWithWhite:1.f alpha:1.f]
+                                                          buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+                                                               target:self
+                                                             selector:@selector(snapToDesiredSize:)];
+    [self addSubview:desiredSizeButton
+          withLayout:[WeView2BlockLayout create:^(UIView *superview, UIView *subview) {
+        WeView2Assert(subview);
+        WeView2Assert(subview.superview);
+        const int kHMargin = 20;
+        const int kVMargin = 20;
+        subview.x = kHMargin;
+        subview.bottom = subview.superview.height - kVMargin;
+    }]];
+}
+
+- (void)snapToDesiredSize:(id)sender
+{
+    [self setCenterLayout];
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)sender

@@ -36,11 +36,13 @@
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)handleSelectionAltered:(NSNotification *)notification {
+- (void)handleSelectionAltered:(NSNotification *)notification
+{
     [self.sandboxView setNeedsLayout];
 }
 
@@ -75,9 +77,9 @@
 - (void)viewDidLayoutSubviews
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"viewDidLayoutSubviews: %@ %d",
-              [self.demoModel.rootView debugName],
-              [self.demoModel.rootView.subviews count]);
+//        NSLog(@"viewDidLayoutSubviews: %@ %d",
+//              [self.demoModel.rootView debugName],
+//              [self.demoModel.rootView.subviews count]);
 
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DEMO_CHANGED
                                                             object:self.demoModel];

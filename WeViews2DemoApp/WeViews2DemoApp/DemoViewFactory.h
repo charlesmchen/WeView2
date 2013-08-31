@@ -20,4 +20,10 @@
 
 + (UIColor *)colorWithRGBHex:(UInt32)hex;
 
++ (UIButton *)createFlatUIButton:(NSString *)label
+                       textColor:(UIColor *)textColor
+                     buttonColor:(UIColor *)buttonColor
+                          target:(id)target
+                        selector:(SEL)selector;
+
 @end

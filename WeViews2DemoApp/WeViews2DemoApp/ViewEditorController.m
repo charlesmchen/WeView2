@@ -4,18 +4,11 @@
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
- //
-//  ViewEditorController.m
-//  WeViews2DemoApp
-//
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
-//
 
 #import <QuartzCore/QuartzCore.h>
 
 #import "UIView+WeView2.h"
 #import "ViewEditorController.h"
-//#import "ViewHierarchyTree.h"
 #import "WeView2DemoConstants.h"
 #import "WeView2Macros.h"
 
@@ -23,11 +16,11 @@ NSString *FormatFloat(CGFloat value)
 {
     if (value == CGFLOAT_MAX)
     {
-        return @"Max";
+        return @"\u221E";
     }
     else if (value == CGFLOAT_MIN)
     {
-        return @"Min";
+        return @"-\u221E";
     }
     else
     {
@@ -96,6 +89,8 @@ typedef void (^SetterBlock)(UIView *view);
 - (void)perform:(id)sender
 {
     self.setterBlock(self.view);
+    [self.view setNeedsLayout];
+    [self.view.superview setNeedsLayout];
     [self.delegate viewChanged];
 }
 
@@ -670,22 +665,22 @@ typedef void (^SetterBlock)(UIView *view);
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)handleItemAdded:(NSNotification *)notification {
-    NSLog(@"tree handleItemAdded: %@", notification.object);
+- (void)handleItemAdded:(NSNotification *)notification
+{
+//    NSLog(@"tree handleItemAdded: %@", notification.object);
     self.currentView = notification.object;
-//    UIView *currentView
-//    [self.expandedViews addObject:notification.object];
     [self updateContent];
 }
 
-- (void)handleSelectionChanged:(NSNotification *)notification {
-    NSLog(@"tree handleSelectionChanged");
+- (void)handleSelectionChanged:(NSNotification *)notification
+{
+//    NSLog(@"tree handleSelectionChanged");
     self.currentView = notification.object;
-//    [self updateState];
     [self updateContent];
 }
 
@@ -767,7 +762,8 @@ typedef void (^SetterBlock)(UIView *view);
 //    [self.delegate demoSelected:demo];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
 }
 

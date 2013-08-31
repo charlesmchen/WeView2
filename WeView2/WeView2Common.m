@@ -11,8 +11,10 @@
 #import "WeView2Common.h"
 #import "WeView2Macros.h"
 
-NSString* FormatHAlign(HAlign value) {
-    switch (value) {
+NSString* FormatHAlign(HAlign value)
+{
+    switch (value)
+    {
         case H_ALIGN_LEFT:
             return @"Left";
         case H_ALIGN_CENTER:
@@ -25,8 +27,10 @@ NSString* FormatHAlign(HAlign value) {
     }
 }
 
-NSString* FormatVAlign(VAlign value) {
-    switch (value) {
+NSString* FormatVAlign(VAlign value)
+{
+    switch (value)
+    {
         case V_ALIGN_TOP:
             return @"Top";
         case H_ALIGN_CENTER:
