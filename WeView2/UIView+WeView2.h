@@ -32,8 +32,8 @@
 - (UIView *)setHStretchWeight:(CGFloat)value;
 - (CGFloat)vStretchWeight;
 - (UIView *)setVStretchWeight:(CGFloat)value;
-- (BOOL)ignoreNaturalSize;
-- (UIView *)setIgnoreNaturalSize:(BOOL)value;
+- (BOOL)ignoreDesiredSize;
+- (UIView *)setIgnoreDesiredSize:(BOOL)value;
 
 - (CGFloat)leftMargin;
 - (UIView *)setLeftMargin:(CGFloat)value;

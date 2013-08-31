@@ -9,15 +9,11 @@
 
 #import "Demo.h"
 #import "LinearDemo1.h"
-//#import "DemoViewController.h"
 #import "SandboxViewController.h"
 #import "SidebarViewController.h"
 
-@interface AppDelegate ()
-<SelectDemoViewControllerDelegate, DemoModelDelegate>
-//<SelectDemoViewControllerDelegate, DemoViewControllerDelegate, DemoModelDelegate>
+@interface AppDelegate () <SelectDemoViewControllerDelegate, DemoModelDelegate>
 
-//@property (nonatomic) DemoViewController *demoViewController;
 @property (nonatomic) SandboxViewController *sandboxViewController;
 @property (nonatomic) SidebarViewController *sidebarViewController;
 @property (nonatomic) DemoModel *demoModel;
@@ -36,10 +32,6 @@
     self.sidebarViewController.selectDemoViewController.delegate = self;
 
     self.sandboxViewController = [[SandboxViewController alloc] init];
-//    self.demoViewController.delegate = self;
-
-//    self.demoViewController = [[DemoViewController alloc] init];
-//    self.demoViewController.delegate = self;
 
     self.splitViewController = [[UISplitViewController alloc] init];
     self.splitViewController.viewControllers = @[self.sidebarViewController, self.sandboxViewController];
@@ -88,22 +80,6 @@
 //    [self.demoViewController displayDemo:demo];
     [self.sandboxViewController displayDemo:demo];
 }
-
-#pragma mark - DemoViewControllerDelegate
-
-//- (void)demoModelChanged:(DemoModel *)demoModel
-//{
-//    self.demoModel.delegate = nil;
-//    self.demoModel = demoModel;
-//    self.demoModel.delegate = self;
-//    [self.sidebarViewController.demoDescriptionViewController displayView:demoModel.rootView];
-//    [self.sidebarViewController.viewTreeViewController updateDemoModel:demoModel];
-//}
-//
-//- (void)demoViewChanged:(UIView *)view
-//{
-//    [self.sidebarViewController.demoDescriptionViewController displayView:view];
-//}
 
 #pragma mark - DemoModelDelegate
 

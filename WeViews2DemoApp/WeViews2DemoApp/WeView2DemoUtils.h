@@ -11,11 +11,6 @@
 
 @interface WeView2DemoUtils : NSObject
 
-//+ (UIColor*) lastBackgroundColor;
-//+ (void) setLastBackgroundColor:(UIColor*) value;
-//+ (UIColor*) lastForegroundColor;
-//+ (void) setLastForegroundColor:(UIColor*) value;
-//
 //+ (NSArray*) foregroundColors;
 //+ (NSArray*) backgroundColors;
 //+ (NSArray*) allColors;

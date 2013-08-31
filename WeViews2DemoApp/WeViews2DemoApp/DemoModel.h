@@ -23,12 +23,6 @@
 
 + (DemoModel *)create;
 
-//- (void) setNewItem:(id) value
-//          andSelect:(BOOL) andSelect;
-//- (NSArray*) getAllCanvasViews;
-//- (void) addToSelection:(UIView*) view
-//              andSelect:(BOOL) andSelect;
-
 - (NSArray *)collectSubviews:(UIView *)view;
 
 @end

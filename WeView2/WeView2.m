@@ -118,15 +118,38 @@
                                         thatFitsSize:size];
 }
 
+- (WeView2 *)addSubview:(UIView *)subview
+             withLayout:(WeView2Layout *)layout
+{
+    WeView2Assert(layout);
+    [self addSubviews:@[subview,]
+           withLayout:layout];
+    return self;
+}
+
 - (WeView2 *)addSubviews:(NSArray *)subviews
+              withLayout:(WeView2Layout *)layout
 {
     WeView2Assert(subviews);
     for (UIView *subview in subviews)
     {
         WeView2Assert(subview);
+        WeView2Assert(![self.subviews containsObject:subview]);
+
+        if (layout)
+        {
+            self.subviewLayoutMap[subview] = layout;
+        }
         [self addSubview:subview];
     }
     [self setNeedsLayout];
+    return self;
+}
+
+- (WeView2 *)addSubviews:(NSArray *)subviews
+{
+    [self addSubviews:subviews
+           withLayout:nil];
     return self;
 }
 

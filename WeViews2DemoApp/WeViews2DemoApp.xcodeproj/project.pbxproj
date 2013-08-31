@@ -27,7 +27,6 @@
 		34195FD717CA82520036F8DC /* LinearDemo1.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FD617CA82520036F8DC /* LinearDemo1.m */; };
 		34195FEB17CA87400036F8DC /* SidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FE717CA87400036F8DC /* SidebarViewController.m */; };
 		34195FEC17CA87400036F8DC /* SelectDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FE917CA87400036F8DC /* SelectDemoViewController.m */; };
-		34195FEF17CA88140036F8DC /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FEE17CA88140036F8DC /* DemoViewController.m */; };
 		34195FF217CA979E0036F8DC /* DemoDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FF117CA979E0036F8DC /* DemoDescriptionViewController.m */; };
 		344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */; };
 		344435C917CACFEB00EFF341 /* ViewHierarchyTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C717CACFEB00EFF341 /* ViewHierarchyTree.m */; };
@@ -87,6 +86,8 @@
 		3444365817D22B0A00EFF341 /* DefaultSandboxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444365317D22B0A00EFF341 /* DefaultSandboxView.m */; };
 		3444365917D22B0A00EFF341 /* SandboxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444365517D22B0A00EFF341 /* SandboxView.m */; };
 		3444365A17D22B0A00EFF341 /* SandboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444365717D22B0A00EFF341 /* SandboxViewController.m */; };
+		3444365D17D2930100EFF341 /* DemoViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444365C17D292FE00EFF341 /* DemoViewFactory.m */; };
+		3444366017D2953400EFF341 /* WeView2BlockLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444365F17D2953400EFF341 /* WeView2BlockLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,8 +133,6 @@
 		34195FE817CA87400036F8DC /* SelectDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectDemoViewController.h; sourceTree = "<group>"; };
 		34195FE917CA87400036F8DC /* SelectDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectDemoViewController.m; sourceTree = "<group>"; };
 		34195FEA17CA87400036F8DC /* SidebarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarViewController.h; sourceTree = "<group>"; };
-		34195FED17CA88140036F8DC /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
-		34195FEE17CA88140036F8DC /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
 		34195FF017CA979E0036F8DC /* DemoDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDescriptionViewController.h; sourceTree = "<group>"; };
 		34195FF117CA979E0036F8DC /* DemoDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDescriptionViewController.m; sourceTree = "<group>"; };
 		344435C417CACFEA00EFF341 /* ViewDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDescriptionViewController.h; sourceTree = "<group>"; };
@@ -212,6 +211,10 @@
 		3444365517D22B0A00EFF341 /* SandboxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxView.m; sourceTree = "<group>"; };
 		3444365617D22B0A00EFF341 /* SandboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxViewController.h; sourceTree = "<group>"; };
 		3444365717D22B0A00EFF341 /* SandboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxViewController.m; sourceTree = "<group>"; };
+		3444365B17D292FC00EFF341 /* DemoViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewFactory.h; sourceTree = "<group>"; };
+		3444365C17D292FE00EFF341 /* DemoViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewFactory.m; sourceTree = "<group>"; };
+		3444365E17D2953300EFF341 /* WeView2BlockLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2BlockLayout.h; sourceTree = "<group>"; };
+		3444365F17D2953400EFF341 /* WeView2BlockLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2BlockLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,8 +283,8 @@
 				344435CD17CAD20F00EFF341 /* DemoModel.h */,
 				344435CE17CAD20F00EFF341 /* DemoModel.m */,
 				34195FD117CA82270036F8DC /* Demos */,
-				34195FED17CA88140036F8DC /* DemoViewController.h */,
-				34195FEE17CA88140036F8DC /* DemoViewController.m */,
+				3444365B17D292FC00EFF341 /* DemoViewFactory.h */,
+				3444365C17D292FE00EFF341 /* DemoViewFactory.m */,
 				3444365117D22B0800EFF341 /* Sandbox */,
 				34195FE817CA87400036F8DC /* SelectDemoViewController.h */,
 				34195FE917CA87400036F8DC /* SelectDemoViewController.m */,
@@ -372,6 +375,8 @@
 		344435DA17CB055B00EFF341 /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
+				3444365E17D2953300EFF341 /* WeView2BlockLayout.h */,
+				3444365F17D2953400EFF341 /* WeView2BlockLayout.m */,
 				344435F517D0454500EFF341 /* WeView2CenterLayout.h */,
 				344435F617D0454500EFF341 /* WeView2CenterLayout.m */,
 				344435DB17CB055B00EFF341 /* WeView2Layout.h */,
@@ -603,7 +608,6 @@
 				34195FD717CA82520036F8DC /* LinearDemo1.m in Sources */,
 				34195FEB17CA87400036F8DC /* SidebarViewController.m in Sources */,
 				34195FEC17CA87400036F8DC /* SelectDemoViewController.m in Sources */,
-				34195FEF17CA88140036F8DC /* DemoViewController.m in Sources */,
 				34195FF217CA979E0036F8DC /* DemoDescriptionViewController.m in Sources */,
 				344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */,
 				344435C917CACFEB00EFF341 /* ViewHierarchyTree.m in Sources */,
@@ -622,6 +626,8 @@
 				3444365817D22B0A00EFF341 /* DefaultSandboxView.m in Sources */,
 				3444365917D22B0A00EFF341 /* SandboxView.m in Sources */,
 				3444365A17D22B0A00EFF341 /* SandboxViewController.m in Sources */,
+				3444365D17D2930100EFF341 /* DemoViewFactory.m in Sources */,
+				3444366017D2953400EFF341 /* WeView2BlockLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

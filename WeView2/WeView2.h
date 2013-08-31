@@ -24,6 +24,11 @@
 - (WeView2 *)setCenterLayout;
 
 - (WeView2 *)addSubviews:(NSArray *)subviews;
+- (WeView2 *)addSubviews:(NSArray *)subviews
+              withLayout:(WeView2Layout *)layout;
+- (WeView2 *)addSubview:(UIView *)subview
+             withLayout:(WeView2Layout *)layout;
+
 - (void)removeAllSubviews;
 
 @end

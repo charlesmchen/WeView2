@@ -445,20 +445,20 @@ typedef void (^SetterBlock)(UIView *view);
                                              }],
                              ]],
 
-// --- ignoreNaturalSize ---
-                            [ViewParameterSimple create:@"ignoreNaturalSize"
+// --- ignoreDesiredSize ---
+                            [ViewParameterSimple create:@"ignoreDesiredSize"
                                             getterBlock:^NSString *(UIView *view) {
-                                                return FormatBoolean(view.ignoreNaturalSize);
+                                                return FormatBoolean(view.ignoreDesiredSize);
                                             }
                                                 setters:@[
                              [ViewParameterSetter create:@"YES"
                                              setterBlock:^(UIView *view) {
-                                                 view.ignoreNaturalSize = YES;
+                                                 view.ignoreDesiredSize = YES;
                                              }
                               ],
                              [ViewParameterSetter create:@"NO"
                                              setterBlock:^(UIView *view) {
-                                                 view.ignoreNaturalSize = NO;
+                                                 view.ignoreDesiredSize = NO;
                                              }
                               ],
                              ]],
@@ -656,6 +656,7 @@ typedef void (^SetterBlock)(UIView *view);
 
 //        self.tableView.rowHeight = 25;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.tableView.sectionHeaderHeight = 10;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(handleSelectionChanged:)
                                                      name:NOTIFICATION_SELECTION_CHANGED

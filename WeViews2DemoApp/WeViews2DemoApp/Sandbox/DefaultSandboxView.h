@@ -13,8 +13,4 @@
 
 @interface DefaultSandboxView : SandboxView
 
-//@property (nonatomic, weak) id<DefaultSandboxViewDelegate> delegate;
-//
-//- (void)displayDemo:(Demo *)demo;
-
 @end

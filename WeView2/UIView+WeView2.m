@@ -96,14 +96,14 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     return self;
 }
 
-- (BOOL)ignoreNaturalSize
+- (BOOL)ignoreDesiredSize
 {
-    return [self.viewInfo ignoreNaturalSize];
+    return [self.viewInfo ignoreDesiredSize];
 }
 
-- (UIView *)setIgnoreNaturalSize:(BOOL)value
+- (UIView *)setIgnoreDesiredSize:(BOOL)value
 {
-    [self.viewInfo setIgnoreNaturalSize:value];
+    [self.viewInfo setIgnoreDesiredSize:value];
     return self;
 }
 
@@ -315,7 +315,7 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     // Layout should stretch this subview to fit any available space, ignoring its natural
     // size.
     [self setStretchWeight:1.f];
-    self.ignoreNaturalSize = YES;
+    self.ignoreDesiredSize = YES;
     return self;
 }
 

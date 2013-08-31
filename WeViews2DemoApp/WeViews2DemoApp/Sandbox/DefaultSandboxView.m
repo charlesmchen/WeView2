@@ -9,15 +9,12 @@
 #import "DefaultSandboxView.h"
 #import "WeView2Macros.h"
 #import "WeView2DemoConstants.h"
+#import "DemoViewFactory.h"
+#import "WeView2BlockLayout.h"
 
 @interface DefaultSandboxView ()
 
-//@property (nonatomic) WeView2 *rootView;
-//@property (nonatomic) UIView *resizeHandle;
-//
-//@property (nonatomic) DemoModel *demoModel;
-//@property (nonatomic) Demo *demo;
-//@property (nonatomic) UIView *demoView;
+@property (nonatomic) DemoModel *demoModel;
 
 @end
 
@@ -25,102 +22,69 @@
 
 @implementation DefaultSandboxView
 
-//- (id)init
-//{
-//    self = [super init];
-//    if (self)
-//    {
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(handleSelectionAltered:)
-//                                                     name:NOTIFICATION_SELECTION_ALTERED
-//                                                   object:nil];
-//    }
-//    return self;
-//}
-//
-//- (void)dealloc {
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//}
-//
-//- (void)handleSelectionAltered:(NSNotification *)notification {
-//    NSLog(@"tree handleSelectionAltered");
-//    [self.rootView setNeedsLayout];
-//    self.currentView = notification.object;
-//    //    [self updateState];
-//    [self updateContent];
-//}
-//
-//- (void)loadView
-//{
-//    self.rootView = [[[WeView2 alloc] init]
-//                     setVLinearLayout];
-//    self.rootView.margin = 40;
-//    self.rootView.opaque = YES;
-//    self.rootView.backgroundColor = [UIColor whiteColor];
-//    self.rootView.debugName = @"DefaultSandboxView.rootView";
-//    self.rootView.debugLayout = YES;
-//    self.view = self.rootView;
-//
-//    [self.rootView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];
-//}
-//
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//}
-//
-//- (void)didReceiveMemoryWarning
-//{
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
-//
-//- (void)handlePan:(UIPanGestureRecognizer *)sender
-//{
-//    if (sender.state == UIGestureRecognizerStateBegan ||
-//        sender.state == UIGestureRecognizerStateChanged ||
-//        sender.state == UIGestureRecognizerStateEnded)
-//    {
-//        CGPoint rootViewCenter = [self.rootView convertPoint:self.rootView.center
-//                                                    fromView:self.rootView.superview];
-//        CGPoint gesturePoint = [sender locationInView:self.rootView];
-//        CGPoint distance = CGPointAbs(CGPointSubtract(rootViewCenter, gesturePoint));
-//
-//        [self.rootView setNoopLayout];
-//        self.demoModel.rootView.size = CGSizeRound(CGSizeMake(distance.x * 2.f,
-//                                                              distance.y * 2.f));
-//        [self.demoModel.rootView centerHorizontallyInSuperview];
-//        [self.demoModel.rootView centerVerticallyInSuperview];
-//        //        DebugRect(@"self.demoModel.rootView", self.demoModel.rootView.frame);
-//    }
-//}
-//
-//- (void)displayDemo:(Demo *)demo
-//{
-//    [self.rootView removeAllSubviews];
-//    [self.rootView setHLinearLayout];
-//    self.demoModel = [demo demoModel];
-//    self.demoModel.selection = self.demoModel.rootView;
-//    [self.rootView addSubviews:@[
-//     self.demoModel.rootView,
-//     ]];
-//}
-//
-//- (void)viewWillLayoutSubviews
-//{
-//}
-//
-//- (void)viewDidLayoutSubviews
-//{
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        //        [self.delegate demoViewChanged:self.rootView];
-//        //        [self.delegate demoViewChanged:self.demoModel.rootView];
-//
-//        NSLog(@"viewDidLayoutSubviews: %@ %d",
-//              [self.demoModel.rootView debugName],
-//              [self.demoModel.rootView.subviews count]);
-//        [self.delegate demoModelChanged:self.demoModel];
-//    });
-//}
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        [self setVLinearLayout];
+        self.margin = 40;
+        self.opaque = YES;
+        self.backgroundColor = [UIColor whiteColor];
+
+        [self addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];
+    }
+    return self;
+}
+
+- (void)createContents
+{
+    UILabel *resizeInstructionsLabel = [DemoViewFactory createLabel:@"Drag in this window to resize"
+                                                           fontSize:24.f
+                                                          textColor:[DemoViewFactory colorWithRGBHex:0xcccccc]];
+    [self addSubview:resizeInstructionsLabel
+          withLayout:[WeView2BlockLayout create:^(UIView *superview, UIView *subview) {
+        WeView2Assert(subview);
+        WeView2Assert(subview.superview);
+        const int kHMargin = 20;
+        const int kVMargin = 20;
+        subview.right = subview.superview.width - kHMargin;
+        subview.bottom = subview.superview.height - kVMargin;
+    }]];
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan ||
+        sender.state == UIGestureRecognizerStateChanged ||
+        sender.state == UIGestureRecognizerStateEnded)
+    {
+        CGPoint rootViewCenter = [self convertPoint:self.center
+                                                    fromView:self.superview];
+        CGPoint gesturePoint = [sender locationInView:self];
+        CGPoint distance = CGPointAbs(CGPointSubtract(rootViewCenter, gesturePoint));
+
+        [self setNoopLayout];
+
+        self.demoModel.rootView.size = CGSizeRound(CGSizeMake(distance.x * 2.f,
+                                                              distance.y * 2.f));
+        [self.demoModel.rootView centerHorizontallyInSuperview];
+        [self.demoModel.rootView centerVerticallyInSuperview];
+    }
+}
+
+- (void)displayDemoModel:(DemoModel *)demoModel
+{
+    [self removeAllSubviews];
+    [self setHLinearLayout];
+    self.demoModel = demoModel;
+    self.demoModel.selection = self.demoModel.rootView;
+
+    [self createContents];
+
+    [self addSubviews:@[
+     self.demoModel.rootView,
+     ]];
+}
 
 @end

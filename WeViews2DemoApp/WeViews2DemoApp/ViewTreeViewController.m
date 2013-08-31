@@ -37,11 +37,13 @@
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)handleDemoChanged:(NSNotification *)notification {
+- (void)handleDemoChanged:(NSNotification *)notification
+{
     [self updateDemoModel:notification.object];
 }
 

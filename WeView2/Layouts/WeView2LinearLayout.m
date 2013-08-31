@@ -156,7 +156,7 @@
 
         CGSize idealSize = CGSizeZero;
 
-        if (!subview.ignoreNaturalSize)
+        if (!subview.ignoreDesiredSize)
         {
             // TODO: In our initial pass, should we be using a guide size of
             // CGFLOAT_MAX, CGFLOAT_MAX?

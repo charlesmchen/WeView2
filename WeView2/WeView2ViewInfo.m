@@ -128,7 +128,7 @@
     [result appendString:[self formatLayoutDescriptionItem:@"maxHeight" value:@(self.maxHeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"hStretchWeight" value:@(self.hStretchWeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"vStretchWeight" value:@(self.vStretchWeight)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"ignoreNaturalSize" value:@(self.ignoreNaturalSize)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"ignoreDesiredSize" value:@(self.ignoreDesiredSize)]];
     [result appendString:[self formatLayoutDescriptionItem:@"leftMargin" value:@(self.leftMargin)]];
     [result appendString:[self formatLayoutDescriptionItem:@"rightMargin" value:@(self.rightMargin)]];
     [result appendString:[self formatLayoutDescriptionItem:@"topMargin" value:@(self.topMargin)]];

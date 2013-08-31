@@ -11,21 +11,10 @@
 
 #import "WeView2.h"
 
-//#import "Demo.h"
-//
-//@protocol SandboxViewDelegate <NSObject>
-//
-//- (void)demoViewChanged:(UIView *)view;
-//- (void)demoModelChanged:(DemoModel *)demoModel;
-//
-//@end
-//
-//#pragma mark -
+#import "Demo.h"
 
 @interface SandboxView : WeView2
 
-//@property (nonatomic, weak) id<SandboxViewDelegate> delegate;
-//
-//- (void)displayDemo:(Demo *)demo;
+- (void)displayDemoModel:(DemoModel *)demoModel;
 
 @end

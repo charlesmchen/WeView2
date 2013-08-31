@@ -9,15 +9,13 @@
 #import "SandboxViewController.h"
 #import "WeView2Macros.h"
 #import "WeView2DemoConstants.h"
+#import "DefaultSandboxView.h"
 
 @interface SandboxViewController ()
 
-@property (nonatomic) WeView2 *rootView;
-@property (nonatomic) UIView *resizeHandle;
+@property (nonatomic) SandboxView *sandboxView;
 
 @property (nonatomic) DemoModel *demoModel;
-//@property (nonatomic) Demo *demo;
-//@property (nonatomic) UIView *demoView;
 
 @end
 
@@ -43,25 +41,14 @@
 }
 
 - (void)handleSelectionAltered:(NSNotification *)notification {
-    NSLog(@"tree handleSelectionAltered");
-    [self.rootView setNeedsLayout];
-//    self.currentView = notification.object;
-//    //    [self updateState];
-//    [self updateContent];
+    [self.sandboxView setNeedsLayout];
 }
 
 - (void)loadView
 {
-    self.rootView = [[[WeView2 alloc] init]
-                     setVLinearLayout];
-    self.rootView.margin = 40;
-    self.rootView.opaque = YES;
-    self.rootView.backgroundColor = [UIColor whiteColor];
-    self.rootView.debugName = @"SandboxViewController.rootView";
-//    self.rootView.debugLayout = YES;
-    self.view = self.rootView;
-
-    [self.rootView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];
+    self.sandboxView = [[DefaultSandboxView alloc] init];
+    self.sandboxView.debugName = @"sandboxView";
+    self.view = self.sandboxView;
 }
 
 - (void)viewDidLoad
@@ -75,35 +62,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)handlePan:(UIPanGestureRecognizer *)sender
-{
-    if (sender.state == UIGestureRecognizerStateBegan ||
-        sender.state == UIGestureRecognizerStateChanged ||
-        sender.state == UIGestureRecognizerStateEnded)
-    {
-        CGPoint rootViewCenter = [self.rootView convertPoint:self.rootView.center
-                                                    fromView:self.rootView.superview];
-        CGPoint gesturePoint = [sender locationInView:self.rootView];
-        CGPoint distance = CGPointAbs(CGPointSubtract(rootViewCenter, gesturePoint));
-
-        [self.rootView setNoopLayout];
-        self.demoModel.rootView.size = CGSizeRound(CGSizeMake(distance.x * 2.f,
-                                                              distance.y * 2.f));
-        [self.demoModel.rootView centerHorizontallyInSuperview];
-        [self.demoModel.rootView centerVerticallyInSuperview];
-        //        DebugRect(@"self.demoModel.rootView", self.demoModel.rootView.frame);
-    }
-}
-
 - (void)displayDemo:(Demo *)demo
 {
-    [self.rootView removeAllSubviews];
-    [self.rootView setHLinearLayout];
     self.demoModel = [demo demoModel];
-    self.demoModel.selection = self.demoModel.rootView;
-    [self.rootView addSubviews:@[
-     self.demoModel.rootView,
-     ]];
+    [self.sandboxView displayDemoModel:self.demoModel];
 }
 
 - (void)viewWillLayoutSubviews
@@ -113,22 +75,13 @@
 - (void)viewDidLayoutSubviews
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        //        [self.delegate demoViewChanged:self.rootView];
-        //        [self.delegate demoViewChanged:self.demoModel.rootView];
-
         NSLog(@"viewDidLayoutSubviews: %@ %d",
               [self.demoModel.rootView debugName],
               [self.demoModel.rootView.subviews count]);
 
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DEMO_CHANGED
                                                             object:self.demoModel];
-
-//        [self.delegate demoModelChanged:self.demoModel];
     });
 }
-
-//NOTIFICATION_DEMO_CHANGED
-//[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SELECTION_CHANGED
-//                                                    object:_selection];
 
 @end

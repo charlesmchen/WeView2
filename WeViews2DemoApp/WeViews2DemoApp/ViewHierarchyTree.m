@@ -6,14 +6,8 @@
 //
 
 #import "ViewHierarchyTree.h"
-//#import "WeViews.h"
-//#import "WeMacros.h"
-//#import "WeLabel.h"
 #import "DemoModel.h"
-//#import "WePanel.h"
 #import "WeView2DemoConstants.h"
-//#import "ResizeCorner.h"
-//#import "MockIPhone.h"
 #import "WeView2DemoUtils.h"
 
 @interface ViewHierarchyTree () <UITableViewDelegate, UITableViewDataSource>
@@ -30,7 +24,7 @@
 
 @end
 
-#pragma mark
+#pragma mark -
 
 @interface TreeNode : WeView2
 
@@ -47,19 +41,20 @@
 
 @implementation TreeNode
 
-- (void)updateContents {
-//    NSLog(@"TreeNode updateContents expanded: %d %@", self.expanded, [self.item class]);
+- (void)updateContents
+{
     [self removeAllSubviews];
 
     BOOL selected = self.demoModel.selection == self.item;
     if (selected)
     {
-//        self.backgroundColor = [UIColor colorWithWhite:0.85f alpha:1.f];
         self.backgroundColor = [UIColor colorWithRed:0.8f
                                                green:0.9f
                                                 blue:1.f
                                                alpha:1.f];
-    } else {
+    }
+    else
+    {
         self.backgroundColor = [UIColor whiteColor];
     }
     self.opaque = YES;
@@ -75,54 +70,38 @@
     expandLabel.backgroundColor = [UIColor clearColor];
     expandLabel.opaque = NO;
     expandLabel.text = [NSString stringWithFormat:@"%C",
-                         (unichar) (self.expanded ? BLACK_DOWN_POINTING_TRIANGLE : WHITE_RIGHT_POINTING_TRIANGLE)];
+                        (unichar) (self.expanded ? BLACK_DOWN_POINTING_TRIANGLE : WHITE_RIGHT_POINTING_TRIANGLE)];
     expandLabel.font = [UIFont systemFontOfSize:14];
     expandLabel.textColor = [UIColor blackColor];
     expandLabel.userInteractionEnabled = YES;
     [expandLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleExpand)]];
 
-//    WeView2* expandButton = [[WeView2 alloc] init];
-//    expandButton.backgroundColor = [UIColor clearColor];
-//    expandButton.opaque = NO;
-//    [expandButton addCenter1:expandLabel];
-//    [expandButton addClickSelector:@selector(handleExpand)
-//                            target:self];
-
     // TODO:
     NSString* description = [[self.item class] description];
-//    NSString* description = [NSString stringWithFormat:@"%@ (%@)",
-//                             [[self.item class] description],
-//                             [self.item debugName]];
 
     UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor clearColor];
     label.opaque = NO;
     label.text = description;
-//    label.font = [UIFont systemFontOfSize:14];
+    //    label.font = [UIFont systemFontOfSize:14];
     label.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
                                  size:14];
     label.textColor = [UIColor blackColor];
     label.userInteractionEnabled = YES;
-//    [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSelect)]];
 
     const int INDENT_PIXELS = 5;
     [[[[[[self setHLinearLayout]
          addSubviews:@[expandLabel, label,]]
         setHMargin:10 + self.indentLevel * INDENT_PIXELS]
-        setVMargin:3]
-       setSpacing:5]
-      setHAlign:H_ALIGN_LEFT];
+       setVMargin:3]
+      setSpacing:5]
+     setHAlign:H_ALIGN_LEFT];
 
     [self setNeedsLayout];
 }
 
-//- (void)handleSelect {
-//    NSLog(@"handleSelect");
-//    [self.parent selectItem:self.item];
-//}
-
-- (void)handleExpand {
-//    NSLog(@"handleExpand");
+- (void)handleExpand
+{
     [self.parent toggleExpanded:self.item];
 }
 
@@ -130,7 +109,8 @@
            demoModel:(DemoModel *)demoModel
               parent:(ViewHierarchyTree *)parent
             expanded:(BOOL)expanded
-         indentLevel:(int)indentLevel {
+         indentLevel:(int)indentLevel
+{
     TreeNode* result = [[TreeNode alloc] init];
     result.item = item;
     result.demoModel = demoModel;
@@ -145,17 +125,20 @@
 
 @end
 
-#pragma mark
+#pragma mark -
 
 @implementation ViewHierarchyTree
 
-- (void)dealloc {
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (id)init {
+- (id)init
+{
     self = [super init];
-    if (self == nil) {
+    if (self == nil)
+    {
         assert(0);
     }
 
@@ -176,12 +159,13 @@
     return self;
 }
 
-- (void)setup {
+- (void)setup
+{
     self.stretchWeight = 1.0f;
     self.table = [[UITableView alloc] init];
     self.table.backgroundColor = [UIColor whiteColor];
     self.table.opaque = YES;
-//    self.table.rowHeight = 5;
+    //    self.table.rowHeight = 5;
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self.table withPureStretch];
@@ -194,7 +178,8 @@
     [self updateState];
 }
 
-+ (ViewHierarchyTree *)create:(DemoModel *)demoModel {
++ (ViewHierarchyTree *)create:(DemoModel *)demoModel
+{
 
     ViewHierarchyTree* result = [[ViewHierarchyTree alloc] init];
     result.opaque = YES;
@@ -207,80 +192,40 @@
     return result;
 }
 
-- (void)handleItemAdded:(NSNotification *)notification {
+- (void)handleItemAdded:(NSNotification *)notification
+{
     NSLog(@"tree handleItemAdded: %@", notification.object);
     [self.expandedViews addObject:notification.object];
 }
 
-- (void)handleSelectionChanged {
+- (void)handleSelectionChanged
+{
     NSLog(@"tree handleSelectionChanged");
     [self updateState];
 }
 
-#pragma mark -
-#pragma mark UITableViewDataSource
+#pragma mark - UITableViewDataSource
 
 - (void)buildVisibleViews:(UIView *)pseudoView
-                   indent:(int)indent {
+                   indent:(int)indent
+{
 
-//    if ([pseudoView isKindOfClass:[ResizeCorner class]]) {
-//        return;
-//    }
     [self.visibleViews addObject:pseudoView];
     [self.indents addObject:[NSNumber numberWithInt:indent]];
 
-//    if ([pseudoView isKindOfClass:[UIToolbar class]]) {
-//        UIToolbar* toolbar = (UIToolbar*) pseudoView;
-//        if ([self.expandedViews containsObject:pseudoView]) {
-//            for (UIBarButtonItem* toolbarItem in toolbar.items) {
-//                [self.visibleViews addObject:toolbarItem];
-//                [self.indents addObject:[NSNumber numberWithInt:indent+1]];
-//            }
-//        }
-//
-//        return;
-//    }
-
-    if ([WeView2DemoUtils ignoreChildrenOfView:pseudoView]) {
+    if ([WeView2DemoUtils ignoreChildrenOfView:pseudoView])
+    {
         // Ignore children of certain UIView subclasses.
         return;
     }
 
-//    NSLog(@"buildVisibleViews: %@ %@ %d", [pseudoView class], [pseudoView debugName], [pseudoView.subviews count]);
-
     NSMutableArray* ignores = [NSMutableArray array];
-    if ([self.expandedViews containsObject:pseudoView]) {
-
-//        if ([pseudoView respondsToSelector:@selector(mockSubviews)]) {
-//            NSArray* mockSubviews = [pseudoView performSelector:@selector(mockSubviews)];
-//            for (UIView* subview in mockSubviews) {
-//                [self buildVisibleViews:subview
-//                                 indent:indent + 1];
-//            }
-//            return;
-//        }
-
-//        if ([pseudoView isKindOfClass:[WePanel class]]) {
-//            WePanel* fpanel = (WePanel*) pseudoView;
-//            for (WePanelLayer* layer in fpanel.layers) {
-//                [self.visibleViews addObject:layer];
-//                [self.indents addObject:[NSNumber numberWithInt:indent+1]];
-//
-//                BOOL layerExpanded = [self.expandedViews containsObject:layer];
-//                for (UIView* subview in layer.views) {
-//                    [ignores addObject:subview];
-//                    if (layerExpanded) {
-//                        [self buildVisibleViews:subview
-//                                         indent:indent + 2];
-//                        //                    [self.visibleViews addObject:subview];
-//                        //                    [self.indents addObject:[NSNumber numberWithInt:indent+2]];
-//                    }
-//                }
-//            }
-//        }
-
-        for (UIView* subview in pseudoView.subviews) {
-            if ([ignores containsObject:subview]) {
+    if ([self.expandedViews containsObject:pseudoView])
+    {
+        for (UIView* subview in pseudoView.subviews)
+        {
+            if ([ignores containsObject:subview])
+            {
                 continue;
             }
             [self buildVisibleViews:subview
@@ -289,13 +234,13 @@
     }
 }
 
-- (void)updateState {
-    if (![[NSThread currentThread] isMainThread]) {
+- (void)updateState
+{
+    if (![[NSThread currentThread] isMainThread])
+    {
         [self performSelectorOnMainThread:_cmd withObject:nil waitUntilDone:NO];
         return;
     }
-
-//    NSLog(@"updateState");
 
     self.visibleViews = [NSMutableArray array];
     self.indents = [NSMutableArray array];
@@ -304,61 +249,51 @@
     [self.expandedViews addObject:self.demoModel.rootView];
 
     [self buildVisibleViews:self.demoModel.rootView
-                 indent:0];
-
-//    for (id item in self.expandedViews) {
-//        NSLog(@"self.expandedViews raw: %@", [item class]);
-//    }
-//    NSLog(@"self.expandedViews raw: %d", [self.expandedViews count]);
-//    for (int i=0; i < [self.visibleViews count]; i++) {
-//        id item = [self.visibleViews objectAtIndex:i];
-//        id indent = [self.indents objectAtIndex:i];
-//        NSLog(@"self.visibleViews raw: %@ (%@)", [item class], indent);
-//    }
-//    NSLog(@"self.visibleViews raw: %d", [self.visibleViews count]);
+                     indent:0];
 
     // Cull views from self.expandedViews which are not currently visible.
     [self.expandedViews intersectSet:[NSSet setWithArray:self.visibleViews]];
-
-//    for (id item in self.expandedViews) {
-//        NSLog(@"self.expandedViews after: %@", [item class]);
-//    }
-//    NSLog(@"self.expandedViews after: %d", [self.expandedViews count]);
 
     [self.table reloadData];
 
     [self setNeedsLayout];
 }
 
-- (void)toggleExpanded:(id)item {
-    if ([self.expandedViews containsObject:item]) {
+- (void)toggleExpanded:(id)item
+{
+    if ([self.expandedViews containsObject:item])
+    {
         [self.expandedViews removeObject:item];
-    } else {
+    } else
+    {
         [self.expandedViews addObject:item];
     }
 
     [self updateState];
 }
 
-- (void)selectItem:(id)item {
-//    NSLog(@"selectItem: %@", [item class]);
-    if (self.demoModel.selection == item) {
+- (void)selectItem:(id)item
+{
+    if (self.demoModel.selection == item)
+    {
         return;
     }
     self.demoModel.selection = item;
 }
 
-- (NSArray *)items {
+- (NSArray *)items
+{
     return self.visibleViews;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    NSLog(@"numberOfRowsInSection: %d", [[self items] count]);
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return [[self items] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     // TODO: Reuse cells.
     UITableViewCell* result = [[UITableViewCell alloc] init];
     result.backgroundColor = [UIColor whiteColor];
@@ -386,16 +321,17 @@
     return result;
 }
 
-#pragma mark -
-#pragma mark UITableViewDelegate
+#pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
     id item = [[self items] objectAtIndex:indexPath.row];
-//    NSLog(@"didSelectRowAtIndexPath: %@", [item class]);
     [self selectItem:item];
 }
 

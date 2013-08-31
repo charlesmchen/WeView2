@@ -6,41 +6,9 @@
 //
 
 #import "WeView2DemoUtils.h"
-//#import "WeMacros.h"
-//#import "WeViews.h"
-//#import "WePanel.h"
-
-//static UIColor* lastBackgroundColor = nil;
-//static UIColor* lastForegroundColor = nil;
 
 @implementation WeView2DemoUtils
 
-//+ (UIColor*) lastBackgroundColor {
-//    if (lastBackgroundColor == nil) {
-//        lastBackgroundColor = [[UIColor blueColor] retain];
-//        lastBackgroundColor = [[WeView2DemoUtils randomBackgroundColor] retain];
-//    }
-//    return lastBackgroundColor;
-//}
-//
-//+ (void) setLastBackgroundColor:(UIColor*) value {
-//    [lastBackgroundColor release];
-//    lastBackgroundColor = [value retain];
-//}
-//
-//+ (UIColor*) lastForegroundColor {
-//    if (lastForegroundColor == nil) {
-//        lastForegroundColor = [[UIColor whiteColor] retain];
-//        lastForegroundColor = [[WeView2DemoUtils randomBackgroundColor] retain];
-//    }
-//    return lastForegroundColor;
-//}
-//
-//+ (void) setLastForegroundColor:(UIColor*) value {
-//    [lastForegroundColor release];
-//    lastForegroundColor = [value retain];
-//}
-//
 //+ (NSArray*) allColors {
 //    return [NSArray arrayWithObjects:
 //            [UIColor redColor],

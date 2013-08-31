@@ -28,7 +28,7 @@
 
 @property (nonatomic) CGFloat hStretchWeight;
 @property (nonatomic) CGFloat vStretchWeight;
-@property (nonatomic) BOOL ignoreNaturalSize;
+@property (nonatomic) BOOL ignoreDesiredSize;
 
 @property (nonatomic) CGFloat leftMargin;
 @property (nonatomic) CGFloat rightMargin;
