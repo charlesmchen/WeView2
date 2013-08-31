@@ -119,10 +119,10 @@
         NSLog(@"viewDidLayoutSubviews: %@ %d",
               [self.demoModel.rootView debugName],
               [self.demoModel.rootView.subviews count]);
-        
+
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DEMO_CHANGED
                                                             object:self.demoModel];
-        
+
 //        [self.delegate demoModelChanged:self.demoModel];
     });
 }

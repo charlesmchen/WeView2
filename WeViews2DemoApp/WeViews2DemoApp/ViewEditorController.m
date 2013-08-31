@@ -139,14 +139,18 @@ typedef void (^SetterBlock)(UIView *view);
     nameLabel.backgroundColor = [UIColor clearColor];
     nameLabel.opaque = NO;
     nameLabel.textColor = [UIColor blackColor];
-    nameLabel.font = [UIFont boldSystemFontOfSize:14.f];
+//    nameLabel.font = [UIFont boldSystemFontOfSize:14.f];
+    nameLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
+                                     size:14];
     nameLabel.text = [NSString stringWithFormat:@"%@:", self.name];
 
     UILabel *valueLabel = [[UILabel alloc] init];
     valueLabel.backgroundColor = [UIColor clearColor];
     valueLabel.opaque = NO;
     valueLabel.textColor = [UIColor blackColor];
-    valueLabel.font = [UIFont systemFontOfSize:14.f];
+//    valueLabel.font = [UIFont systemFontOfSize:14.f];
+    valueLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
+                                      size:14];
     valueLabel.text = self.getterBlock(view);
 
     NSMutableArray *subviews = [@[
@@ -167,7 +171,9 @@ typedef void (^SetterBlock)(UIView *view);
         setterButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
         [setterButton setTitle:setter.name forState:UIControlStateNormal];
         [setterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        setterButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
+//        setterButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
+        setterButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
+                                                       size:14];
         [setterButton addTarget:setter
                          action:@selector(perform:)
                forControlEvents:UIControlEventTouchUpInside];

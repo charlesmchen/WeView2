@@ -54,7 +54,11 @@
     BOOL selected = self.demoModel.selection == self.item;
     if (selected)
     {
-        self.backgroundColor = [UIColor colorWithWhite:0.85f alpha:1.f];
+//        self.backgroundColor = [UIColor colorWithWhite:0.85f alpha:1.f];
+        self.backgroundColor = [UIColor colorWithRed:0.8f
+                                               green:0.9f
+                                                blue:1.f
+                                               alpha:1.f];
     } else {
         self.backgroundColor = [UIColor whiteColor];
     }
@@ -94,7 +98,9 @@
     label.backgroundColor = [UIColor clearColor];
     label.opaque = NO;
     label.text = description;
-    label.font = [UIFont systemFontOfSize:14];
+//    label.font = [UIFont systemFontOfSize:14];
+    label.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
+                                 size:14];
     label.textColor = [UIColor blackColor];
     label.userInteractionEnabled = YES;
 //    [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSelect)]];
@@ -176,6 +182,7 @@
     self.table.backgroundColor = [UIColor whiteColor];
     self.table.opaque = YES;
 //    self.table.rowHeight = 5;
+    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self.table withPureStretch];
     [[self addSubviews:@[self.table,]]

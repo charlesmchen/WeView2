@@ -78,7 +78,17 @@
 
     Class clazz = self.demoClasses[indexPath.row];
     cell.textLabel.text = [clazz description];
+    cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
+                                          size:14];
+
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self tableView:tableView
+                      cellForRowAtIndexPath:indexPath];
+    return [cell.textLabel sizeThatFits:CGSizeZero].height + 10;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

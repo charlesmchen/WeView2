@@ -45,9 +45,9 @@
 //- (void)handleSelectionAltered:(NSNotification *)notification {
 //    NSLog(@"tree handleSelectionAltered");
 //    [self.rootView setNeedsLayout];
-////    self.currentView = notification.object;
-////    //    [self updateState];
-////    [self updateContent];
+//    self.currentView = notification.object;
+//    //    [self updateState];
+//    [self updateContent];
 //}
 //
 //- (void)loadView
@@ -58,7 +58,7 @@
 //    self.rootView.opaque = YES;
 //    self.rootView.backgroundColor = [UIColor whiteColor];
 //    self.rootView.debugName = @"SandboxView.rootView";
-////    self.rootView.debugLayout = YES;
+//    self.rootView.debugLayout = YES;
 //    self.view = self.rootView;
 //
 //    [self.rootView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];

@@ -16,7 +16,7 @@
 //@property (nonatomic) UIView *resizeHandle;
 //
 //@property (nonatomic) DemoModel *demoModel;
-////@property (nonatomic) Demo *demo;
+//@property (nonatomic) Demo *demo;
 //@property (nonatomic) UIView *demoView;
 
 @end
@@ -45,9 +45,9 @@
 //- (void)handleSelectionAltered:(NSNotification *)notification {
 //    NSLog(@"tree handleSelectionAltered");
 //    [self.rootView setNeedsLayout];
-////    self.currentView = notification.object;
-////    //    [self updateState];
-////    [self updateContent];
+//    self.currentView = notification.object;
+//    //    [self updateState];
+//    [self updateContent];
 //}
 //
 //- (void)loadView
@@ -58,7 +58,7 @@
 //    self.rootView.opaque = YES;
 //    self.rootView.backgroundColor = [UIColor whiteColor];
 //    self.rootView.debugName = @"DefaultSandboxView.rootView";
-////    self.rootView.debugLayout = YES;
+//    self.rootView.debugLayout = YES;
 //    self.view = self.rootView;
 //
 //    [self.rootView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];

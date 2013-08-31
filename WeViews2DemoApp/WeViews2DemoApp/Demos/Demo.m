@@ -37,7 +37,7 @@
     result.textColor = textColor;
 //    result.font = [UIFont systemFontOfSize:fontSize];
     result.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
-                                  size:fontSize];    
+                                  size:fontSize];
     result.text = text;
     return result;
 }

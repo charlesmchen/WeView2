@@ -34,10 +34,10 @@
 
     self.sidebarViewController = [[SidebarViewController alloc] init];
     self.sidebarViewController.selectDemoViewController.delegate = self;
-    
+
     self.sandboxViewController = [[SandboxViewController alloc] init];
 //    self.demoViewController.delegate = self;
-    
+
 //    self.demoViewController = [[DemoViewController alloc] init];
 //    self.demoViewController.delegate = self;
 
@@ -96,14 +96,14 @@
 //    self.demoModel.delegate = nil;
 //    self.demoModel = demoModel;
 //    self.demoModel.delegate = self;
-////    [self.sidebarViewController.demoDescriptionViewController displayView:demoModel.rootView];
+//    [self.sidebarViewController.demoDescriptionViewController displayView:demoModel.rootView];
 //    [self.sidebarViewController.viewTreeViewController updateDemoModel:demoModel];
 //}
 //
-////- (void)demoViewChanged:(UIView *)view
-////{
-////    [self.sidebarViewController.demoDescriptionViewController displayView:view];
-////}
+//- (void)demoViewChanged:(UIView *)view
+//{
+//    [self.sidebarViewController.demoDescriptionViewController displayView:view];
+//}
 
 #pragma mark - DemoModelDelegate
 
