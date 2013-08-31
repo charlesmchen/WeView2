@@ -30,7 +30,10 @@
         [self setVLinearLayout];
         self.margin = 40;
         self.opaque = YES;
-        self.backgroundColor = [UIColor whiteColor];
+//        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"subtlepatterns.com/graphy/graphy"]];
+//        [view setOpaque:NO];
+//        [[view layer] setOpaque:NO];
 
         [self addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];
     }
@@ -40,14 +43,14 @@
 - (void)createContents
 {
     UILabel *resizeInstructionsLabel = [DemoViewFactory createLabel:@"Drag in this window to resize"
-                                                           fontSize:24.f
-                                                          textColor:[DemoViewFactory colorWithRGBHex:0xcccccc]];
+                                                           fontSize:14.f
+                                                          textColor:[DemoViewFactory colorWithRGBHex:0x888888]];
     [self addSubview:resizeInstructionsLabel
-          withLayout:[WeView2BlockLayout create:^(UIView *superview, UIView *subview) {
+          withLayout:[WeView2BlockLayout blockLayoutWithBlock:^(UIView *superview, UIView *subview) {
         WeView2Assert(subview);
         WeView2Assert(subview.superview);
-        const int kHMargin = 20;
-        const int kVMargin = 20;
+        const int kHMargin = 20 + 5;
+        const int kVMargin = 20 + 5;
         subview.right = subview.superview.width - kHMargin;
         subview.bottom = subview.superview.height - kVMargin;
     }]];
@@ -58,7 +61,7 @@
                                                                target:self
                                                              selector:@selector(snapToDesiredSize:)];
     [self addSubview:desiredSizeButton
-          withLayout:[WeView2BlockLayout create:^(UIView *superview, UIView *subview) {
+          withLayout:[WeView2BlockLayout blockLayoutWithBlock:^(UIView *superview, UIView *subview) {
         WeView2Assert(subview);
         WeView2Assert(subview.superview);
         const int kHMargin = 20;

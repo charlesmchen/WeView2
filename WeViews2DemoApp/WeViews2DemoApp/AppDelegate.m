@@ -8,7 +8,6 @@
 #import "AppDelegate.h"
 
 #import "Demo.h"
-#import "LinearDemo1.h"
 #import "SandboxViewController.h"
 #import "SidebarViewController.h"
 
@@ -37,10 +36,6 @@
     self.splitViewController.viewControllers = @[self.sidebarViewController, self.sandboxViewController];
 
     self.window.rootViewController = self.splitViewController;
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self demoSelected:[[LinearDemo1 alloc] init]];
-    });
 
     [self.window makeKeyAndVisible];
     return YES;

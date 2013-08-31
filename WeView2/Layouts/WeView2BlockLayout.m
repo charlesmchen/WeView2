@@ -21,7 +21,7 @@
 
 @implementation WeView2BlockLayout
 
-+ (WeView2BlockLayout *)create:(BlockLayoutBlock)block
++ (WeView2BlockLayout *)blockLayoutWithBlock:(BlockLayoutBlock)block
 {
     WeView2Assert(block);
     WeView2BlockLayout *layout = [[WeView2BlockLayout alloc] init];

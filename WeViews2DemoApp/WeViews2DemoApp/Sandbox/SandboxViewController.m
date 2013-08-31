@@ -68,6 +68,15 @@
 {
     self.demoModel = [demo demoModel];
     [self.sandboxView displayDemoModel:self.demoModel];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+//        NSLog(@"displayDemo: %@ %d",
+//              [self.demoModel.rootView debugName],
+//              [self.demoModel.rootView.subviews count]);
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DEMO_CHANGED
+                                                            object:self.demoModel];
+    });
 }
 
 - (void)viewWillLayoutSubviews
@@ -81,8 +90,8 @@
 //              [self.demoModel.rootView debugName],
 //              [self.demoModel.rootView.subviews count]);
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DEMO_CHANGED
-                                                            object:self.demoModel];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SELECTION_CHANGED
+                                                            object:self.demoModel.selection];
     });
 }
 

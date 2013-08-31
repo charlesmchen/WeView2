@@ -16,6 +16,6 @@ typedef void(^BlockLayoutBlock)(UIView *superview, UIView *subview);
 
 @interface WeView2BlockLayout : WeView2Layout
 
-+ (WeView2BlockLayout *)create:(BlockLayoutBlock)block;
++ (WeView2BlockLayout *)blockLayoutWithBlock:(BlockLayoutBlock)block;
 
 @end

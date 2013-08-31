@@ -10,6 +10,7 @@
 #import "LinearDemo1.h"
 #import "LinearDemo2.h"
 #import "CenterDemo1.h"
+#import "iPhoneDemo1.h"
 
 @interface SelectDemoViewController ()
 
@@ -33,7 +34,13 @@
                              [LinearDemo1 class],
                              [LinearDemo2 class],
                              [CenterDemo1 class],
+                             [iPhoneDemo1 class],
                              ];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate demoSelected:[[iPhoneDemo1 alloc] init]];
+//            [self demoSelected:[[LinearDemo1 alloc] init]];
+        });
     }
     return self;
 }

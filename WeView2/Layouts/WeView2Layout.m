@@ -59,7 +59,8 @@
     {
         subviewSize.height = cellBounds.size.height;
     }
-    subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(CGSizeMin(cellBounds.size, subviewSize)));
+//    subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(CGSizeMin(cellBounds.size, subviewSize)));
+    subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
     subview.frame = alignSizeWithinRect(subviewSize, cellBounds, superview.hAlign, superview.vAlign);
 }
 

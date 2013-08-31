@@ -302,3 +302,46 @@ FormatIntSize(IntSize value)
     return [NSString stringWithFormat:@"[width: %d, height: %d]",
             value.width, value.height];
 }
+
+CG_INLINE CGRect CenterSizeOnRect(CGRect srcRect, CGSize srcSize)
+{
+    CGRect result = CGRectZero;
+    result.size = srcSize;
+    result.origin.x = roundf(srcRect.origin.x + (srcRect.size.width - result.size.width) * 0.5f);
+    result.origin.y = roundf(srcRect.origin.y + (srcRect.size.height - result.size.height) * 0.5f);
+    return result;
+}
+
+CG_INLINE CGRect FillRectWithSize(CGRect srcRect, CGSize srcSize)
+{
+    if (srcSize.width <= 0.f ||
+        srcSize.height <= 0.f)
+    {
+        return srcRect;
+    }
+
+    CGFloat widthFactor = srcRect.size.width / srcSize.width;
+    CGFloat heightFactor = srcRect.size.height / srcSize.height;
+    CGFloat factor = MAX(widthFactor, heightFactor);
+    CGSize resultSize;
+    resultSize.width = roundf(srcSize.width * factor);
+    resultSize.height = roundf(srcSize.height * factor);
+    return CenterSizeOnRect(srcRect, resultSize);
+}
+
+CG_INLINE CGRect FitSizeInRect(CGRect srcRect, CGSize srcSize)
+{
+    if (srcSize.width <= 0.f ||
+        srcSize.height <= 0.f)
+    {
+        return srcRect;
+    }
+
+    CGFloat widthFactor = srcRect.size.width / srcSize.width;
+    CGFloat heightFactor = srcRect.size.height / srcSize.height;
+    CGFloat factor = MIN(widthFactor, heightFactor);
+    CGSize resultSize;
+    resultSize.width = roundf(srcSize.width * factor);
+    resultSize.height = roundf(srcSize.height * factor);
+    return CenterSizeOnRect(srcRect, resultSize);
+}

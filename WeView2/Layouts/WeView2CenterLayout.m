@@ -19,23 +19,6 @@
     return layout;
 }
 
-- (CGSize)emptySizeOfView:(UIView *)view
-{
-    // Calculate the maximum size of any given subview,
-    // ie. the total size less margins and spacing.
-    return [self insetSizeOfView:view];
-}
-
-- (CGSize)getMaxContentSize:(CGSize)size
-                       view:(UIView *)view
-{
-    // Calculate the maximum size of any given subview,
-    // ie. the total size less margins and spacing.
-    CGSize result = CGSizeSubtract(size, [self emptySizeOfView:view]);
-
-    return CGSizeFloor(CGSizeMax(result, CGSizeZero));
-}
-
 // TODO: Honor max/min widths in the earlier phases, of "min size" and "layout" functions.
 // TODO: Do we need to honor other params as well?
 - (CGSize)minSizeOfContentsView:(UIView *)view
@@ -53,11 +36,10 @@
 
     if (debugLayout)
     {
-        NSLog(@"getMaxContentSize: contentBounds: %@, guideSize: %@, insetSizeOfView: %@, emptySizeOfView: %@",
+        NSLog(@"getMaxContentSize: contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
               FormatRect(contentBounds),
               FormatSize(guideSize),
-              FormatSize([self insetSizeOfView:view]),
-              FormatSize([self emptySizeOfView:view]));
+              FormatSize([self insetSizeOfView:view]));
     }
 
     CGSize result = CGSizeZero;
@@ -80,8 +62,7 @@
                                      CGSizeMin(subview.maxSize, idealSize)));
     }
 
-    result = CGSizeCeil(CGSizeMin(contentBounds.size,
-                                  result));
+    result = CGSizeCeil(result);
     if (debugLayout)
     {
         NSLog(@"- minSizeOfContentsView: %@ thatFitsSize: = %@", [view class], NSStringFromCGSize(result));
@@ -104,11 +85,10 @@
 
     if (debugLayout)
     {
-        NSLog(@"getMaxContentSize: contentBounds: %@, guideSize: %@, insetSizeOfView: %@, emptySizeOfView: %@",
+        NSLog(@"getMaxContentSize: contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
               FormatRect(contentBounds),
               FormatSize(guideSize),
-              FormatSize([self insetSizeOfView:view]),
-              FormatSize([self emptySizeOfView:view]));
+              FormatSize([self insetSizeOfView:view]));
     }
 
     for (int i=0; i < [subviews count]; i++)
