@@ -10,7 +10,6 @@
 #import "WeView2Macros.h"
 #import "WeView2DemoConstants.h"
 #import "DemoViewFactory.h"
-#import "WeView2BlockLayout.h"
 
 @interface DefaultSandboxView ()
 
@@ -30,10 +29,10 @@
         [self setVLinearLayout];
         self.margin = 40;
         self.opaque = YES;
-//        self.backgroundColor = [UIColor whiteColor];
+        //        self.backgroundColor = [UIColor whiteColor];
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"subtlepatterns.com/graphy/graphy"]];
-//        [view setOpaque:NO];
-//        [[view layer] setOpaque:NO];
+        //        [view setOpaque:NO];
+        //        [[view layer] setOpaque:NO];
 
         [self addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];
     }
@@ -46,14 +45,14 @@
                                                            fontSize:14.f
                                                           textColor:[DemoViewFactory colorWithRGBHex:0x888888]];
     [self addSubview:resizeInstructionsLabel
-          withLayout:[WeView2BlockLayout blockLayoutWithBlock:^(UIView *superview, UIView *subview) {
-        WeView2Assert(subview);
-        WeView2Assert(subview.superview);
-        const int kHMargin = 20 + 5;
-        const int kVMargin = 20 + 5;
-        subview.right = subview.superview.width - kHMargin;
-        subview.bottom = subview.superview.height - kVMargin;
-    }]];
+     withLayoutBlock:^(UIView *superview, UIView *subview) {
+         WeView2Assert(subview);
+         WeView2Assert(subview.superview);
+         const int kHMargin = 20 + 5;
+         const int kVMargin = 20 + 5;
+         subview.right = subview.superview.width - kHMargin;
+         subview.bottom = subview.superview.height - kVMargin;
+     }];
 
     UIButton *desiredSizeButton = [DemoViewFactory createFlatUIButton:@"Snap To Desired Size"
                                                             textColor:[UIColor colorWithWhite:1.f alpha:1.f]
@@ -61,14 +60,14 @@
                                                                target:self
                                                              selector:@selector(snapToDesiredSize:)];
     [self addSubview:desiredSizeButton
-          withLayout:[WeView2BlockLayout blockLayoutWithBlock:^(UIView *superview, UIView *subview) {
-        WeView2Assert(subview);
-        WeView2Assert(subview.superview);
-        const int kHMargin = 20;
-        const int kVMargin = 20;
-        subview.x = kHMargin;
-        subview.bottom = subview.superview.height - kVMargin;
-    }]];
+     withLayoutBlock:^(UIView *superview, UIView *subview) {
+         WeView2Assert(subview);
+         WeView2Assert(subview.superview);
+         const int kHMargin = 20;
+         const int kVMargin = 20;
+         subview.x = kHMargin;
+         subview.bottom = subview.superview.height - kVMargin;
+     }];
 }
 
 - (void)snapToDesiredSize:(id)sender
@@ -83,7 +82,7 @@
         sender.state == UIGestureRecognizerStateEnded)
     {
         CGPoint rootViewCenter = [self convertPoint:self.center
-                                                    fromView:self.superview];
+                                           fromView:self.superview];
         CGPoint gesturePoint = [sender locationInView:self];
         CGPoint distance = CGPointAbs(CGPointSubtract(rootViewCenter, gesturePoint));
 

@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 
 #import "UIView+WeView2.h"
+#import "WeView2BlockLayout.h"
 
 @class WeView2Layout;
 
@@ -28,6 +29,10 @@
               withLayout:(WeView2Layout *)layout;
 - (WeView2 *)addSubview:(UIView *)subview
              withLayout:(WeView2Layout *)layout;
+- (WeView2 *)addSubviews:(NSArray *)subviews
+         withLayoutBlock:(BlockLayoutBlock)block;
+- (WeView2 *)addSubview:(UIView *)subview
+        withLayoutBlock:(BlockLayoutBlock)block;
 
 - (void)removeAllSubviews;
 

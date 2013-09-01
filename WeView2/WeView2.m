@@ -128,9 +128,8 @@
              withLayout:(WeView2Layout *)layout
 {
     WeView2Assert(layout);
-    [self addSubviews:@[subview,]
-           withLayout:layout];
-    return self;
+    return [self addSubviews:@[subview,]
+                  withLayout:layout];
 }
 
 - (WeView2 *)addSubviews:(NSArray *)subviews
@@ -154,9 +153,22 @@
 
 - (WeView2 *)addSubviews:(NSArray *)subviews
 {
-    [self addSubviews:subviews
+    return [self addSubviews:subviews
            withLayout:nil];
-    return self;
+}
+
+- (WeView2 *)addSubviews:(NSArray *)subviews
+         withLayoutBlock:(BlockLayoutBlock)block
+{
+    return [self addSubviews:subviews
+                  withLayout:[WeView2BlockLayout blockLayoutWithBlock:block]];
+}
+
+- (WeView2 *)addSubview:(UIView *)subview
+        withLayoutBlock:(BlockLayoutBlock)block
+{
+    return [self addSubviews:@[subview,]
+                  withLayout:[WeView2BlockLayout blockLayoutWithBlock:block]];
 }
 
 - (void)removeAllSubviews

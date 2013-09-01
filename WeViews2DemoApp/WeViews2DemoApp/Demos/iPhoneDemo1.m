@@ -7,7 +7,6 @@
 
 #import "WeView2.h"
 #import "iPhoneDemo1.h"
-#import "WeView2BlockLayout.h"
 #import "WeView2Macros.h"
 #import "WeView2FitOrFillLayout.h"
 #import "WeView2CenterLayout.h"
@@ -33,11 +32,11 @@
      addSubview:phoneImageView];
     phoneContainer.fixedSize = phoneImageView.image.size;
     [phoneContainer addSubview:phoneScreen
-                    withLayout:[WeView2BlockLayout blockLayoutWithBlock:^(UIView *superview, UIView *subview) {
-        WeView2Assert(subview);
-        WeView2Assert(subview.superview);
-        subview.frame = CGRectMake(33, 133, 320, 480);
-    }]];
+               withLayoutBlock:^(UIView *superview, UIView *subview) {
+                   WeView2Assert(subview);
+                   WeView2Assert(subview.superview);
+                   subview.frame = CGRectMake(33, 133, 320, 480);
+               }];
 
     [[result.rootView setCenterLayout]
      addSubview:phoneContainer];
@@ -58,9 +57,9 @@
      setVLinearLayout];
 
     [bodyView addSubviews:@[
-      [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/The_shortening_winters_day_is_near_a_close_Farquharson.jpg"]],
-      ]
-                   withLayout:[WeView2FitOrFillLayout fillLayout]];
+     [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/The_shortening_winters_day_is_near_a_close_Farquharson.jpg"]],
+     ]
+               withLayout:[WeView2FitOrFillLayout fillLayout]];
     bodyView.clipsToBounds = YES;
 
     WeView2 *pillboxView = [[WeView2 alloc] init];

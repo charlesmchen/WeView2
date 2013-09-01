@@ -70,7 +70,7 @@ propertyGroups = (
                   (
                    Property('hStretchWeight', 'CGFloat', asserts='%s >= 0', ),
                    Property('vStretchWeight', 'CGFloat', asserts='%s >= 0', ),
-                   Property('ignoreNaturalSize', 'BOOL', ),
+                   Property('ignoreDesiredSize', 'BOOL', ),
                    ),
                   (
                    Property('leftMargin', 'CGFloat', ),
@@ -412,57 +412,14 @@ replaceBlock(viewInfomFilePath, 'Debug Start', 'Debug End', block)
 
 lines = []
 lines.append('')
-lines.append('')
 for propertyGroup in propertyGroups:
     for property in propertyGroup:
         if property.typeName == 'CGFloat':
             lines.append('''
-// --- %s ---
-                            [ViewParameterSimple create:@"%s"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatFloat(view.%s);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:@"-5"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = view.%s - 5;
-                                             }],
-                             [ViewParameterSetter create:@"-1"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = view.%s - 1;
-                                             }],
-                             [ViewParameterSetter create:@"0"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = 0;
-                                             }],
-                             [ViewParameterSetter create:@"+1"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = view.%s + 1;
-                                             }],
-                             [ViewParameterSetter create:@"+5"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = view.%s + 5;
-                                             }],
-                             ]],''' % (property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, property.name, ) )
+                            [ViewParameterSimple floatProperty:@"%s"],''' % (property.name, ) )
         elif property.typeName == 'BOOL':
             lines.append('''
-// --- %s ---
-                            [ViewParameterSimple create:@"%s"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatBoolean(view.%s);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:@"YES"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = YES;
-                                             }
-                              ],
-                             [ViewParameterSetter create:@"NO"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = NO;
-                                             }
-                              ],
-                             ]],''' % (property.name, property.name, property.name, property.name, property.name,  ) )
+                            [ViewParameterSimple booleanProperty:@"%s"],''' % (property.name, ) )
         else:
             print 'Unknown typeName:', property.typeName
 
