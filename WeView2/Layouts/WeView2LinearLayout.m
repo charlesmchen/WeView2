@@ -124,7 +124,7 @@
                     totalStretchWeight:&totalStretchWeight
                           stretchCount:&stretchCount];
 
-    CGFloat spacing = horizontal ? view.hSpacing : view.vSpacing;
+    CGFloat spacing = ceilf(horizontal ? view.hSpacing : view.vSpacing);
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:guideSize];
     CGSize maxSubviewSize = contentBounds.size;
@@ -318,6 +318,16 @@
     // Add margins and return.
     CGSize result = CGSizeAdd(CGSizeFromIntSize(contentSize),
                               [self insetSizeOfView:view]);
+
+    if (horizontal)
+    {
+        result.width += spacing * (subviewCount - 1);
+    }
+    else
+    {
+        result.height += spacing * (subviewCount - 1);
+    }
+
     if (debugLayout)
     {
         NSLog(@"- minSizeOfContentsView: %@ thatFitsSize: = %@", [view class], NSStringFromCGSize(result));
@@ -366,7 +376,7 @@
                           stretchCount:&stretchCount];
 
     CGSize guideSize = view.size;
-    CGFloat spacing = horizontal ? view.hSpacing : view.vSpacing;
+    CGFloat spacing = ceilf(horizontal ? view.hSpacing : view.vSpacing);
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:guideSize];
     CGSize maxSubviewSize = contentBounds.size;

@@ -282,6 +282,11 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatCGRect(view.frame);
                                             }
                                                 setters:@[]],
+                            [ViewParameterSimple create:@"desired size"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatCGSize([view sizeThatFits:CGSizeZero]);
+                                            }
+                                                setters:@[]],
 
                             [ViewParameterSimple booleanProperty:@"hidden"],
 

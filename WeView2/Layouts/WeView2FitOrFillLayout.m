@@ -11,7 +11,8 @@
 #import "UIView+WeView2.h"
 #import "WeView2Macros.h"
 
-typedef enum {
+typedef enum
+{
     FILL_BOUNDS,
     FILL_CONTENT_BOUNDS,
     FILL_BOUNDS_ASPECT_RATIO,
@@ -89,7 +90,8 @@ typedef enum {
     {
         UIView* subview = subviews[i];
 
-        switch (self.mode) {
+        switch (self.mode)
+        {
             case FILL_BOUNDS:
                 subview.frame = view.bounds;
                 break;
@@ -112,8 +114,9 @@ typedef enum {
                 }
                 else
                 {
-                    switch (self.mode) {
-                        case FILL_CONTENT_BOUNDS:
+                    switch (self.mode)
+                    {
+                        case FILL_BOUNDS_ASPECT_RATIO:
                             subview.frame = FillRectWithSize(view.bounds, desiredSize);
                             break;
                         case FILL_CONTENT_BOUNDS_ASPECT_RATIO:
@@ -130,8 +133,6 @@ typedef enum {
                             break;
                     }
                 }
-
-                subview.frame = contentBounds;
                 break;
             }
 

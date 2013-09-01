@@ -59,7 +59,7 @@
     [bodyView addSubviews:@[
      [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/The_shortening_winters_day_is_near_a_close_Farquharson.jpg"]],
      ]
-               withLayout:[WeView2FitOrFillLayout fillBoundsLayout]];
+               withLayout:[WeView2FitOrFillLayout fillBoundsWithAspectRatioLayout]];
     bodyView.clipsToBounds = YES;
 
     WeView2 *pillboxView = [[WeView2 alloc] init];
@@ -70,7 +70,7 @@
       ]]
      useHorizontalDefaultLayout];
     pillboxView.bottomMargin = 20;
-    pillboxView.vAlign = V_ALIGN_BOTTOM;
+    pillboxView.cellVAlign = V_ALIGN_BOTTOM;
 
     [[bodyView addSubviews:@[
       [pillboxView withPureStretch],
