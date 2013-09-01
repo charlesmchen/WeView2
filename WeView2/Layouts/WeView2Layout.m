@@ -59,9 +59,12 @@
     {
         subviewSize.height = cellBounds.size.height;
     }
-//    subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(CGSizeMin(cellBounds.size, subviewSize)));
+
     subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
-    subview.frame = alignSizeWithinRect(subviewSize, cellBounds, superview.hAlign, superview.vAlign);
+    subview.frame = alignSizeWithinRect(subviewSize,
+                                        cellBounds,
+                                        superview.cellHAlign,
+                                        superview.cellVAlign);
 }
 
 - (CGPoint)insetOriginOfView:(UIView *)view
@@ -77,8 +80,8 @@
 
     int left = ceilf(view.leftMargin + borderWidth);
     int top = ceilf(view.topMargin + borderWidth);
-    int right = ceilf(size.width - (view.rightMargin + borderWidth));
-    int bottom = ceilf(size.height - (view.bottomMargin + borderWidth));
+    int right = floorf(size.width - ceilf(view.rightMargin + borderWidth));
+    int bottom = floorf(size.height - ceilf(view.bottomMargin + borderWidth));
 
     return CGRectMake(left,
                       top,
@@ -88,14 +91,24 @@
 
 - (CGSize)insetSizeOfView:(UIView *)view
 {
-    int borderWidth = ceilf(view.layer.borderWidth);
-    return CGSizeFloor(CGSizeMake(view.leftMargin + view.rightMargin + 2 * borderWidth,
-                                  view.topMargin + view.bottomMargin + 2 * borderWidth));
+    CGFloat borderWidth = view.layer.borderWidth;
+
+    int left = ceilf(view.leftMargin + borderWidth);
+    int top = ceilf(view.topMargin + borderWidth);
+    int right = ceilf(view.rightMargin + borderWidth);
+    int bottom = ceilf(view.bottomMargin + borderWidth);
+
+    return CGSizeMake(left + right, top + bottom);
 }
 
 - (CGSize)desiredItemSize:(UIView *)subview
                   maxSize:(CGSize)maxSize
 {
+    if (subview.ignoreDesiredSize)
+    {
+        return CGSizeZero;
+    }
+
     return CGSizeMax(CGSizeZero,
                      CGSizeCeil(CGSizeMax(subview.minSize,
                                           CGSizeMin(subview.maxSize,

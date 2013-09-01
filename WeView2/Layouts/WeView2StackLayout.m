@@ -42,27 +42,20 @@
               FormatSize([self insetSizeOfView:view]));
     }
 
-    CGSize result = CGSizeZero;
+    CGSize maxSubviewSize = CGSizeZero;
     for (int i=0; i < [subviews count]; i++)
     {
         UIView* subview = subviews[i];
 
-        CGSize idealSize = CGSizeZero;
-
-        if (!subview.ignoreDesiredSize)
-        {
-            // TODO: In our initial pass, should we be using a guide size of
-            // CGFLOAT_MAX, CGFLOAT_MAX?
-            idealSize = [self desiredItemSize:subview
-                                      maxSize:contentBounds.size];
-        }
-
-        result = CGSizeMax(result,
-                           CGSizeMax(subview.minSize,
-                                     CGSizeMin(subview.maxSize, idealSize)));
+        // TODO: In our initial pass, should we be using a guide size of
+        // CGFLOAT_MAX, CGFLOAT_MAX?
+        CGSize subviewSize = [self desiredItemSize:subview
+                                           maxSize:contentBounds.size];
+        maxSubviewSize = CGSizeMax(maxSubviewSize, subviewSize);
     }
 
-    result = CGSizeCeil(result);
+    CGSize result = CGSizeAdd(maxSubviewSize,
+                              [self insetSizeOfView:view]);
     if (debugLayout)
     {
         NSLog(@"- minSizeOfContentsView: %@ thatFitsSize: = %@", [view class], NSStringFromCGSize(result));
@@ -95,13 +88,8 @@
     {
         UIView* subview = subviews[i];
 
-        CGSize subviewSize = CGSizeZero;
-
-        if (!subview.ignoreDesiredSize)
-        {
-            subviewSize = [self desiredItemSize:subview
-                                        maxSize:contentBounds.size];
-        }
+        CGSize subviewSize = [self desiredItemSize:subview
+                                           maxSize:contentBounds.size];
 
         [self positionSubview:subview
                   inSuperview:view

@@ -12,9 +12,6 @@
 @interface SidebarViewController ()
 
 @property (nonatomic) WeView2 *rootView;
-//@property (nonatomic) UINavigationController *nav0;
-//@property (nonatomic) UINavigationController *nav1;
-//@property (nonatomic) UINavigationController *nav2;
 
 @end
 
@@ -29,9 +26,6 @@
     {
         self.selectDemoViewController = [[SelectDemoViewController alloc] init];
         [self addWrappedViewController:self.selectDemoViewController];
-
-//        self.demoDescriptionViewController = [[DemoDescriptionViewController alloc] init];
-//        [self addWrappedViewController:self.demoDescriptionViewController];
 
         self.viewTreeViewController = [[ViewTreeViewController alloc] init];
         [self addWrappedViewController:self.viewTreeViewController];

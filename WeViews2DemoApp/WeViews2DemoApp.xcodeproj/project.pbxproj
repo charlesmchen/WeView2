@@ -27,7 +27,6 @@
 		34195FD717CA82520036F8DC /* LinearDemo1.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FD617CA82520036F8DC /* LinearDemo1.m */; };
 		34195FEB17CA87400036F8DC /* SidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FE717CA87400036F8DC /* SidebarViewController.m */; };
 		34195FEC17CA87400036F8DC /* SelectDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FE917CA87400036F8DC /* SelectDemoViewController.m */; };
-		34195FF217CA979E0036F8DC /* DemoDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FF117CA979E0036F8DC /* DemoDescriptionViewController.m */; };
 		344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */; };
 		344435C917CACFEB00EFF341 /* ViewHierarchyTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C717CACFEB00EFF341 /* ViewHierarchyTree.m */; };
 		344435CF17CAD20F00EFF341 /* DemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435CE17CAD20F00EFF341 /* DemoModel.m */; };
@@ -103,8 +102,6 @@
 		34195FE817CA87400036F8DC /* SelectDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectDemoViewController.h; sourceTree = "<group>"; };
 		34195FE917CA87400036F8DC /* SelectDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectDemoViewController.m; sourceTree = "<group>"; };
 		34195FEA17CA87400036F8DC /* SidebarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarViewController.h; sourceTree = "<group>"; };
-		34195FF017CA979E0036F8DC /* DemoDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDescriptionViewController.h; sourceTree = "<group>"; };
-		34195FF117CA979E0036F8DC /* DemoDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDescriptionViewController.m; sourceTree = "<group>"; };
 		344435C417CACFEA00EFF341 /* ViewDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDescriptionViewController.h; sourceTree = "<group>"; };
 		344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDescriptionViewController.m; sourceTree = "<group>"; };
 		344435C617CACFEA00EFF341 /* ViewHierarchyTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewHierarchyTree.h; sourceTree = "<group>"; };
@@ -186,9 +183,9 @@
 		34195F7017CA80A90036F8DC = {
 			isa = PBXGroup;
 			children = (
-				3444366117D2A5AB00EFF341 /* Resources */,
 				34195F7B17CA80A90036F8DC /* Frameworks */,
 				34195F7A17CA80A90036F8DC /* Products */,
+				3444366117D2A5AB00EFF341 /* Resources */,
 				34195FC317CA80E00036F8DC /* WeView2 */,
 				34195F8217CA80A90036F8DC /* WeViews2DemoApp */,
 				34195FB217CA80A90036F8DC /* WeViews2DemoAppTests */,
@@ -220,8 +217,6 @@
 			children = (
 				34195F8B17CA80A90036F8DC /* AppDelegate.h */,
 				34195F8C17CA80A90036F8DC /* AppDelegate.m */,
-				34195FF017CA979E0036F8DC /* DemoDescriptionViewController.h */,
-				34195FF117CA979E0036F8DC /* DemoDescriptionViewController.m */,
 				344435CD17CAD20F00EFF341 /* DemoModel.h */,
 				344435CE17CAD20F00EFF341 /* DemoModel.m */,
 				34195FD117CA82270036F8DC /* Demos */,
@@ -489,7 +484,6 @@
 				34195FD717CA82520036F8DC /* LinearDemo1.m in Sources */,
 				34195FEB17CA87400036F8DC /* SidebarViewController.m in Sources */,
 				34195FEC17CA87400036F8DC /* SelectDemoViewController.m in Sources */,
-				34195FF217CA979E0036F8DC /* DemoDescriptionViewController.m in Sources */,
 				344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */,
 				344435C917CACFEB00EFF341 /* ViewHierarchyTree.m in Sources */,
 				344435CF17CAD20F00EFF341 /* DemoModel.m in Sources */,

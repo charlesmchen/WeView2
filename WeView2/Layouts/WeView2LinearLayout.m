@@ -46,39 +46,6 @@
     return layout;
 }
 
-- (CGSize)emptySizeOfView:(UIView *)view
-                 subviews:(NSArray *)subviews
-{
-    // Calculate the maximum size of any given subview,
-    // ie. the total size less margins and spacing.
-    int subviewCount = [subviews count];
-    BOOL horizontal = self.isHorizontal;
-    CGSize result = [self insetSizeOfView:view];
-    CGFloat spacing = horizontal ? view.hSpacing : view.vSpacing;
-    if (horizontal)
-    {
-        result.width += spacing * (subviewCount - 1);
-    }
-    else
-    {
-        result.height += spacing * (subviewCount - 1);
-    }
-    return result;
-}
-
-- (CGSize)getMaxContentSize:(CGSize)size
-                       view:(UIView *)view
-                   subviews:(NSArray *)subviews
-{
-    // Calculate the maximum size of any given subview,
-    // ie. the total size less margins and spacing.
-    CGSize result = CGSizeSubtract(size, [self emptySizeOfView:view
-                                                      subviews:subviews]);
-
-    result = CGSizeMax(result, CGSizeZero);
-    return result;
-}
-
 - (IntSize)sumContentSize:(CGSize *)subviewSizes
              subviewCount:(int)subviewCount
                horizontal:(BOOL)horizontal
@@ -102,20 +69,6 @@
     return result;
 }
 
-- (CGFloat)viewStretchWeight:(UIView *)view
-{
-    return (self.isHorizontal
-            ? view.hStretchWeight
-            : view.vStretchWeight);
-}
-
-- (BOOL)viewStretchesAlongCrossAxis:(UIView *)view
-{
-    return (!self.isHorizontal
-            ? view.hStretchWeight
-            : view.vStretchWeight) > 0;
-}
-
 - (void)getStretchWeightsForSubviews:(NSArray *)subviews
                         subviewCount:(int)subviewCount
                       stretchWeights:(CGFloat *)stretchWeights
@@ -132,7 +85,10 @@
     for (int i=0; i < subviewCount; i++)
     {
         UIView* subview = subviews[i];
-        stretchWeights[i] = [self viewStretchWeight:subview];
+        stretchWeights[i] = (self.isHorizontal
+                             ? subview.hStretchWeight
+                             : subview.vStretchWeight);
+
         WeView2Assert(stretchWeights[i] >= 0);
         // TODO: Should not be necessary.
         stretchWeights[i] = fabsf(stretchWeights[i]);
@@ -145,36 +101,6 @@
     }
 }
 
-- (void)getIdealSizesForSubviews:(NSArray *)subviews
-                    subviewCount:(int)subviewCount
-                  maxContentSize:(CGSize)maxContentSize
-                    subviewSizes:(CGSize *)subviewSizes
-{
-    for (int i=0; i < subviewCount; i++)
-    {
-        UIView* subview = subviews[i];
-
-        CGSize idealSize = CGSizeZero;
-
-        if (!subview.ignoreDesiredSize)
-        {
-            // TODO: In our initial pass, should we be using a guide size of
-            // CGFLOAT_MAX, CGFLOAT_MAX?
-            idealSize = [self desiredItemSize:subview
-                                      maxSize:maxContentSize];
-        }
-
-        CGSize subviewMinSize = subview.minSize;
-        CGSize subviewMaxSize = subview.maxSize;
-        WeView2Assert(subviewMinSize.width <= subviewMaxSize.width);
-        WeView2Assert(subviewMinSize.height <= subviewMaxSize.height);
-
-        subviewSizes[i] = CGSizeMax(subviewMinSize,
-                                    CGSizeMin(subviewMaxSize, idealSize));
-    }
-}
-
-// TODO: Honor max/min widths in the earlier phases, of "min size" and "layout" functions.
 // TODO: Do we need to honor other params as well?
 - (CGSize)minSizeOfContentsView:(UIView *)view
                        subviews:(NSArray *)subviews
@@ -185,10 +111,6 @@
     {
         NSLog(@"+ minSizeOfContentsView: %@ thatFitsSize: %@", [view class], NSStringFromCGSize(guideSize));
     }
-
-    //    // TODO: Rewrite to use contentBounds.
-    //    CGRect contentBounds = [self contentBoundsOfView:view
-    //                                             forSize:view.size];
 
     BOOL horizontal = self.isHorizontal;
     int subviewCount = [subviews count];
@@ -202,26 +124,37 @@
                     totalStretchWeight:&totalStretchWeight
                           stretchCount:&stretchCount];
 
-    CGSize maxContentSize = [self getMaxContentSize:guideSize
-                                               view:view
-                                           subviews:subviews];
+    CGFloat spacing = horizontal ? view.hSpacing : view.vSpacing;
+    CGRect contentBounds = [self contentBoundsOfView:view
+                                             forSize:guideSize];
+    CGSize maxSubviewSize = contentBounds.size;
+    if (horizontal)
+    {
+        maxSubviewSize.width = MAX(0, maxSubviewSize.width - spacing * (subviewCount - 1));
+    }
+    else
+    {
+        maxSubviewSize.height = MAX(0, maxSubviewSize.height - spacing * (subviewCount - 1));
+    }
 
     if (debugLayout)
     {
-        NSLog(@"getMaxContentSize: maxContentSize: %@, guideSize: %@, insetSizeOfView: %@, emptySizeOfView: %@",
-              FormatSize(maxContentSize),
+        NSLog(@"minSizeOfContentsView: contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
+              FormatRect(contentBounds),
               FormatSize(guideSize),
-              FormatSize([self insetSizeOfView:view]),
-              FormatSize([self emptySizeOfView:view
-                                      subviews:subviews]));
+              FormatSize([self insetSizeOfView:view]));
     }
 
-    // On the first pass, we want to calculate the desired size of all subviews.
     CGSize subviewSizes[subviewCount];
-    [self getIdealSizesForSubviews:subviews
-                      subviewCount:subviewCount
-                    maxContentSize:maxContentSize
-                      subviewSizes:&(subviewSizes[0])];
+    for (int i=0; i < subviewCount; i++)
+    {
+        UIView* subview = subviews[i];
+
+        // TODO: In our initial pass, should we be using a guide size of
+        // CGFLOAT_MAX, CGFLOAT_MAX?
+        subviewSizes[i] = [self desiredItemSize:subview
+                                        maxSize:maxSubviewSize];
+    }
 
     IntSize contentSize = [self sumContentSize:&subviewSizes[0]
                                   subviewCount:subviewCount
@@ -246,7 +179,7 @@
     if (horizontal)
     {
         int axisSize = contentSize.width;
-        int extraAxisSpaceRaw = maxContentSize.width - contentSize.width;
+        int extraAxisSpaceRaw = maxSubviewSize.width - contentSize.width;
 
         if (extraAxisSpaceRaw < 0)
         {
@@ -278,7 +211,7 @@
                 // the height.
                 UIView* subview = subviews[i];
                 subviewSizes[i].height = [subview sizeThatFits:CGSizeMake(newItemWidth,
-                                                                          maxContentSize.height)].height;
+                                                                          maxSubviewSize.height)].height;
             }
 
             // Update content size
@@ -300,8 +233,8 @@
         }
     }
 
-    // If any subview of the view can stretch, we want to do another pass that takes advantage
-    // of any free or unclaimed space.
+    // If any subviews can stretch, we want distribute any remaining space along the axis of layout,
+    // dividing it among them on the basis of their stretch weights.
     //
     // TODO: We probably need to rewrite this.
     if (stretchCount > 0)
@@ -312,11 +245,11 @@
         int stretchTotal;
         if (horizontal)
         {
-            stretchTotal = maxContentSize.width - contentSize.width;
+            stretchTotal = maxSubviewSize.width - contentSize.width;
         }
         else
         {
-            stretchTotal = maxContentSize.height - contentSize.height;
+            stretchTotal = maxSubviewSize.height - contentSize.height;
         }
         // The amount of extra space in the layout along the axis of layout.
         // It should be divided amongst the subviews on the basis of stretch weight.
@@ -348,7 +281,7 @@
                 stretchCountRemainder--;
                 stretchRemainder -= subviewStretch;
 
-                CGSize maxStretchItemSize = maxContentSize;
+                CGSize maxStretchItemSize = maxSubviewSize;
                 if (horizontal)
                 {
                     maxStretchItemSize.width = subviewStretch;
@@ -384,8 +317,7 @@
 
     // Add margins and return.
     CGSize result = CGSizeAdd(CGSizeFromIntSize(contentSize),
-                              [self emptySizeOfView:view
-                                           subviews:subviews]);
+                              [self insetSizeOfView:view]);
     if (debugLayout)
     {
         NSLog(@"- minSizeOfContentsView: %@ thatFitsSize: = %@", [view class], NSStringFromCGSize(result));
@@ -403,12 +335,10 @@
         UIView* subview = subviews[i];
 
         NSLog(@"\t%@[%d] %@ size: %@, stretchWeight: %f",
-              //        NSLog(@"\t%@[%d] %@ size: %@, isSpacer: %@, stretchWeight: %f",
               label,
               i,
               [subview class],
               FormatSize(subviewSizes[i]),
-              //              isSpacer[i] ? @"YES" : @"NO",
               stretchWeights[i]);
     }
 }
@@ -426,10 +356,6 @@
     BOOL horizontal = self.isHorizontal;
     int subviewCount = [subviews count];
 
-//    // TODO: Rewrite to use contentBounds.
-//    CGRect contentBounds = [self contentBoundsOfView:view
-//                                             forSize:view.size];
-
     CGFloat totalStretchWeight;
     int stretchCount;
     CGFloat stretchWeights[subviewCount];
@@ -439,27 +365,45 @@
                     totalStretchWeight:&totalStretchWeight
                           stretchCount:&stretchCount];
 
-    CGSize maxContentSize = [self getMaxContentSize:view.size
-                                               view:view
-                                           subviews:subviews];
+    CGSize guideSize = view.size;
+    CGFloat spacing = horizontal ? view.hSpacing : view.vSpacing;
+    CGRect contentBounds = [self contentBoundsOfView:view
+                                             forSize:guideSize];
+    CGSize maxSubviewSize = contentBounds.size;
+    if (horizontal)
+    {
+        maxSubviewSize.width = MAX(0, maxSubviewSize.width - spacing * (subviewCount - 1));
+    }
+    else
+    {
+        maxSubviewSize.height = MAX(0, maxSubviewSize.height - spacing * (subviewCount - 1));
+    }
 
     if (debugLayout)
     {
-        NSLog(@"layoutContentsOfView (%@ %@) getMaxContentSize: maxContentSize: %@, guideSize: %@, insetSizeOfView: %@, emptySizeOfView: %@",
-              [view class], view.debugName,
-              FormatSize(maxContentSize),
-              FormatSize(view.size),
-              FormatSize([self insetSizeOfView:view]),
-              FormatSize([self emptySizeOfView:view
-                                      subviews:subviews]));
+        NSLog(@"minSizeOfContentsView: contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
+              FormatRect(contentBounds),
+              FormatSize(guideSize),
+              FormatSize([self insetSizeOfView:view]));
     }
 
-    // On the first pass, we want to calculate the desired size of all subviews.
     CGSize subviewSizes[subviewCount];
-    [self getIdealSizesForSubviews:subviews
-                      subviewCount:subviewCount
-                    maxContentSize:maxContentSize
-                      subviewSizes:&(subviewSizes[0])];
+    for (int i=0; i < subviewCount; i++)
+    {
+        UIView* subview = subviews[i];
+
+        subviewSizes[i] = [self desiredItemSize:subview
+                                        maxSize:maxSubviewSize];
+    }
+
+    if (debugLayout)
+    {
+        NSLog(@"layoutContentsOfView (%@ %@) maxSubviewSize: %@, guideSize: %@, insetSizeOfView: %@",
+              [view class], view.debugName,
+              FormatSize(maxSubviewSize),
+              FormatSize(view.size),
+              FormatSize([self insetSizeOfView:view]));
+    }
 
     IntSize contentSize = [self sumContentSize:&subviewSizes[0]
                                   subviewCount:subviewCount
@@ -481,21 +425,21 @@
         if (horizontal)
         {
             axisSize = contentSize.width;
-            extraAxisSpaceRaw = maxContentSize.width - contentSize.width;
+            extraAxisSpaceRaw = maxSubviewSize.width - contentSize.width;
         }
         else
         {
             axisSize = contentSize.height;
-            extraAxisSpaceRaw = maxContentSize.height - contentSize.height;
+            extraAxisSpaceRaw = maxSubviewSize.height - contentSize.height;
         }
 
         if (debugLayout)
         {
-            NSLog(@"\t axisSize: %d, extraAxisSpaceRaw: %d, contentSize: %@, maxContentSize: %@",
+            NSLog(@"\t axisSize: %d, extraAxisSpaceRaw: %d, contentSize: %@, maxSubviewSize: %@",
                   axisSize,
                   extraAxisSpaceRaw,
                   FormatIntSize(contentSize),
-                  FormatSize(maxContentSize)
+                  FormatSize(maxSubviewSize)
                   );
         }
 
@@ -530,7 +474,7 @@
                     // the height.
                     UIView* subview = subviews[i];
                     subviewSizes[i].height = [subview sizeThatFits:CGSizeMake(subviewSizes[i].width,
-                                                                              maxContentSize.height)].height;
+                                                                              maxSubviewSize.height)].height;
                 }
                 else
                 {
@@ -561,11 +505,11 @@
         int stretchTotal;
         if (horizontal)
         {
-            stretchTotal = maxContentSize.width - contentSize.width;
+            stretchTotal = maxSubviewSize.width - contentSize.width;
         }
         else
         {
-            stretchTotal = maxContentSize.height - contentSize.height;
+            stretchTotal = maxSubviewSize.height - contentSize.height;
         }
         int stretchRemainder = stretchTotal;
 
@@ -582,7 +526,6 @@
 
         if (stretchRemainder > 0 && stretchCountRemainder > 0)
         {
-
             // This is actually a series of passes.
             // With each "stretch" pass, we evenly divide the remainder of the available
             // space between the remaining stretch subviews based on their stretch weight.
@@ -617,11 +560,9 @@
                     if (horizontal)
                     {
                         subviewSize.width += subviewStretch;
-//                        subviewSize.height = maxContentSize.height;
                     }
                     else
                     {
-//                        subviewSize.width = maxContentSize.width;
                         subviewSize.height += subviewStretch;
                     }
                     subviewSizes[i] = subviewSize;
@@ -639,62 +580,55 @@
                            subviews:subviews
                        subviewSizes:subviewSizes
                      stretchWeights:stretchWeights];
+
+                NSLog(@"contentSize: %@",
+                      FormatIntSize(contentSize));
             }
         }
     }
 
-    CGRect contentBounds = [self contentBoundsOfView:view
-                                             forSize:view.size];
-
-    int crossSize = horizontal ? contentBounds.size.height : contentBounds.size.width;
+    int crossSize = horizontal ? maxSubviewSize.height : maxSubviewSize.width;
     int axisIndex = horizontal ? contentBounds.origin.x : contentBounds.origin.y;
 
-    HAlign hAlign = view.hAlign;
-    VAlign vAlign = view.vAlign;
-    if (YES)
+    // Honor the axis alignment.
+    if (horizontal)
     {
-        // Honor the axis alignment.
-        if (horizontal)
+        int extraAxisSpace = maxSubviewSize.width - contentSize.width;
+        switch (view.hAlign)
         {
-            int extraAxisSpace = maxContentSize.width - contentSize.width;
-            switch (hAlign)
-            {
-                case H_ALIGN_LEFT:
-                    break;
-                case H_ALIGN_CENTER:
-                    axisIndex += extraAxisSpace / 2;
-                    break;
-                case H_ALIGN_RIGHT:
-                    axisIndex += extraAxisSpace;
-                    break;
-                default:
-                    WeView2Assert(0);
-                    break;
-            }
+            case H_ALIGN_LEFT:
+                break;
+            case H_ALIGN_CENTER:
+                axisIndex += extraAxisSpace / 2;
+                break;
+            case H_ALIGN_RIGHT:
+                axisIndex += extraAxisSpace;
+                break;
+            default:
+                WeView2Assert(0);
+                break;
         }
-        else
+    }
+    else
+    {
+        int extraAxisSpace = maxSubviewSize.height - contentSize.height;
+        switch (view.vAlign)
         {
-            int extraAxisSpace = maxContentSize.height - contentSize.height;
-            switch (vAlign)
-            {
-                case V_ALIGN_BOTTOM:
-                    axisIndex += extraAxisSpace;
-                    break;
-                case V_ALIGN_CENTER:
-                    axisIndex += extraAxisSpace / 2;
-                    break;
-                case V_ALIGN_TOP:
-                    break;
-                default:
-                    WeView2Assert(0);
-                    break;
-            }
+            case V_ALIGN_BOTTOM:
+                axisIndex += extraAxisSpace;
+                break;
+            case V_ALIGN_CENTER:
+                axisIndex += extraAxisSpace / 2;
+                break;
+            case V_ALIGN_TOP:
+                break;
+            default:
+                WeView2Assert(0);
+                break;
         }
     }
 
-    // Final pass
     // Calculate and apply the subviews' frames.
-    CGFloat spacing = horizontal ? view.hSpacing : view.vSpacing;
     for (int i=0; i < subviewCount; i++)
     {
         UIView* subview = subviews[i];
@@ -719,8 +653,6 @@
         }
 
         axisIndex = (horizontal ? subview.right : subview.bottom) + spacing;
-//
-//        axisIndex += subviewAxisSize + spacing;
     }
 }
 

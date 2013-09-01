@@ -16,8 +16,8 @@
 
 @property (nonatomic) HAlign hAlign;
 @property (nonatomic) VAlign vAlign;
-@property (nonatomic) HAlign contentHAlign;
-@property (nonatomic) VAlign contentVAlign;
+@property (nonatomic) HAlign cellHAlign;
+@property (nonatomic) VAlign cellVAlign;
 
 // TODO: Comment that min width trumps max width.
 

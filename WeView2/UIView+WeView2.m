@@ -303,6 +303,28 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     return self;
 }
 
+- (HAlign)cellHAlign
+{
+    return [self.viewInfo cellHAlign];
+}
+
+- (id)setCellHAlign:(HAlign)value
+{
+    [self.viewInfo setCellHAlign:value];
+    return self;
+}
+
+- (VAlign)cellVAlign
+{
+    return [self.viewInfo cellVAlign];
+}
+
+- (id)setCellVAlign:(VAlign)value
+{
+    [self.viewInfo setCellVAlign:value];
+    return self;
+}
+
 - (id)withStretch
 {
     // Layout should stretch this subview to fit any available space.

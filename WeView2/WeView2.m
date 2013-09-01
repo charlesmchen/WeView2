@@ -15,6 +15,7 @@
 #import "WeView2NoopLayout.h"
 #import "WeView2Macros.h"
 #import "WeView2StackLayout.h"
+#import "WeView2FitOrFillLayout.h"
 
 @interface WeView2 ()
 
@@ -80,6 +81,12 @@
 - (WeView2 *)useStackDefaultLayout
 {
     self.defaultLayout = [WeView2StackLayout stackLayout];
+    return self;
+}
+
+- (WeView2 *)useFillDefaultLayout
+{
+    self.defaultLayout = [WeView2FitOrFillLayout fillBoundsLayout];
     return self;
 }
 

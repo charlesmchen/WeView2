@@ -23,8 +23,8 @@
     {
         self.hAlign = H_ALIGN_CENTER;
         self.vAlign = V_ALIGN_CENTER;
-        self.contentHAlign = H_ALIGN_CENTER;
-        self.contentVAlign = V_ALIGN_CENTER;
+        self.cellHAlign = H_ALIGN_CENTER;
+        self.cellVAlign = V_ALIGN_CENTER;
 
         self.maxWidth = CGFLOAT_MAX;
         self.maxHeight = CGFLOAT_MAX;
@@ -143,8 +143,8 @@
 
     [result appendString:[self formatLayoutDescriptionItem:@"hAlign" value:FormatHAlign(self.hAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"vAlign" value:FormatVAlign(self.vAlign)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"contentHAlign" value:FormatHAlign(self.contentHAlign)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"contentVAlign" value:FormatVAlign(self.contentVAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"cellHAlign" value:FormatHAlign(self.cellHAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"cellVAlign" value:FormatVAlign(self.cellVAlign)]];
 
     return result;
 }

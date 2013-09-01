@@ -12,7 +12,6 @@
 
 #import "UIView+WeView2.h"
 #import "WeView2BlockLayout.h"
-#import "WeView2FitOrFillLayout.h"
 
 @class WeView2Layout;
 
@@ -31,8 +30,16 @@
 // By default, lay out subviews on top of each other.
 - (WeView2 *)useStackDefaultLayout;
 
+// By default, lay out subviews so that they fill this view.
+//
+// WeView2FitOrFillLayout has a number of "fit" and "fill" modes.
+- (WeView2 *)useFillDefaultLayout;
+
 // By default, _DO NOT_ lay out subviews.
 - (WeView2 *)useNoDefaultLayout;
+
+// Use a specific layout as the default layout.
+- (void)setDefaultLayout:(WeView2Layout *)defaultLayout;
 
 #pragma mark - Custom Layouts
 

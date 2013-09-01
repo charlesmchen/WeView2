@@ -9,7 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DemoDescriptionViewController.h"
 #import "SelectDemoViewController.h"
 #import "ViewTreeViewController.h"
 #import "ViewEditorController.h"
@@ -17,8 +16,6 @@
 @interface SidebarViewController : UIViewController
 
 @property (nonatomic) SelectDemoViewController *selectDemoViewController;
-
-//@property (nonatomic) DemoDescriptionViewController *demoDescriptionViewController;
 
 @property (nonatomic) ViewTreeViewController *viewTreeViewController;
 

@@ -134,7 +134,6 @@ typedef void (^SetterBlock)(UIView *view);
     nameLabel.backgroundColor = [UIColor clearColor];
     nameLabel.opaque = NO;
     nameLabel.textColor = [UIColor blackColor];
-//    nameLabel.font = [UIFont boldSystemFontOfSize:14.f];
     nameLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
                                      size:14];
     nameLabel.text = [NSString stringWithFormat:@"%@:", self.name];
@@ -143,7 +142,6 @@ typedef void (^SetterBlock)(UIView *view);
     valueLabel.backgroundColor = [UIColor clearColor];
     valueLabel.opaque = NO;
     valueLabel.textColor = [UIColor blackColor];
-//    valueLabel.font = [UIFont systemFontOfSize:14.f];
     valueLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
                                       size:14];
     valueLabel.text = self.getterBlock(view);
@@ -180,6 +178,8 @@ typedef void (^SetterBlock)(UIView *view);
        setHMargin:10]
       setVMargin:2]
      setSpacing:5];
+
+//    container.debugLayout = YES;
 
     cell.height = container.height = [container sizeThatFits:CGSizeMake(cell.width, CGFLOAT_MAX)].height;
 //    [container
@@ -293,18 +293,15 @@ typedef void (^SetterBlock)(UIView *view);
                              [ViewParameterSetter create:@"Left"
                                              setterBlock:^(UIView *view) {
                                                  view.hAlign = H_ALIGN_LEFT;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"Center"
                                              setterBlock:^(UIView *view) {
                                                  view.hAlign = H_ALIGN_CENTER;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"Right"
                                              setterBlock:^(UIView *view) {
                                                  view.hAlign = H_ALIGN_RIGHT;
-                                             }
-                              ],
+                                             }],
                              ]],
 
                             [ViewParameterSimple create:@"vAlign"
@@ -315,18 +312,53 @@ typedef void (^SetterBlock)(UIView *view);
                              [ViewParameterSetter create:@"Top"
                                              setterBlock:^(UIView *view) {
                                                  view.vAlign = V_ALIGN_TOP;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"Center"
                                              setterBlock:^(UIView *view) {
                                                  view.vAlign = V_ALIGN_CENTER;
-                                             }
-                              ],
+                                             }],
                              [ViewParameterSetter create:@"Bottom"
                                              setterBlock:^(UIView *view) {
                                                  view.vAlign = V_ALIGN_BOTTOM;
-                                             }
-                              ],
+                                             }],
+                             ]],
+
+                            [ViewParameterSimple create:@"cellHAlign"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatHAlign(view.cellHAlign);
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"Left"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellHAlign = H_ALIGN_LEFT;
+                                             }],
+                             [ViewParameterSetter create:@"Center"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellHAlign = H_ALIGN_CENTER;
+                                             }],
+                             [ViewParameterSetter create:@"Right"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellHAlign = H_ALIGN_RIGHT;
+                                             }],
+                             ]],
+
+                            [ViewParameterSimple create:@"cellVAlign"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatVAlign(view.cellVAlign);
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"Top"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellVAlign = V_ALIGN_TOP;
+                                             }],
+                             [ViewParameterSetter create:@"Center"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellVAlign = V_ALIGN_CENTER;
+                                             }],
+                             [ViewParameterSetter create:@"Bottom"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellVAlign = V_ALIGN_BOTTOM;
+                                             }],
                              ]],
 
 /* CODEGEN MARKER: Parameters Start */
@@ -456,7 +488,7 @@ typedef void (^SetterBlock)(UIView *view);
     ViewParameter *viewParameter = self.viewParams[indexPath.row];
     viewParameter.delegate = self;
     [viewParameter configureCell:cell withView:self.currentView];
-//    cell.textLabel.text = [clazz description];
+
     return cell;
 }
 
