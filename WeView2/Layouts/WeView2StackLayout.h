@@ -1,5 +1,5 @@
 //
-//  WeView2CenterLayout.h
+//  WeView2StackLayout.h
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -12,8 +12,8 @@
 
 #import "WeView2Layout.h"
 
-@interface WeView2CenterLayout : WeView2Layout
+@interface WeView2StackLayout : WeView2Layout
 
-+ (WeView2CenterLayout *)centerLayout;
++ (WeView2StackLayout *)stackLayout;
 
 @end

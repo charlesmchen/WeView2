@@ -1,5 +1,5 @@
 //
-//  WeView2CenterLayout.m
+//  WeView2StackLayout.m
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -7,15 +7,15 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "WeView2CenterLayout.h"
+#import "WeView2StackLayout.h"
 #import "UIView+WeView2.h"
 #import "WeView2Macros.h"
 
-@implementation WeView2CenterLayout
+@implementation WeView2StackLayout
 
-+ (WeView2CenterLayout *)centerLayout
++ (WeView2StackLayout *)stackLayout
 {
-    WeView2CenterLayout *layout = [[WeView2CenterLayout alloc] init];
+    WeView2StackLayout *layout = [[WeView2StackLayout alloc] init];
     return layout;
 }
 

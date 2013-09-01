@@ -19,7 +19,7 @@
 {
     DemoModel *result = [DemoModel create];
 
-    [[result.rootView setHLinearLayout]
+    [[result.rootView useHorizontalDefaultLayout]
     addSubviews:@[
      [self createLabel:@"Welcome"
               fontSize:16.f],

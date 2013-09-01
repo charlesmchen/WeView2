@@ -52,7 +52,7 @@
 - (void)loadView
 {
     self.rootView = [[[WeView2 alloc] init]
-                     setVLinearLayout];
+                     useVerticalDefaultLayout];
 //    self.rootView.debugLayout = YES;
     self.rootView.opaque = YES;
     self.rootView.backgroundColor = [UIColor whiteColor];

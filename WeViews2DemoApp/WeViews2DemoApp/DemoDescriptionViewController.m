@@ -32,7 +32,7 @@
 - (void)loadView
 {
     self.rootView = [[[WeView2 alloc] init]
-                     setVLinearLayout];
+                     useVerticalDefaultLayout];
     self.rootView.margin = 5;
     self.rootView.vAlign = V_ALIGN_TOP;
     self.rootView.hAlign = H_ALIGN_LEFT;

@@ -25,12 +25,16 @@
 // TODO: Discuss container alignment vs. subview alignment.
 //
 // TODO: Discuss what happens when subviews insist upon exceeding axis or cross size of container.
+
+// TODO: Add asserts in the setters.
+// TODO: hAlign and vAlign control how subviews of the view are aligned within the view, not the
+// alignment of the view itself.
 @interface WeView2LinearLayout : WeView2Layout
 
 @property (nonatomic) BOOL isHorizontal;
 
-+ (WeView2LinearLayout *)hLinearLayout;
++ (WeView2LinearLayout *)horizontalLayout;
 
-+ (WeView2LinearLayout *)vLinearLayout;
++ (WeView2LinearLayout *)verticalLayout;
 
 @end

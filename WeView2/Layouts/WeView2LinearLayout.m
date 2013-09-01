@@ -32,14 +32,14 @@
 {
 }
 
-+ (WeView2LinearLayout *)hLinearLayout
++ (WeView2LinearLayout *)horizontalLayout
 {
     WeView2LinearLayout *layout = [[WeView2LinearLayout alloc] init];
     layout.isHorizontal = YES;
     return layout;
 }
 
-+ (WeView2LinearLayout *)vLinearLayout
++ (WeView2LinearLayout *)verticalLayout
 {
     WeView2LinearLayout *layout = [[WeView2LinearLayout alloc] init];
     layout.isHorizontal = NO;

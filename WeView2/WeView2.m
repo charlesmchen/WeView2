@@ -14,7 +14,7 @@
 #import "WeView2Macros.h"
 #import "WeView2NoopLayout.h"
 #import "WeView2Macros.h"
-#import "WeView2CenterLayout.h"
+#import "WeView2StackLayout.h"
 
 @interface WeView2 ()
 
@@ -29,8 +29,8 @@
 
 - (void)commonInit
 {
-    [self setHLinearLayout];
     self.subviewLayoutMap = [NSMutableDictionary dictionary];
+    [self useHorizontalDefaultLayout];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -57,27 +57,29 @@
 {
 }
 
-- (WeView2 *)setHLinearLayout
+#pragma mark - Default Layout
+
+- (WeView2 *)useHorizontalDefaultLayout
 {
-    self.defaultLayout = [WeView2LinearLayout hLinearLayout];
+    self.defaultLayout = [WeView2LinearLayout horizontalLayout];
     return self;
 }
 
-- (WeView2 *)setVLinearLayout
+- (WeView2 *)useVerticalDefaultLayout
 {
-    self.defaultLayout = [WeView2LinearLayout vLinearLayout];
+    self.defaultLayout = [WeView2LinearLayout verticalLayout];
     return self;
 }
 
-- (WeView2 *)setNoopLayout
+- (WeView2 *)useNoDefaultLayout
 {
     self.defaultLayout = [WeView2NoopLayout noopLayout];
     return self;
 }
 
-- (WeView2 *)setCenterLayout
+- (WeView2 *)useStackDefaultLayout
 {
-    self.defaultLayout = [WeView2CenterLayout centerLayout];
+    self.defaultLayout = [WeView2StackLayout stackLayout];
     return self;
 }
 
@@ -86,6 +88,8 @@
     _defaultLayout = defaultLayout;
     [self setNeedsLayout];
 }
+
+#pragma mark -
 
 - (NSArray *)subviewsForLayout:(WeView2Layout *)layout
 {

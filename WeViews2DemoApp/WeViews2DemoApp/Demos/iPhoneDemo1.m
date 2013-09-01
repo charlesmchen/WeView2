@@ -9,7 +9,7 @@
 #import "iPhoneDemo1.h"
 #import "WeView2Macros.h"
 #import "WeView2FitOrFillLayout.h"
-#import "WeView2CenterLayout.h"
+#import "WeView2StackLayout.h"
 
 @implementation iPhoneDemo1
 
@@ -28,7 +28,7 @@
 
     UIImageView *phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iphone_vertical"]];
     WeView2 *phoneContainer = [[WeView2 alloc] init];
-    [[phoneContainer setCenterLayout]
+    [[phoneContainer useStackDefaultLayout]
      addSubview:phoneImageView];
     phoneContainer.fixedSize = phoneImageView.image.size;
     [phoneContainer addSubview:phoneScreen
@@ -38,7 +38,7 @@
                    subview.frame = CGRectMake(33, 133, 320, 480);
                }];
 
-    [[result.rootView setCenterLayout]
+    [[result.rootView useStackDefaultLayout]
      addSubview:phoneContainer];
 
     UIToolbar *toolbar = [[UIToolbar alloc] init];
@@ -54,12 +54,12 @@
       toolbar,
       [bodyView withPureStretch],
       ]]
-     setVLinearLayout];
+     useVerticalDefaultLayout];
 
     [bodyView addSubviews:@[
      [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/The_shortening_winters_day_is_near_a_close_Farquharson.jpg"]],
      ]
-               withLayout:[WeView2FitOrFillLayout fillLayout]];
+               withLayout:[WeView2FitOrFillLayout fillBoundsLayout]];
     bodyView.clipsToBounds = YES;
 
     WeView2 *pillboxView = [[WeView2 alloc] init];
@@ -68,21 +68,21 @@
       [self buttonWithImageName:@"Images/gray_pillbox_center"],
       [self buttonWithImageName:@"Images/gray_pillbox_right"],
       ]]
-     setHLinearLayout];
+     useHorizontalDefaultLayout];
     pillboxView.bottomMargin = 20;
     pillboxView.vAlign = V_ALIGN_BOTTOM;
 
     [[bodyView addSubviews:@[
       [pillboxView withPureStretch],
       ]]
-     setHLinearLayout];
+     useHorizontalDefaultLayout];
 
     UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [activityIndicatorView startAnimating];
     [bodyView addSubviews:@[
      activityIndicatorView,
      ]
-               withLayout:[WeView2CenterLayout centerLayout]];
+               withLayout:[WeView2StackLayout stackLayout]];
 
     result.rootView.debugName = @"iPhone 1";
     return result;

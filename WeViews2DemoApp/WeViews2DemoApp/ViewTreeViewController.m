@@ -50,7 +50,7 @@
 - (void)loadView
 {
     self.rootView = [[[WeView2 alloc] init]
-                     setVLinearLayout];
+                     useVerticalDefaultLayout];
     [self.rootView setVAlign:V_ALIGN_TOP];
     //    self.rootView.debugLayout = YES;
     self.rootView.opaque = YES;

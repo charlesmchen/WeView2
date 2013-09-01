@@ -90,7 +90,7 @@
     label.userInteractionEnabled = YES;
 
     const int INDENT_PIXELS = 5;
-    [[[[[[self setHLinearLayout]
+    [[[[[[self useHorizontalDefaultLayout]
          addSubviews:@[expandLabel, label,]]
         setHMargin:10 + self.indentLevel * INDENT_PIXELS]
        setVMargin:3]

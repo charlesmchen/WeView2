@@ -16,6 +16,8 @@
 
 @property (nonatomic) HAlign hAlign;
 @property (nonatomic) VAlign vAlign;
+@property (nonatomic) HAlign contentHAlign;
+@property (nonatomic) VAlign contentVAlign;
 
 // TODO: Comment that min width trumps max width.
 

@@ -23,6 +23,8 @@
     {
         self.hAlign = H_ALIGN_CENTER;
         self.vAlign = V_ALIGN_CENTER;
+        self.contentHAlign = H_ALIGN_CENTER;
+        self.contentVAlign = V_ALIGN_CENTER;
 
         self.maxWidth = CGFLOAT_MAX;
         self.maxHeight = CGFLOAT_MAX;
@@ -30,10 +32,6 @@
 
     return self;
 }
-
-// TODO: Add asserts in the setters.
-// TODO: hAlign and vAlign control how subviews of the view are aligned within the view, not the
-// alignment of the view itself.
 
 /* CODEGEN MARKER: View Info Start */
 
@@ -145,6 +143,8 @@
 
     [result appendString:[self formatLayoutDescriptionItem:@"hAlign" value:FormatHAlign(self.hAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"vAlign" value:FormatVAlign(self.vAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"contentHAlign" value:FormatHAlign(self.contentHAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"contentVAlign" value:FormatVAlign(self.contentVAlign)]];
 
     return result;
 }

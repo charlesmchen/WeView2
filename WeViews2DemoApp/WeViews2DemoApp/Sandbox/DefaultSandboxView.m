@@ -26,7 +26,7 @@
     self = [super init];
     if (self)
     {
-        [self setVLinearLayout];
+        [self useHorizontalDefaultLayout];
         self.margin = 40;
         self.opaque = YES;
         //        self.backgroundColor = [UIColor whiteColor];
@@ -72,7 +72,7 @@
 
 - (void)snapToDesiredSize:(id)sender
 {
-    [self setCenterLayout];
+    [self useStackDefaultLayout];
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)sender
@@ -86,7 +86,7 @@
         CGPoint gesturePoint = [sender locationInView:self];
         CGPoint distance = CGPointAbs(CGPointSubtract(rootViewCenter, gesturePoint));
 
-        [self setNoopLayout];
+        [self useNoDefaultLayout];
 
         self.demoModel.rootView.size = CGSizeRound(CGSizeMake(distance.x * 2.f,
                                                               distance.y * 2.f));
@@ -98,7 +98,7 @@
 - (void)displayDemoModel:(DemoModel *)demoModel
 {
     [self removeAllSubviews];
-    [self setHLinearLayout];
+    [self useHorizontalDefaultLayout];
     self.demoModel = demoModel;
     self.demoModel.selection = self.demoModel.rootView;
 

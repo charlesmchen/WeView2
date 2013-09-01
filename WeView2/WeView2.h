@@ -12,19 +12,32 @@
 
 #import "UIView+WeView2.h"
 #import "WeView2BlockLayout.h"
+#import "WeView2FitOrFillLayout.h"
 
 @class WeView2Layout;
 
 @interface WeView2 : UIView
 
+#pragma mark - Default Layout
+
 // Set the default layout for subviews of this view.
 
-- (WeView2 *)setHLinearLayout;
-- (WeView2 *)setVLinearLayout;
-- (WeView2 *)setNoopLayout;
-- (WeView2 *)setCenterLayout;
+// By default, lay out subviews horiztonally, left-to-right.
+- (WeView2 *)useHorizontalDefaultLayout;
 
-- (WeView2 *)addSubviews:(NSArray *)subviews;
+// By default, lay out subviews vertically, top-to-bottom.
+- (WeView2 *)useVerticalDefaultLayout;
+
+// By default, lay out subviews on top of each other.
+- (WeView2 *)useStackDefaultLayout;
+
+// By default, _DO NOT_ lay out subviews.
+- (WeView2 *)useNoDefaultLayout;
+
+#pragma mark - Custom Layouts
+
+// Add subviews with a custom layout which will only apply for these subviews.
+
 - (WeView2 *)addSubviews:(NSArray *)subviews
               withLayout:(WeView2Layout *)layout;
 - (WeView2 *)addSubview:(UIView *)subview
@@ -33,6 +46,12 @@
          withLayoutBlock:(BlockLayoutBlock)block;
 - (WeView2 *)addSubview:(UIView *)subview
         withLayoutBlock:(BlockLayoutBlock)block;
+
+#pragma mark -
+
+// Subviews added without a custom layout (ie. with [UIView addSubview:(UIView *)view]) will use the
+// default layout.
+- (WeView2 *)addSubviews:(NSArray *)subviews;
 
 - (void)removeAllSubviews;
 
