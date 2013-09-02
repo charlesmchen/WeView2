@@ -173,6 +173,50 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     return self;
 }
 
+- (HAlign)hAlign
+{
+    return [self.viewInfo hAlign];
+}
+
+- (UIView *)setHAlign:(HAlign)value
+{
+    [self.viewInfo setHAlign:value];
+    return self;
+}
+
+- (VAlign)vAlign
+{
+    return [self.viewInfo vAlign];
+}
+
+- (UIView *)setVAlign:(VAlign)value
+{
+    [self.viewInfo setVAlign:value];
+    return self;
+}
+
+- (HAlign)cellHAlign
+{
+    return [self.viewInfo cellHAlign];
+}
+
+- (UIView *)setCellHAlign:(HAlign)value
+{
+    [self.viewInfo setCellHAlign:value];
+    return self;
+}
+
+- (VAlign)cellVAlign
+{
+    return [self.viewInfo cellVAlign];
+}
+
+- (UIView *)setCellVAlign:(VAlign)value
+{
+    [self.viewInfo setCellVAlign:value];
+    return self;
+}
+
 - (NSString *)debugName
 {
     return [self.viewInfo debugName];
@@ -280,50 +324,6 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
 }
 
 /* CODEGEN MARKER: Accessors End */
-
-- (HAlign)hAlign
-{
-    return [self.viewInfo hAlign];
-}
-
-- (id)setHAlign:(HAlign)value
-{
-    [self.viewInfo setHAlign:value];
-    return self;
-}
-
-- (VAlign)vAlign
-{
-    return [self.viewInfo vAlign];
-}
-
-- (id)setVAlign:(VAlign)value
-{
-    [self.viewInfo setVAlign:value];
-    return self;
-}
-
-- (HAlign)cellHAlign
-{
-    return [self.viewInfo cellHAlign];
-}
-
-- (id)setCellHAlign:(HAlign)value
-{
-    [self.viewInfo setCellHAlign:value];
-    return self;
-}
-
-- (VAlign)cellVAlign
-{
-    return [self.viewInfo cellVAlign];
-}
-
-- (id)setCellVAlign:(VAlign)value
-{
-    [self.viewInfo setCellVAlign:value];
-    return self;
-}
 
 - (id)withStretch
 {

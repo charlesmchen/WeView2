@@ -49,6 +49,19 @@
 - (CGFloat)hSpacing;
 - (UIView *)setHSpacing:(CGFloat)value;
 
+// The horizontal alignment of subviews within this view.
+- (HAlign)hAlign;
+- (UIView *)setHAlign:(HAlign)value;
+// The vertical alignment of subviews within this view.
+- (VAlign)vAlign;
+- (UIView *)setVAlign:(VAlign)value;
+// The horizontal alignment preference of this view within in its layout cell.
+- (HAlign)cellHAlign;
+- (UIView *)setCellHAlign:(HAlign)value;
+// The vertical alignment preference of this view within in its layout cell.
+- (VAlign)cellVAlign;
+- (UIView *)setCellVAlign:(VAlign)value;
+
 - (NSString *)debugName;
 - (UIView *)setDebugName:(NSString *)value;
 - (BOOL)debugLayout;
@@ -87,22 +100,6 @@
 - (UIView *)setSpacing:(CGFloat)value;
 
 /* CODEGEN MARKER: End */
-
-// The horizontal alignment of subviews within this view.
-- (HAlign)hAlign;
-- (UIView *)setHAlign:(HAlign)value;
-
-// The vertical alignment of subviews within this view.
-- (VAlign)vAlign;
-- (UIView *)setVAlign:(VAlign)value;
-
-// The horizontal alignment preference of this view within in its layout cell.
-- (HAlign)cellHAlign;
-- (UIView *)setCellHAlign:(HAlign)value;
-
-// The vertical alignment preference of this view within in its layout cell.
-- (VAlign)cellVAlign;
-- (UIView *)setCellVAlign:(VAlign)value;
 
 // Layout should stretch this subview to fit any available space.
 - (UIView *)withStretch;

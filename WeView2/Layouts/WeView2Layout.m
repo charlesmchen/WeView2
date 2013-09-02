@@ -12,6 +12,24 @@
 #import "WeView2Macros.h"
 
 @interface WeView2Layout ()
+{
+/* CODEGEN MARKER: Members Start */
+
+NSNumber *_leftMargin;
+NSNumber *_rightMargin;
+NSNumber *_topMargin;
+NSNumber *_bottomMargin;
+
+NSNumber *_vSpacing;
+NSNumber *_hSpacing;
+
+NSNumber *_hAlign;
+NSNumber *_vAlign;
+
+NSNumber *_debugLayout;
+
+/* CODEGEN MARKER: Members End */
+}
 
 @end
 
@@ -46,6 +64,179 @@
     return CGSizeZero;
 }
 
+#pragma mark - Per-Layout Properties
+
+/* CODEGEN MARKER: Accessors Start */
+
+- (CGFloat)leftMargin:(UIView *)view
+{
+    if (_leftMargin)
+    {
+        return [_leftMargin floatValue];
+    }
+    return [view leftMargin];
+}
+
+- (WeView2Layout *)setLeftMargin:(CGFloat)value
+{
+    _leftMargin = @(value);
+    return self;
+}
+
+- (CGFloat)rightMargin:(UIView *)view
+{
+    if (_rightMargin)
+    {
+        return [_rightMargin floatValue];
+    }
+    return [view rightMargin];
+}
+
+- (WeView2Layout *)setRightMargin:(CGFloat)value
+{
+    _rightMargin = @(value);
+    return self;
+}
+
+- (CGFloat)topMargin:(UIView *)view
+{
+    if (_topMargin)
+    {
+        return [_topMargin floatValue];
+    }
+    return [view topMargin];
+}
+
+- (WeView2Layout *)setTopMargin:(CGFloat)value
+{
+    _topMargin = @(value);
+    return self;
+}
+
+- (CGFloat)bottomMargin:(UIView *)view
+{
+    if (_bottomMargin)
+    {
+        return [_bottomMargin floatValue];
+    }
+    return [view bottomMargin];
+}
+
+- (WeView2Layout *)setBottomMargin:(CGFloat)value
+{
+    _bottomMargin = @(value);
+    return self;
+}
+
+- (CGFloat)vSpacing:(UIView *)view
+{
+    if (_vSpacing)
+    {
+        return [_vSpacing floatValue];
+    }
+    return [view vSpacing];
+}
+
+- (WeView2Layout *)setVSpacing:(CGFloat)value
+{
+    _vSpacing = @(value);
+    return self;
+}
+
+- (CGFloat)hSpacing:(UIView *)view
+{
+    if (_hSpacing)
+    {
+        return [_hSpacing floatValue];
+    }
+    return [view hSpacing];
+}
+
+- (WeView2Layout *)setHSpacing:(CGFloat)value
+{
+    _hSpacing = @(value);
+    return self;
+}
+
+- (HAlign)hAlign:(UIView *)view
+{
+    if (_hAlign)
+    {
+        return [_hAlign intValue];
+    }
+    return [view hAlign];
+}
+
+- (WeView2Layout *)setHAlign:(HAlign)value
+{
+    _hAlign = @(value);
+    return self;
+}
+
+- (VAlign)vAlign:(UIView *)view
+{
+    if (_vAlign)
+    {
+        return [_vAlign intValue];
+    }
+    return [view vAlign];
+}
+
+- (WeView2Layout *)setVAlign:(VAlign)value
+{
+    _vAlign = @(value);
+    return self;
+}
+
+- (BOOL)debugLayout:(UIView *)view
+{
+    if (_debugLayout)
+    {
+        return [_debugLayout boolValue];
+    }
+    return [view debugLayout];
+}
+
+- (WeView2Layout *)setDebugLayout:(BOOL)value
+{
+    _debugLayout = @(value);
+    return self;
+}
+
+- (WeView2Layout *)setHMargin:(CGFloat)value
+{
+    [self setLeftMargin:value];
+    [self setRightMargin:value];
+    return self;
+}
+
+- (WeView2Layout *)setVMargin:(CGFloat)value
+{
+    [self setTopMargin:value];
+    [self setBottomMargin:value];
+    return self;
+}
+
+- (WeView2Layout *)setMargin:(CGFloat)value
+{
+    [self setLeftMargin:value];
+    [self setRightMargin:value];
+    [self setTopMargin:value];
+    [self setBottomMargin:value];
+    return self;
+}
+
+- (WeView2Layout *)setSpacing:(CGFloat)value
+{
+    [self setHSpacing:value];
+    [self setVSpacing:value];
+    return self;
+}
+
+/* CODEGEN MARKER: Accessors End */
+
+#pragma mark - Utility Methods
+
 - (void)positionSubview:(UIView *)subview
             inSuperview:(UIView *)superview
                withSize:(CGSize)subviewSize
@@ -78,10 +269,10 @@
 {
     CGFloat borderWidth = view.layer.borderWidth;
 
-    int left = ceilf(view.leftMargin + borderWidth);
-    int top = ceilf(view.topMargin + borderWidth);
-    int right = floorf(size.width - ceilf(view.rightMargin + borderWidth));
-    int bottom = floorf(size.height - ceilf(view.bottomMargin + borderWidth));
+    int left = ceilf([self leftMargin:view] + borderWidth);
+    int top = ceilf([self topMargin:view] + borderWidth);
+    int right = floorf(size.width - ceilf([self rightMargin:view] + borderWidth));
+    int bottom = floorf(size.height - ceilf([self bottomMargin:view] + borderWidth));
 
     return CGRectMake(left,
                       top,
@@ -93,10 +284,10 @@
 {
     CGFloat borderWidth = view.layer.borderWidth;
 
-    int left = ceilf(view.leftMargin + borderWidth);
-    int top = ceilf(view.topMargin + borderWidth);
-    int right = ceilf(view.rightMargin + borderWidth);
-    int bottom = ceilf(view.bottomMargin + borderWidth);
+    int left = ceilf([self leftMargin:view] + borderWidth);
+    int top = ceilf([self topMargin:view] + borderWidth);
+    int right = ceilf([self rightMargin:view] + borderWidth);
+    int bottom = ceilf([self bottomMargin:view] + borderWidth);
 
     return CGSizeMake(left + right, top + bottom);
 }

@@ -14,11 +14,6 @@
 
 @interface WeView2ViewInfo : NSObject
 
-@property (nonatomic) HAlign hAlign;
-@property (nonatomic) VAlign vAlign;
-@property (nonatomic) HAlign cellHAlign;
-@property (nonatomic) VAlign cellVAlign;
-
 // TODO: Comment that min width trumps max width.
 
 /* CODEGEN MARKER: View Info Start */
@@ -39,6 +34,15 @@
 
 @property (nonatomic) CGFloat vSpacing;
 @property (nonatomic) CGFloat hSpacing;
+
+// The horizontal alignment of subviews within this view.
+@property (nonatomic) HAlign hAlign;
+// The vertical alignment of subviews within this view.
+@property (nonatomic) VAlign vAlign;
+// The horizontal alignment preference of this view within in its layout cell.
+@property (nonatomic) HAlign cellHAlign;
+// The vertical alignment preference of this view within in its layout cell.
+@property (nonatomic) VAlign cellVAlign;
 
 @property (nonatomic) NSString *debugName;
 @property (nonatomic) BOOL debugLayout;

@@ -64,6 +64,7 @@
     }
 
     [self.rootView addSubviews:subviews];
+//    self.rootView.debugLayout = YES;
 }
 
 - (void)didReceiveMemoryWarning

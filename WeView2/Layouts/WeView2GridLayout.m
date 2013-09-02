@@ -147,6 +147,10 @@
 //                             subviews:(NSArray *)subviews
 ////                           uniformGrid:(BOOL)uniformGrid
 //{
+//
+//// TODO: Apply.
+//BOOL debugLayout = [self debugLayout:superview];
+//
 //    GridLayoutInfo *result = [[GridLayoutInfo alloc] init];
 //
 //    GridRowAndColumnCount rowAndColumnCount = [self rowAndColumnCount:subviews];
@@ -158,8 +162,8 @@
 //    CGRect contentBounds = [self contentBoundsOfView:superview
 //                                             forSize:CGSizeZero];
 //    CGSize maxSubviewSize = contentBounds.size;
-//    maxSubviewSize.width = MAX(0, maxSubviewSize.width - superview.hSpacing * (columnCount - 1));
-//    maxSubviewSize.height = MAX(0, maxSubviewSize.height - superview.vSpacing * (rowCount - 1));
+//    maxSubviewSize.width = MAX(0, maxSubviewSize.width - [self hSpacing:superview] * (columnCount - 1));
+//    maxSubviewSize.height = MAX(0, maxSubviewSize.height - [self vSpacing:superview] * (rowCount - 1));
 //    if (self.isGridUniform) {
 //        if (columnCount > 0)
 //        {
@@ -243,8 +247,8 @@
 //    for (int row=0; row < rowCount; row++) {
 //        contentSize.height += rowHeights[row];
 //    }
-//    contentSize.width += superview.hSpacing * (columnCount - 1);
-//    contentSize.height += superview.vSpacing * (rowCount - 1);
+//    contentSize.width += [self hSpacing:superview] * (columnCount - 1);
+//    contentSize.height += [self vSpacing:superview] * (rowCount - 1);
 //    result.contentSize = contentSize;
 //
 //    result.totalSize = CGSizeAdd(contentSize,
@@ -369,7 +373,10 @@
 //- (void)layoutContentsOfView:(UIView *)view
 //                    subviews:(NSArray *)subviews
 //{
-//    BOOL debugLayout = view.debugLayout;
+//
+//// TODO: Apply.
+//BOOL debugLayout = [self debugLayout:superview];
+//
 //    if (debugLayout)
 //    {
 //        NSLog(@"layoutContentsOfView: %@ (%@) %@",
@@ -397,7 +404,7 @@
 //                          stretchCount:&stretchCount];
 //
 //    CGSize guideSize = view.size;
-//    CGFloat spacing = ceilf(horizontal ? view.hSpacing : view.vSpacing);
+//    CGFloat spacing = ceilf(horizontal ? [self hSpacing:superview] : [self vSpacing:superview]);
 //    CGRect contentBounds = [self contentBoundsOfView:view
 //                                             forSize:guideSize];
 //    CGSize maxSubviewSize = contentBounds.size;
@@ -625,7 +632,7 @@
 //    if (horizontal)
 //    {
 //        int extraAxisSpace = maxSubviewSize.width - contentSize.width;
-//        switch (view.hAlign)
+//        switch ([self hAlign:view])
 //        {
 //            case H_ALIGN_LEFT:
 //                break;
@@ -643,7 +650,7 @@
 //    else
 //    {
 //        int extraAxisSpace = maxSubviewSize.height - contentSize.height;
-//        switch (view.vAlign)
+//        switch ([self vAlign:view])
 //        {
 //            case V_ALIGN_BOTTOM:
 //                axisIndex += extraAxisSpace;

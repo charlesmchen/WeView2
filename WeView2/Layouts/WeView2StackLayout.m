@@ -25,7 +25,7 @@
                        subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize
 {
-    BOOL debugLayout = view.debugLayout;
+    BOOL debugLayout = [self debugLayout:view];
     if (debugLayout)
     {
         NSLog(@"+ minSizeOfContentsView: %@ thatFitsSize: %@", [view class], NSStringFromCGSize(guideSize));
@@ -67,7 +67,7 @@
                     subviews:(NSArray *)subviews
 {
     CGSize guideSize = view.size;
-    BOOL debugLayout = view.debugLayout;
+    BOOL debugLayout = [self debugLayout:view];
     if (debugLayout)
     {
         NSLog(@"+ minSizeOfContentsView: %@ thatFitsSize: %@", [view class], NSStringFromCGSize(guideSize));

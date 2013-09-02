@@ -13,10 +13,6 @@
 
 @implementation WeView2ViewInfo
 
-- (void)dealloc
-{
-}
-
 - (id)init
 {
     if (self = [super init])
@@ -136,6 +132,10 @@
     [result appendString:[self formatLayoutDescriptionItem:@"bottomMargin" value:@(self.bottomMargin)]];
     [result appendString:[self formatLayoutDescriptionItem:@"vSpacing" value:@(self.vSpacing)]];
     [result appendString:[self formatLayoutDescriptionItem:@"hSpacing" value:@(self.hSpacing)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"hAlign" value:@(self.hAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"vAlign" value:@(self.vAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"cellHAlign" value:@(self.cellHAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"cellVAlign" value:@(self.cellVAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"debugName" value:self.debugName]];
     [result appendString:[self formatLayoutDescriptionItem:@"debugLayout" value:@(self.debugLayout)]];
 

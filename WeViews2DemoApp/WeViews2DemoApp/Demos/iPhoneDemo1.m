@@ -10,6 +10,7 @@
 #import "WeView2Macros.h"
 #import "WeView2FitOrFillLayout.h"
 #import "WeView2StackLayout.h"
+#import "WeView2LinearLayout.h"
 
 @implementation iPhoneDemo1
 
@@ -62,20 +63,14 @@
                withLayout:[WeView2FitOrFillLayout fillBoundsWithAspectRatioLayout]];
     bodyView.clipsToBounds = YES;
 
-    WeView2 *pillboxView = [[WeView2 alloc] init];
-    [[pillboxView addSubviews:@[
-      [self buttonWithImageName:@"Images/gray_pillbox_left"],
-      [self buttonWithImageName:@"Images/gray_pillbox_center"],
-      [self buttonWithImageName:@"Images/gray_pillbox_right"],
-      ]]
-     useHorizontalDefaultLayout];
-    pillboxView.bottomMargin = 20;
-    pillboxView.cellVAlign = V_ALIGN_BOTTOM;
-
-    [[bodyView addSubviews:@[
-      [pillboxView withPureStretch],
-      ]]
-     useHorizontalDefaultLayout];
+    [bodyView addSubviews:@[
+     [self buttonWithImageName:@"Images/gray_pillbox_left"],
+     [self buttonWithImageName:@"Images/gray_pillbox_center"],
+     [self buttonWithImageName:@"Images/gray_pillbox_right"],
+     ]
+               withLayout:[[[WeView2LinearLayout horizontalLayout]
+                            setBottomMargin:20]
+                           setVAlign:V_ALIGN_BOTTOM]];
 
     UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [activityIndicatorView startAnimating];

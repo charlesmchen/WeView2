@@ -14,11 +14,16 @@ viewInfohFilePath = os.path.join(folderPath, 'WeView2ViewInfo.h')
 viewInfomFilePath = os.path.join(folderPath, 'WeView2ViewInfo.m')
 ViewEditorController_hFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.h')
 ViewEditorController_mFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.m')
+WeView2Layout_hFilePath = os.path.join(folderPath, 'Layouts', 'WeView2Layout.h')
+WeView2Layout_mFilePath = os.path.join(folderPath, 'Layouts', 'WeView2Layout.m')
 
-for filePath in (hFilePath, mFilePath,
+for filePath in (hFilePath,
+                    mFilePath,
                     viewInfohFilePath, viewInfomFilePath,
                     ViewEditorController_hFilePath,
                     ViewEditorController_mFilePath,
+                    WeView2Layout_hFilePath,
+                    WeView2Layout_mFilePath,
                      ):
     if (not os.path.exists(filePath) or
         not os.path.isfile(filePath)):
@@ -49,12 +54,13 @@ def replaceBlock(filePath, blockStartKey, blockEndKey, block):
 
 
 class Property:
-    def __init__(self, name, typeName, defaultValue=None, asserts=None, comments=None):
+    def __init__(self, name, typeName, defaultValue=None, asserts=None, comments=None, layoutProperty=False):
         self.name = name
         self.typeName = typeName
         self.defaultValue = defaultValue
         self.asserts = asserts
         self.comments = comments
+        self.layoutProperty = layoutProperty
 
     def UpperName(self):
         return self.name[0].upper() + self.name[1:]
@@ -73,22 +79,24 @@ propertyGroups = (
                    Property('ignoreDesiredSize', 'BOOL', ),
                    ),
                   (
-                   Property('leftMargin', 'CGFloat', ),
-                   Property('rightMargin', 'CGFloat', ),
-                   Property('topMargin', 'CGFloat', ),
-                   Property('bottomMargin', 'CGFloat', ),
+                   Property('leftMargin', 'CGFloat', layoutProperty=True, ),
+                   Property('rightMargin', 'CGFloat', layoutProperty=True, ),
+                   Property('topMargin', 'CGFloat', layoutProperty=True, ),
+                   Property('bottomMargin', 'CGFloat', layoutProperty=True, ),
                    ),
                   (
-                   Property('vSpacing', 'CGFloat', ),
-                   Property('hSpacing', 'CGFloat', ),
+                   Property('vSpacing', 'CGFloat', layoutProperty=True, ),
+                   Property('hSpacing', 'CGFloat', layoutProperty=True, ),
                    ),
-                  # (
-                  #  Property('hAlign', 'HAlign', ),
-                  #  Property('vAlign', 'VAlign', ),
-                  #  ),
+                  (
+                   Property('hAlign', 'HAlign', comments='The horizontal alignment of subviews within this view.', layoutProperty=True, ),
+                   Property('vAlign', 'VAlign', comments='The vertical alignment of subviews within this view.', layoutProperty=True, ),
+                   Property('cellHAlign', 'HAlign', comments='The horizontal alignment preference of this view within in its layout cell.', ),
+                   Property('cellVAlign', 'VAlign', comments='The vertical alignment preference of this view within in its layout cell.', ),
+                   ),
                   (
                    Property('debugName', 'NSString *', defaultValue="@\"?\"", ),
-                   Property('debugLayout', 'BOOL', ),
+                   Property('debugLayout', 'BOOL', layoutProperty=True, ),
                    ),
 
                   )
@@ -103,17 +111,22 @@ def FormatComment(comment):
     # TODO: linewrap the comments.
     return '// %s' % comment
 
+def FormatComments(comment):
+    # TODO: linewrap the comments.
+    return ['// %s' % comment,]
+
 def UpperName(name):
     return name[0].upper() + name[1:]
 
 class CustomAccessor:
-    def __init__(self, name, typeName, propertyList, setterValues=None, getterValue=None, comments=None):
+    def __init__(self, name, typeName, propertyList, setterValues=None, getterValue=None, comments=None, layoutProperty=False):
         self.name = name
         self.typeName = typeName
         self.propertyList = propertyList
         self.setterValues = setterValues
         self.getterValue = getterValue
         self.comments = comments
+        self.layoutProperty = layoutProperty
 
     def propertyNames(self):
         return self.propertyList
@@ -132,11 +145,11 @@ customAccessors = (
 
                     CustomAccessor('stretchWeight', 'CGFloat', ('vStretchWeight', 'hStretchWeight',)),
 
-                    CustomAccessor('hMargin', 'CGFloat', ('leftMargin', 'rightMargin',)),
-                    CustomAccessor('vMargin', 'CGFloat', ('topMargin', 'bottomMargin',)),
-                    CustomAccessor('margin', 'CGFloat', ('leftMargin', 'rightMargin', 'topMargin', 'bottomMargin',)),
+                    CustomAccessor('hMargin', 'CGFloat', ('leftMargin', 'rightMargin',), layoutProperty=True, ),
+                    CustomAccessor('vMargin', 'CGFloat', ('topMargin', 'bottomMargin',), layoutProperty=True, ),
+                    CustomAccessor('margin', 'CGFloat', ('leftMargin', 'rightMargin', 'topMargin', 'bottomMargin',), layoutProperty=True, ),
 
-                    CustomAccessor('spacing', 'CGFloat', ('hSpacing', 'vSpacing',)),
+                    CustomAccessor('spacing', 'CGFloat', ('hSpacing', 'vSpacing',), layoutProperty=True, ),
                     )
 
 # --------
@@ -146,6 +159,8 @@ lines.append('')
 lines.append('')
 for propertyGroup in propertyGroups:
     for property in propertyGroup:
+        if property.comments:
+            lines.append('%s' % ('\n'.join(FormatComments(property.comments)), ))
         lines.append('@property (nonatomic) %s %s;' % (property.typeName, property.name, ))
     lines.append('')
 
@@ -172,6 +187,8 @@ lines.append('')
 lines.append('')
 for propertyGroup in propertyGroups:
     for property in propertyGroup:
+        if property.comments:
+            lines.append('%s' % ('\n'.join(FormatComments(property.comments)), ))
         # Getter
         lines.append('- (%s)%s;' % (property.typeName, property.name, ))
         # Setter
@@ -269,6 +286,9 @@ for propertyGroup in propertyGroups:
         elif property.typeName == 'NSString *':
             getterName = 'associatedString'
             setterName = 'setAssociatedString'
+        elif property.typeName in ('HAlign', 'VAlign', ):
+            getterName = 'associatedInt'
+            setterName = 'setAssociatedInt'
         else:
             raise Exception('Unknown typeName: %s' % str(property.typeName))
         defaultValue = ''
@@ -432,44 +452,144 @@ lines.append('')
 lines.append('')
 block = '\n'.join(lines)
 
-# propertyGroups = (
-#                   (
-#                    Property('minWidth', 'CGFloat', asserts='%s >= 0', ),
-#                    Property('maxWidth', 'CGFloat', defaultValue="CGFLOAT_MAX", asserts='%s >= 0',  ),
-#                    Property('minHeight', 'CGFloat', asserts='%s >= 0', ),
-#                    Property('maxHeight', 'CGFloat', defaultValue="CGFLOAT_MAX", asserts='%s >= 0', ),
-#                    ),
-#                   (
-#                    Property('hStretchWeight', 'CGFloat', asserts='%s >= 0', ),
-#                    Property('vStretchWeight', 'CGFloat', asserts='%s >= 0', ),
-#                    Property('ignoreNaturalSize', 'BOOL', ),
-#                    ),
-#                   (
-#                    Property('leftMargin', 'CGFloat', ),
-#                    Property('rightMargin', 'CGFloat', ),
-#                    Property('topMargin', 'CGFloat', ),
-#                    Property('bottomMargin', 'CGFloat', ),
-#                    ),
-#                   (
-#                    Property('vSpacing', 'CGFloat', ),
-#                    Property('hSpacing', 'CGFloat', ),
-#                    ),
-#                   # (
-#                   #  Property('hAlign', 'HAlign', ),
-#                   #  Property('vAlign', 'VAlign', ),
-#                   #  ),
-#                   (
-#                    Property('debugName', 'NSString *', defaultValue="@\"?\"", ),
-#                    Property('debugLayout', 'BOOL', ),
-#                    ),
-#
-#                   )
-
 replaceBlock(ViewEditorController_mFilePath, 'Parameters Start', 'Parameters End', block)
 
 # --------
 
-                    # ViewEditorController_hFilePath,
-                    # ViewEditorController_mFilePath,
+lines = []
+lines.append('')
+lines.append('')
+for propertyGroup in propertyGroups:
+    hasGroup = False
+    for property in propertyGroup:
+        if not property.layoutProperty:
+            continue
+        hasGroup = True
+        if property.comments:
+            lines.append('%s' % ('\n'.join(FormatComments(property.comments)), ))
+        # Getter
+        lines.append('- (%s)%s:(UIView *)view;' % (property.typeName, property.name, ))
+        # Setter
+        lines.append('- (WeView2Layout *)set%s:(%s)value;' % (property.UpperName(), property.typeName, ))
+
+    if hasGroup:
+        lines.append('')
+
+for customAccessor in customAccessors:
+    if not customAccessor.layoutProperty:
+        continue
+
+    comments = []
+    comments.append(FormatComment('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames())))
+    lines.append('%s' % ('\n'.join(comments), ))
+    # Getter
+    if customAccessor.getterValue:
+        lines.append('- (%s)%s:(UIView *)view;' % (customAccessor.typeName, customAccessor.name, ))
+    # Setter
+    lines.append('- (WeView2Layout *)set%s:(%s)value;\n' % (customAccessor.UpperName(), customAccessor.typeName, ))
+lines.append('')
+block = '\n'.join(lines)
+
+replaceBlock(WeView2Layout_hFilePath, 'Start', 'End', block)
+
+# --------
+
+lines = []
+lines.append('')
+lines.append('')
+for propertyGroup in propertyGroups:
+    hasGroup = False
+    for property in propertyGroup:
+        if not property.layoutProperty:
+            continue
+        hasGroup = True
+        # Getter
+        lines.append('NSNumber *_%s;' % (property.name, ))
+
+    if hasGroup:
+        lines.append('')
+lines.append('')
+block = '\n'.join(lines)
+
+replaceBlock(WeView2Layout_mFilePath, 'Members Start', 'Members End', block)
+
+
+# --------
+
+lines = []
+lines.append('')
+for propertyGroup in propertyGroups:
+    for property in propertyGroup:
+        if not property.layoutProperty:
+            continue
+        asserts = ''
+        if property.asserts:
+            if type(property.asserts) == types.StringType:
+                asserts ='\n    WeView2Assert(%s);' % (property.asserts % 'value', )
+                pass
+            else:
+                raise Exception('Unknown asserts: %s' % str(property.asserts))
+        if property.typeName == 'CGFloat':
+            unboxMethodName = 'floatValue'
+        elif property.typeName == 'BOOL':
+            unboxMethodName = 'boolValue'
+        # elif property.typeName == 'NSString *':
+        #     getterName = 'associatedString'
+        #     setterName = 'setAssociatedString'
+        elif property.typeName in ('HAlign', 'VAlign', ):
+            unboxMethodName = 'intValue'
+        else:
+            raise Exception('Unknown typeName: %s' % str(property.typeName))
+        defaultValue = ''
+        if property.defaultValue:
+            defaultValue = ' defaultValue:%s' % property.defaultValue
+        lines.append('''
+- (%s)%s:(UIView *)view
+{
+    if (_%s)
+    {
+        return [_%s %s];
+    }
+    return [view %s];
+}
+
+- (WeView2Layout *)set%s:(%s)value
+{
+    _%s = @(value);
+    return self;
+}''' % (property.typeName, property.name, property.name, property.name, unboxMethodName, property.name, property.UpperName(), property.typeName, property.name, ))
+
+for customAccessor in customAccessors:
+    if not customAccessor.layoutProperty:
+        continue
+    # Getter
+    if customAccessor.getterValue:
+        lines.append('''
+- (%s)%s:(UIView *)view
+{
+    return [view %s];
+}''' % (customAccessor.typeName, customAccessor.name, customAccessor.name, ))
+    # Setter
+    subsetters = []
+    for index, propertyName in enumerate(customAccessor.propertyNames()):
+        valueName = 'value'
+        if customAccessor.setterValues:
+            valueName += customAccessor.setterValues[index]
+        subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
+
+    lines.append('''
+- (WeView2Layout *)set%s:(%s)value
+{
+%s
+    return self;
+}''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
+
+lines.append('')
+lines.append('')
+block = '\n'.join(lines)
+
+replaceBlock(WeView2Layout_mFilePath, 'Accessors Start', 'Accessors End', block)
+
+# --------
 
 print 'Complete.'
