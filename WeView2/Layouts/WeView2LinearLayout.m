@@ -13,6 +13,8 @@
 
 @interface WeView2LinearLayout ()
 
+@property (nonatomic) BOOL isHorizontal;
+
 @end
 
 #pragma mark -

@@ -20,6 +20,7 @@ typedef void(^BlockLayoutBlock)(UIView *superview, UIView *subview);
 
 @interface WeView2BlockLayout : WeView2Layout
 
+// Factory method.
 + (WeView2BlockLayout *)blockLayoutWithBlock:(BlockLayoutBlock)block;
 
 @end

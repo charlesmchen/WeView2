@@ -57,6 +57,9 @@
 		3444367D17D2AAC100EFF341 /* iPhoneDemo1.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444367C17D2AAC000EFF341 /* iPhoneDemo1.m */; };
 		3444368017D2B11D00EFF341 /* WeView2FitOrFillLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444367F17D2B11C00EFF341 /* WeView2FitOrFillLayout.m */; };
 		3444368617D3B00F00EFF341 /* WeView2StackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444368517D3B00E00EFF341 /* WeView2StackLayout.m */; };
+		3444368917D3F9B700EFF341 /* WeView2GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444368817D3F9B600EFF341 /* WeView2GridLayout.m */; };
+		3444368B17D3F9DB00EFF341 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3444368A17D3F9DA00EFF341 /* README.md */; };
+		3444368D17D3F9E300EFF341 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3444368C17D3F9E200EFF341 /* LICENSE */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +157,10 @@
 		3444367F17D2B11C00EFF341 /* WeView2FitOrFillLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2FitOrFillLayout.m; sourceTree = "<group>"; };
 		3444368417D3B00D00EFF341 /* WeView2StackLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2StackLayout.h; sourceTree = "<group>"; };
 		3444368517D3B00E00EFF341 /* WeView2StackLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2StackLayout.m; sourceTree = "<group>"; };
+		3444368717D3F9B500EFF341 /* WeView2GridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2GridLayout.h; sourceTree = "<group>"; };
+		3444368817D3F9B600EFF341 /* WeView2GridLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2GridLayout.m; sourceTree = "<group>"; };
+		3444368A17D3F9DA00EFF341 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		3444368C17D3F9E200EFF341 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,7 +191,9 @@
 			isa = PBXGroup;
 			children = (
 				34195F7B17CA80A90036F8DC /* Frameworks */,
+				3444368C17D3F9E200EFF341 /* LICENSE */,
 				34195F7A17CA80A90036F8DC /* Products */,
+				3444368A17D3F9DA00EFF341 /* README.md */,
 				3444366117D2A5AB00EFF341 /* Resources */,
 				34195FC317CA80E00036F8DC /* WeView2 */,
 				34195F8217CA80A90036F8DC /* WeViews2DemoApp */,
@@ -318,6 +327,8 @@
 				3444365F17D2953400EFF341 /* WeView2BlockLayout.m */,
 				3444367E17D2B11B00EFF341 /* WeView2FitOrFillLayout.h */,
 				3444367F17D2B11C00EFF341 /* WeView2FitOrFillLayout.m */,
+				3444368717D3F9B500EFF341 /* WeView2GridLayout.h */,
+				3444368817D3F9B600EFF341 /* WeView2GridLayout.m */,
 				344435DB17CB055B00EFF341 /* WeView2Layout.h */,
 				344435DC17CB055B00EFF341 /* WeView2Layout.m */,
 				344435DD17CB055B00EFF341 /* WeView2LinearLayout.h */,
@@ -442,6 +453,8 @@
 				3444367017D2A5E100EFF341 /* Icon.png in Resources */,
 				3444367117D2A5E100EFF341 /* Icon@2x.png in Resources */,
 				3444367A17D2A7DC00EFF341 /* subtlepatterns.com in Resources */,
+				3444368B17D3F9DB00EFF341 /* README.md in Resources */,
+				3444368D17D3F9E300EFF341 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,6 +518,7 @@
 				3444367D17D2AAC100EFF341 /* iPhoneDemo1.m in Sources */,
 				3444368017D2B11D00EFF341 /* WeView2FitOrFillLayout.m in Sources */,
 				3444368617D3B00F00EFF341 /* WeView2StackLayout.m in Sources */,
+				3444368917D3F9B700EFF341 /* WeView2GridLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

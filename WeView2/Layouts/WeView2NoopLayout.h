@@ -14,6 +14,9 @@
 
 @interface WeView2NoopLayout : WeView2Layout
 
+// Factory method.
+//
+// Does _NOT_ alter the layout of subviews.
 + (WeView2NoopLayout *)noopLayout;
 
 @end

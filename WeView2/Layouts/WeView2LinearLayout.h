@@ -12,29 +12,16 @@
 
 #import "WeView2Layout.h"
 
-// TODO: Discuss semantics of [UIView sizeThatFits:(CGSize)size].
-// Functions like a "minimum size" in some sense - if the view wants to insist upon a minimum
-// size, the return value can exceed the size parameter.
-// Functions like a "maximum size" in some sense - the return value can be smaller than the
-// size parameter.
-// Also allows a view to describe how large it will be in a given context, ie. with a wrapping
-// UILabel whose height depends on its width.
-//
-// TODO: Discuss pixel-, subpixel-, and point- alignment.
-//
-// TODO: Discuss container alignment vs. subview alignment.
-//
-// TODO: Discuss what happens when subviews insist upon exceeding axis or cross size of container.
-
-// TODO: Add asserts in the setters.
-// TODO: hAlign and vAlign control how subviews of the view are aligned within the view, not the
-// alignment of the view itself.
 @interface WeView2LinearLayout : WeView2Layout
 
-@property (nonatomic) BOOL isHorizontal;
-
+// Factory method.
+//
+// Lays out subviews horizontally, left-to-right.
 + (WeView2LinearLayout *)horizontalLayout;
 
+// Factory method.
+//
+// Lays out subviews vertically, top-to-bottom.
 + (WeView2LinearLayout *)verticalLayout;
 
 @end

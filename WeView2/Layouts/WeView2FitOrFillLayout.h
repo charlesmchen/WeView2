@@ -14,13 +14,19 @@
 
 @interface WeView2FitOrFillLayout : WeView2Layout
 
+// Factory method.
+//
 // Lays out subviews of a view so that they fill the entire bounds of their superview.
 + (WeView2FitOrFillLayout *)fillBoundsLayout;
 
+// Factory method.
+//
 // Lays out subviews of a view so that they fill the content bounds (ie. the bounds minus the border
 // and margins) of their superview.
 + (WeView2FitOrFillLayout *)fillContentBoundsLayout;
 
+// Factory method.
+//
 // Lays out subviews of a view so that they fill the entire bounds of their superview, preserving
 // their natural aspect ratio.
 //
@@ -29,6 +35,8 @@
 // want to set the "clipsToBounds" property to YES on the superview;
 + (WeView2FitOrFillLayout *)fillBoundsWithAspectRatioLayout;
 
+// Factory method.
+//
 // Lays out subviews of a view so that they fill the content bounds (ie. the bounds minus the border
 // and margins) of their superview, preserving their natural aspect ratio.
 //
@@ -37,6 +45,8 @@
 // probably want to set the "clipsToBounds" property to YES on the superview;
 + (WeView2FitOrFillLayout *)fillContentBoundsWithAspectRatioLayout;
 
+// Factory method.
+//
 // Lays out subviews of a view so that they fit inside the entire bounds of their superview,
 // preserving their natural aspect ratio.
 //
@@ -44,6 +54,8 @@
 // fits inside its superview without clipping or distorting the image.
 + (WeView2FitOrFillLayout *)fitBoundsWithAspectRatioLayout;
 
+// Factory method.
+//
 // Lays out subviews of a view so that they fit inside the content bounds (ie. the bounds minus the
 // border and margins) of their superview, preserving their natural aspect ratio.
 //

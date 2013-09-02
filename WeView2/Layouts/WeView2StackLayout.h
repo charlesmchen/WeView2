@@ -14,6 +14,9 @@
 
 @interface WeView2StackLayout : WeView2Layout
 
+// Factory method.
+//
+// Lays out all views stacked on top of each other.
 + (WeView2StackLayout *)stackLayout;
 
 @end

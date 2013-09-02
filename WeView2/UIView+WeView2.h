@@ -132,6 +132,9 @@
 - (CGFloat)bottom;
 - (void)setBottom:(CGFloat)value;
 
+- (void)centerAlignHorizontallyWithView:(UIView *)view;
+- (void)centerAlignVerticallyWithView:(UIView *)view;
+
 - (void)centerHorizontallyInSuperview;
 - (void)centerVerticallyInSuperview;
 

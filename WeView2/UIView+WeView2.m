@@ -435,6 +435,26 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     self.y = value - self.height;
 }
 
+- (void)centerAlignHorizontallyWithView:(UIView *)view
+{
+    WeView2Assert(view);
+    WeView2Assert(self.superview);
+    WeView2Assert(view.superview);
+    CGPoint otherCenter = [view.superview convertPoint:view.center
+                                                toView:self.superview];
+    self.x = roundf(otherCenter.x - self.width * 0.5f);
+}
+
+- (void)centerAlignVerticallyWithView:(UIView *)view
+{
+    WeView2Assert(view);
+    WeView2Assert(self.superview);
+    WeView2Assert(view.superview);
+    CGPoint otherCenter = [view.superview convertPoint:view.center
+                                                toView:self.superview];
+    self.y = roundf(otherCenter.y - self.height * 0.5f);
+}
+
 - (void)centerHorizontallyInSuperview
 {
     WeView2Assert(self.superview);

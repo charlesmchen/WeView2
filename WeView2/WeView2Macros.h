@@ -187,6 +187,13 @@ CGSizeSubtract(const CGSize p1, const CGSize p2)
 }
 
 CG_INLINE CGSize
+CGSizeScale(const CGSize p1, const CGFloat value)
+{
+    return CGSizeMake(p1.width * value,
+                      p1.height * value);
+}
+
+CG_INLINE CGSize
 CGSizeMax(const CGSize p1, const CGSize p2)
 {
     return CGSizeMake(MAX(p1.width, p2.width),
