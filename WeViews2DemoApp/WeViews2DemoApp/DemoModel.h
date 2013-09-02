@@ -20,6 +20,7 @@
 @property (nonatomic, weak) id<DemoModelDelegate> delegate;
 @property (nonatomic) id selection;
 @property (nonatomic) WeView2 *rootView;
+@property (nonatomic) BOOL useIPhoneSandboxByDefault;
 
 + (DemoModel *)create;
 

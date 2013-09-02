@@ -137,4 +137,6 @@
 
 - (NSString *)layoutDescription;
 
+- (void)resetAllLayoutProperties;
+
 @end

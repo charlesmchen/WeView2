@@ -184,7 +184,7 @@
 
 - (void)removeAllSubviews
 {
-    for (UIView *subview in self.subviews)
+    for (UIView *subview in [self.subviews copy])
     {
         [subview removeFromSuperview];
     }

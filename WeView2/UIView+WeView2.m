@@ -28,6 +28,11 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     return value;
 }
 
+- (void)resetAllLayoutProperties
+{
+    objc_setAssociatedObject(self, kWeView2Key_ViewInfo, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 /* CODEGEN MARKER: Accessors Start */
 
 - (CGFloat)minWidth

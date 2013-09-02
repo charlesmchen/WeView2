@@ -23,24 +23,26 @@
 {
     DemoModel *result = [DemoModel create];
 
-    WeView2 *phoneScreen = [[WeView2 alloc] init];
-    phoneScreen.backgroundColor = [UIColor whiteColor];
-    phoneScreen.opaque = YES;
+    result.useIPhoneSandboxByDefault = YES;
 
-    UIImageView *phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iphone_vertical"]];
-    WeView2 *phoneContainer = [[WeView2 alloc] init];
-    [[phoneContainer useStackDefaultLayout]
-     addSubview:phoneImageView];
-    phoneContainer.fixedSize = phoneImageView.image.size;
-    [phoneContainer addSubview:phoneScreen
-               withLayoutBlock:^(UIView *superview, UIView *subview) {
-                   WeView2Assert(subview);
-                   WeView2Assert(subview.superview);
-                   subview.frame = CGRectMake(33, 133, 320, 480);
-               }];
-
-    [[result.rootView useStackDefaultLayout]
-     addSubview:phoneContainer];
+//    WeView2 *phoneScreen = [[WeView2 alloc] init];
+//    phoneScreen.backgroundColor = [UIColor whiteColor];
+//    phoneScreen.opaque = YES;
+//
+//    UIImageView *phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iphone_vertical"]];
+//    WeView2 *phoneContainer = [[WeView2 alloc] init];
+//    [[phoneContainer useStackDefaultLayout]
+//     addSubview:phoneImageView];
+//    phoneContainer.fixedSize = phoneImageView.image.size;
+//    [phoneContainer addSubview:phoneScreen
+//               withLayoutBlock:^(UIView *superview, UIView *subview) {
+//                   WeView2Assert(subview);
+//                   WeView2Assert(subview.superview);
+//                   subview.frame = CGRectMake(33, 133, 320, 480);
+//               }];
+//
+//    [[result.rootView useStackDefaultLayout]
+//     addSubview:phoneContainer];
 
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar setItems:@[
@@ -51,7 +53,7 @@
      ]
              animated:NO];
     WeView2 *bodyView = [[WeView2 alloc] init];
-    [[phoneScreen addSubviews:@[
+    [[result.rootView addSubviews:@[
       toolbar,
       [bodyView withPureStretch],
       ]]
@@ -80,6 +82,7 @@
                withLayout:[WeView2StackLayout stackLayout]];
 
     result.rootView.debugName = @"iPhone 1";
+    [result.rootView withPureStretch];
     return result;
 }
 

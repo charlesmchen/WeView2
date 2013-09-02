@@ -1,7 +1,7 @@
 WeView2
 =======
 
-The WeView2 library is a tool for auto-layout of iOS UIs. 
+The WeView2 library is a tool for auto layout of iOS UIs. 
 
 * WeView2 is an alternative to [iOS's built-in Auto Layout Mechanism](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/Articles/Introduction.html).
 * WeView2 builds on iOS's existing sizing and layout mechanisms.  WeView2 is compatible with any properly implemented UIViews without any modifications.
@@ -17,13 +17,22 @@ The WeView2 library is a tool for auto-layout of iOS UIs.
 * Strive to be lightweight. Stay focused on solving a single problem. Add no third-party dependencies. Play nicely with other UIViews and layout mechanisms.
 
 
-# Why use auto-layout?
+# Why use auto layout at all?
 
-* Discuss iOS' built-in Auto Layout is constraint-based.
+With auto layout, UIs can:
+
+* Adapt to different screen sizes (ie. the iPhone 5 vs. other iPhones) (be responsive).
+* Adapt to orientation changes.
+* Adapt to design changes (ie. change of font size).
+* Adapt to textual changes as your UI is translated into other languages.
+* Adapt to dynamic content.
+
+This becomes even more important with iOS 7, which lets users adjust text sizes outside of your app.
 
 # Why use WeView2 instead of iOS' built-in Auto Layout?
 
-* iOS' built-in Auto Layout is constraint-based.  It's syntax can be difficult to understand:
+* iOS' built-in Auto Layout is constraint-based.  
+* The syntax of iOS' built-in Auto Layout can be difficult to understand:
 
 ```
 + (id)constraintWithItem:(id)view1 
@@ -35,12 +44,14 @@ multiplier:(CGFloat)multiplier
 constant:(CGFloat)c
 ```
 
-* In iOS' built-in Auto Layout, constraints are specified on a per-view basis.  
-
 * You need to worry about complications such as constraint priority, constraint sufficiency, constraint conflicts, ambiguous layout, common ancestors, etc.
+
+* In iOS' built-in Auto Layout, constraints are specified on a per-view basis.
 
 * Some conceptually simple layouts are difficult to describe with constraints.
 
+* WeView2 layout is container- and block-based.  
+* Where possible, WeView2's leverages your existing understanding of how layout works with HTML/CSS.
 
 
 Users interfaces that use auto-layout adapt to changes.  
