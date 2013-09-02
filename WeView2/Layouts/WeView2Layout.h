@@ -12,14 +12,6 @@
 
 #import "WeView2Common.h"
 
-typedef enum
-{
-    CELL_POSITION_NORMAL,
-    CELL_POSITION_FILL,
-    CELL_POSITION_FILL_W_ASPECT_RATIO,
-    CELL_POSITION_FIT_W_ASPECT_RATIO,
-} CellPositioningMode;
-
 @interface WeView2Layout : NSObject
 
 - (void)layoutContentsOfView:(UIView *)view
@@ -59,6 +51,8 @@ typedef enum
 
 - (BOOL)cropSubviewOverflow:(UIView *)view;
 - (WeView2Layout *)setCropSubviewOverflow:(BOOL)value;
+- (CellPositioningMode)cellPositioning:(UIView *)view;
+- (WeView2Layout *)setCellPositioning:(CellPositioningMode)value;
 
 - (BOOL)debugLayout:(UIView *)view;
 - (WeView2Layout *)setDebugLayout:(BOOL)value;
@@ -84,7 +78,8 @@ typedef enum
 - (void)positionSubview:(UIView *)subview
             inSuperview:(UIView *)superview
                withSize:(CGSize)subviewSize
-           inCellBounds:(CGRect)cellBounds;
+           inCellBounds:(CGRect)cellBounds
+        cellPositioning:(CellPositioningMode)cellPositioning;
 
 - (CGPoint)insetOriginOfView:(UIView *)view;
 

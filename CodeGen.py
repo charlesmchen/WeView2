@@ -72,6 +72,8 @@ propertyGroups = (
                    Property('maxWidth', 'CGFloat', defaultValue="CGFLOAT_MAX", asserts='%s >= 0',  ),
                    Property('minHeight', 'CGFloat', asserts='%s >= 0', ),
                    Property('maxHeight', 'CGFloat', defaultValue="CGFLOAT_MAX", asserts='%s >= 0', ),
+                   Property('desiredWidthAdjustment', 'CGFloat', asserts='%s >= 0', ),
+                   Property('desiredHeightAdjustment', 'CGFloat', asserts='%s >= 0', ),
                    ),
                   (
                    Property('hStretchWeight', 'CGFloat', asserts='%s >= 0', ),
@@ -143,6 +145,10 @@ class CustomAccessor:
 customAccessors = (
                     CustomAccessor('minSize', 'CGSize', ('minWidth', 'minHeight',), ('.width', '.height',), getterValue='CGSizeMake(self.minWidth, self.minHeight)'),
                     CustomAccessor('maxSize', 'CGSize', ('maxWidth', 'maxHeight',), ('.width', '.height',), getterValue='CGSizeMake(self.maxWidth, self.maxHeight)'),
+                    CustomAccessor('desiredSizeAdjustment', 'CGSize',
+                        ('desiredWidthAdjustment', 'desiredHeightAdjustment',),
+                         ('.width', '.height',),
+                         getterValue='CGSizeMake(self.desiredWidthAdjustment, self.desiredHeightAdjustment)'),
 
                     CustomAccessor('fixedWidth', 'CGFloat', ('minWidth', 'maxWidth',)),
                     CustomAccessor('fixedHeight', 'CGFloat', ('minHeight', 'maxHeight',)),
@@ -291,7 +297,7 @@ for propertyGroup in propertyGroups:
         elif property.typeName == 'NSString *':
             getterName = 'associatedString'
             setterName = 'setAssociatedString'
-        elif property.typeName in ('HAlign', 'VAlign', ):
+        elif property.typeName in ('HAlign', 'VAlign', 'CellPositioningMode', ):
             getterName = 'associatedInt'
             setterName = 'setAssociatedInt'
         else:
@@ -464,7 +470,8 @@ for propertyGroup in propertyGroups:
                                              setterBlock:^(UIView *view) {
                                                  view.%s = H_ALIGN_RIGHT;
                                              }],
-                             ]],
+                             ]
+                             doubleHeight:YES],
                              ''' % (property.name, property.name, property.name, property.name, property.name, ) )
         elif property.typeName == 'VAlign':
             lines.append('''
@@ -485,8 +492,35 @@ for propertyGroup in propertyGroups:
                                              setterBlock:^(UIView *view) {
                                                  view.%s = V_ALIGN_BOTTOM;
                                              }],
-                             ]],
+                             ]
+                             doubleHeight:YES],
                              ''' % (property.name, property.name, property.name, property.name, property.name, ) )
+        elif property.typeName == 'CellPositioningMode':
+            lines.append('''
+                            [ViewParameterSimple create:@"%s"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatCellPositioningMode(view.%s);
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_NORMAL)
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = CELL_POSITION_NORMAL;
+                                             }],
+                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL)
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = CELL_POSITION_FILL;
+                                             }],
+                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL_W_ASPECT_RATIO)
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = CELL_POSITION_FILL_W_ASPECT_RATIO;
+                                             }],
+                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FIT_W_ASPECT_RATIO)
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = CELL_POSITION_FIT_W_ASPECT_RATIO;
+                                             }],
+                             ]
+                             doubleHeight:YES],
+                             ''' % (property.name, property.name, property.name, property.name, property.name, property.name, ) )
         else:
             print 'Unknown typeName:', property.typeName
 
@@ -583,7 +617,7 @@ for propertyGroup in propertyGroups:
         # elif property.typeName == 'NSString *':
         #     getterName = 'associatedString'
         #     setterName = 'setAssociatedString'
-        elif property.typeName in ('HAlign', 'VAlign', ):
+        elif property.typeName in ('HAlign', 'VAlign', 'CellPositioningMode',):
             unboxMethodName = 'intValue'
         else:
             raise Exception('Unknown typeName: %s' % str(property.typeName))

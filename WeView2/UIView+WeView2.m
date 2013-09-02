@@ -79,6 +79,28 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     return self;
 }
 
+- (CGFloat)desiredWidthAdjustment
+{
+    return [self.viewInfo desiredWidthAdjustment];
+}
+
+- (UIView *)setDesiredWidthAdjustment:(CGFloat)value
+{
+    [self.viewInfo setDesiredWidthAdjustment:value];
+    return self;
+}
+
+- (CGFloat)desiredHeightAdjustment
+{
+    return [self.viewInfo desiredHeightAdjustment];
+}
+
+- (UIView *)setDesiredHeightAdjustment:(CGFloat)value
+{
+    [self.viewInfo setDesiredHeightAdjustment:value];
+    return self;
+}
+
 - (CGFloat)hStretchWeight
 {
     return [self.viewInfo hStretchWeight];
@@ -233,6 +255,17 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     return self;
 }
 
+- (CellPositioningMode)cellPositioning
+{
+    return [self.viewInfo cellPositioning];
+}
+
+- (UIView *)setCellPositioning:(CellPositioningMode)value
+{
+    [self.viewInfo setCellPositioning:value];
+    return self;
+}
+
 - (NSString *)debugName
 {
     return [self.viewInfo debugName];
@@ -287,6 +320,18 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
 {
     [self setMaxWidth:value.width];
     [self setMaxHeight:value.height];
+    return self;
+}
+
+- (CGSize)desiredSizeAdjustment
+{
+    return [self.viewInfo desiredSizeAdjustment];
+}
+
+- (UIView *)setDesiredSizeAdjustment:(CGSize)value
+{
+    [self setDesiredWidthAdjustment:value.width];
+    [self setDesiredHeightAdjustment:value.height];
     return self;
 }
 
@@ -352,14 +397,16 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
 
 /* CODEGEN MARKER: Accessors End */
 
-- (id)withStretch
+// TODO: Rename this method.
+- (UIView *)withStretch
 {
     // Layout should stretch this subview to fit any available space.
     [self setStretchWeight:1.f];
     return self;
 }
 
-- (id)withPureStretch
+// TODO: Rename this method.
+- (UIView *)withPureStretch
 {
     // Layout should stretch this subview to fit any available space, ignoring its natural
     // size.

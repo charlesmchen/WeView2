@@ -18,7 +18,7 @@
 - (DemoModel *)demoModel
 {
     DemoModel *result = [DemoModel create];
-    
+
     WeView2 *topPanel = [[WeView2 alloc] init];
     [[topPanel useHorizontalDefaultLayout]
      addSubviews:@[
@@ -32,7 +32,7 @@
     [[[topPanel setVMargin:10]
       setHMargin:20]
      setSpacing:5];
-    
+
     WeView2 *bottomPanel = [[WeView2 alloc] init];
     [[bottomPanel useHorizontalDefaultLayout]
      addSubviews:@[
@@ -46,7 +46,7 @@
     [[[bottomPanel setVMargin:10]
       setHMargin:20]
      setSpacing:5];
-    
+
     [[result.rootView useVerticalDefaultLayout]
      addSubviews:@[
      topPanel,
@@ -59,7 +59,7 @@
 //    result.rootView.debugLayout = YES;
 //    topPanel.debugMinSize = YES;
 //    topPanel.debugLayout = YES;
-    
+
     [self assignRandomBackgroundColors:[self collectSubviews:result.rootView]];
 //    result.debugLayout = YES;
     result.rootView.debugName = @"LinearDemo2";

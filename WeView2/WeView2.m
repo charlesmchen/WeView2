@@ -15,7 +15,6 @@
 #import "WeView2NoopLayout.h"
 #import "WeView2Macros.h"
 #import "WeView2StackLayout.h"
-#import "WeView2FitOrFillLayout.h"
 
 @interface WeView2 ()
 
@@ -81,12 +80,6 @@
 - (WeView2 *)useStackDefaultLayout
 {
     self.defaultLayout = [WeView2StackLayout stackLayout];
-    return self;
-}
-
-- (WeView2 *)useFillDefaultLayout
-{
-    self.defaultLayout = [WeView2FitOrFillLayout fillBoundsLayout];
     return self;
 }
 
@@ -168,19 +161,60 @@
            withLayout:nil];
 }
 
-- (WeView2 *)addSubviews:(NSArray *)subviews
-         withLayoutBlock:(BlockLayoutBlock)block
+#pragma mark - Custom Layouts
+
+- (WeView2Layout *)addSubviewWithFillLayout:(UIView *)subview
 {
-    return [self addSubviews:subviews
-                  withLayout:[WeView2BlockLayout blockLayoutWithBlock:block]];
+    // Fit and Fill layouts default to ignoring the superview's margins.
+    WeView2Layout *layout = [[[WeView2StackLayout stackLayout]
+                              setMargin:0]
+                             setCellPositioning:CELL_POSITION_FILL];
+    [self addSubviews:@[subview,]
+           withLayout:layout];
+    return layout;
 }
 
-- (WeView2 *)addSubview:(UIView *)subview
-        withLayoutBlock:(BlockLayoutBlock)block
+- (WeView2Layout *)addSubviewWithFillLayoutWAspectRatio:(UIView *)subview
 {
-    return [self addSubviews:@[subview,]
-                  withLayout:[WeView2BlockLayout blockLayoutWithBlock:block]];
+    // Fit and Fill layouts default to ignoring the superview's margins.
+    WeView2Layout *layout = [[[WeView2StackLayout stackLayout]
+                              setMargin:0]
+                             setCellPositioning:CELL_POSITION_FILL_W_ASPECT_RATIO];
+    [self addSubviews:@[subview,]
+           withLayout:layout];
+    return layout;
 }
+
+- (WeView2Layout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview
+{
+    // Fit and Fill layouts default to ignoring the superview's margins.
+    WeView2Layout *layout = [[[WeView2StackLayout stackLayout]
+                              setMargin:0]
+                             setCellPositioning:CELL_POSITION_FIT_W_ASPECT_RATIO];
+    [self addSubviews:@[subview,]
+           withLayout:layout];
+    return layout;
+}
+
+- (WeView2Layout *)addSubviews:(NSArray *)subviews
+               withLayoutBlock:(BlockLayoutBlock)block
+{
+    WeView2BlockLayout *layout = [WeView2BlockLayout blockLayoutWithBlock:block];
+    [self addSubviews:subviews
+           withLayout:layout];
+    return layout;
+}
+
+- (WeView2Layout *)addSubview:(UIView *)subview
+              withLayoutBlock:(BlockLayoutBlock)block
+{
+    WeView2BlockLayout *layout = [WeView2BlockLayout blockLayoutWithBlock:block];
+    [self addSubviews:@[subview,]
+           withLayout:layout];
+    return layout;
+}
+
+#pragma mark -
 
 - (void)removeAllSubviews
 {

@@ -30,11 +30,6 @@
 // By default, lay out subviews on top of each other.
 - (WeView2 *)useStackDefaultLayout;
 
-// By default, lay out subviews so that they fill this view.
-//
-// WeView2FitOrFillLayout has a number of "fit" and "fill" modes.
-- (WeView2 *)useFillDefaultLayout;
-
 // By default, _DO NOT_ lay out subviews.
 - (WeView2 *)useNoDefaultLayout;
 
@@ -49,10 +44,22 @@
               withLayout:(WeView2Layout *)layout;
 - (WeView2 *)addSubview:(UIView *)subview
              withLayout:(WeView2Layout *)layout;
-- (WeView2 *)addSubviews:(NSArray *)subviews
-         withLayoutBlock:(BlockLayoutBlock)block;
-- (WeView2 *)addSubview:(UIView *)subview
-        withLayoutBlock:(BlockLayoutBlock)block;
+
+// Add a subview with a layout that stretches the subview to fill this view's bounds.
+- (WeView2Layout *)addSubviewWithFillLayout:(UIView *)subview;
+
+// Add a subview with a layout that stretches the subview to fill this view's bounds, while
+// preserving its aspect ratio.
+- (WeView2Layout *)addSubviewWithFillLayoutWAspectRatio:(UIView *)subview;
+
+// Add a subview with a layout that stretches the subview to fill this view's bounds, while
+// preserving its aspect ratio.
+- (WeView2Layout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview;
+
+- (WeView2Layout *)addSubviews:(NSArray *)subviews
+               withLayoutBlock:(BlockLayoutBlock)block;
+- (WeView2Layout *)addSubview:(UIView *)subview
+              withLayoutBlock:(BlockLayoutBlock)block;
 
 #pragma mark -
 

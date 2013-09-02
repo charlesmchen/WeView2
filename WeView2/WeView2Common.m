@@ -43,6 +43,24 @@ NSString* FormatVAlign(VAlign value)
     }
 }
 
+NSString* FormatCellPositioningMode(CellPositioningMode value)
+{
+    switch (value)
+    {
+        case CELL_POSITION_NORMAL:
+            return @"Normal";
+        case CELL_POSITION_FILL:
+            return @"Fill";
+        case CELL_POSITION_FILL_W_ASPECT_RATIO:
+            return @"Fill (AR)";
+        case CELL_POSITION_FIT_W_ASPECT_RATIO:
+            return @"Fit (AR)";
+        default:
+            WeView2Assert(0);
+            return nil;
+    }
+}
+
 CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlign)
 {
     CGRect result;

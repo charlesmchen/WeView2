@@ -61,32 +61,32 @@ typedef struct
 //
 //@implementation WeView2GridLayout
 //
-////- (id)init
-////{
-////    self = [super init];
-////    if (self)
-////    {
-////    }
-////    return self;
-////}
-////
-////- (void)dealloc
-////{
-////}
-////
-////+ (WeView2GridLayout *)horizontalLayout
-////{
-////    WeView2GridLayout *layout = [[WeView2GridLayout alloc] init];
-////    layout.isHorizontal = YES;
-////    return layout;
-////}
-////
-////+ (WeView2GridLayout *)verticalLayout
-////{
-////    WeView2GridLayout *layout = [[WeView2GridLayout alloc] init];
-////    layout.isHorizontal = NO;
-////    return layout;
-////}
+//- (id)init
+//{
+//    self = [super init];
+//    if (self)
+//    {
+//    }
+//    return self;
+//}
+//
+//- (void)dealloc
+//{
+//}
+//
+//+ (WeView2GridLayout *)horizontalLayout
+//{
+//    WeView2GridLayout *layout = [[WeView2GridLayout alloc] init];
+//    layout.isHorizontal = YES;
+//    return layout;
+//}
+//
+//+ (WeView2GridLayout *)verticalLayout
+//{
+//    WeView2GridLayout *layout = [[WeView2GridLayout alloc] init];
+//    layout.isHorizontal = NO;
+//    return layout;
+//}
 //
 //- (GridRowAndColumnCount)rowAndColumnCount:(NSArray *)subviews
 //{
@@ -115,15 +115,15 @@ typedef struct
 //                             subviews:(NSArray *)subviews
 // debug:(BOOL)debug
 //{
-////    BOOL debugMinSize = [self debugMinSize:view];
-////    BOOL debugLayout = [self debugLayout:view];
-//    
+//    BOOL debugMinSize = [self debugMinSize:view];
+//    BOOL debugLayout = [self debugLayout:view];
+//
 //    GridLayoutInfo *result = [[GridLayoutInfo alloc] init];
-//    
+//
 //    GridRowAndColumnCount rowAndColumnCount = [self rowAndColumnCount:subviews];
 //    int rowCount = rowAndColumnCount.rowCount;
 //    int columnCount = rowAndColumnCount.columnCount;
-//    
+//
 //    // TODO: Use a two-pass approach where subview size calculation is based first on "guide size",
 //    // then on attempt to trim if necessary.
 //    CGRect contentBounds = [self contentBoundsOfView:view
@@ -146,7 +146,7 @@ typedef struct
 //        // TODO: The "non-uniform" case is quite complicated due to subview flow.
 //        maxSubviewSize = CGSizeZero;
 //    }
-//    
+//
 //    CGFloat columnWidths[columnCount];
 //    CGFloat rowHeights[rowCount];
 //    for (int column=0; column < columnCount; column++) {
@@ -157,7 +157,7 @@ typedef struct
 //    }
 //    result.maxColumnWidth = 0;
 //    result.maxRowHeight = 0;
-//    
+//
 //    if (self.hasFixedCellSize)
 //    {
 //        for (int i=0; i < columnCount; i++) {
@@ -174,10 +174,10 @@ typedef struct
 //            int row = index / columnCount;
 //            int column = index % columnCount;
 //            index++;
-//            
+//
 //            CGSize subviewSize = [self desiredItemSize:subview
 //                                               maxSize:maxSubviewSize];
-//            
+//
 //            //        if (layer.debugLayout) {
 //            //            NSLog(@"%@[%d][%d] natural size: %@",
 //            //                  [item class],
@@ -185,13 +185,13 @@ typedef struct
 //            //                  row,
 //            //                  FormatSize(itemSize));
 //            //        }
-//            
+//
 //            columnWidths[column] = MAX(columnWidths[column], subviewSize.width);
 //            result.maxColumnWidth = MAX(result.maxColumnWidth, subviewSize.width);
 //            rowHeights[row] = MAX(rowHeights[row], subviewSize.height);
 //            result.maxRowHeight = MAX(result.maxRowHeight, subviewSize.height);
 //        }
-//        
+//
 //        if (self.isGridUniform) {
 //            for (int i=0; i < columnCount; i++) {
 //                columnWidths[i] = result.maxColumnWidth;
@@ -201,12 +201,12 @@ typedef struct
 //            }
 //        }
 //    }
-//    
+//
 //    result.columnWidths = [self toNSFloatArray:&(columnWidths[0])
 //                                         count:columnCount];
 //    result.rowHeights = [self toNSFloatArray:&(rowHeights[0])
 //                                       count:rowCount];
-//    
+//
 //    CGSize contentSize = CGSizeZero;
 //    for (int column=0; column < columnCount; column++) {
 //        contentSize.width += columnWidths[column];
@@ -217,10 +217,10 @@ typedef struct
 //    contentSize.width += [self hSpacing:view] * (columnCount - 1);
 //    contentSize.height += [self vSpacing:view] * (rowCount - 1);
 //    result.contentSize = contentSize;
-//    
+//
 //    result.totalSize = CGSizeAdd(contentSize,
 //                                 [self insetSizeOfView:view]);
-//    
+//
 //    //    if (layer.debugLayout) {
 //    //        NSLog(@"result.columnCount: %d",
 //    //              columnCount);
@@ -243,66 +243,66 @@ typedef struct
 //    //        NSLog(@"result.totalSize: %@",
 //    //              FormatSize(result.totalSize));
 //    //    }
-//    
+//
 //    return result;
 //}
 //
-////- (IntSize)sumContentSize:(CGSize *)subviewSizes
-////             subviewCount:(int)subviewCount
-////               horizontal:(BOOL)horizontal
-////{
-////    // Sum the "content size" ie. the minimum desired size of the subviews.
-////    // This doesn't include the margins, border, spacing, etc.
-////    IntSize result = IntSizeZero();
-////    for (int i=0; i < subviewCount; i++)
-////    {
-////        if (horizontal)
-////        {
-////            result.width += subviewSizes[i].width;
-////            result.height = MAX(result.height, subviewSizes[i].height);
-////        }
-////        else
-////        {
-////            result.width = MAX(result.width, subviewSizes[i].width);
-////            result.height += subviewSizes[i].height;
-////        }
-////    }
-////    return result;
-////}
-////
-////- (void)getStretchWeightsForSubviews:(NSArray *)subviews
-////                        subviewCount:(int)subviewCount
-////                      stretchWeights:(CGFloat *)stretchWeights
-////                  totalStretchWeight:(CGFloat *)totalStretchWeight
-////                        stretchCount:(int *)stretchCount
-////{
-////    WeView2Assert([subviews count] == subviewCount);
-////
-////    // Total stretch weight of subviews along the axis of layout.
-////    *totalStretchWeight = 0;
-////    // The number of subviews with flexible size along the axis of layout.
-////    *stretchCount = 0;
-////
-////    for (int i=0; i < subviewCount; i++)
-////    {
-////        UIView* subview = subviews[i];
-////        stretchWeights[i] = (self.isHorizontal
-////                             ? subview.hStretchWeight
-////                             : subview.vStretchWeight);
-////
-////        WeView2Assert(stretchWeights[i] >= 0);
-////        // TODO: Should not be necessary.
-////        stretchWeights[i] = fabsf(stretchWeights[i]);
-////
-////        if (stretchWeights[i] > 0)
-////        {
-////            *totalStretchWeight += stretchWeights[i];
-////            *stretchCount = *stretchCount + 1;
-////        }
-////    }
-////}
+//- (IntSize)sumContentSize:(CGSize *)subviewSizes
+//             subviewCount:(int)subviewCount
+//               horizontal:(BOOL)horizontal
+//{
+//    // Sum the "content size" ie. the minimum desired size of the subviews.
+//    // This doesn't include the margins, border, spacing, etc.
+//    IntSize result = IntSizeZero();
+//    for (int i=0; i < subviewCount; i++)
+//    {
+//        if (horizontal)
+//        {
+//            result.width += subviewSizes[i].width;
+//            result.height = MAX(result.height, subviewSizes[i].height);
+//        }
+//        else
+//        {
+//            result.width = MAX(result.width, subviewSizes[i].width);
+//            result.height += subviewSizes[i].height;
+//        }
+//    }
+//    return result;
+//}
 //
-//// TODO: Do we need to honor other params as well?
+//- (void)getStretchWeightsForSubviews:(NSArray *)subviews
+//                        subviewCount:(int)subviewCount
+//                      stretchWeights:(CGFloat *)stretchWeights
+//                  totalStretchWeight:(CGFloat *)totalStretchWeight
+//                        stretchCount:(int *)stretchCount
+//{
+//    WeView2Assert([subviews count] == subviewCount);
+//
+//    // Total stretch weight of subviews along the axis of layout.
+//    *totalStretchWeight = 0;
+//    // The number of subviews with flexible size along the axis of layout.
+//    *stretchCount = 0;
+//
+//    for (int i=0; i < subviewCount; i++)
+//    {
+//        UIView* subview = subviews[i];
+//        stretchWeights[i] = (self.isHorizontal
+//                             ? subview.hStretchWeight
+//                             : subview.vStretchWeight);
+//
+//        WeView2Assert(stretchWeights[i] >= 0);
+//        // TODO: Should not be necessary.
+//        stretchWeights[i] = fabsf(stretchWeights[i]);
+//
+//        if (stretchWeights[i] > 0)
+//        {
+//            *totalStretchWeight += stretchWeights[i];
+//            *stretchCount = *stretchCount + 1;
+//        }
+//    }
+//}
+//
+// TODO: Do we need to honor other params as well?
 //- (CGSize)minSizeOfContentsView:(UIView *)view
 //                       subviews:(NSArray *)subviews
 //                   thatFitsSize:(CGSize)guideSize
@@ -319,38 +319,38 @@ typedef struct
 //    return gridLayoutInfo.totalSize;
 //}
 //
-////- (void)dumpItemSizes:(NSString *)label
-////             subviews:(NSArray *)subviews
-////         subviewSizes:(CGSize *)subviewSizes
-////       stretchWeights:(CGFloat *)stretchWeights
-////{
-////    for (int i=0; i < [subviews count]; i++)
-////    {
-////        UIView* subview = subviews[i];
-////
-////        NSLog(@"\t%@[%d] %@ size: %@, stretchWeight: %f",
-////              label,
-////              i,
-////              [subview class],
-////              FormatSize(subviewSizes[i]),
-////              stretchWeights[i]);
-////    }
-////}
+//- (void)dumpItemSizes:(NSString *)label
+//             subviews:(NSArray *)subviews
+//         subviewSizes:(CGSize *)subviewSizes
+//       stretchWeights:(CGFloat *)stretchWeights
+//{
+//    for (int i=0; i < [subviews count]; i++)
+//    {
+//        UIView* subview = subviews[i];
+//
+//        NSLog(@"\t%@[%d] %@ size: %@, stretchWeight: %f",
+//              label,
+//              i,
+//              [subview class],
+//              FormatSize(subviewSizes[i]),
+//              stretchWeights[i]);
+//    }
+//}
 //
 //- (void)layoutContentsOfView:(UIView *)view
 //                    subviews:(NSArray *)subviews
 //{
 //    BOOL debugLayout = [self debugLayout:view];
-//    
+//
 //    if (debugLayout)
 //    {
 //        NSLog(@"layoutContentsOfView: %@ (%@) %@",
 //              [view class], view.debugName, NSStringFromCGSize(view.size));
 //    }
-//    
+//
 //    GridLayoutInfo *gridLayoutInfo = [self getGridLayoutInfo:view
 //                                                    subviews:subviews];
-//    
+//
 //    if (self.hasFixedCellSize)
 //    {
 //        for (int i=0; i < columnCount; i++) {
@@ -360,15 +360,15 @@ typedef struct
 //            rowHeights[i] = self.fixedCellSize.height;
 //        }
 //    }
-//    
+//
 //    if (self.isGridUniform)
 //    {
-//        
+//
 //    }
-//    
+//
 //    BOOL horizontal = self.isHorizontal;
 //    int subviewCount = [subviews count];
-//    
+//
 //    CGFloat totalStretchWeight;
 //    int stretchCount;
 //    CGFloat stretchWeights[subviewCount];
@@ -377,7 +377,7 @@ typedef struct
 //                        stretchWeights:&(stretchWeights[0])
 //                    totalStretchWeight:&totalStretchWeight
 //                          stretchCount:&stretchCount];
-//    
+//
 //    CGSize guideSize = view.size;
 //    CGFloat spacing = ceilf(horizontal ? [self hSpacing:view] : [self vSpacing:view]);
 //    CGRect contentBounds = [self contentBoundsOfView:view
@@ -391,7 +391,7 @@ typedef struct
 //    {
 //        maxSubviewSize.height = MAX(0, maxSubviewSize.height - spacing * (subviewCount - 1));
 //    }
-//    
+//
 //    if (debugLayout)
 //    {
 //        NSLog(@"minSizeOfContentsView: contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
@@ -399,16 +399,16 @@ typedef struct
 //              FormatSize(guideSize),
 //              FormatSize([self insetSizeOfView:view]));
 //    }
-//    
+//
 //    CGSize subviewSizes[subviewCount];
 //    for (int i=0; i < subviewCount; i++)
 //    {
 //        UIView* subview = subviews[i];
-//        
+//
 //        subviewSizes[i] = [self desiredItemSize:subview
 //                                        maxSize:maxSubviewSize];
 //    }
-//    
+//
 //    if (debugLayout)
 //    {
 //        NSLog(@"layoutContentsOfView (%@ %@) maxSubviewSize: %@, guideSize: %@, insetSizeOfView: %@",
@@ -417,11 +417,11 @@ typedef struct
 //              FormatSize(view.size),
 //              FormatSize([self insetSizeOfView:view]));
 //    }
-//    
+//
 //    IntSize contentSize = [self sumContentSize:&subviewSizes[0]
 //                                  subviewCount:subviewCount
 //                                    horizontal:horizontal];
-//    
+//
 //    if (debugLayout)
 //    {
 //        [self dumpItemSizes:@"layoutContentsOfView: (ideal)"
@@ -429,7 +429,7 @@ typedef struct
 //               subviewSizes:subviewSizes
 //             stretchWeights:stretchWeights];
 //    }
-//    
+//
 //    // Check to see if we need to crop our content.
 //    if (YES)
 //    {
@@ -445,7 +445,7 @@ typedef struct
 //            axisSize = contentSize.height;
 //            extraAxisSpaceRaw = maxSubviewSize.height - contentSize.height;
 //        }
-//        
+//
 //        if (debugLayout)
 //        {
 //            NSLog(@"\t axisSize: %d, extraAxisSpaceRaw: %d, contentSize: %@, maxSubviewSize: %@",
@@ -455,7 +455,7 @@ typedef struct
 //                  FormatSize(maxSubviewSize)
 //                  );
 //        }
-//        
+//
 //        if (extraAxisSpaceRaw < 0)
 //        {
 //            // Can't fit everything; we need to crop.
@@ -482,7 +482,7 @@ typedef struct
 //                if (horizontal)
 //                {
 //                    subviewSizes[i].width -= cropAmount;
-//                    
+//
 //                    // For "wrapping" subviews, reducing the width can increase
 //                    // the height.
 //                    UIView* subview = subviews[i];
@@ -494,12 +494,12 @@ typedef struct
 //                    subviewSizes[i].height -= cropAmount;
 //                }
 //            }
-//            
+//
 //            // Update content size
 //            contentSize = [self sumContentSize:&subviewSizes[0]
 //                                  subviewCount:subviewCount
 //                                    horizontal:horizontal];
-//            
+//
 //            if (debugLayout)
 //            {
 //                [self dumpItemSizes:@"layoutContentsOfView: (after crop)"
@@ -509,7 +509,7 @@ typedef struct
 //            }
 //        }
 //    }
-//    
+//
 //    // If layer stretches, we want to do a second pass that calculates the
 //    // size of stretching subviews.
 //    if (YES)
@@ -525,7 +525,7 @@ typedef struct
 //            stretchTotal = maxSubviewSize.height - contentSize.height;
 //        }
 //        int stretchRemainder = stretchTotal;
-//        
+//
 //        if (debugLayout)
 //        {
 //            NSLog(@"contentSize.width: %d, contentSize.height: %d, stretchCountRemainder: %d, stretchTotal: %d, stretchRemainder: %d, totalStretchWeight: %f",
@@ -536,7 +536,7 @@ typedef struct
 //                  stretchRemainder,
 //                  totalStretchWeight);
 //        }
-//        
+//
 //        if (stretchRemainder > 0 && stretchCountRemainder > 0)
 //        {
 //            // This is actually a series of passes.
@@ -554,7 +554,7 @@ typedef struct
 //                    {
 //                        continue;
 //                    }
-//                    
+//
 //                    // Divide the remaining stretch space evenly between the stretching
 //                    // subviews in this layer.
 //                    int subviewStretch;
@@ -568,7 +568,7 @@ typedef struct
 //                    }
 //                    stretchCountRemainder--;
 //                    stretchRemainder -= subviewStretch;
-//                    
+//
 //                    CGSize subviewSize = subviewSizes[i];
 //                    if (horizontal)
 //                    {
@@ -581,28 +581,28 @@ typedef struct
 //                    subviewSizes[i] = subviewSize;
 //                }
 //            }
-//            
+//
 //            // Update content size
 //            contentSize = [self sumContentSize:&subviewSizes[0]
 //                                  subviewCount:subviewCount
 //                                    horizontal:horizontal];
-//            
+//
 //            if (debugLayout)
 //            {
 //                [self dumpItemSizes:@"layoutContentsOfView: (after stretch)"
 //                           subviews:subviews
 //                       subviewSizes:subviewSizes
 //                     stretchWeights:stretchWeights];
-//                
+//
 //                NSLog(@"contentSize: %@",
 //                      FormatIntSize(contentSize));
 //            }
 //        }
 //    }
-//    
+//
 //    int crossSize = horizontal ? maxSubviewSize.height : maxSubviewSize.width;
 //    int axisIndex = horizontal ? contentBounds.origin.x : contentBounds.origin.y;
-//    
+//
 //    // Honor the axis alignment.
 //    if (horizontal)
 //    {
@@ -640,31 +640,31 @@ typedef struct
 //                break;
 //        }
 //    }
-//    
+//
 //    // Calculate and apply the subviews' frames.
 //    for (int i=0; i < subviewCount; i++)
 //    {
 //        UIView* subview = subviews[i];
 //        CGSize subviewSize = subviewSizes[i];
-//        
+//
 //        int crossIndex = horizontal ? contentBounds.origin.y : contentBounds.origin.x;
 //        CGRect cellBounds = CGRectMake(horizontal ? axisIndex : crossIndex,
 //                                       horizontal ? crossIndex : axisIndex,
 //                                       horizontal ? subviewSize.width : crossSize,
 //                                       horizontal ? crossSize : subviewSize.height);
-//        
+//
 //        [self positionSubview:subview
 //                  inSuperview:view
 //                     withSize:subviewSize
 //                 inCellBounds:cellBounds];
-//        
+//
 //        if (debugLayout)
 //        {
 //            NSLog(@"layoutContentsOfView (%@ %@) final subview(%@): %@, raw subviewSize: %@",
 //                  [view class], view.debugName,
 //                  [subview class], FormatRect(subview.frame), FormatCGSize(subviewSize));
 //        }
-//        
+//
 //        axisIndex = (horizontal ? subview.right : subview.bottom) + spacing;
 //    }
 //}

@@ -27,6 +27,10 @@
 - (UIView *)setMinHeight:(CGFloat)value;
 - (CGFloat)maxHeight;
 - (UIView *)setMaxHeight:(CGFloat)value;
+- (CGFloat)desiredWidthAdjustment;
+- (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
+- (CGFloat)desiredHeightAdjustment;
+- (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
 
 - (CGFloat)hStretchWeight;
 - (UIView *)setHStretchWeight:(CGFloat)value;
@@ -64,6 +68,8 @@
 
 - (BOOL)cropSubviewOverflow;
 - (UIView *)setCropSubviewOverflow:(BOOL)value;
+- (CellPositioningMode)cellPositioning;
+- (UIView *)setCellPositioning:(CellPositioningMode)value;
 
 - (NSString *)debugName;
 - (UIView *)setDebugName:(NSString *)value;
@@ -79,6 +85,10 @@
 // Convenience accessor(s) for the maxWidth and maxHeight properties.
 - (CGSize)maxSize;
 - (UIView *)setMaxSize:(CGSize)value;
+
+// Convenience accessor(s) for the desiredWidthAdjustment and desiredHeightAdjustment properties.
+- (CGSize)desiredSizeAdjustment;
+- (UIView *)setDesiredSizeAdjustment:(CGSize)value;
 
 // Convenience accessor(s) for the minWidth and maxWidth properties.
 - (UIView *)setFixedWidth:(CGFloat)value;

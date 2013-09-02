@@ -85,22 +85,24 @@
     }
 
     BOOL cropSubviewOverflow = [self cropSubviewOverflow:view];
+    CellPositioningMode cellPositioning = [self cellPositioning:view];
     for (int i=0; i < [subviews count]; i++)
     {
         UIView* subview = subviews[i];
 
         CGSize subviewSize = [self desiredItemSize:subview
                                            maxSize:contentBounds.size];
-        
+
         if (cropSubviewOverflow)
         {
             subviewSize = CGSizeMin(subviewSize, contentBounds.size);
         }
-        
+
         [self positionSubview:subview
                   inSuperview:view
                      withSize:subviewSize
-                 inCellBounds:contentBounds];
+                 inCellBounds:contentBounds
+              cellPositioning:cellPositioning];
     }
 }
 

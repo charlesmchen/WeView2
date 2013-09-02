@@ -27,6 +27,7 @@ NSNumber *_contentHAlign;
 NSNumber *_contentVAlign;
 
 NSNumber *_cropSubviewOverflow;
+NSNumber *_cellPositioning;
 
 NSNumber *_debugLayout;
 NSNumber *_debugMinSize;
@@ -206,6 +207,21 @@ NSNumber *_debugMinSize;
     return self;
 }
 
+- (CellPositioningMode)cellPositioning:(UIView *)view
+{
+    if (_cellPositioning)
+    {
+        return [_cellPositioning intValue];
+    }
+    return [view cellPositioning];
+}
+
+- (WeView2Layout *)setCellPositioning:(CellPositioningMode)value
+{
+    _cellPositioning = @(value);
+    return self;
+}
+
 - (BOOL)debugLayout:(UIView *)view
 {
     if (_debugLayout)
@@ -274,21 +290,67 @@ NSNumber *_debugMinSize;
             inSuperview:(UIView *)superview
                withSize:(CGSize)subviewSize
            inCellBounds:(CGRect)cellBounds
+        cellPositioning:(CellPositioningMode)cellPositioning
 {
-    if (subview.hStretchWeight > 0)
-    {
-        subviewSize.width = cellBounds.size.width;
-    }
-    if (subview.vStretchWeight > 0)
-    {
-        subviewSize.height = cellBounds.size.height;
-    }
+    switch (cellPositioning) {
+        case CELL_POSITION_NORMAL:
+        {
+            if (subview.hStretchWeight > 0)
+            {
+                subviewSize.width = cellBounds.size.width;
+            }
+            if (subview.vStretchWeight > 0)
+            {
+                subviewSize.height = cellBounds.size.height;
+            }
 
-    subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
-    subview.frame = alignSizeWithinRect(subviewSize,
-                                        cellBounds,
-                                        superview.cellHAlign,
-                                        superview.cellVAlign);
+            subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
+            subview.frame = alignSizeWithinRect(subviewSize,
+                                                cellBounds,
+                                                superview.cellHAlign,
+                                                superview.cellVAlign);
+            break;
+        }
+        case CELL_POSITION_FILL:
+        {
+            CGRect subviewFrame = cellBounds;
+            subviewFrame.origin = CGPointRound(subviewFrame.origin);
+            subviewFrame.size = CGSizeMax(CGSizeZero, CGSizeFloor(subviewFrame.size));
+            subview.frame = subviewFrame;
+            break;
+        }
+        case CELL_POSITION_FILL_W_ASPECT_RATIO:
+        case CELL_POSITION_FIT_W_ASPECT_RATIO:
+        {
+            CGSize desiredSize = [subview sizeThatFits:CGSizeZero];
+            BOOL isValid = (desiredSize.width > 0 &&
+                            desiredSize.height > 0 &&
+                            cellBounds.size.width > 0 &&
+                            cellBounds.size.height > 0);
+            if (!isValid)
+            {
+                subview.frame = cellBounds;
+            }
+            else
+            {
+                if (cellPositioning == CELL_POSITION_FILL_W_ASPECT_RATIO)
+                {
+                    subview.frame = FillRectWithSize(cellBounds, desiredSize);
+                }
+                else
+                {
+                    subviewSize = FitSizeInRect(cellBounds, desiredSize).size;
+                    subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
+                    subview.frame = alignSizeWithinRect(subviewSize,
+                                                        cellBounds,
+                                                        superview.cellHAlign,
+                                                        superview.cellVAlign);
+                }
+            }
+        }
+        default:
+            break;
+    }
 }
 
 - (CGPoint)insetOriginOfView:(UIView *)view
@@ -333,10 +395,13 @@ NSNumber *_debugMinSize;
         return CGSizeZero;
     }
 
-    return CGSizeMax(CGSizeZero,
-                     CGSizeCeil(CGSizeMax(subview.minSize,
-                                          CGSizeMin(subview.maxSize,
-                                                    [subview sizeThatFits:maxSize]))));
+    CGSize desiredSize = CGSizeAdd([subview sizeThatFits:maxSize],
+                                   [subview desiredSizeAdjustment]);
+
+    return CGSizeCeil(CGSizeMax(CGSizeMax(CGSizeZero,
+                                          subview.minSize),
+                                CGSizeMin(subview.maxSize,
+                                          desiredSize)));
 }
 
 @end

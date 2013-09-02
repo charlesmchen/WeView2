@@ -22,6 +22,8 @@
 @property (nonatomic) CGFloat maxWidth;
 @property (nonatomic) CGFloat minHeight;
 @property (nonatomic) CGFloat maxHeight;
+@property (nonatomic) CGFloat desiredWidthAdjustment;
+@property (nonatomic) CGFloat desiredHeightAdjustment;
 
 @property (nonatomic) CGFloat hStretchWeight;
 @property (nonatomic) CGFloat vStretchWeight;
@@ -45,8 +47,9 @@
 @property (nonatomic) VAlign cellVAlign;
 
 @property (nonatomic) BOOL cropSubviewOverflow;
+@property (nonatomic) CellPositioningMode cellPositioning;
 
-@property (nonatomic) NSString * debugName;
+@property (nonatomic) NSString *debugName;
 @property (nonatomic) BOOL debugLayout;
 @property (nonatomic) BOOL debugMinSize;
 
@@ -57,6 +60,10 @@
 // Convenience accessor(s) for the maxWidth and maxHeight properties.
 - (CGSize)maxSize;
 - (void)setMaxSize:(CGSize)value;
+
+// Convenience accessor(s) for the desiredWidthAdjustment and desiredHeightAdjustment properties.
+- (CGSize)desiredSizeAdjustment;
+- (void)setDesiredSizeAdjustment:(CGSize)value;
 
 // Convenience accessor(s) for the minWidth and maxWidth properties.
 - (void)setFixedWidth:(CGFloat)value;

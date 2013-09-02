@@ -55,7 +55,6 @@
 		3444367117D2A5E100EFF341 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3444366A17D2A5E100EFF341 /* Icon@2x.png */; };
 		3444367A17D2A7DC00EFF341 /* subtlepatterns.com in Resources */ = {isa = PBXBuildFile; fileRef = 3444367917D2A7DC00EFF341 /* subtlepatterns.com */; };
 		3444367D17D2AAC100EFF341 /* iPhoneDemo1.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444367C17D2AAC000EFF341 /* iPhoneDemo1.m */; };
-		3444368017D2B11D00EFF341 /* WeView2FitOrFillLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444367F17D2B11C00EFF341 /* WeView2FitOrFillLayout.m */; };
 		3444368617D3B00F00EFF341 /* WeView2StackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444368517D3B00E00EFF341 /* WeView2StackLayout.m */; };
 		3444368917D3F9B700EFF341 /* WeView2GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444368817D3F9B600EFF341 /* WeView2GridLayout.m */; };
 		3444368B17D3F9DB00EFF341 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3444368A17D3F9DA00EFF341 /* README.md */; };
@@ -153,8 +152,6 @@
 		3444367917D2A7DC00EFF341 /* subtlepatterns.com */ = {isa = PBXFileReference; lastKnownFileType = folder; name = subtlepatterns.com; path = WeViews2DemoApp/Resources/subtlepatterns.com; sourceTree = "<group>"; };
 		3444367B17D2AAC000EFF341 /* iPhoneDemo1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneDemo1.h; sourceTree = "<group>"; };
 		3444367C17D2AAC000EFF341 /* iPhoneDemo1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPhoneDemo1.m; sourceTree = "<group>"; };
-		3444367E17D2B11B00EFF341 /* WeView2FitOrFillLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2FitOrFillLayout.h; sourceTree = "<group>"; };
-		3444367F17D2B11C00EFF341 /* WeView2FitOrFillLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2FitOrFillLayout.m; sourceTree = "<group>"; };
 		3444368417D3B00D00EFF341 /* WeView2StackLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2StackLayout.h; sourceTree = "<group>"; };
 		3444368517D3B00E00EFF341 /* WeView2StackLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2StackLayout.m; sourceTree = "<group>"; };
 		3444368717D3F9B500EFF341 /* WeView2GridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2GridLayout.h; sourceTree = "<group>"; };
@@ -325,8 +322,6 @@
 			children = (
 				3444365E17D2953300EFF341 /* WeView2BlockLayout.h */,
 				3444365F17D2953400EFF341 /* WeView2BlockLayout.m */,
-				3444367E17D2B11B00EFF341 /* WeView2FitOrFillLayout.h */,
-				3444367F17D2B11C00EFF341 /* WeView2FitOrFillLayout.m */,
 				3444368717D3F9B500EFF341 /* WeView2GridLayout.h */,
 				3444368817D3F9B600EFF341 /* WeView2GridLayout.m */,
 				344435DB17CB055B00EFF341 /* WeView2Layout.h */,
@@ -516,7 +511,6 @@
 				3444365D17D2930100EFF341 /* DemoViewFactory.m in Sources */,
 				3444366017D2953400EFF341 /* WeView2BlockLayout.m in Sources */,
 				3444367D17D2AAC100EFF341 /* iPhoneDemo1.m in Sources */,
-				3444368017D2B11D00EFF341 /* WeView2FitOrFillLayout.m in Sources */,
 				3444368617D3B00F00EFF341 /* WeView2StackLayout.m in Sources */,
 				3444368917D3F9B700EFF341 /* WeView2GridLayout.m in Sources */,
 			);

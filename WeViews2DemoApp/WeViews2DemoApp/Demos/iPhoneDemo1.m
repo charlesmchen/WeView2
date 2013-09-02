@@ -8,7 +8,6 @@
 #import "WeView2.h"
 #import "iPhoneDemo1.h"
 #import "WeView2Macros.h"
-#import "WeView2FitOrFillLayout.h"
 #import "WeView2StackLayout.h"
 #import "WeView2LinearLayout.h"
 
@@ -40,10 +39,7 @@
       ]]
      useVerticalDefaultLayout];
 
-    [bodyView addSubviews:@[
-     [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/The_shortening_winters_day_is_near_a_close_Farquharson.jpg"]],
-     ]
-               withLayout:[WeView2FitOrFillLayout fillBoundsWithAspectRatioLayout]];
+    [bodyView addSubviewWithFillLayoutWAspectRatio:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/The_shortening_winters_day_is_near_a_close_Farquharson.jpg"]]];
     bodyView.clipsToBounds = YES;
 
     [bodyView addSubviews:@[

@@ -263,7 +263,7 @@
                        subviewSizes:&subviewSizes[0]
                      stretchWeights:stretchWeights
                              indent:indent + 2];
-                
+
                 NSLog(@"%@ contentSize (after crop): %@",
                       [self indentPrefix:indent + 1],
                       FormatIntSize(contentSize));
@@ -350,7 +350,7 @@
                subviewSizes:&subviewSizes[0]
              stretchWeights:stretchWeights
                      indent:indent + 2];
-        
+
         NSLog(@"%@ contentSize (final): %@",
               [self indentPrefix:indent + 1],
               FormatIntSize(contentSize));
@@ -480,9 +480,10 @@
                      indent:indent + 2];
     }
 
-    // Check to see if we need to crop our content.
-    if (YES)
+    BOOL cropSubviewOverflow = [self cropSubviewOverflow:view];
+    if (cropSubviewOverflow)
     {
+        // First, check to see if we need to crop our content along the axis of layout.
         int extraAxisSpaceRaw;
         int axisSize;
         if (horizontal)
@@ -550,15 +551,28 @@
             contentSize = [self sumContentSize:&subviewSizes[0]
                                   subviewCount:subviewCount
                                     horizontal:horizontal];
+        }
 
-            if (debugLayout)
+        // Second, crop along cross-axis.
+        for (int i=0; i < subviewCount; i++)
+        {
+            if (horizontal)
             {
-                [self dumpItemSizes:@"subview size (after crop)"
-                           subviews:subviews
-                       subviewSizes:&subviewSizes[0]
-                     stretchWeights:stretchWeights
-                             indent:indent + 2];
+                subviewSizes[i].height = MIN(subviewSizes[i].height, contentBounds.size.height);
             }
+            else
+            {
+                subviewSizes[i].width = MIN(subviewSizes[i].width, contentBounds.size.width);
+            }
+        }
+
+        if (debugLayout)
+        {
+            [self dumpItemSizes:@"subview size (after crop)"
+                       subviews:subviews
+                   subviewSizes:&subviewSizes[0]
+                 stretchWeights:stretchWeights
+                         indent:indent + 2];
         }
     }
 
@@ -695,22 +709,24 @@
                 WeView2Assert(0);
                 break;
         }
-        int extraCrossSpace = maxSubviewSize.height - contentSize.height;
-        switch ([self contentVAlign:view])
+        if (stretchCount == 0)
         {
-            case V_ALIGN_BOTTOM:
-                crossIndex += extraCrossSpace;
-                crossSize -= extraCrossSpace;
-                break;
-            case V_ALIGN_CENTER:
-                crossIndex += extraCrossSpace / 2;
-                crossSize -= extraCrossSpace / 2;
-                break;
-            case V_ALIGN_TOP:
-                break;
-            default:
-                WeView2Assert(0);
-                break;
+            int extraCrossSpace = maxSubviewSize.height - contentSize.height;
+            switch ([self contentVAlign:view])
+            {
+                case V_ALIGN_BOTTOM:
+                    crossIndex += extraCrossSpace;
+                    break;
+                case V_ALIGN_CENTER:
+                    crossIndex += extraCrossSpace / 2;
+                    break;
+                case V_ALIGN_TOP:
+                    break;
+                default:
+                    WeView2Assert(0);
+                    break;
+            }
+            crossSize -= extraCrossSpace;
         }
     }
     else
@@ -730,26 +746,38 @@
                 WeView2Assert(0);
                 break;
         }
-        int extraCrossSpace = maxSubviewSize.width - contentSize.width;
-        switch ([self contentHAlign:view])
+        if (stretchCount == 0)
         {
-            case H_ALIGN_LEFT:
-                break;
-            case H_ALIGN_CENTER:
-                crossIndex += extraCrossSpace / 2;
-                crossSize -= extraCrossSpace / 2;
-                break;
-            case H_ALIGN_RIGHT:
-                crossIndex += extraCrossSpace;
-                crossSize -= extraCrossSpace;
-                break;
-            default:
-                WeView2Assert(0);
-                break;
+            int extraCrossSpace = maxSubviewSize.width - contentSize.width;
+            switch ([self contentHAlign:view])
+            {
+                case H_ALIGN_LEFT:
+                    break;
+                case H_ALIGN_CENTER:
+                    crossIndex += extraCrossSpace / 2;
+                    break;
+                case H_ALIGN_RIGHT:
+                    crossIndex += extraCrossSpace;
+                    break;
+                default:
+                    WeView2Assert(0);
+                    break;
+            }
+            crossSize -= extraCrossSpace;
         }
     }
 
+    if (debugLayout)
+    {
+        NSLog(@"%@ crossSize: %d, axisIndex: %d, crossIndex: %d",
+              [self indentPrefix:indent + 1],
+              crossSize,
+              axisIndex,
+              crossIndex);
+    }
+
     // Calculate and apply the subviews' frames.
+    CellPositioningMode cellPositioning = [self cellPositioning:view];
     for (int i=0; i < subviewCount; i++)
     {
         UIView* subview = subviews[i];
@@ -763,15 +791,17 @@
         [self positionSubview:subview
                   inSuperview:view
                      withSize:subviewSize
-                 inCellBounds:cellBounds];
+                 inCellBounds:cellBounds
+              cellPositioning:cellPositioning];
 
         if (debugLayout)
         {
-            NSLog(@"%@ - final layout[%d] %@: %@, subviewSize: %@",
+            NSLog(@"%@ - final layout[%d] %@: %@, cellBounds: %@, subviewSize: %@",
                   [self indentPrefix:indent + 2],
                   i,
                   [subview class],
                   FormatRect(subview.frame),
+                  FormatRect(cellBounds),
                   FormatCGSize(subviewSize));
         }
 

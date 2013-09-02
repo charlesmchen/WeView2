@@ -103,6 +103,7 @@ typedef void (^SetterBlock)(UIView *view);
 @property (nonatomic) NSString *name;
 @property (copy, nonatomic) GetterBlock getterBlock;
 @property (copy, nonatomic) NSArray *setters;
+@property (nonatomic) BOOL doubleHeight;
 
 @end
 
@@ -114,10 +115,22 @@ typedef void (^SetterBlock)(UIView *view);
                     getterBlock:(GetterBlock)getterBlock
                         setters:(NSArray *)setters
 {
+    return [self create:name
+            getterBlock:getterBlock
+                setters:setters
+           doubleHeight:NO];
+}
+
++ (ViewParameterSimple *)create:(NSString *)name
+                    getterBlock:(GetterBlock)getterBlock
+                        setters:(NSArray *)setters
+                   doubleHeight:(BOOL)doubleHeight
+{
     ViewParameterSimple *result = [[ViewParameterSimple alloc] init];
     result.name = name;
     result.getterBlock = getterBlock;
     result.setters = setters;
+    result.doubleHeight = doubleHeight;
     return result;
 }
 
@@ -149,9 +162,9 @@ typedef void (^SetterBlock)(UIView *view);
     NSMutableArray *subviews = [@[
                                 nameLabel,
                                 valueLabel,
-                                [[[UIView alloc] init] withPureStretch],
                                 ] mutableCopy];
 
+    NSMutableArray *setterViews = [NSMutableArray array];
     for (ViewParameterSetter *setter in self.setters)
     {
         setter.view = view;
@@ -164,25 +177,55 @@ typedef void (^SetterBlock)(UIView *view);
         setterButton.contentEdgeInsets = UIEdgeInsetsMake(3, 5, 2, 5);
         [setterButton setTitle:setter.name forState:UIControlStateNormal];
         [setterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        setterButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
+        //        setterButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
         setterButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
                                                        size:14];
         [setterButton addTarget:setter
                          action:@selector(perform:)
                forControlEvents:UIControlEventTouchUpInside];
-        [subviews addObject:setterButton];
+        [setterViews addObject:setterButton];
     }
 
-    [[[[[container addSubviews:subviews]
-        setContentHAlign:H_ALIGN_LEFT]
-       setHMargin:10]
-      setVMargin:2]
-     setSpacing:4];
+    if (self.doubleHeight)
+    {
+        WeView2 *topPanel = [[WeView2 alloc] init];
+        [topPanel useHorizontalDefaultLayout];
+        topPanel.backgroundColor = [UIColor clearColor];
+        topPanel.opaque = NO;
+        [[[topPanel addSubviews:subviews]
+            setContentHAlign:H_ALIGN_LEFT]
+         setSpacing:4];
 
-//    container.debugLayout = YES;
+        WeView2 *bottomPanel = [[WeView2 alloc] init];
+        [bottomPanel useHorizontalDefaultLayout];
+        bottomPanel.backgroundColor = [UIColor clearColor];
+        bottomPanel.opaque = NO;
+        [[[bottomPanel addSubviews:setterViews]
+            setContentHAlign:H_ALIGN_RIGHT]
+         setSpacing:4];
+
+        [container useVerticalDefaultLayout];
+        [[[[container addSubviews:@[[topPanel withStretch],
+                                    [bottomPanel withStretch], ]]
+           setHMargin:10]
+          setVMargin:2]
+         setSpacing:4];
+    }
+    else
+    {
+        [subviews addObject: [[[UIView alloc] init] withPureStretch]];
+        [subviews addObjectsFromArray:setterViews];
+        [[[[[container addSubviews:subviews]
+            setContentHAlign:H_ALIGN_LEFT]
+           setHMargin:10]
+          setVMargin:2]
+         setSpacing:4];
+    }
+
+    //    container.debugLayout = YES;
 
     cell.height = container.height = [container sizeThatFits:CGSizeMake(cell.width, CGFLOAT_MAX)].height;
-//    [container
+    //    [container
     //    WeView2 *container = [[WeView2 alloc] init];
 
 }
@@ -291,7 +334,7 @@ typedef void (^SetterBlock)(UIView *view);
                             [ViewParameterSimple booleanProperty:@"hidden"],
                             [ViewParameterSimple booleanProperty:@"clipsToBounds"],
 
-/* CODEGEN MARKER: Parameters Start */
+        /* CODEGEN MARKER: Parameters Start */
 
                             [ViewParameterSimple floatProperty:@"minWidth"],
 
@@ -300,6 +343,10 @@ typedef void (^SetterBlock)(UIView *view);
                             [ViewParameterSimple floatProperty:@"minHeight"],
 
                             [ViewParameterSimple floatProperty:@"maxHeight"],
+
+                            [ViewParameterSimple floatProperty:@"desiredWidthAdjustment"],
+
+                            [ViewParameterSimple floatProperty:@"desiredHeightAdjustment"],
 
                             [ViewParameterSimple floatProperty:@"hStretchWeight"],
 
@@ -336,8 +383,8 @@ typedef void (^SetterBlock)(UIView *view);
                                              setterBlock:^(UIView *view) {
                                                  view.contentHAlign = H_ALIGN_RIGHT;
                                              }],
-                             ]],
-                             
+                             ]
+                             doubleHeight:YES],
 
                             [ViewParameterSimple create:@"contentVAlign"
                                             getterBlock:^NSString *(UIView *view) {
@@ -356,8 +403,8 @@ typedef void (^SetterBlock)(UIView *view);
                                              setterBlock:^(UIView *view) {
                                                  view.contentVAlign = V_ALIGN_BOTTOM;
                                              }],
-                             ]],
-                             
+                             ]
+                             doubleHeight:YES],
 
                             [ViewParameterSimple create:@"cellHAlign"
                                             getterBlock:^NSString *(UIView *view) {
@@ -376,8 +423,8 @@ typedef void (^SetterBlock)(UIView *view);
                                              setterBlock:^(UIView *view) {
                                                  view.cellHAlign = H_ALIGN_RIGHT;
                                              }],
-                             ]],
-                             
+                             ]
+                             doubleHeight:YES],
 
                             [ViewParameterSimple create:@"cellVAlign"
                                             getterBlock:^NSString *(UIView *view) {
@@ -396,19 +443,43 @@ typedef void (^SetterBlock)(UIView *view);
                                              setterBlock:^(UIView *view) {
                                                  view.cellVAlign = V_ALIGN_BOTTOM;
                                              }],
-                             ]],
-                             
+                             ]
+                             doubleHeight:YES],
 
                             [ViewParameterSimple booleanProperty:@"cropSubviewOverflow"],
+
+                            [ViewParameterSimple create:@"cellPositioning"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatCellPositioningMode(view.cellPositioning);
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_NORMAL)
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellPositioning = CELL_POSITION_NORMAL;
+                                             }],
+                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL)
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellPositioning = CELL_POSITION_FILL;
+                                             }],
+                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL_W_ASPECT_RATIO)
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellPositioning = CELL_POSITION_FILL_W_ASPECT_RATIO;
+                                             }],
+                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FIT_W_ASPECT_RATIO)
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellPositioning = CELL_POSITION_FIT_W_ASPECT_RATIO;
+                                             }],
+                             ]
+                             doubleHeight:YES],
 
                             [ViewParameterSimple booleanProperty:@"debugLayout"],
 
                             [ViewParameterSimple booleanProperty:@"debugMinSize"],
 
 /* CODEGEN MARKER: Parameters End */
-                             ];
+                            ];
 
-//        self.tableView.rowHeight = 25;
+        //        self.tableView.rowHeight = 25;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.tableView.sectionHeaderHeight = 10;
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -431,14 +502,14 @@ typedef void (^SetterBlock)(UIView *view);
 
 - (void)handleItemAdded:(NSNotification *)notification
 {
-//    NSLog(@"tree handleItemAdded: %@", notification.object);
+    //    NSLog(@"tree handleItemAdded: %@", notification.object);
     self.currentView = notification.object;
     [self updateContent];
 }
 
 - (void)handleSelectionChanged:(NSNotification *)notification
 {
-//    NSLog(@"tree handleSelectionChanged");
+    //    NSLog(@"tree handleSelectionChanged");
     self.currentView = notification.object;
     [self updateContent];
 }
@@ -453,7 +524,7 @@ typedef void (^SetterBlock)(UIView *view);
 - (void)updateContent
 {
     [self.tableView reloadData];
-//    [super viewDidLoad];
+    //    [super viewDidLoad];
 }
 
 - (void)viewDidLoad
@@ -516,9 +587,9 @@ typedef void (^SetterBlock)(UIView *view);
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 
-//    Class clazz = self.demoClasses[indexPath.row];
-//    Demo *demo = [[clazz alloc] init];
-//    [self.delegate demoSelected:demo];
+    //    Class clazz = self.demoClasses[indexPath.row];
+    //    Demo *demo = [[clazz alloc] init];
+    //    [self.delegate demoSelected:demo];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

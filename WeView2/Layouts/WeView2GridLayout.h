@@ -14,15 +14,15 @@
 
 //@interface WeView2GridLayout : WeView2Layout
 //
-////@property (nonatomic) BOOL isHorizontal;
+//@property (nonatomic) BOOL isHorizontal;
 //
-//// Factory method.
-////+ (WeView2GridLayout *)gridLayout
-////columnCount:(int)columnCount
-////isGridUniform:(BOOL)isGridUniform;
-////
-////+ (WeView2GridLayout *)horizontalLayout;
-////
-////+ (WeView2GridLayout *)verticalLayout;
+// Factory method.
+//+ (WeView2GridLayout *)gridLayout
+//columnCount:(int)columnCount
+//isGridUniform:(BOOL)isGridUniform;
+//
+//+ (WeView2GridLayout *)horizontalLayout;
+//
+//+ (WeView2GridLayout *)verticalLayout;
 //
 //@end

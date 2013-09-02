@@ -53,6 +53,17 @@
     [self setMaxHeight:value.height];
 }
 
+- (CGSize)desiredSizeAdjustment
+{
+    return CGSizeMake(self.desiredWidthAdjustment, self.desiredHeightAdjustment);
+}
+
+- (void)setDesiredSizeAdjustment:(CGSize)value
+{
+    [self setDesiredWidthAdjustment:value.width];
+    [self setDesiredHeightAdjustment:value.height];
+}
+
 - (void)setFixedWidth:(CGFloat)value
 {
     [self setMinWidth:value];
@@ -123,6 +134,8 @@
     [result appendString:[self formatLayoutDescriptionItem:@"maxWidth" value:@(self.maxWidth)]];
     [result appendString:[self formatLayoutDescriptionItem:@"minHeight" value:@(self.minHeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"maxHeight" value:@(self.maxHeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"desiredWidthAdjustment" value:@(self.desiredWidthAdjustment)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"desiredHeightAdjustment" value:@(self.desiredHeightAdjustment)]];
     [result appendString:[self formatLayoutDescriptionItem:@"hStretchWeight" value:@(self.hStretchWeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"vStretchWeight" value:@(self.vStretchWeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"ignoreDesiredSize" value:@(self.ignoreDesiredSize)]];
@@ -137,6 +150,7 @@
     [result appendString:[self formatLayoutDescriptionItem:@"cellHAlign" value:@(self.cellHAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cellVAlign" value:@(self.cellVAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cropSubviewOverflow" value:@(self.cropSubviewOverflow)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"cellPositioning" value:@(self.cellPositioning)]];
     [result appendString:[self formatLayoutDescriptionItem:@"debugName" value:self.debugName]];
     [result appendString:[self formatLayoutDescriptionItem:@"debugLayout" value:@(self.debugLayout)]];
     [result appendString:[self formatLayoutDescriptionItem:@"debugMinSize" value:@(self.debugMinSize)]];
