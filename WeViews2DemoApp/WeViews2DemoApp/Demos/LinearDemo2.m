@@ -18,9 +18,10 @@
 - (DemoModel *)demoModel
 {
     DemoModel *result = [DemoModel create];
-
-    [[result.rootView useHorizontalDefaultLayout]
-    addSubviews:@[
+    
+    WeView2 *topPanel = [[WeView2 alloc] init];
+    [[topPanel useHorizontalDefaultLayout]
+     addSubviews:@[
      [self createLabel:@"Welcome"
               fontSize:16.f],
      [self createLabel:@"To"
@@ -28,13 +29,42 @@
      [self createLabel:@"WeView2"
               fontSize:32.f],
      ]];
-    [[[result.rootView setVMargin:10]
+    [[[topPanel setVMargin:10]
       setHMargin:20]
      setSpacing:5];
+    
+    WeView2 *bottomPanel = [[WeView2 alloc] init];
+    [[bottomPanel useHorizontalDefaultLayout]
+     addSubviews:@[
+     [self createLabel:@"Welcome"
+              fontSize:16.f],
+     [self createLabel:@"To"
+              fontSize:24.f],
+     [self createLabel:@"WeView2"
+              fontSize:32.f],
+     ]];
+    [[[bottomPanel setVMargin:10]
+      setHMargin:20]
+     setSpacing:5];
+    
+    [[result.rootView useVerticalDefaultLayout]
+     addSubviews:@[
+     topPanel,
+     bottomPanel,
+     ]];
+    [[result.rootView setMargin:10]
+     setSpacing:10];
 
+//    topPanel.debugLayout = YES;
+//    result.rootView.debugLayout = YES;
+//    topPanel.debugMinSize = YES;
+//    topPanel.debugLayout = YES;
+    
     [self assignRandomBackgroundColors:[self collectSubviews:result.rootView]];
 //    result.debugLayout = YES;
     result.rootView.debugName = @"LinearDemo2";
+    topPanel.debugName = @"topPanel";
+    bottomPanel.debugName = @"bottomPanel";
     return result;
 }
 

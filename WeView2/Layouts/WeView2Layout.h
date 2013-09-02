@@ -12,6 +12,14 @@
 
 #import "WeView2Common.h"
 
+typedef enum
+{
+    CELL_POSITION_NORMAL,
+    CELL_POSITION_FILL,
+    CELL_POSITION_FILL_W_ASPECT_RATIO,
+    CELL_POSITION_FIT_W_ASPECT_RATIO,
+} CellPositioningMode;
+
 @interface WeView2Layout : NSObject
 
 - (void)layoutContentsOfView:(UIView *)view
@@ -43,14 +51,19 @@
 - (WeView2Layout *)setHSpacing:(CGFloat)value;
 
 // The horizontal alignment of subviews within this view.
-- (HAlign)hAlign:(UIView *)view;
-- (WeView2Layout *)setHAlign:(HAlign)value;
+- (HAlign)contentHAlign:(UIView *)view;
+- (WeView2Layout *)setContentHAlign:(HAlign)value;
 // The vertical alignment of subviews within this view.
-- (VAlign)vAlign:(UIView *)view;
-- (WeView2Layout *)setVAlign:(VAlign)value;
+- (VAlign)contentVAlign:(UIView *)view;
+- (WeView2Layout *)setContentVAlign:(VAlign)value;
+
+- (BOOL)cropSubviewOverflow:(UIView *)view;
+- (WeView2Layout *)setCropSubviewOverflow:(BOOL)value;
 
 - (BOOL)debugLayout:(UIView *)view;
 - (WeView2Layout *)setDebugLayout:(BOOL)value;
+- (BOOL)debugMinSize:(UIView *)view;
+- (WeView2Layout *)setDebugMinSize:(BOOL)value;
 
 // Convenience accessor(s) for the leftMargin and rightMargin properties.
 - (WeView2Layout *)setHMargin:(CGFloat)value;

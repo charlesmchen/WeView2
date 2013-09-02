@@ -89,14 +89,19 @@ propertyGroups = (
                    Property('hSpacing', 'CGFloat', layoutProperty=True, ),
                    ),
                   (
-                   Property('hAlign', 'HAlign', comments='The horizontal alignment of subviews within this view.', layoutProperty=True, ),
-                   Property('vAlign', 'VAlign', comments='The vertical alignment of subviews within this view.', layoutProperty=True, ),
+                   Property('contentHAlign', 'HAlign', comments='The horizontal alignment of subviews within this view.', layoutProperty=True, ),
+                   Property('contentVAlign', 'VAlign', comments='The vertical alignment of subviews within this view.', layoutProperty=True, ),
                    Property('cellHAlign', 'HAlign', comments='The horizontal alignment preference of this view within in its layout cell.', ),
                    Property('cellVAlign', 'VAlign', comments='The vertical alignment preference of this view within in its layout cell.', ),
                    ),
                   (
+                   Property('cropSubviewOverflow', 'BOOL', layoutProperty=True, ),
+                   Property('cellPositioning', 'CellPositioningMode', layoutProperty=True, ),
+                   ),
+                  (
                    Property('debugName', 'NSString *', defaultValue="@\"?\"", ),
                    Property('debugLayout', 'BOOL', layoutProperty=True, ),
+                   Property('debugMinSize', 'BOOL', layoutProperty=True, ),
                    ),
 
                   )
@@ -440,6 +445,48 @@ for propertyGroup in propertyGroups:
         elif property.typeName == 'BOOL':
             lines.append('''
                             [ViewParameterSimple booleanProperty:@"%s"],''' % (property.name, ) )
+        elif property.typeName == 'HAlign':
+            lines.append('''
+                            [ViewParameterSimple create:@"%s"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatHAlign(view.%s);
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"Left"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = H_ALIGN_LEFT;
+                                             }],
+                             [ViewParameterSetter create:@"Center"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = H_ALIGN_CENTER;
+                                             }],
+                             [ViewParameterSetter create:@"Right"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = H_ALIGN_RIGHT;
+                                             }],
+                             ]],
+                             ''' % (property.name, property.name, property.name, property.name, property.name, ) )
+        elif property.typeName == 'VAlign':
+            lines.append('''
+                            [ViewParameterSimple create:@"%s"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatVAlign(view.%s);
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"Top"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = V_ALIGN_TOP;
+                                             }],
+                             [ViewParameterSetter create:@"Center"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = V_ALIGN_CENTER;
+                                             }],
+                             [ViewParameterSetter create:@"Bottom"
+                                             setterBlock:^(UIView *view) {
+                                                 view.%s = V_ALIGN_BOTTOM;
+                                             }],
+                             ]],
+                             ''' % (property.name, property.name, property.name, property.name, property.name, ) )
         else:
             print 'Unknown typeName:', property.typeName
 

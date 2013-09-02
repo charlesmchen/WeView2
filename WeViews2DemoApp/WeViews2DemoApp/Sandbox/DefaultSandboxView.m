@@ -40,7 +40,7 @@ typedef enum
         self.margin = 40;
         self.opaque = YES;
         //        self.backgroundColor = [UIColor whiteColor];
-        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"subtlepatterns.com/graphy/graphy"]];
+        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"subtlepatterns.com/graphy_modified/graphy_modified"]];
         //        [view setOpaque:NO];
         //        [[view layer] setOpaque:NO];
 
@@ -67,7 +67,7 @@ typedef enum
     WeView2 *modePanel = [[WeView2 alloc] init];
     [[[modePanel useVerticalDefaultLayout]
      setSpacing:10]
-     setHAlign:H_ALIGN_LEFT];
+     setContentHAlign:H_ALIGN_LEFT];
 
      [modePanel addSubviews:@[
      [DemoViewFactory createFlatUIButton:@"Open layout at natural size"

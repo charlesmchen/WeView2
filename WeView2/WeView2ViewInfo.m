@@ -17,8 +17,8 @@
 {
     if (self = [super init])
     {
-        self.hAlign = H_ALIGN_CENTER;
-        self.vAlign = V_ALIGN_CENTER;
+        self.contentHAlign = H_ALIGN_CENTER;
+        self.contentVAlign = V_ALIGN_CENTER;
         self.cellHAlign = H_ALIGN_CENTER;
         self.cellVAlign = V_ALIGN_CENTER;
 
@@ -132,19 +132,16 @@
     [result appendString:[self formatLayoutDescriptionItem:@"bottomMargin" value:@(self.bottomMargin)]];
     [result appendString:[self formatLayoutDescriptionItem:@"vSpacing" value:@(self.vSpacing)]];
     [result appendString:[self formatLayoutDescriptionItem:@"hSpacing" value:@(self.hSpacing)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"hAlign" value:@(self.hAlign)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"vAlign" value:@(self.vAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"contentHAlign" value:@(self.contentHAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"contentVAlign" value:@(self.contentVAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cellHAlign" value:@(self.cellHAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cellVAlign" value:@(self.cellVAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"cropSubviewOverflow" value:@(self.cropSubviewOverflow)]];
     [result appendString:[self formatLayoutDescriptionItem:@"debugName" value:self.debugName]];
     [result appendString:[self formatLayoutDescriptionItem:@"debugLayout" value:@(self.debugLayout)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"debugMinSize" value:@(self.debugMinSize)]];
 
 /* CODEGEN MARKER: Debug End */
-
-    [result appendString:[self formatLayoutDescriptionItem:@"hAlign" value:FormatHAlign(self.hAlign)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"vAlign" value:FormatVAlign(self.vAlign)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"cellHAlign" value:FormatHAlign(self.cellHAlign)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"cellVAlign" value:FormatVAlign(self.cellVAlign)]];
 
     return result;
 }

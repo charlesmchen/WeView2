@@ -178,25 +178,25 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     return self;
 }
 
-- (HAlign)hAlign
+- (HAlign)contentHAlign
 {
-    return [self.viewInfo hAlign];
+    return [self.viewInfo contentHAlign];
 }
 
-- (UIView *)setHAlign:(HAlign)value
+- (UIView *)setContentHAlign:(HAlign)value
 {
-    [self.viewInfo setHAlign:value];
+    [self.viewInfo setContentHAlign:value];
     return self;
 }
 
-- (VAlign)vAlign
+- (VAlign)contentVAlign
 {
-    return [self.viewInfo vAlign];
+    return [self.viewInfo contentVAlign];
 }
 
-- (UIView *)setVAlign:(VAlign)value
+- (UIView *)setContentVAlign:(VAlign)value
 {
-    [self.viewInfo setVAlign:value];
+    [self.viewInfo setContentVAlign:value];
     return self;
 }
 
@@ -222,6 +222,17 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     return self;
 }
 
+- (BOOL)cropSubviewOverflow
+{
+    return [self.viewInfo cropSubviewOverflow];
+}
+
+- (UIView *)setCropSubviewOverflow:(BOOL)value
+{
+    [self.viewInfo setCropSubviewOverflow:value];
+    return self;
+}
+
 - (NSString *)debugName
 {
     return [self.viewInfo debugName];
@@ -241,6 +252,17 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
 - (UIView *)setDebugLayout:(BOOL)value
 {
     [self.viewInfo setDebugLayout:value];
+    return self;
+}
+
+- (BOOL)debugMinSize
+{
+    return [self.viewInfo debugMinSize];
+}
+
+- (UIView *)setDebugMinSize:(BOOL)value
+{
+    [self.viewInfo setDebugMinSize:value];
     return self;
 }
 

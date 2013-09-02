@@ -36,16 +36,19 @@
 @property (nonatomic) CGFloat hSpacing;
 
 // The horizontal alignment of subviews within this view.
-@property (nonatomic) HAlign hAlign;
+@property (nonatomic) HAlign contentHAlign;
 // The vertical alignment of subviews within this view.
-@property (nonatomic) VAlign vAlign;
+@property (nonatomic) VAlign contentVAlign;
 // The horizontal alignment preference of this view within in its layout cell.
 @property (nonatomic) HAlign cellHAlign;
 // The vertical alignment preference of this view within in its layout cell.
 @property (nonatomic) VAlign cellVAlign;
 
-@property (nonatomic) NSString *debugName;
+@property (nonatomic) BOOL cropSubviewOverflow;
+
+@property (nonatomic) NSString * debugName;
 @property (nonatomic) BOOL debugLayout;
+@property (nonatomic) BOOL debugMinSize;
 
 // Convenience accessor(s) for the minWidth and minHeight properties.
 - (CGSize)minSize;

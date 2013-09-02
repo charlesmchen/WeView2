@@ -161,7 +161,7 @@ typedef void (^SetterBlock)(UIView *view);
         setterButton.opaque = NO;
         setterButton.backgroundColor = [UIColor colorWithWhite:0.5f alpha:1.f];
         setterButton.layer.cornerRadius = 5.f;
-        setterButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        setterButton.contentEdgeInsets = UIEdgeInsetsMake(3, 5, 2, 5);
         [setterButton setTitle:setter.name forState:UIControlStateNormal];
         [setterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //        setterButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
@@ -174,10 +174,10 @@ typedef void (^SetterBlock)(UIView *view);
     }
 
     [[[[[container addSubviews:subviews]
-        setHAlign:H_ALIGN_LEFT]
+        setContentHAlign:H_ALIGN_LEFT]
        setHMargin:10]
       setVMargin:2]
-     setSpacing:5];
+     setSpacing:4];
 
 //    container.debugLayout = YES;
 
@@ -289,82 +289,7 @@ typedef void (^SetterBlock)(UIView *view);
                                                 setters:@[]],
 
                             [ViewParameterSimple booleanProperty:@"hidden"],
-
-                            [ViewParameterSimple create:@"hAlign"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatHAlign(view.hAlign);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:@"Left"
-                                             setterBlock:^(UIView *view) {
-                                                 view.hAlign = H_ALIGN_LEFT;
-                                             }],
-                             [ViewParameterSetter create:@"Center"
-                                             setterBlock:^(UIView *view) {
-                                                 view.hAlign = H_ALIGN_CENTER;
-                                             }],
-                             [ViewParameterSetter create:@"Right"
-                                             setterBlock:^(UIView *view) {
-                                                 view.hAlign = H_ALIGN_RIGHT;
-                                             }],
-                             ]],
-
-                            [ViewParameterSimple create:@"vAlign"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatVAlign(view.vAlign);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:@"Top"
-                                             setterBlock:^(UIView *view) {
-                                                 view.vAlign = V_ALIGN_TOP;
-                                             }],
-                             [ViewParameterSetter create:@"Center"
-                                             setterBlock:^(UIView *view) {
-                                                 view.vAlign = V_ALIGN_CENTER;
-                                             }],
-                             [ViewParameterSetter create:@"Bottom"
-                                             setterBlock:^(UIView *view) {
-                                                 view.vAlign = V_ALIGN_BOTTOM;
-                                             }],
-                             ]],
-
-                            [ViewParameterSimple create:@"cellHAlign"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatHAlign(view.cellHAlign);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:@"Left"
-                                             setterBlock:^(UIView *view) {
-                                                 view.cellHAlign = H_ALIGN_LEFT;
-                                             }],
-                             [ViewParameterSetter create:@"Center"
-                                             setterBlock:^(UIView *view) {
-                                                 view.cellHAlign = H_ALIGN_CENTER;
-                                             }],
-                             [ViewParameterSetter create:@"Right"
-                                             setterBlock:^(UIView *view) {
-                                                 view.cellHAlign = H_ALIGN_RIGHT;
-                                             }],
-                             ]],
-
-                            [ViewParameterSimple create:@"cellVAlign"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatVAlign(view.cellVAlign);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:@"Top"
-                                             setterBlock:^(UIView *view) {
-                                                 view.cellVAlign = V_ALIGN_TOP;
-                                             }],
-                             [ViewParameterSetter create:@"Center"
-                                             setterBlock:^(UIView *view) {
-                                                 view.cellVAlign = V_ALIGN_CENTER;
-                                             }],
-                             [ViewParameterSetter create:@"Bottom"
-                                             setterBlock:^(UIView *view) {
-                                                 view.cellVAlign = V_ALIGN_BOTTOM;
-                                             }],
-                             ]],
+                            [ViewParameterSimple booleanProperty:@"clipsToBounds"],
 
 /* CODEGEN MARKER: Parameters Start */
 
@@ -394,7 +319,91 @@ typedef void (^SetterBlock)(UIView *view);
 
                             [ViewParameterSimple floatProperty:@"hSpacing"],
 
+                            [ViewParameterSimple create:@"contentHAlign"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatHAlign(view.contentHAlign);
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"Left"
+                                             setterBlock:^(UIView *view) {
+                                                 view.contentHAlign = H_ALIGN_LEFT;
+                                             }],
+                             [ViewParameterSetter create:@"Center"
+                                             setterBlock:^(UIView *view) {
+                                                 view.contentHAlign = H_ALIGN_CENTER;
+                                             }],
+                             [ViewParameterSetter create:@"Right"
+                                             setterBlock:^(UIView *view) {
+                                                 view.contentHAlign = H_ALIGN_RIGHT;
+                                             }],
+                             ]],
+                             
+
+                            [ViewParameterSimple create:@"contentVAlign"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatVAlign(view.contentVAlign);
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"Top"
+                                             setterBlock:^(UIView *view) {
+                                                 view.contentVAlign = V_ALIGN_TOP;
+                                             }],
+                             [ViewParameterSetter create:@"Center"
+                                             setterBlock:^(UIView *view) {
+                                                 view.contentVAlign = V_ALIGN_CENTER;
+                                             }],
+                             [ViewParameterSetter create:@"Bottom"
+                                             setterBlock:^(UIView *view) {
+                                                 view.contentVAlign = V_ALIGN_BOTTOM;
+                                             }],
+                             ]],
+                             
+
+                            [ViewParameterSimple create:@"cellHAlign"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatHAlign(view.cellHAlign);
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"Left"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellHAlign = H_ALIGN_LEFT;
+                                             }],
+                             [ViewParameterSetter create:@"Center"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellHAlign = H_ALIGN_CENTER;
+                                             }],
+                             [ViewParameterSetter create:@"Right"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellHAlign = H_ALIGN_RIGHT;
+                                             }],
+                             ]],
+                             
+
+                            [ViewParameterSimple create:@"cellVAlign"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return FormatVAlign(view.cellVAlign);
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"Top"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellVAlign = V_ALIGN_TOP;
+                                             }],
+                             [ViewParameterSetter create:@"Center"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellVAlign = V_ALIGN_CENTER;
+                                             }],
+                             [ViewParameterSetter create:@"Bottom"
+                                             setterBlock:^(UIView *view) {
+                                                 view.cellVAlign = V_ALIGN_BOTTOM;
+                                             }],
+                             ]],
+                             
+
+                            [ViewParameterSimple booleanProperty:@"cropSubviewOverflow"],
+
                             [ViewParameterSimple booleanProperty:@"debugLayout"],
+
+                            [ViewParameterSimple booleanProperty:@"debugMinSize"],
 
 /* CODEGEN MARKER: Parameters End */
                              ];

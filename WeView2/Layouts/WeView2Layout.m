@@ -23,10 +23,13 @@ NSNumber *_bottomMargin;
 NSNumber *_vSpacing;
 NSNumber *_hSpacing;
 
-NSNumber *_hAlign;
-NSNumber *_vAlign;
+NSNumber *_contentHAlign;
+NSNumber *_contentVAlign;
+
+NSNumber *_cropSubviewOverflow;
 
 NSNumber *_debugLayout;
+NSNumber *_debugMinSize;
 
 /* CODEGEN MARKER: Members End */
 }
@@ -158,33 +161,48 @@ NSNumber *_debugLayout;
     return self;
 }
 
-- (HAlign)hAlign:(UIView *)view
+- (HAlign)contentHAlign:(UIView *)view
 {
-    if (_hAlign)
+    if (_contentHAlign)
     {
-        return [_hAlign intValue];
+        return [_contentHAlign intValue];
     }
-    return [view hAlign];
+    return [view contentHAlign];
 }
 
-- (WeView2Layout *)setHAlign:(HAlign)value
+- (WeView2Layout *)setContentHAlign:(HAlign)value
 {
-    _hAlign = @(value);
+    _contentHAlign = @(value);
     return self;
 }
 
-- (VAlign)vAlign:(UIView *)view
+- (VAlign)contentVAlign:(UIView *)view
 {
-    if (_vAlign)
+    if (_contentVAlign)
     {
-        return [_vAlign intValue];
+        return [_contentVAlign intValue];
     }
-    return [view vAlign];
+    return [view contentVAlign];
 }
 
-- (WeView2Layout *)setVAlign:(VAlign)value
+- (WeView2Layout *)setContentVAlign:(VAlign)value
 {
-    _vAlign = @(value);
+    _contentVAlign = @(value);
+    return self;
+}
+
+- (BOOL)cropSubviewOverflow:(UIView *)view
+{
+    if (_cropSubviewOverflow)
+    {
+        return [_cropSubviewOverflow boolValue];
+    }
+    return [view cropSubviewOverflow];
+}
+
+- (WeView2Layout *)setCropSubviewOverflow:(BOOL)value
+{
+    _cropSubviewOverflow = @(value);
     return self;
 }
 
@@ -200,6 +218,21 @@ NSNumber *_debugLayout;
 - (WeView2Layout *)setDebugLayout:(BOOL)value
 {
     _debugLayout = @(value);
+    return self;
+}
+
+- (BOOL)debugMinSize:(UIView *)view
+{
+    if (_debugMinSize)
+    {
+        return [_debugMinSize boolValue];
+    }
+    return [view debugMinSize];
+}
+
+- (WeView2Layout *)setDebugMinSize:(BOOL)value
+{
+    _debugMinSize = @(value);
     return self;
 }
 

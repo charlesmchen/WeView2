@@ -51,7 +51,7 @@
 {
     self.rootView = [[[WeView2 alloc] init]
                      useVerticalDefaultLayout];
-    [self.rootView setVAlign:V_ALIGN_TOP];
+    [self.rootView setContentVAlign:V_ALIGN_TOP];
     //    self.rootView.debugLayout = YES;
     self.rootView.opaque = YES;
     self.rootView.backgroundColor = [UIColor whiteColor];

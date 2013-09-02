@@ -95,7 +95,7 @@
         setHMargin:10 + self.indentLevel * INDENT_PIXELS]
        setVMargin:3]
       setSpacing:5]
-     setHAlign:H_ALIGN_LEFT];
+     setContentHAlign:H_ALIGN_LEFT];
 
     [self setNeedsLayout];
 }
@@ -170,7 +170,7 @@
 
     [self.table withPureStretch];
     [[self addSubviews:@[self.table,]]
-     setVAlign:V_ALIGN_TOP];
+     setContentVAlign:V_ALIGN_TOP];
 
     self.table.delegate = self;
     self.table.dataSource = self;

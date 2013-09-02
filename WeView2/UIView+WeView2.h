@@ -50,11 +50,11 @@
 - (UIView *)setHSpacing:(CGFloat)value;
 
 // The horizontal alignment of subviews within this view.
-- (HAlign)hAlign;
-- (UIView *)setHAlign:(HAlign)value;
+- (HAlign)contentHAlign;
+- (UIView *)setContentHAlign:(HAlign)value;
 // The vertical alignment of subviews within this view.
-- (VAlign)vAlign;
-- (UIView *)setVAlign:(VAlign)value;
+- (VAlign)contentVAlign;
+- (UIView *)setContentVAlign:(VAlign)value;
 // The horizontal alignment preference of this view within in its layout cell.
 - (HAlign)cellHAlign;
 - (UIView *)setCellHAlign:(HAlign)value;
@@ -62,10 +62,15 @@
 - (VAlign)cellVAlign;
 - (UIView *)setCellVAlign:(VAlign)value;
 
+- (BOOL)cropSubviewOverflow;
+- (UIView *)setCropSubviewOverflow:(BOOL)value;
+
 - (NSString *)debugName;
 - (UIView *)setDebugName:(NSString *)value;
 - (BOOL)debugLayout;
 - (UIView *)setDebugLayout:(BOOL)value;
+- (BOOL)debugMinSize;
+- (UIView *)setDebugMinSize:(BOOL)value;
 
 // Convenience accessor(s) for the minWidth and minHeight properties.
 - (CGSize)minSize;

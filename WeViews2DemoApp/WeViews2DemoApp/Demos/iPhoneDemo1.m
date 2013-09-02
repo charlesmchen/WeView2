@@ -25,25 +25,6 @@
 
     result.useIPhoneSandboxByDefault = YES;
 
-//    WeView2 *phoneScreen = [[WeView2 alloc] init];
-//    phoneScreen.backgroundColor = [UIColor whiteColor];
-//    phoneScreen.opaque = YES;
-//
-//    UIImageView *phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iphone_vertical"]];
-//    WeView2 *phoneContainer = [[WeView2 alloc] init];
-//    [[phoneContainer useStackDefaultLayout]
-//     addSubview:phoneImageView];
-//    phoneContainer.fixedSize = phoneImageView.image.size;
-//    [phoneContainer addSubview:phoneScreen
-//               withLayoutBlock:^(UIView *superview, UIView *subview) {
-//                   WeView2Assert(subview);
-//                   WeView2Assert(subview.superview);
-//                   subview.frame = CGRectMake(33, 133, 320, 480);
-//               }];
-//
-//    [[result.rootView useStackDefaultLayout]
-//     addSubview:phoneContainer];
-
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar setItems:@[
      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:nil],
@@ -72,7 +53,7 @@
      ]
                withLayout:[[[WeView2LinearLayout horizontalLayout]
                             setBottomMargin:20]
-                           setVAlign:V_ALIGN_BOTTOM]];
+                           setContentVAlign:V_ALIGN_BOTTOM]];
 
     UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [activityIndicatorView startAnimating];

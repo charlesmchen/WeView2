@@ -25,8 +25,8 @@
                        subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize
 {
-    BOOL debugLayout = [self debugLayout:view];
-    if (debugLayout)
+    BOOL debugMinSize = [self debugMinSize:view];
+    if (debugMinSize)
     {
         NSLog(@"+ minSizeOfContentsView: %@ thatFitsSize: %@", [view class], NSStringFromCGSize(guideSize));
     }
@@ -34,7 +34,7 @@
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:view.size];
 
-    if (debugLayout)
+    if (debugMinSize)
     {
         NSLog(@"getMaxContentSize: contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
               FormatRect(contentBounds),
@@ -56,7 +56,7 @@
 
     CGSize result = CGSizeAdd(maxSubviewSize,
                               [self insetSizeOfView:view]);
-    if (debugLayout)
+    if (debugMinSize)
     {
         NSLog(@"- minSizeOfContentsView: %@ thatFitsSize: = %@", [view class], NSStringFromCGSize(result));
     }
@@ -84,13 +84,19 @@
               FormatSize([self insetSizeOfView:view]));
     }
 
+    BOOL cropSubviewOverflow = [self cropSubviewOverflow:view];
     for (int i=0; i < [subviews count]; i++)
     {
         UIView* subview = subviews[i];
 
         CGSize subviewSize = [self desiredItemSize:subview
                                            maxSize:contentBounds.size];
-
+        
+        if (cropSubviewOverflow)
+        {
+            subviewSize = CGSizeMin(subviewSize, contentBounds.size);
+        }
+        
         [self positionSubview:subview
                   inSuperview:view
                      withSize:subviewSize

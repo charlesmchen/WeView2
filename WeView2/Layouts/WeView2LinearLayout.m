@@ -103,15 +103,48 @@
     }
 }
 
+- (NSString *)indentPrefix:(int)indent
+{
+    NSMutableString *result = [NSMutableString string];
+    for (int i=0; i < indent; i++)
+    {
+        [result appendString:@"  "];
+    }
+    return result;
+}
+
+- (int)viewHierarchyDistanceToWindow:(UIView *)view
+{
+    UIResponder *responder = view;
+    int result = 0;
+    while (YES)
+    {
+        if (!responder ||
+            [responder isKindOfClass:[UIWindow class]])
+        {
+            return result;
+        }
+        responder = [responder nextResponder];
+        result += 2;
+    }
+}
+
 // TODO: Do we need to honor other params as well?
 - (CGSize)minSizeOfContentsView:(UIView *)view
                        subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize
 {
-    BOOL debugLayout = [self debugLayout:view];
-    if (debugLayout)
+    BOOL debugMinSize = [self debugMinSize:view];
+    int indent = 0;
+    if (debugMinSize)
     {
-        NSLog(@"+ minSizeOfContentsView: %@ thatFitsSize: %@", [view class], NSStringFromCGSize(guideSize));
+        indent = [self viewHierarchyDistanceToWindow:view];
+        NSLog(@"%@+ [%@ (%@) minSizeOfContentsView: %@] thatFitsSize: %@",
+              [self indentPrefix:indent],
+              [self class],
+              view.debugName,
+              [view class],
+              NSStringFromCGSize(guideSize));
     }
 
     BOOL horizontal = self.isHorizontal;
@@ -139,9 +172,10 @@
         maxSubviewSize.height = MAX(0, maxSubviewSize.height - spacing * (subviewCount - 1));
     }
 
-    if (debugLayout)
+    if (debugMinSize)
     {
-        NSLog(@"minSizeOfContentsView: contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
+        NSLog(@"%@ contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
+              [self indentPrefix:indent + 1],
               FormatRect(contentBounds),
               FormatSize(guideSize),
               FormatSize([self insetSizeOfView:view]));
@@ -162,14 +196,15 @@
                                   subviewCount:subviewCount
                                     horizontal:horizontal];
 
-    if (debugLayout)
+    if (debugMinSize)
     {
-        [self dumpItemSizes:@"minSizeOfContentsView: thatFitsSize: (ideal)"
+        [self dumpItemSizes:@"subview size (ideal)"
                    subviews:subviews
-               subviewSizes:subviewSizes
-             stretchWeights:stretchWeights];
-        NSLog(@"minSizeOfContentsView (%@ %@) (ideal) contentSize: %@",
-              [view class], view.debugName,
+               subviewSizes:&subviewSizes[0]
+             stretchWeights:stretchWeights
+                     indent:indent + 2];
+        NSLog(@"%@ contentSize: %@",
+              [self indentPrefix:indent + 1],
               FormatIntSize(contentSize));
     }
 
@@ -221,14 +256,16 @@
                                   subviewCount:subviewCount
                                     horizontal:horizontal];
 
-            if (debugLayout)
+            if (debugMinSize)
             {
-                [self dumpItemSizes:@"minSizeOfContentsView: thatFitsSize: (after crop)"
+                [self dumpItemSizes:@"subview size (after crop)"
                            subviews:subviews
-                       subviewSizes:subviewSizes
-                     stretchWeights:stretchWeights];
-                NSLog(@"minSizeOfContentsView (%@ %@) (after crop) contentSize: %@",
-                      [view class], view.debugName,
+                       subviewSizes:&subviewSizes[0]
+                     stretchWeights:stretchWeights
+                             indent:indent + 2];
+                
+                NSLog(@"%@ contentSize (after crop): %@",
+                      [self indentPrefix:indent + 1],
                       FormatIntSize(contentSize));
             }
 
@@ -306,14 +343,16 @@
                                 horizontal:horizontal];
     }
 
-    if (debugLayout)
+    if (debugMinSize)
     {
-        [self dumpItemSizes:@"minSizeOfContentsView: thatFitsSize: (final)"
+        [self dumpItemSizes:@"subview size (final)"
                    subviews:subviews
-               subviewSizes:subviewSizes
-             stretchWeights:stretchWeights];
-        NSLog(@"minSizeOfContentsView (%@ %@) (final) contentSize: %@",
-              [view class], view.debugName,
+               subviewSizes:&subviewSizes[0]
+             stretchWeights:stretchWeights
+                     indent:indent + 2];
+        
+        NSLog(@"%@ contentSize (final): %@",
+              [self indentPrefix:indent + 1],
               FormatIntSize(contentSize));
     }
 
@@ -330,9 +369,11 @@
         result.height += spacing * (subviewCount - 1);
     }
 
-    if (debugLayout)
+    if (debugMinSize)
     {
-        NSLog(@"- minSizeOfContentsView: %@ thatFitsSize: = %@", [view class], NSStringFromCGSize(result));
+        NSLog(@"%@ result: %@",
+              [self indentPrefix:indent + 1],
+              NSStringFromCGSize(result));
     }
     return result;
 }
@@ -341,12 +382,14 @@
              subviews:(NSArray *)subviews
          subviewSizes:(CGSize *)subviewSizes
        stretchWeights:(CGFloat *)stretchWeights
+               indent:(int)indent
 {
     for (int i=0; i < [subviews count]; i++)
     {
         UIView* subview = subviews[i];
 
-        NSLog(@"\t%@[%d] %@ size: %@, stretchWeight: %f",
+        NSLog(@"%@ %@[%d] %@ size: %@, stretchWeight: %0.1f",
+              [self indentPrefix:indent],
               label,
               i,
               [subview class],
@@ -359,10 +402,17 @@
                     subviews:(NSArray *)subviews
 {
     BOOL debugLayout = [self debugLayout:view];
+    int indent = 0;
+    CGSize guideSize = view.size;
     if (debugLayout)
     {
-        NSLog(@"layoutContentsOfView: %@ (%@) %@",
-              [view class], view.debugName, NSStringFromCGSize(view.size));
+        indent = [self viewHierarchyDistanceToWindow:view];
+        NSLog(@"%@+ [%@ (%@) layoutContentsOfView: %@] : %@",
+              [self indentPrefix:indent],
+              [self class],
+              view.debugName,
+              [view class],
+              NSStringFromCGSize(guideSize));
     }
 
     BOOL horizontal = self.isHorizontal;
@@ -377,7 +427,6 @@
                     totalStretchWeight:&totalStretchWeight
                           stretchCount:&stretchCount];
 
-    CGSize guideSize = view.size;
     CGFloat spacing = ceilf(horizontal ? [self hSpacing:view] : [self vSpacing:view]);
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:guideSize];
@@ -393,7 +442,8 @@
 
     if (debugLayout)
     {
-        NSLog(@"minSizeOfContentsView: contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
+        NSLog(@"%@ contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
+              [self indentPrefix:indent + 1],
               FormatRect(contentBounds),
               FormatSize(guideSize),
               FormatSize([self insetSizeOfView:view]));
@@ -410,8 +460,8 @@
 
     if (debugLayout)
     {
-        NSLog(@"layoutContentsOfView (%@ %@) maxSubviewSize: %@, guideSize: %@, insetSizeOfView: %@",
-              [view class], view.debugName,
+        NSLog(@"%@ maxSubviewSize: %@, guideSize: %@, insetSizeOfView: %@",
+              [self indentPrefix:indent + 1],
               FormatSize(maxSubviewSize),
               FormatSize(view.size),
               FormatSize([self insetSizeOfView:view]));
@@ -423,10 +473,11 @@
 
     if (debugLayout)
     {
-        [self dumpItemSizes:@"layoutContentsOfView: (ideal)"
+        [self dumpItemSizes:@"subview size (ideal)"
                    subviews:subviews
-               subviewSizes:subviewSizes
-             stretchWeights:stretchWeights];
+               subviewSizes:&subviewSizes[0]
+             stretchWeights:stretchWeights
+                     indent:indent + 2];
     }
 
     // Check to see if we need to crop our content.
@@ -447,7 +498,8 @@
 
         if (debugLayout)
         {
-            NSLog(@"\t axisSize: %d, extraAxisSpaceRaw: %d, contentSize: %@, maxSubviewSize: %@",
+            NSLog(@"%@ axisSize: %d, extraAxisSpaceRaw: %d, contentSize: %@, maxSubviewSize: %@",
+                  [self indentPrefix:indent + 1],
                   axisSize,
                   extraAxisSpaceRaw,
                   FormatIntSize(contentSize),
@@ -501,10 +553,11 @@
 
             if (debugLayout)
             {
-                [self dumpItemSizes:@"layoutContentsOfView: (after crop)"
+                [self dumpItemSizes:@"subview size (after crop)"
                            subviews:subviews
-                       subviewSizes:subviewSizes
-                     stretchWeights:stretchWeights];
+                       subviewSizes:&subviewSizes[0]
+                     stretchWeights:stretchWeights
+                             indent:indent + 2];
             }
         }
     }
@@ -527,9 +580,9 @@
 
         if (debugLayout)
         {
-            NSLog(@"contentSize.width: %d, contentSize.height: %d, stretchCountRemainder: %d, stretchTotal: %d, stretchRemainder: %d, totalStretchWeight: %f",
-                  contentSize.width,
-                  contentSize.height,
+            NSLog(@"%@ contentSize: %@, stretchCountRemainder: %d, stretchTotal: %d, stretchRemainder: %d, totalStretchWeight: %0.1f",
+                  [self indentPrefix:indent + 1],
+                  FormatIntSize(contentSize),
                   stretchCountRemainder,
                   stretchTotal,
                   stretchRemainder,
@@ -588,12 +641,14 @@
 
             if (debugLayout)
             {
-                [self dumpItemSizes:@"layoutContentsOfView: (after stretch)"
+                [self dumpItemSizes:@"subview size (after stretch)"
                            subviews:subviews
-                       subviewSizes:subviewSizes
-                     stretchWeights:stretchWeights];
+                       subviewSizes:&subviewSizes[0]
+                     stretchWeights:stretchWeights
+                             indent:indent + 2];
 
-                NSLog(@"contentSize: %@",
+                NSLog(@"%@ contentSize: %@",
+                      [self indentPrefix:indent + 1],
                       FormatIntSize(contentSize));
             }
         }
@@ -601,7 +656,8 @@
 
     if (debugLayout)
     {
-        NSLog(@"contentSize: %@",
+        NSLog(@"%@ contentSize: %@",
+              [self indentPrefix:indent + 1],
               FormatIntSize(contentSize));
     }
 
@@ -625,7 +681,7 @@
     if (horizontal)
     {
         int extraAxisSpace = maxSubviewSize.width - contentSize.width;
-        switch ([self hAlign:view])
+        switch ([self contentHAlign:view])
         {
             case H_ALIGN_LEFT:
                 break;
@@ -640,7 +696,7 @@
                 break;
         }
         int extraCrossSpace = maxSubviewSize.height - contentSize.height;
-        switch ([self vAlign:view])
+        switch ([self contentVAlign:view])
         {
             case V_ALIGN_BOTTOM:
                 crossIndex += extraCrossSpace;
@@ -660,7 +716,7 @@
     else
     {
         int extraAxisSpace = maxSubviewSize.height - contentSize.height;
-        switch ([self vAlign:view])
+        switch ([self contentVAlign:view])
         {
             case V_ALIGN_BOTTOM:
                 axisIndex += extraAxisSpace;
@@ -675,7 +731,7 @@
                 break;
         }
         int extraCrossSpace = maxSubviewSize.width - contentSize.width;
-        switch ([self hAlign:view])
+        switch ([self contentHAlign:view])
         {
             case H_ALIGN_LEFT:
                 break;
@@ -711,9 +767,12 @@
 
         if (debugLayout)
         {
-            NSLog(@"layoutContentsOfView (%@ %@) final subview(%@): %@, raw subviewSize: %@",
-                  [view class], view.debugName,
-                  [subview class], FormatRect(subview.frame), FormatCGSize(subviewSize));
+            NSLog(@"%@ - final layout[%d] %@: %@, subviewSize: %@",
+                  [self indentPrefix:indent + 2],
+                  i,
+                  [subview class],
+                  FormatRect(subview.frame),
+                  FormatCGSize(subviewSize));
         }
 
         axisIndex = (horizontal ? subview.right : subview.bottom) + spacing;

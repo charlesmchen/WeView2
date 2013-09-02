@@ -38,7 +38,7 @@
                              ];
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate demoSelected:[[iPhoneDemo1 alloc] init]];
+            [self.delegate demoSelected:[[LinearDemo2 alloc] init]];
 //            [self demoSelected:[[LinearDemo1 alloc] init]];
         });
     }

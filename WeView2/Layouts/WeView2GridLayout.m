@@ -113,8 +113,10 @@ typedef struct
 //
 //- (GridLayoutInfo *)getGridLayoutInfo:(UIView *)view
 //                             subviews:(NSArray *)subviews
+// debug:(BOOL)debug
 //{
-//    BOOL debugLayout = [self debugLayout:view];
+////    BOOL debugMinSize = [self debugMinSize:view];
+////    BOOL debugLayout = [self debugLayout:view];
 //    
 //    GridLayoutInfo *result = [[GridLayoutInfo alloc] init];
 //    
