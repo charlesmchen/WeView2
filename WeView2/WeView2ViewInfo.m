@@ -19,8 +19,6 @@
     {
         self.contentHAlign = H_ALIGN_CENTER;
         self.contentVAlign = V_ALIGN_CENTER;
-        self.cellHAlign = H_ALIGN_CENTER;
-        self.cellVAlign = V_ALIGN_CENTER;
 
         self.maxWidth = CGFLOAT_MAX;
         self.maxHeight = CGFLOAT_MAX;
@@ -30,6 +28,18 @@
 }
 
 /* CODEGEN MARKER: View Info Start */
+
+- (void)setCellHAlign:(HAlign)value
+{
+    _cellHAlign = value;
+    self.hasCellHAlign = YES;
+}
+
+- (void)setCellVAlign:(VAlign)value
+{
+    _cellVAlign = value;
+    self.hasCellVAlign = YES;
+}
 
 - (CGSize)minSize
 {
@@ -149,6 +159,8 @@
     [result appendString:[self formatLayoutDescriptionItem:@"contentVAlign" value:@(self.contentVAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cellHAlign" value:@(self.cellHAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cellVAlign" value:@(self.cellVAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"hasCellHAlign" value:@(self.hasCellHAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"hasCellVAlign" value:@(self.hasCellVAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cropSubviewOverflow" value:@(self.cropSubviewOverflow)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cellPositioning" value:@(self.cellPositioning)]];
     [result appendString:[self formatLayoutDescriptionItem:@"debugName" value:self.debugName]];

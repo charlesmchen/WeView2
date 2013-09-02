@@ -286,6 +286,26 @@ NSNumber *_debugMinSize;
 
 #pragma mark - Utility Methods
 
+- (HAlign)subviewCellHAlign:(UIView *)superview
+                    subview:(UIView *)subview
+{
+    if (subview.hasCellHAlign)
+    {
+        return subview.cellHAlign;
+    }
+    return superview.contentHAlign;
+}
+
+- (VAlign)subviewCellVAlign:(UIView *)view
+                    subview:(UIView *)subview
+{
+    if (subview.hasCellVAlign)
+    {
+        return subview.cellVAlign;
+    }
+    return view.contentVAlign;
+}
+
 - (void)positionSubview:(UIView *)subview
             inSuperview:(UIView *)superview
                withSize:(CGSize)subviewSize
@@ -307,8 +327,10 @@ NSNumber *_debugMinSize;
             subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
             subview.frame = alignSizeWithinRect(subviewSize,
                                                 cellBounds,
-                                                superview.cellHAlign,
-                                                superview.cellVAlign);
+                                                [self subviewCellHAlign:superview
+                                                                subview:subview],
+                                                [self subviewCellVAlign:superview
+                                                                subview:subview]);
             break;
         }
         case CELL_POSITION_FILL:
@@ -343,8 +365,10 @@ NSNumber *_debugMinSize;
                     subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
                     subview.frame = alignSizeWithinRect(subviewSize,
                                                         cellBounds,
-                                                        superview.cellHAlign,
-                                                        superview.cellVAlign);
+                                                        [self subviewCellHAlign:superview
+                                                                        subview:subview],
+                                                        [self subviewCellVAlign:superview
+                                                                        subview:subview]);
                 }
             }
         }

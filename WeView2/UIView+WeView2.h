@@ -59,12 +59,16 @@
 // The vertical alignment of subviews within this view.
 - (VAlign)contentVAlign;
 - (UIView *)setContentVAlign:(VAlign)value;
-// The horizontal alignment preference of this view within in its layout cell.
+// The horizontal alignment preference of this view within in its layout cell. Defaults to the contentHAlign of its superview if not set.
 - (HAlign)cellHAlign;
 - (UIView *)setCellHAlign:(HAlign)value;
-// The vertical alignment preference of this view within in its layout cell.
+// The vertical alignment preference of this view within in its layout cell. Defaults to the contentVAlign of its superview if not set.
 - (VAlign)cellVAlign;
 - (UIView *)setCellVAlign:(VAlign)value;
+- (BOOL)hasCellHAlign;
+- (UIView *)setHasCellHAlign:(BOOL)value;
+- (BOOL)hasCellVAlign;
+- (UIView *)setHasCellVAlign:(BOOL)value;
 
 - (BOOL)cropSubviewOverflow;
 - (UIView *)setCropSubviewOverflow:(BOOL)value;

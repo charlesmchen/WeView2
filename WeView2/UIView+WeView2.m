@@ -244,6 +244,28 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     return self;
 }
 
+- (BOOL)hasCellHAlign
+{
+    return [self.viewInfo hasCellHAlign];
+}
+
+- (UIView *)setHasCellHAlign:(BOOL)value
+{
+    [self.viewInfo setHasCellHAlign:value];
+    return self;
+}
+
+- (BOOL)hasCellVAlign
+{
+    return [self.viewInfo hasCellVAlign];
+}
+
+- (UIView *)setHasCellVAlign:(BOOL)value
+{
+    [self.viewInfo setHasCellVAlign:value];
+    return self;
+}
+
 - (BOOL)cropSubviewOverflow
 {
     return [self.viewInfo cropSubviewOverflow];

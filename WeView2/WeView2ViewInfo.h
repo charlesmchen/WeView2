@@ -41,10 +41,12 @@
 @property (nonatomic) HAlign contentHAlign;
 // The vertical alignment of subviews within this view.
 @property (nonatomic) VAlign contentVAlign;
-// The horizontal alignment preference of this view within in its layout cell.
+// The horizontal alignment preference of this view within in its layout cell. Defaults to the contentHAlign of its superview if not set.
 @property (nonatomic) HAlign cellHAlign;
-// The vertical alignment preference of this view within in its layout cell.
+// The vertical alignment preference of this view within in its layout cell. Defaults to the contentVAlign of its superview if not set.
 @property (nonatomic) VAlign cellVAlign;
+@property (nonatomic) BOOL hasCellHAlign;
+@property (nonatomic) BOOL hasCellVAlign;
 
 @property (nonatomic) BOOL cropSubviewOverflow;
 @property (nonatomic) CellPositioningMode cellPositioning;

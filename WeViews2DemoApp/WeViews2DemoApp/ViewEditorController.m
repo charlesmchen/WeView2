@@ -446,6 +446,10 @@ typedef void (^SetterBlock)(UIView *view);
                              ]
                              doubleHeight:YES],
 
+                            [ViewParameterSimple booleanProperty:@"hasCellHAlign"],
+
+                            [ViewParameterSimple booleanProperty:@"hasCellVAlign"],
+
                             [ViewParameterSimple booleanProperty:@"cropSubviewOverflow"],
 
                             [ViewParameterSimple create:@"cellPositioning"

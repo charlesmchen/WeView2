@@ -54,13 +54,15 @@ def replaceBlock(filePath, blockStartKey, blockEndKey, block):
 
 
 class Property:
-    def __init__(self, name, typeName, defaultValue=None, asserts=None, comments=None, layoutProperty=False):
+    def __init__(self, name, typeName, defaultValue=None, asserts=None, comments=None, layoutProperty=False, extraSetterLine=None):
         self.name = name
         self.typeName = typeName
         self.defaultValue = defaultValue
         self.asserts = asserts
         self.comments = comments
         self.layoutProperty = layoutProperty
+        self.extraSetterLine = extraSetterLine
+
 
     def UpperName(self):
         return self.name[0].upper() + self.name[1:]
@@ -93,8 +95,14 @@ propertyGroups = (
                   (
                    Property('contentHAlign', 'HAlign', comments='The horizontal alignment of subviews within this view.', layoutProperty=True, ),
                    Property('contentVAlign', 'VAlign', comments='The vertical alignment of subviews within this view.', layoutProperty=True, ),
-                   Property('cellHAlign', 'HAlign', comments='The horizontal alignment preference of this view within in its layout cell.', ),
-                   Property('cellVAlign', 'VAlign', comments='The vertical alignment preference of this view within in its layout cell.', ),
+                   Property('cellHAlign', 'HAlign',
+                       comments='The horizontal alignment preference of this view within in its layout cell. Defaults to the contentHAlign of its superview if not set.',
+                       extraSetterLine='self.hasCellHAlign = YES;'),
+                   Property('cellVAlign', 'VAlign',
+                       comments='The vertical alignment preference of this view within in its layout cell. Defaults to the contentVAlign of its superview if not set.',
+                       extraSetterLine='self.hasCellVAlign = YES;'),
+                   Property('hasCellHAlign', 'BOOL', ),
+                   Property('hasCellVAlign', 'BOOL', ),
                    ),
                   (
                    Property('cropSubviewOverflow', 'BOOL', layoutProperty=True, ),
@@ -188,8 +196,6 @@ lines.append('')
 block = '\n'.join(lines)
 
 replaceBlock(viewInfohFilePath, 'View Info Start', 'View Info End', block)
-# viewInfohFilePath = os.path.join(folderPath, 'WeView2ViewInfo.h')
-# viewInfomFilePath = os.path.join(folderPath, 'WeView2ViewInfo.m')
 
 # --------
 
@@ -223,23 +229,19 @@ replaceBlock(hFilePath, 'Start', 'End', block)
 
 # --------
 
-# lines = []
-# lines.append('')
-# lines.append('')
-# for propertyGroup in propertyGroups:
-#     for property in propertyGroup:
-#         lines.append('static const void *kWeView2Key_%s = &kWeView2Key_%s;' % (property.UpperName(), property.UpperName(), ))
-#
-#     lines.append('')
-# lines.append('')
-# block = '\n'.join(lines)
-#
-# replaceBlock(mFilePath, 'Keys Start', 'Keys End', block)
-
-# --------
-
 lines = []
 lines.append('')
+
+for propertyGroup in propertyGroups:
+    for property in propertyGroup:
+        if property.extraSetterLine:
+            lines.append('''
+- (void)set%s:(%s)value
+{
+    _%s = value;
+    %s
+}''' % (property.UpperName(), property.typeName, property.name, property.extraSetterLine, ))
+
 for customAccessor in customAccessors:
     asserts = ''
     #     if pseudoProperty.asserts:
