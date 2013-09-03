@@ -103,37 +103,16 @@
     }
 }
 
-- (NSString *)indentPrefix:(int)indent
-{
-    NSMutableString *result = [NSMutableString string];
-    for (int i=0; i < indent; i++)
-    {
-        [result appendString:@"  "];
-    }
-    return result;
-}
-
-- (int)viewHierarchyDistanceToWindow:(UIView *)view
-{
-    UIResponder *responder = view;
-    int result = 0;
-    while (YES)
-    {
-        if (!responder ||
-            [responder isKindOfClass:[UIWindow class]])
-        {
-            return result;
-        }
-        responder = [responder nextResponder];
-        result += 2;
-    }
-}
-
 // TODO: Do we need to honor other params as well?
 - (CGSize)minSizeOfContentsView:(UIView *)view
                        subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize
 {
+    if ([subviews count] < 1)
+    {
+        return [self insetSizeOfView:view];
+    }
+
     BOOL debugMinSize = [self debugMinSize:view];
     int indent = 0;
     if (debugMinSize)
@@ -401,6 +380,11 @@
 - (void)layoutContentsOfView:(UIView *)view
                     subviews:(NSArray *)subviews
 {
+    if ([subviews count] < 1)
+    {
+        return;
+    }
+
     BOOL debugLayout = [self debugLayout:view];
     int indent = 0;
     CGSize guideSize = view.size;
@@ -700,7 +684,7 @@
             case H_ALIGN_LEFT:
                 break;
             case H_ALIGN_CENTER:
-                axisIndex += extraAxisSpace / 2;
+                axisIndex += roundf(extraAxisSpace / 2);
                 break;
             case H_ALIGN_RIGHT:
                 axisIndex += extraAxisSpace;
@@ -718,7 +702,7 @@
                     crossIndex += extraCrossSpace;
                     break;
                 case V_ALIGN_CENTER:
-                    crossIndex += extraCrossSpace / 2;
+                    crossIndex += roundf(extraCrossSpace / 2);
                     break;
                 case V_ALIGN_TOP:
                     break;
@@ -738,7 +722,7 @@
                 axisIndex += extraAxisSpace;
                 break;
             case V_ALIGN_CENTER:
-                axisIndex += extraAxisSpace / 2;
+                axisIndex += roundf(extraAxisSpace / 2);
                 break;
             case V_ALIGN_TOP:
                 break;
@@ -754,7 +738,7 @@
                 case H_ALIGN_LEFT:
                     break;
                 case H_ALIGN_CENTER:
-                    crossIndex += extraCrossSpace / 2;
+                    crossIndex += roundf(extraCrossSpace / 2);
                     break;
                 case H_ALIGN_RIGHT:
                     crossIndex += extraCrossSpace;

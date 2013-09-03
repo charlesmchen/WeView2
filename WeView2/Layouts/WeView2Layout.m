@@ -377,12 +377,6 @@ NSNumber *_debugMinSize;
     }
 }
 
-- (CGPoint)insetOriginOfView:(UIView *)view
-{
-    return [self contentBoundsOfView:view
-                             forSize:view.size].origin;
-}
-
 - (CGRect)contentBoundsOfView:(UIView *)view
                       forSize:(CGSize)size
 {
@@ -426,6 +420,86 @@ NSNumber *_debugMinSize;
                                           subview.minSize),
                                 CGSizeMin(subview.maxSize,
                                           desiredSize)));
+}
+
+- (NSArray *)distributeSpace:(int)space
+      acrossCellsWithWeights:(NSArray *)cellWeights
+{
+    // Weighted distribution of space between cells.
+
+    // TODO: We need to make sure all layouts properly handle empty superviews, ie. no subviews.
+    WeView2Assert([cellWeights count] > 0);
+
+    CGFloat totalCellWeight = 0.f;
+    int cellCountWithWeight = 0;
+    for (int i=0; i < [cellWeights count]; i++)
+    {
+        CGFloat cellWeight = MAX(0.f, [cellWeights[i] floatValue]);
+        if (cellWeight > 0)
+        {
+            totalCellWeight += cellWeight;
+            cellCountWithWeight++;
+        }
+    }
+
+    WeView2Assert(cellCountWithWeight > 0);
+
+    int spaceRemainder = space;
+    int cellRemainder = cellCountWithWeight;
+    CGFloat weightRemainder = totalCellWeight;
+    NSMutableArray *result = [NSMutableArray array];
+    for (int i=0; i < [cellWeights count]; i++)
+    {
+        CGFloat cellWeight = MAX(0.f, [cellWeights[i] floatValue]);
+        int cellDistribution = 0;
+        if (cellWeight > 0)
+        {
+            if (cellRemainder == 1)
+            {
+                // Ensure that the total space distributed is exactly
+                cellDistribution = spaceRemainder;
+            }
+            else
+            {
+                cellDistribution = floorf(spaceRemainder * cellWeight / weightRemainder);
+            }
+            [result addObject:@(cellDistribution)];
+            cellRemainder--;
+            spaceRemainder -= cellDistribution;
+            weightRemainder -= cellWeight;
+            WeView2Assert(spaceRemainder >= 0);
+        }
+    }
+
+    return result;
+}
+
+#pragma mark - Debug Methods
+
+- (NSString *)indentPrefix:(int)indent
+{
+    NSMutableString *result = [NSMutableString string];
+    for (int i=0; i < indent; i++)
+    {
+        [result appendString:@"  "];
+    }
+    return result;
+}
+
+- (int)viewHierarchyDistanceToWindow:(UIView *)view
+{
+    UIResponder *responder = view;
+    int result = 0;
+    while (YES)
+    {
+        if (!responder ||
+            [responder isKindOfClass:[UIWindow class]])
+        {
+            return result;
+        }
+        responder = [responder nextResponder];
+        result += 2;
+    }
 }
 
 @end

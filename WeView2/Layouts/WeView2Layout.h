@@ -81,8 +81,6 @@
            inCellBounds:(CGRect)cellBounds
         cellPositioning:(CellPositioningMode)cellPositioning;
 
-- (CGPoint)insetOriginOfView:(UIView *)view;
-
 - (CGRect)contentBoundsOfView:(UIView *)view
                       forSize:(CGSize)size;
 
@@ -90,5 +88,15 @@
 
 - (CGSize)desiredItemSize:(UIView *)subview
                   maxSize:(CGSize)maxSize;
+
+// TODO: Use this.
+- (NSArray *)distributeSpace:(int)space
+      acrossCellsWithWeights:(NSArray *)cellWeights;
+
+#pragma mark - Debug Methods
+
+- (NSString *)indentPrefix:(int)indent;
+
+- (int)viewHierarchyDistanceToWindow:(UIView *)view;
 
 @end

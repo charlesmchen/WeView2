@@ -12,8 +12,15 @@
 
 #import "WeView2Layout.h"
 
-//@interface WeView2GridLayout : WeView2Layout
-//
+typedef enum
+{
+    GRID_STRETCH_POLICY_STRETCH_CELLS,
+    GRID_STRETCH_POLICY_STRETCH_SPACING,
+    GRID_STRETCH_POLICY_NO_STRETCH,
+} GridStretchPolicy;
+
+@interface WeView2GridLayout : WeView2Layout
+
 //@property (nonatomic) BOOL isHorizontal;
 //
 // Factory method.
@@ -24,5 +31,5 @@
 //+ (WeView2GridLayout *)horizontalLayout;
 //
 //+ (WeView2GridLayout *)verticalLayout;
-//
-//@end
+
+@end
