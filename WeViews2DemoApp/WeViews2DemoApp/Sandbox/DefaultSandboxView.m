@@ -70,7 +70,7 @@ typedef enum
      setContentHAlign:H_ALIGN_LEFT];
 
      [modePanel addSubviews:@[
-     [DemoViewFactory createFlatUIButton:@"Open layout at natural size"
+     [DemoViewFactory createFlatUIButton:@"Open layout at desired size"
                                textColor:[UIColor colorWithWhite:1.f alpha:1.f]
                              buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
                                   target:self

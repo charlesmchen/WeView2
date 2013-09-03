@@ -41,12 +41,12 @@ typedef enum
     // Subviews occupy the entirety of their layout cell.
     CELL_POSITION_FILL,
 
-    // Subviews are scaled to fill the bounds of their layout cell, but perserving their natural
+    // Subviews are scaled to fill the bounds of their layout cell, but perserving their desired
     // aspect ratio.
     CELL_POSITION_FILL_W_ASPECT_RATIO,
 
     // Subviews are scaled to exactly fit inside the bounds of their layout cell, but perserving
-    // their natural aspect ratio.
+    // their desired aspect ratio.
     CELL_POSITION_FIT_W_ASPECT_RATIO,
 } CellPositioningMode;
 

@@ -79,61 +79,6 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
     return self;
 }
 
-- (CGFloat)desiredWidthAdjustment
-{
-    return [self.viewInfo desiredWidthAdjustment];
-}
-
-- (UIView *)setDesiredWidthAdjustment:(CGFloat)value
-{
-    [self.viewInfo setDesiredWidthAdjustment:value];
-    return self;
-}
-
-- (CGFloat)desiredHeightAdjustment
-{
-    return [self.viewInfo desiredHeightAdjustment];
-}
-
-- (UIView *)setDesiredHeightAdjustment:(CGFloat)value
-{
-    [self.viewInfo setDesiredHeightAdjustment:value];
-    return self;
-}
-
-- (CGFloat)hStretchWeight
-{
-    return [self.viewInfo hStretchWeight];
-}
-
-- (UIView *)setHStretchWeight:(CGFloat)value
-{
-    [self.viewInfo setHStretchWeight:value];
-    return self;
-}
-
-- (CGFloat)vStretchWeight
-{
-    return [self.viewInfo vStretchWeight];
-}
-
-- (UIView *)setVStretchWeight:(CGFloat)value
-{
-    [self.viewInfo setVStretchWeight:value];
-    return self;
-}
-
-- (BOOL)ignoreDesiredSize
-{
-    return [self.viewInfo ignoreDesiredSize];
-}
-
-- (UIView *)setIgnoreDesiredSize:(BOOL)value
-{
-    [self.viewInfo setIgnoreDesiredSize:value];
-    return self;
-}
-
 - (CGFloat)leftMargin
 {
     return [self.viewInfo leftMargin];
@@ -197,6 +142,61 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
 - (UIView *)setHSpacing:(CGFloat)value
 {
     [self.viewInfo setHSpacing:value];
+    return self;
+}
+
+- (CGFloat)hStretchWeight
+{
+    return [self.viewInfo hStretchWeight];
+}
+
+- (UIView *)setHStretchWeight:(CGFloat)value
+{
+    [self.viewInfo setHStretchWeight:value];
+    return self;
+}
+
+- (CGFloat)vStretchWeight
+{
+    return [self.viewInfo vStretchWeight];
+}
+
+- (UIView *)setVStretchWeight:(CGFloat)value
+{
+    [self.viewInfo setVStretchWeight:value];
+    return self;
+}
+
+- (CGFloat)desiredWidthAdjustment
+{
+    return [self.viewInfo desiredWidthAdjustment];
+}
+
+- (UIView *)setDesiredWidthAdjustment:(CGFloat)value
+{
+    [self.viewInfo setDesiredWidthAdjustment:value];
+    return self;
+}
+
+- (CGFloat)desiredHeightAdjustment
+{
+    return [self.viewInfo desiredHeightAdjustment];
+}
+
+- (UIView *)setDesiredHeightAdjustment:(CGFloat)value
+{
+    [self.viewInfo setDesiredHeightAdjustment:value];
+    return self;
+}
+
+- (BOOL)ignoreDesiredSize
+{
+    return [self.viewInfo ignoreDesiredSize];
+}
+
+- (UIView *)setIgnoreDesiredSize:(BOOL)value
+{
+    [self.viewInfo setIgnoreDesiredSize:value];
     return self;
 }
 
@@ -430,8 +430,7 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
 // TODO: Rename this method.
 - (UIView *)withPureStretch
 {
-    // Layout should stretch this subview to fit any available space, ignoring its natural
-    // size.
+    // Layout should stretch this subview to fit any available space, ignoring its desired size.
     [self setStretchWeight:1.f];
     self.ignoreDesiredSize = YES;
     return self;

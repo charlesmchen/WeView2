@@ -179,7 +179,7 @@ typedef struct
 //                                               maxSize:maxSubviewSize];
 //
 //            //        if (layer.debugLayout) {
-//            //            NSLog(@"%@[%d][%d] natural size: %@",
+//            //            NSLog(@"%@[%d][%d] desired size: %@",
 //            //                  [item class],
 //            //                  column,
 //            //                  row,

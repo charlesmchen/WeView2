@@ -344,16 +344,6 @@ typedef void (^SetterBlock)(UIView *view);
 
                             [ViewParameterSimple floatProperty:@"maxHeight"],
 
-                            [ViewParameterSimple floatProperty:@"desiredWidthAdjustment"],
-
-                            [ViewParameterSimple floatProperty:@"desiredHeightAdjustment"],
-
-                            [ViewParameterSimple floatProperty:@"hStretchWeight"],
-
-                            [ViewParameterSimple floatProperty:@"vStretchWeight"],
-
-                            [ViewParameterSimple booleanProperty:@"ignoreDesiredSize"],
-
                             [ViewParameterSimple floatProperty:@"leftMargin"],
 
                             [ViewParameterSimple floatProperty:@"rightMargin"],
@@ -365,6 +355,16 @@ typedef void (^SetterBlock)(UIView *view);
                             [ViewParameterSimple floatProperty:@"vSpacing"],
 
                             [ViewParameterSimple floatProperty:@"hSpacing"],
+
+                            [ViewParameterSimple floatProperty:@"hStretchWeight"],
+
+                            [ViewParameterSimple floatProperty:@"vStretchWeight"],
+
+                            [ViewParameterSimple floatProperty:@"desiredWidthAdjustment"],
+
+                            [ViewParameterSimple floatProperty:@"desiredHeightAdjustment"],
+
+                            [ViewParameterSimple booleanProperty:@"ignoreDesiredSize"],
 
                             [ViewParameterSimple create:@"contentHAlign"
                                             getterBlock:^NSString *(UIView *view) {

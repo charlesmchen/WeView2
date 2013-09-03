@@ -13,7 +13,7 @@ The WeView2 library is a tool for auto layout of iOS UIs.
 
 ## Design philosophy
 
-* Leverage existing understanding of HTML and CSS: container-driven layout, declarative layout.
+* Leverage existing understanding of HTML and CSS: container-driven, declarative layout.
 * Strive to be lightweight. Stay focused on solving a single problem. Add no third-party dependencies. Play nicely with other layout mechanisms.
 * Bend over backwards to allow users to write terse, readable code. 
 * Avoid boilerplate by providing convenience accessors and factory methods.

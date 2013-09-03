@@ -27,17 +27,6 @@
 - (UIView *)setMinHeight:(CGFloat)value;
 - (CGFloat)maxHeight;
 - (UIView *)setMaxHeight:(CGFloat)value;
-- (CGFloat)desiredWidthAdjustment;
-- (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
-- (CGFloat)desiredHeightAdjustment;
-- (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
-
-- (CGFloat)hStretchWeight;
-- (UIView *)setHStretchWeight:(CGFloat)value;
-- (CGFloat)vStretchWeight;
-- (UIView *)setVStretchWeight:(CGFloat)value;
-- (BOOL)ignoreDesiredSize;
-- (UIView *)setIgnoreDesiredSize:(BOOL)value;
 
 - (CGFloat)leftMargin;
 - (UIView *)setLeftMargin:(CGFloat)value;
@@ -52,6 +41,18 @@
 - (UIView *)setVSpacing:(CGFloat)value;
 - (CGFloat)hSpacing;
 - (UIView *)setHSpacing:(CGFloat)value;
+
+- (CGFloat)hStretchWeight;
+- (UIView *)setHStretchWeight:(CGFloat)value;
+- (CGFloat)vStretchWeight;
+- (UIView *)setVStretchWeight:(CGFloat)value;
+
+- (CGFloat)desiredWidthAdjustment;
+- (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
+- (CGFloat)desiredHeightAdjustment;
+- (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
+- (BOOL)ignoreDesiredSize;
+- (UIView *)setIgnoreDesiredSize:(BOOL)value;
 
 // The horizontal alignment of subviews within this view.
 - (HAlign)contentHAlign;
@@ -123,7 +124,7 @@
 // Layout should stretch this subview to fit any available space.
 - (UIView *)withStretch;
 
-// Layout should stretch this subview to fit any available space, ignoring its natural size.
+// Layout should stretch this subview to fit any available space, ignoring its desired size.
 - (UIView *)withPureStretch;
 
 #pragma mark - Convenience Accessors

@@ -74,13 +74,6 @@ propertyGroups = (
                    Property('maxWidth', 'CGFloat', defaultValue="CGFLOAT_MAX", asserts='%s >= 0',  ),
                    Property('minHeight', 'CGFloat', asserts='%s >= 0', ),
                    Property('maxHeight', 'CGFloat', defaultValue="CGFLOAT_MAX", asserts='%s >= 0', ),
-                   Property('desiredWidthAdjustment', 'CGFloat', asserts='%s >= 0', ),
-                   Property('desiredHeightAdjustment', 'CGFloat', asserts='%s >= 0', ),
-                   ),
-                  (
-                   Property('hStretchWeight', 'CGFloat', asserts='%s >= 0', ),
-                   Property('vStretchWeight', 'CGFloat', asserts='%s >= 0', ),
-                   Property('ignoreDesiredSize', 'BOOL', ),
                    ),
                   (
                    Property('leftMargin', 'CGFloat', layoutProperty=True, ),
@@ -91,6 +84,15 @@ propertyGroups = (
                   (
                    Property('vSpacing', 'CGFloat', layoutProperty=True, ),
                    Property('hSpacing', 'CGFloat', layoutProperty=True, ),
+                   ),
+                  (
+                   Property('hStretchWeight', 'CGFloat', asserts='%s >= 0', ),
+                   Property('vStretchWeight', 'CGFloat', asserts='%s >= 0', ),
+                   ),
+                  (
+                   Property('desiredWidthAdjustment', 'CGFloat', asserts='%s >= 0', ),
+                   Property('desiredHeightAdjustment', 'CGFloat', asserts='%s >= 0', ),
+                   Property('ignoreDesiredSize', 'BOOL', ),
                    ),
                   (
                    Property('contentHAlign', 'HAlign', comments='The horizontal alignment of subviews within this view.', layoutProperty=True, ),

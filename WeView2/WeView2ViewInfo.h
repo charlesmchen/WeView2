@@ -22,12 +22,6 @@
 @property (nonatomic) CGFloat maxWidth;
 @property (nonatomic) CGFloat minHeight;
 @property (nonatomic) CGFloat maxHeight;
-@property (nonatomic) CGFloat desiredWidthAdjustment;
-@property (nonatomic) CGFloat desiredHeightAdjustment;
-
-@property (nonatomic) CGFloat hStretchWeight;
-@property (nonatomic) CGFloat vStretchWeight;
-@property (nonatomic) BOOL ignoreDesiredSize;
 
 @property (nonatomic) CGFloat leftMargin;
 @property (nonatomic) CGFloat rightMargin;
@@ -36,6 +30,13 @@
 
 @property (nonatomic) CGFloat vSpacing;
 @property (nonatomic) CGFloat hSpacing;
+
+@property (nonatomic) CGFloat hStretchWeight;
+@property (nonatomic) CGFloat vStretchWeight;
+
+@property (nonatomic) CGFloat desiredWidthAdjustment;
+@property (nonatomic) CGFloat desiredHeightAdjustment;
+@property (nonatomic) BOOL ignoreDesiredSize;
 
 // The horizontal alignment of subviews within this view.
 @property (nonatomic) HAlign contentHAlign;
