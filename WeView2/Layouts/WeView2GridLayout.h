@@ -14,22 +14,46 @@
 
 typedef enum
 {
+    // If there is extra space in the layout, stretch the cells to fill it, distributing the extra
+    // space equally among the cells.
     GRID_STRETCH_POLICY_STRETCH_CELLS,
+
+    // If there is extra space in the layout, stretch the spacing between the cells to fill it,
+    // distributing the extra space equally among the spacings.
     GRID_STRETCH_POLICY_STRETCH_SPACING,
+
+    // If there is extra space in the layout, stretch nothing.  Instead align the grid body within
+    // the cell content bounds.
     GRID_STRETCH_POLICY_NO_STRETCH,
 } GridStretchPolicy;
 
+#pragma mark -
+
 @interface WeView2GridLayout : WeView2Layout
 
-//@property (nonatomic) BOOL isHorizontal;
+// Use this factory method if you want to specify a cellSizeHint.
 //
-// Factory method.
-//+ (WeView2GridLayout *)gridLayout
-//columnCount:(int)columnCount
-//isGridUniform:(BOOL)isGridUniform;
+// columnCount: The number of columns in the grid.
+// isGridUniform: If true, the layout guarantees that the cell sizes will all be nearly equal.
+//                Each column will be as wide as the widest column.
+//                Each row will be as tall as the tallest row.
+// stretchPolicy: See the GridStretchPolicy enum.
+// cellSizeHint: The base cell size to use. The cell sizes will not reflect the desired sizes of
+//                their contents.
++ (WeView2GridLayout *)gridLayoutWithColumns:(int)columnCount
+                               isGridUniform:(BOOL)isGridUniform
+                               stretchPolicy:(GridStretchPolicy)stretchPolicy
+                                cellSizeHint:(CGSize)cellSizeHint;
+
+// Use this factory method if the size of the cells should be based on their contents.
 //
-//+ (WeView2GridLayout *)horizontalLayout;
-//
-//+ (WeView2GridLayout *)verticalLayout;
+// columnCount: The number of columns in the grid.
+// isGridUniform: If true, the layout guarantees that the cell sizes will all be nearly equal.
+//                Each column will be as wide as the widest column.
+//                Each row will be as tall as the tallest row.
+// stretchPolicy: See the GridStretchPolicy enum.
++ (WeView2GridLayout *)gridLayoutWithColumns:(int)columnCount
+                               isGridUniform:(BOOL)isGridUniform
+                               stretchPolicy:(GridStretchPolicy)stretchPolicy;
 
 @end

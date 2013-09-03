@@ -64,10 +64,12 @@ typedef struct
     int columnCount = self.columnCount;
     int rowCount = self.rowCount;
     CGSize result = CGSizeZero;
-    for (int column=0; column < columnCount; column++) {
+    for (int column=0; column < columnCount; column++)
+    {
         result.width += [self.columnWidths[column] floatValue];
     }
-    for (int row=0; row < rowCount; row++) {
+    for (int row=0; row < rowCount; row++)
+    {
         result.height += [self.rowHeights[row] floatValue];
     }
     return result;
@@ -93,12 +95,10 @@ typedef struct
 
 @property (nonatomic) int columnCount;
 @property (nonatomic) BOOL isGridUniform;
-
-// TODO: Rename?
-@property (nonatomic) BOOL hasFixedCellSize;
-@property (nonatomic) CGSize fixedCellSize;
-
 @property (nonatomic) GridStretchPolicy stretchPolicy;
+
+@property (nonatomic) BOOL hasCellSizeHint;
+@property (nonatomic) CGSize cellSizeHint;
 
 @end
 
@@ -106,27 +106,41 @@ typedef struct
 
 @implementation WeView2GridLayout
 
-//+ (WeView2GridLayout *)horizontalLayout
-//{
-//    WeView2GridLayout *layout = [[WeView2GridLayout alloc] init];
-//    layout.isHorizontal = YES;
-//    return layout;
-//}
-//
-//+ (WeView2GridLayout *)verticalLayout
-//{
-//    WeView2GridLayout *layout = [[WeView2GridLayout alloc] init];
-//    layout.isHorizontal = NO;
-//    return layout;
-//}
++ (WeView2GridLayout *)gridLayoutWithColumns:(int)columnCount
+                               isGridUniform:(BOOL)isGridUniform
+                               stretchPolicy:(GridStretchPolicy)stretchPolicy
+                                cellSizeHint:(CGSize)cellSizeHint
+{
+    WeView2GridLayout *layout = [[WeView2GridLayout alloc] init];
+    layout.columnCount = columnCount;
+    layout.isGridUniform = isGridUniform;
+    layout.stretchPolicy = stretchPolicy;
+    layout.hasCellSizeHint = YES;
+    layout.cellSizeHint = cellSizeHint;
+    return layout;
+}
+
++ (WeView2GridLayout *)gridLayoutWithColumns:(int)columnCount
+                               isGridUniform:(BOOL)isGridUniform
+                               stretchPolicy:(GridStretchPolicy)stretchPolicy
+{
+    WeView2GridLayout *layout = [[WeView2GridLayout alloc] init];
+    layout.columnCount = columnCount;
+    layout.isGridUniform = isGridUniform;
+    layout.stretchPolicy = stretchPolicy;
+    return layout;
+}
 
 - (GridRowAndColumnCount)rowAndColumnCount:(NSArray *)subviews
 {
     GridRowAndColumnCount result;
-    if (self.columnCount > 0) {
+    if (self.columnCount > 0)
+    {
         result.columnCount = self.columnCount;
         result.rowCount = ceilf([subviews count] / (CGFloat) result.columnCount);
-    } else {
+    }
+    else
+    {
         result.columnCount = [subviews count];
         result.rowCount = 1;
     }
@@ -137,7 +151,8 @@ typedef struct
                              count:(int)count
 {
     NSMutableArray *result = [NSMutableArray array];
-    for (int i=0; i < count; i++) {
+    for (int i=0; i < count; i++)
+    {
         [result addObject:@(values[i])];
     }
     return result;
@@ -162,7 +177,8 @@ typedef struct
     CGFloat vSpacing = ceilf([self vSpacing:view]);
     maxSubviewSize.width = MAX(0, maxSubviewSize.width - hSpacing * (columnCount - 1));
     maxSubviewSize.height = MAX(0, maxSubviewSize.height - vSpacing * (rowCount - 1));
-    if (self.isGridUniform) {
+    if (self.isGridUniform)
+    {
         if (columnCount > 0)
         {
             maxSubviewSize.width = floorf(maxSubviewSize.width * (1.f / columnCount));
@@ -180,28 +196,33 @@ typedef struct
 
     CGFloat columnWidths[columnCount];
     CGFloat rowHeights[rowCount];
-    for (int column=0; column < columnCount; column++) {
+    for (int column=0; column < columnCount; column++)
+    {
         columnWidths[column] = 0;
     }
-    for (int row=0; row < rowCount; row++) {
+    for (int row=0; row < rowCount; row++)
+    {
         rowHeights[row] = 0;
     }
     result.maxColumnWidth = 0;
     result.maxRowHeight = 0;
 
-    if (self.hasFixedCellSize)
+    if (self.hasCellSizeHint)
     {
-        for (int i=0; i < columnCount; i++) {
-            columnWidths[i] = self.fixedCellSize.width;
+        for (int i=0; i < columnCount; i++)
+        {
+            columnWidths[i] = self.cellSizeHint.width;
         }
-        for (int i=0; i < rowCount; i++) {
-            rowHeights[i] = self.fixedCellSize.height;
+        for (int i=0; i < rowCount; i++)
+        {
+            rowHeights[i] = self.cellSizeHint.height;
         }
     }
     else if (!view.ignoreDesiredSize)
     {
         int index = 0;
-        for (UIView* subview in subviews) {
+        for (UIView* subview in subviews)
+        {
             int row = index / columnCount;
             int column = index % columnCount;
             index++;
@@ -209,35 +230,32 @@ typedef struct
             CGSize subviewSize = [self desiredItemSize:subview
                                                maxSize:maxSubviewSize];
 
-            //        if (layer.debugLayout) {
-            //            NSLog(@"%@[%d][%d] desired size: %@",
-            //                  [item class],
-            //                  column,
-            //                  row,
-            //                  FormatSize(itemSize));
-            //        }
-
             columnWidths[column] = MAX(columnWidths[column], subviewSize.width);
             result.maxColumnWidth = MAX(result.maxColumnWidth, subviewSize.width);
             rowHeights[row] = MAX(rowHeights[row], subviewSize.height);
             result.maxRowHeight = MAX(result.maxRowHeight, subviewSize.height);
         }
 
-        if (self.isGridUniform) {
-            for (int i=0; i < columnCount; i++) {
+        if (self.isGridUniform)
+        {
+            for (int i=0; i < columnCount; i++)
+            {
                 columnWidths[i] = result.maxColumnWidth;
             }
-            for (int i=0; i < rowCount; i++) {
+            for (int i=0; i < rowCount; i++)
+            {
                 rowHeights[i] = result.maxRowHeight;
             }
         }
     }
 
     // Normalize the column and row sizes.
-    for (int i=0; i < columnCount; i++) {
+    for (int i=0; i < columnCount; i++)
+    {
         columnWidths[i] = MAX(0, ceilf(columnWidths[i]));
     }
-    for (int i=0; i < rowCount; i++) {
+    for (int i=0; i < rowCount; i++)
+    {
         rowHeights[i] = MAX(0, ceilf(rowHeights[i]));
     }
 
@@ -247,11 +265,13 @@ typedef struct
                                        count:rowCount];
 
     result.columnSpacings = [NSMutableArray array];
-    for (int i=0; i < columnCount - 1; i++) {
+    for (int i=0; i < columnCount - 1; i++)
+    {
         [result.columnSpacings addObject:@(hSpacing)];
     }
     result.rowSpacings = [NSMutableArray array];
-    for (int i=0; i < rowCount - 1; i++) {
+    for (int i=0; i < rowCount - 1; i++)
+    {
         [result.rowSpacings addObject:@(vSpacing)];
     }
 
@@ -320,27 +340,6 @@ typedef struct
     return totalSize;
 }
 
-- (void)distributeAdjustment:(CGFloat)totalAdjustment
-                acrossValues:(NSMutableArray *)values
-                 withWeights:(NSArray *)weights
-                 withMaxZero:(BOOL)withMaxZero
-{
-    WeView2Assert([values count] == [weights count]);
-    NSArray *adjustments = [self distributeSpace:roundf(totalAdjustment)
-                          acrossCellsWithWeights:weights];
-    WeView2Assert([values count] == [adjustments count]);
-    int count = [values count];
-    for (int i=0; i < count; i++)
-    {
-        CGFloat newValue = roundf([values[i] floatValue] - [adjustments[i] floatValue]);
-        if (withMaxZero)
-        {
-            newValue = MAX(0.f, newValue);
-        }
-        values[i] = @(newValue);
-    }
-}
-
 - (void)layoutContentsOfView:(UIView *)view
                     subviews:(NSArray *)subviews
 {
@@ -381,7 +380,8 @@ typedef struct
     CGPoint cellsOrigin = contentBounds.origin;
     if (extraCellSpace.width > 0)
     {
-        switch (self.stretchPolicy) {
+        switch (self.stretchPolicy)
+        {
             case GRID_STRETCH_POLICY_STRETCH_CELLS:
             {
                 // Stretch the cells, distributing the extra space evenly between them.
@@ -438,7 +438,8 @@ typedef struct
     }
     if (extraCellSpace.height > 0)
     {
-        switch (self.stretchPolicy) {
+        switch (self.stretchPolicy)
+        {
             case GRID_STRETCH_POLICY_STRETCH_CELLS:
             {
                 // Stretch the cells, distributing the extra space evenly between them.

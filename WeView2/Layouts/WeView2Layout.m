@@ -312,7 +312,8 @@ NSNumber *_debugMinSize;
            inCellBounds:(CGRect)cellBounds
         cellPositioning:(CellPositioningMode)cellPositioning
 {
-    switch (cellPositioning) {
+    switch (cellPositioning)
+    {
         case CELL_POSITION_NORMAL:
         {
             if (subview.hStretchWeight > 0)
@@ -472,6 +473,27 @@ NSNumber *_debugMinSize;
     }
 
     return result;
+}
+
+- (void)distributeAdjustment:(CGFloat)totalAdjustment
+                acrossValues:(NSMutableArray *)values
+                 withWeights:(NSArray *)weights
+                 withMaxZero:(BOOL)withMaxZero
+{
+    WeView2Assert([values count] == [weights count]);
+    NSArray *adjustments = [self distributeSpace:roundf(totalAdjustment)
+                          acrossCellsWithWeights:weights];
+    WeView2Assert([values count] == [adjustments count]);
+    int count = [values count];
+    for (int i=0; i < count; i++)
+    {
+        CGFloat newValue = roundf([values[i] floatValue] - [adjustments[i] floatValue]);
+        if (withMaxZero)
+        {
+            newValue = MAX(0.f, newValue);
+        }
+        values[i] = @(newValue);
+    }
 }
 
 #pragma mark - Debug Methods

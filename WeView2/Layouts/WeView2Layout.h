@@ -93,6 +93,11 @@
 - (NSArray *)distributeSpace:(int)space
       acrossCellsWithWeights:(NSArray *)cellWeights;
 
+- (void)distributeAdjustment:(CGFloat)totalAdjustment
+                acrossValues:(NSMutableArray *)values
+                 withWeights:(NSArray *)weights
+                 withMaxZero:(BOOL)withMaxZero;
+
 #pragma mark - Debug Methods
 
 - (NSString *)indentPrefix:(int)indent;

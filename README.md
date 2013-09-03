@@ -124,6 +124,14 @@ Details
 * TODO: hAlign and vAlign control how subviews of the view are aligned within the view, not the
  alignment of the view itself.
 
+* TODO: Describe layout process.
+
+* TODO: Describe associated objects.
+
+* TODO: Describe each parameter and how they work.
+
+* TODO: Describe how layout properties can supercede view properties.
+
 
 
 
