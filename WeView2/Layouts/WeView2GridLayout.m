@@ -388,6 +388,7 @@ typedef struct
                 [self distributeAdjustment:extraCellSpace.width
                               acrossValues:gridLayoutInfo.columnWidths
                                withWeights:gridLayoutInfo.columnWidths
+                                  withSign:+1.f
                                withMaxZero:YES];
                 break;
             }
@@ -398,6 +399,7 @@ typedef struct
                 [self distributeAdjustment:extraCellSpace.width
                               acrossValues:gridLayoutInfo.columnSpacings
                                withWeights:gridLayoutInfo.columnSpacings
+                                  withSign:+1.f
                                withMaxZero:YES];
                 break;
             }
@@ -433,6 +435,7 @@ typedef struct
             [self distributeAdjustment:-extraCellSpace.width
                           acrossValues:gridLayoutInfo.columnWidths
                            withWeights:gridLayoutInfo.columnWidths
+                              withSign:-1.f
                            withMaxZero:YES];
         }
     }
@@ -446,6 +449,7 @@ typedef struct
                 [self distributeAdjustment:extraCellSpace.height
                               acrossValues:gridLayoutInfo.rowHeights
                                withWeights:gridLayoutInfo.rowHeights
+                                  withSign:+1.f
                                withMaxZero:YES];
                 break;
             }
@@ -456,6 +460,7 @@ typedef struct
                 [self distributeAdjustment:extraCellSpace.height
                               acrossValues:gridLayoutInfo.rowSpacings
                                withWeights:gridLayoutInfo.rowSpacings
+                                  withSign:+1.f
                                withMaxZero:YES];
                 break;
             }
@@ -491,6 +496,7 @@ typedef struct
             [self distributeAdjustment:-extraCellSpace.height
                           acrossValues:gridLayoutInfo.rowHeights
                            withWeights:gridLayoutInfo.rowHeights
+                              withSign:-1.f
                            withMaxZero:YES];
         }
     }

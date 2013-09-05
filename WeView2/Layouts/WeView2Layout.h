@@ -89,13 +89,13 @@
 - (CGSize)desiredItemSize:(UIView *)subview
                   maxSize:(CGSize)maxSize;
 
-// TODO: Use this.
-- (NSArray *)distributeSpace:(int)space
+- (NSArray *)distributeSpace:(CGFloat)space
       acrossCellsWithWeights:(NSArray *)cellWeights;
 
 - (void)distributeAdjustment:(CGFloat)totalAdjustment
                 acrossValues:(NSMutableArray *)values
                  withWeights:(NSArray *)weights
+                    withSign:(CGFloat)sign
                  withMaxZero:(BOOL)withMaxZero;
 
 #pragma mark - Debug Methods

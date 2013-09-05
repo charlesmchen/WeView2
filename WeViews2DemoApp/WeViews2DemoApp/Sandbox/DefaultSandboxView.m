@@ -23,7 +23,7 @@ typedef enum
 @interface DefaultSandboxView ()
 
 @property (nonatomic) DemoModel *demoModel;
-//@property (nonatomic) BOOL ;
+@property (nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 
 @end
 
@@ -39,30 +39,36 @@ typedef enum
         [self useHorizontalDefaultLayout];
         self.margin = 40;
         self.opaque = YES;
-        //        self.backgroundColor = [UIColor whiteColor];
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"subtlepatterns.com/graphy_modified/graphy_modified"]];
-        //        [view setOpaque:NO];
-        //        [[view layer] setOpaque:NO];
 
-        [self addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];
+        self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+        [self addGestureRecognizer:self.panGestureRecognizer];
     }
     return self;
 }
 
 - (void)createContents:(SandboxMode)mode
 {
-    UILabel *resizeInstructionsLabel = [DemoViewFactory createLabel:@"Drag in this window to resize"
-                                                           fontSize:14.f
-                                                          textColor:[DemoViewFactory colorWithRGBHex:0x888888]];
-    [self addSubview:resizeInstructionsLabel
-     withLayoutBlock:^(UIView *superview, UIView *subview) {
-         WeView2Assert(subview);
-         WeView2Assert(subview.superview);
-         const int kHMargin = 20 + 5;
-         const int kVMargin = 20 + 5;
-         subview.right = subview.superview.width - kHMargin;
-         subview.bottom = subview.superview.height - kVMargin;
-     }];
+    if (mode == SANDBOX_MODE_DEFAULT)
+    {
+        UILabel *resizeInstructionsLabel = [DemoViewFactory createLabel:@"Drag in this window to resize"
+                                                               fontSize:14.f
+                                                              textColor:[DemoViewFactory colorWithRGBHex:0x888888]];
+        [self addSubview:resizeInstructionsLabel
+         withLayoutBlock:^(UIView *superview, UIView *subview) {
+             WeView2Assert(subview);
+             WeView2Assert(subview.superview);
+             const int kHMargin = 20 + 5;
+             const int kVMargin = 20 + 5;
+             subview.right = subview.superview.width - kHMargin;
+             subview.bottom = subview.superview.height - kVMargin;
+         }];
+        self.panGestureRecognizer.enabled = YES;
+    }
+    else
+    {
+        self.panGestureRecognizer.enabled = NO;
+    }
 
     WeView2 *modePanel = [[WeView2 alloc] init];
     [[[modePanel useVerticalDefaultLayout]

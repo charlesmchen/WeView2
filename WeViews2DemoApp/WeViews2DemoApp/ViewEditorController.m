@@ -222,11 +222,7 @@ typedef void (^SetterBlock)(UIView *view);
          setSpacing:4];
     }
 
-    //    container.debugLayout = YES;
-
     cell.height = container.height = [container sizeThatFits:CGSizeMake(cell.width, CGFLOAT_MAX)].height;
-    //    [container
-    //    WeView2 *container = [[WeView2 alloc] init];
 
 }
 
@@ -577,6 +573,8 @@ typedef void (^SetterBlock)(UIView *view);
     ViewParameter *viewParameter = self.viewParams[indexPath.row];
     viewParameter.delegate = self;
     [viewParameter configureCell:cell withView:self.currentView];
+
+//    ((WeView2 *)cell.subviews[0]).debugLayout = indexPath.row == 2;
 
     return cell;
 }

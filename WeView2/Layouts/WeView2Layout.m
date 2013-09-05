@@ -423,12 +423,11 @@ NSNumber *_debugMinSize;
                                           desiredSize)));
 }
 
-- (NSArray *)distributeSpace:(int)space
+- (NSArray *)distributeSpace:(CGFloat)space
       acrossCellsWithWeights:(NSArray *)cellWeights
 {
     // Weighted distribution of space between cells.
 
-    // TODO: We need to make sure all layouts properly handle empty superviews, ie. no subviews.
     WeView2Assert([cellWeights count] > 0);
 
     CGFloat totalCellWeight = 0.f;
@@ -445,15 +444,17 @@ NSNumber *_debugMinSize;
 
     WeView2Assert(cellCountWithWeight > 0);
 
-    int spaceRemainder = space;
+    CGFloat spaceRemainder = space;
     int cellRemainder = cellCountWithWeight;
     CGFloat weightRemainder = totalCellWeight;
+
     NSMutableArray *result = [NSMutableArray array];
     for (int i=0; i < [cellWeights count]; i++)
     {
         CGFloat cellWeight = MAX(0.f, [cellWeights[i] floatValue]);
         int cellDistribution = 0;
-        if (cellWeight > 0)
+
+        if (cellWeight > 0 && cellRemainder > 0)
         {
             if (cellRemainder == 1)
             {
@@ -464,12 +465,13 @@ NSNumber *_debugMinSize;
             {
                 cellDistribution = floorf(spaceRemainder * cellWeight / weightRemainder);
             }
-            [result addObject:@(cellDistribution)];
+
             cellRemainder--;
             spaceRemainder -= cellDistribution;
             weightRemainder -= cellWeight;
             WeView2Assert(spaceRemainder >= 0);
         }
+        [result addObject:@(cellDistribution)];
     }
 
     return result;
@@ -478,6 +480,7 @@ NSNumber *_debugMinSize;
 - (void)distributeAdjustment:(CGFloat)totalAdjustment
                 acrossValues:(NSMutableArray *)values
                  withWeights:(NSArray *)weights
+                    withSign:(CGFloat)sign
                  withMaxZero:(BOOL)withMaxZero
 {
     WeView2Assert([values count] == [weights count]);
@@ -487,7 +490,7 @@ NSNumber *_debugMinSize;
     int count = [values count];
     for (int i=0; i < count; i++)
     {
-        CGFloat newValue = roundf([values[i] floatValue] - [adjustments[i] floatValue]);
+        CGFloat newValue = roundf([values[i] floatValue] + [adjustments[i] floatValue] * sign);
         if (withMaxZero)
         {
             newValue = MAX(0.f, newValue);
