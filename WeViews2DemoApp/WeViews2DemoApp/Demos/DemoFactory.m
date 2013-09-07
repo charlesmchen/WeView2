@@ -4,6 +4,9 @@
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
+//  Distributed under the Apache License v2.0.
+//  http://www.apache.org/licenses/LICENSE-2.0.html
+//
 
 #import "WeView2.h"
 #import "DemoFactory.h"
@@ -336,7 +339,7 @@
                               fontSize:14.f];
     label.numberOfLines = 0;
     label.lineBreakMode = NSLineBreakByWordWrapping;
-    label.stretchWeight = 1.f;
+//    label.stretchWeight = 1.f;
     return label;
 }
 
