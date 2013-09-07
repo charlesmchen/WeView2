@@ -32,7 +32,7 @@
 @interface TreeNode : WeView2
 
 @property (nonatomic) DemoModel *demoModel;
-@property (nonatomic) id item;
+@property (nonatomic) UIView *item;
 // Not retained.
 @property (nonatomic, weak) ViewHierarchyTree *parent;
 @property (nonatomic) BOOL expanded;
@@ -82,6 +82,10 @@
 
     // TODO:
     NSString* description = [[self.item class] description];
+    if (self.item.debugName)
+    {
+        description = [NSString stringWithFormat:@"%@ (%@)", description, self.item.debugName];
+    }
 
     UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor clearColor];

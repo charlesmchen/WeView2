@@ -70,50 +70,111 @@ class Property:
 
 propertyGroups = (
                   (
-                   Property('minWidth', 'CGFloat', asserts='%s >= 0', ),
-                   Property('maxWidth', 'CGFloat', defaultValue="CGFLOAT_MAX", asserts='%s >= 0',  ),
-                   Property('minHeight', 'CGFloat', asserts='%s >= 0', ),
-                   Property('maxHeight', 'CGFloat', defaultValue="CGFLOAT_MAX", asserts='%s >= 0', ),
+                   Property('minWidth', 'CGFloat',
+                       comments='The minimum desired width of this view. Trumps the maxWidth.',
+                       asserts='%s >= 0', ),
+                   Property('maxWidth', 'CGFloat',
+                       comments='The maximum desired width of this view. Trumped by the minWidth.',
+                       defaultValue="CGFLOAT_MAX", asserts='%s >= 0',  ),
+                   Property('minHeight', 'CGFloat',
+                       comments='The minimum desired height of this view. Trumps the maxHeight.',
+                       asserts='%s >= 0', ),
+                   Property('maxHeight', 'CGFloat',
+                       comments='The maximum desired height of this view. Trumped by the minHeight.',
+                       defaultValue="CGFLOAT_MAX", asserts='%s >= 0', ),
                    ),
                   (
-                   Property('leftMargin', 'CGFloat', layoutProperty=True, ),
-                   Property('rightMargin', 'CGFloat', layoutProperty=True, ),
-                   Property('topMargin', 'CGFloat', layoutProperty=True, ),
-                   Property('bottomMargin', 'CGFloat', layoutProperty=True, ),
+                   Property('leftMargin', 'CGFloat',
+                       comments='The left margin of the contents of this view.',
+                       layoutProperty=True, ),
+                   Property('rightMargin', 'CGFloat',
+                       comments='The right margin of the contents of this view.',
+                       layoutProperty=True, ),
+                   Property('topMargin', 'CGFloat',
+                       comments='The top margin of the contents of this view.',
+                       layoutProperty=True, ),
+                   Property('bottomMargin', 'CGFloat',
+                       comments='The bottom margin of the contents of this view.',
+                       layoutProperty=True, ),
                    ),
                   (
-                   Property('vSpacing', 'CGFloat', layoutProperty=True, ),
-                   Property('hSpacing', 'CGFloat', layoutProperty=True, ),
+                   Property('vSpacing', 'CGFloat',
+                       comments='The vertical spacing between subviews of this view.',
+                       layoutProperty=True, ),
+                   Property('hSpacing', 'CGFloat',
+                       comments='The horizontal spacing between subviews of this view.',
+                        layoutProperty=True, ),
                    ),
                   (
-                   Property('hStretchWeight', 'CGFloat', asserts='%s >= 0', ),
-                   Property('vStretchWeight', 'CGFloat', asserts='%s >= 0', ),
+                   Property('hStretchWeight', 'CGFloat',
+                       comments=(
+                           'The horizontal stretch weight of this view. If non-zero, the view is willing to take available space or be cropped if necessary.',
+                           'Subviews with larger relative stretch weights will be stretched more.',
+                           ),
+                       asserts='%s >= 0', ),
+                   Property('vStretchWeight', 'CGFloat',
+                       comments=(
+                           'The vertical stretch weight of this view. If non-zero, the view is willing to take available space or be cropped if necessary.',
+                           'Subviews with larger relative stretch weights will be stretched more.',
+                           ),
+                       asserts='%s >= 0', ),
                    ),
                   (
-                   Property('desiredWidthAdjustment', 'CGFloat', asserts='%s >= 0', ),
-                   Property('desiredHeightAdjustment', 'CGFloat', asserts='%s >= 0', ),
+                   Property('desiredWidthAdjustment', 'CGFloat',
+                       comments='This adjustment can be used to manipulate the desired width of a view.',
+                       asserts='%s >= 0', ),
+                   Property('desiredHeightAdjustment', 'CGFloat',
+                       comments='This adjustment can be used to manipulate the desired height of a view.',
+                       asserts='%s >= 0', ),
                    Property('ignoreDesiredSize', 'BOOL', ),
                    ),
                   (
-                   Property('contentHAlign', 'HAlign', comments='The horizontal alignment of subviews within this view.', layoutProperty=True, ),
-                   Property('contentVAlign', 'VAlign', comments='The vertical alignment of subviews within this view.', layoutProperty=True, ),
+                   Property('contentHAlign', 'HAlign',
+                       comments='The horizontal alignment of subviews of this view within their layout cells.',
+                       layoutProperty=True, ),
+                   Property('contentVAlign', 'VAlign',
+                       comments='The vertical alignment of subviews within this view.',
+                        layoutProperty=True, ),
                    Property('cellHAlign', 'HAlign',
-                       comments='The horizontal alignment preference of this view within in its layout cell. Defaults to the contentHAlign of its superview if not set.',
+                       comments=(
+                           'The horizontal alignment preference of this view within in its layout cell.',
+                           'This value is optional.  The default value is the contentHAlign of its superview.',
+                           'cellHAlign should only be used for cells whose alignment differs from its superview\'s.',
+                           ),
                        extraSetterLine='self.hasCellHAlign = YES;'),
                    Property('cellVAlign', 'VAlign',
-                       comments='The vertical alignment preference of this view within in its layout cell. Defaults to the contentVAlign of its superview if not set.',
+                       comments=(
+                           'The vertical alignment preference of this view within in its layout cell.',
+                           'This value is optional.  The default value is the contentVAlign of its superview.',
+                           'cellVAlign should only be used for cells whose alignment differs from its superview\'s.',
+                           ),
                        extraSetterLine='self.hasCellVAlign = YES;'),
                    Property('hasCellHAlign', 'BOOL', ),
                    Property('hasCellVAlign', 'BOOL', ),
                    ),
                   (
-                   Property('cropSubviewOverflow', 'BOOL', layoutProperty=True, ),
-                   Property('cellPositioning', 'CellPositioningMode', layoutProperty=True, ),
+                   Property('cropSubviewOverflow', 'BOOL',
+                       comments=(
+                           'By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView2 overflows its bounds, subviews are cropped to fit inside the available space.',
+                           'If cropSubviewOverflow is NO, no cropping occurs and subviews may overflow the bounds of their superview.',
+                           ),
+                       layoutProperty=True, ),
+                   Property('cellPositioning', 'CellPositioningMode',
+                       comments=(
+                           'By default, cellPositioning has a value of CELL_POSITION_NORMAL and cell size is based on their desired size and they are aligned within their layout cell.',
+                           'If cellPositioning is set to CELL_POSITION_FILL, subviews fill the entire bounds of their layout cell, regardless of their desired size.',
+                           'If cellPositioning is set to CELL_POSITION_FILL_W_ASPECT_RATIO, subviews fill the entire bounds of their layout cell but retain the aspect ratio of their desired size.',
+                           'If cellPositioning is set to CELL_POSITION_FIT_W_ASPECT_RATIO, subviews are "fit" inside the bounds of their layout cell and retain the aspect ratio of their desired size.',
+                           ),
+                       layoutProperty=True, ),
                    ),
                   (
-                   Property('debugName', 'NSString *', defaultValue="@\"?\"", ),
-                   Property('debugLayout', 'BOOL', layoutProperty=True, ),
-                   Property('debugMinSize', 'BOOL', layoutProperty=True, ),
+                   Property('debugName', 'NSString *',
+                       defaultValue="@\"?\"", ),
+                   Property('debugLayout', 'BOOL',
+                       layoutProperty=True, ),
+                   Property('debugMinSize', 'BOOL',
+                       layoutProperty=True, ),
                    ),
 
                   )
@@ -125,12 +186,44 @@ def FormatList(values):
         return values[0]
 
 def FormatComment(comment):
-    # TODO: linewrap the comments.
-    return '// %s' % comment
+    return FormatComments((comment,))
+
+def SplitCommentLine(comment):
+    remainder = comment
+    comments = []
+    maxLength = 95
+    while len(remainder):
+        if len(comment) < maxLength:
+            comments.append(remainder)
+            remainder = ''
+        else:
+            index = remainder.rfind(' ')
+            if index >= 0:
+                comments.append(remainder[:index].strip())
+                remainder = remainder[index:].strip()
+            else:
+                comments.append(remainder)
+                remainder = ''
+
+    return comments
 
 def FormatComments(comment):
     # TODO: linewrap the comments.
-    return ['// %s' % comment,]
+    comments = []
+    if type(comment) in (types.ListType, types.TupleType,):
+        comments = list(comment)
+    elif type(comment) in (types.StringType,):
+        comments = [comment,]
+    else:
+        raise Exception('Unknown comment type: %s' % str(type(comment)))
+
+    formattedComments = []
+    for index, comment in enumerate(comments):
+        if index > 0:
+            formattedComments.append('')
+        formattedComments.extend(SplitCommentLine(comment))
+
+    return ['// %s' % comment for comment in formattedComments]
 
 def UpperName(name):
     return name[0].upper() + name[1:]
@@ -188,7 +281,7 @@ for propertyGroup in propertyGroups:
 for customAccessor in customAccessors:
     comments = []
     comments.append(FormatComment('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames())))
-    lines.append('%s' % ('\n'.join(comments), ))
+    lines.append('%s' % ('\n'.join(FormatComments(comments)), ))
     # Getter
     if customAccessor.getterValue:
         lines.append('- (%s)%s;' % (customAccessor.typeName, customAccessor.name, ))
@@ -218,7 +311,7 @@ for propertyGroup in propertyGroups:
 for customAccessor in customAccessors:
     comments = []
     comments.append(FormatComment('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames())))
-    lines.append('%s' % ('\n'.join(comments), ))
+    lines.append('%s' % ('\n'.join(FormatComments(comments)), ))
     # Getter
     if customAccessor.getterValue:
         lines.append('- (%s)%s;' % (customAccessor.typeName, customAccessor.name, ))
@@ -566,7 +659,7 @@ for customAccessor in customAccessors:
 
     comments = []
     comments.append(FormatComment('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames())))
-    lines.append('%s' % ('\n'.join(comments), ))
+    lines.append('%s' % ('\n'.join(FormatComments(comments)), ))
     # Getter
     if customAccessor.getterValue:
         lines.append('- (%s)%s:(UIView *)view;' % (customAccessor.typeName, customAccessor.name, ))
