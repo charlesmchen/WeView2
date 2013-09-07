@@ -17,8 +17,6 @@
 
 @interface WeView2ViewInfo : NSObject
 
-// TODO: Comment that min width trumps max width.
-
 /* CODEGEN MARKER: View Info Start */
 
 // The minimum desired width of this view. Trumps the maxWidth.

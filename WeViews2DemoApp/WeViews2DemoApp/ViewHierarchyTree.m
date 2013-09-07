@@ -80,7 +80,6 @@
     [expandLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleExpand)]];
     expandLabel.hidden = [[self.item subviews] count] == 0;
 
-    // TODO:
     NSString* description = [[self.item class] description];
     if (self.item.debugName)
     {

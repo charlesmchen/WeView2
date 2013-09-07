@@ -304,7 +304,6 @@ typedef struct
     return result;
 }
 
-// TODO: Do we need to honor other params as well?
 - (CGSize)minSizeOfContentsView:(UIView *)view
                        subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize

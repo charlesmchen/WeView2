@@ -22,8 +22,6 @@
     return layout;
 }
 
-// TODO: Honor max/min widths in the earlier phases, of "min size" and "layout" functions.
-// TODO: Do we need to honor other params as well?
 - (CGSize)minSizeOfContentsView:(UIView *)view
                        subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize
@@ -63,8 +61,6 @@
     {
         UIView* subview = subviews[i];
 
-        // TODO: In our initial pass, should we be using a guide size of
-        // CGFLOAT_MAX, CGFLOAT_MAX?
         CGSize subviewSize = [self desiredItemSize:subview
                                            maxSize:contentBounds.size];
         maxSubviewSize = CGSizeMax(maxSubviewSize, subviewSize);

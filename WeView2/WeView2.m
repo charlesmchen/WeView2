@@ -21,7 +21,10 @@
 
 @interface WeView2 ()
 
+// The default layout for subviews not associated with a specific layout.
 @property (nonatomic) WeView2Layout *defaultLayout;
+
+// A map of subview-to-layout of subviews associated with specific layouts.
 @property (nonatomic) NSMutableDictionary *subviewLayoutMap;
 
 @end
@@ -33,6 +36,7 @@
 - (void)commonInit
 {
     self.subviewLayoutMap = [NSMutableDictionary dictionary];
+    // Default to using a horizontal layout.
     [self useHorizontalDefaultLayout];
 }
 
@@ -86,6 +90,12 @@
     return self;
 }
 
+- (WeView2 *)useBlockDefaultLayout:(BlockLayoutBlock)block
+{
+    self.defaultLayout = [WeView2BlockLayout blockLayoutWithBlock:block];
+    return self;
+}
+
 - (void)setDefaultLayout:(WeView2Layout *)defaultLayout
 {
     _defaultLayout = defaultLayout;
@@ -104,6 +114,7 @@
             [result addObject:subview];
         }
     }
+
     return result;
 }
 

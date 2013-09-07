@@ -7,12 +7,11 @@ The WeView2 library is a tool for auto layout of iOS UIs.
 * WeView2 is an alternative to [iOS's built-in Auto Layout Mechanism](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/Articles/Introduction.html).
 * WeView2 builds on iOS's existing sizing and layout mechanisms.  WeView2 is compatible with any properly implemented UIViews without any modifications.
 * WeView2 draws on the concepts and vocabulary used by HTML and CSS layout (ie. margins, spacing, alignment, etc.).
-* WeView2 takes advantage of ARC and blocks and requires a minimum of iOS 5.
-* WeView2 is available under a permissive license (see below).
+* WeView2 takes advantage of ARC and blocks and is compatible with iOS 5 and later.
 * WeView2 is available under a permissive license (see below).
 
 
-## Design philosophy
+### Design philosophy
 
 * Leverage existing understanding of HTML and CSS: container-driven, declarative layout.
 * Strive to be lightweight. Stay focused on solving a single problem. Add no third-party dependencies. Play nicely with other layout mechanisms.
@@ -22,8 +21,7 @@ The WeView2 library is a tool for auto layout of iOS UIs.
 * Provide convenience accessors, factory methods etc. to make common tasks easier. 
 
 
-
-## Why use auto layout at all?
+### Why use auto layout at all?
 
 Auto layout allows a UI to...
 
@@ -35,7 +33,8 @@ Auto layout allows a UI to...
 
 This becomes even more important with iOS 7, which lets users adjust text sizes outside of your app.
 
-## Why use WeView2 instead of iOS' built-in Auto Layout?
+
+### Why use WeView2 instead of iOS' built-in Auto Layout?
 
 * iOS Auto Layout is constraint-based.  
 * The syntax of iOS Auto Layout can be difficult to understand:
@@ -50,103 +49,86 @@ multiplier:(CGFloat)multiplier
 constant:(CGFloat)c
 ```
 
+Here's an example taken from Apple's sample code of how to center a button at the bottom of it's 
+superview with a certain spacing using iOS Auto Layout:
+
+```
+UIButton *button; // pre-existing UIButton.
+UIView *superview = button.superview;
+
+NSLayoutConstraint *cn = [NSLayoutConstraint constraintWithItem:button
+                                                      attribute:NSLayoutAttributeCenterX
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:superview
+                                                      attribute:NSLayoutAttributeCenterX
+                                                     multiplier:1.0
+                                                       constant:0.0];
+[superview addConstraint:cn];
+
+cn = [NSLayoutConstraint constraintWithItem:button
+                                  attribute:NSLayoutAttributeBottom
+                                  relatedBy:NSLayoutRelationEqual
+                                     toItem:superview
+                                  attribute:NSLayoutAttributeBottom
+                                 multiplier:1.0
+                                   constant:-20.0];
+[superview addConstraint:cn];
+```
+
+iOS Auto Layout also supports a Visual Format Language.  Here's the sample layout using VFL:
+
+```
+    UIButton *button; // pre-existing UIButton.
+    UIView *superview = button.superview;
+    NSDictionary *variableMap = NSDictionaryOfVariableBindings(label, superview);
+    NSLayoutConstraint *cn = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[button]-12-[superview]"
+                                                                     options:0
+                                                                     metrics:nil
+                                                                       views:variableMap];
+    
+    cn = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[superview]-(<=1)-[label]"
+                                                 options: NSLayoutFormatAlignAllCenterY
+                                                 metrics:nil
+                                                   views:variableMap];
+```
+
+WeView2's is designed to yield concise, readable code. Here's the equivalent logic using a WeView2:
+
+```
+    UIButton *button; // pre-existing UIButton.
+    WeView2 *superview; // pre-existing superview of UIButton is a WeView2.
+    
+    [[[superview addSubviewWithCustomLayout:button]
+    setContentVAlign:V_ALIGN_BOTTOM]
+     setMargin:20];
+```
+
 * With iOS Auto Layout you need to worry about complications such as constraint priority, constraint sufficiency, constraint conflicts, ambiguous layout, common ancestors, etc.
 * In iOS Auto Layout constraints are (and must be) specified on a per-view basis.  This doesn't work well when UIViews need to be layed out in groups.
 * Some conceptually simple layouts are difficult to describe with constraints.
-
-* WeView2 layout is container- and block-based.  
 * Where possible, WeView2's leverages your existing understanding of how layout works with HTML/CSS.
 
 ```
 
 
-## What's new in WeView2?
+### What's new in WeView2?
 
+* WeView2 is a near-total rewrite, that should be more consistent and better handle edge cases such
+  as degenerate layouts.
 * WeView2 uses a category and associated objects to hang layout properties on any existing UIView,
   removing the need for subclassing, implementing a protocol, etc.  This makes WeView2 far easier to
   use.
 * WeView2 has a new cell-based layout model that is easier to understand.
-* WeView2 is a near-total rewrite, that should be more consistent and better handle edge cases such
-  as degenerate layouts.
+* WeView2 should be more consistent and better handle edge cases such as degenerate layouts.
 * WeView2 offers a number of new per-view properties that allow more fine-grained control over 
    layout behavior.
 
 
-## Documentation
-
-TODO:
-
-* Examples
-
-# License
+### License
 
 WeView2 is distributed under the [Apache License Version 2.0](LICENSE)
 
-## About
+### FAQ
 
-WeView2 is complete rewrite of the WeViews library.
-
-
-# TODO: Move the concepts section to another page.
-
-# Concepts
-
-## Creating UIs programmatically.
-
-Using WeView2 involves (at least partially) creating your UI
-programatically.  Although this requires...
-
-
-## UIKit Sizing
-
-[UIView sizeThatFits:(CGSize)size](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/UIView/UIView.html#//apple_ref/occ/instm/UIView/sizeThatFits:)
-returns the "desired" size of that view.  
-
-For some views that value is fixed.  A UIImageView, for example, returns the size of its image.
-
-For other views the behavior is more complicated.  
-
-As of iOS 6, UIViews have an [UIView intrinsicContentSize] method that is used by iOS's built-in
-Auto Layout.  This method is _NOT_ used by WeView2.
-
-## Sub-pixel alignment.
-
-Sub-pixel alignment is not supported.
-Many UIViews (such as UILabel) can look blurry when they are not pixel aligned.
-WeView2 layouts go one step further and always point-align views, 
-so that views will lay out in a consistent way on Retina and non-Retina devices.
-
-Details
-
-* TODO: Discuss semantics of [UIView sizeThatFits:(CGSize)size].
-
- Functions like a "minimum size" in some sense - if the view wants to insist upon a minimum
- size, the return value can exceed the size parameter.
- Functions like a "maximum size" in some sense - the return value can be smaller than the
- size parameter.
-
- Also allows a view to describe how large it will be in a given context, ie. with a wrapping
- UILabel whose height depends on its width.
-
-// TODO: Discuss container alignment vs. subview alignment.
-
-// TODO: Discuss what happens when subviews insist upon exceeding axis or cross size of container.
-
-* TODO: Add asserts in the setters.
-
-* TODO: Add comments to the headers and methods of the source.
-
-* TODO: hAlign and vAlign control how subviews of the view are aligned within the view, not the
- alignment of the view itself.
-
-* TODO: Describe layout process.
-
-* TODO: Describe associated objects.
-
-* TODO: Describe each parameter and how they work.
-
-* TODO: Describe how layout properties can supercede view properties.
-
-
-
+See the [WeView2 Frequently Asked Questions](FAQ.md).
 

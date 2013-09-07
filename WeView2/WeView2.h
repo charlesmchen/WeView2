@@ -33,6 +33,9 @@
 // By default, lay out subviews on top of each other.
 - (WeView2 *)useStackDefaultLayout;
 
+// By default, layout views using a block.
+- (WeView2 *)useBlockDefaultLayout:(BlockLayoutBlock)block;
+
 // By default, _DO NOT_ lay out subviews.
 - (WeView2 *)useNoDefaultLayout;
 
@@ -75,8 +78,8 @@
 
 #pragma mark -
 
-// Subviews added without a custom layout (ie. with [UIView addSubview:(UIView *)view]) will use the
-// default layout.
+// Subviews added without a custom layout (ie. with [UIView addSubview:(UIView *)view] or this
+// method) will use the default layout.
 - (WeView2 *)addSubviews:(NSArray *)subviews;
 
 - (void)removeAllSubviews;
