@@ -36,20 +36,8 @@ This becomes even more important with iOS 7, which lets users adjust text sizes 
 
 ### Why use WeView2 instead of iOS' built-in Auto Layout?
 
-* iOS Auto Layout is constraint-based.  
-* The syntax of iOS Auto Layout can be difficult to understand:
-
-```
-+ (id)constraintWithItem:(id)view1 
-attribute:(NSLayoutAttribute)attr1 
-relatedBy:(NSLayoutRelation)relation 
-toItem:(id)view2 
-attribute:(NSLayoutAttribute)attr2
-multiplier:(CGFloat)multiplier
-constant:(CGFloat)c
-```
-
-Here's an example taken from Apple's sample code of how to center a button at the bottom of it's 
+* The syntax of iOS Auto Layout can be difficult to work with.
+Here's an example taken from Apple's sample code of how to center a button at the bottom of it's
 superview with a certain spacing using iOS Auto Layout:
 
 ```
@@ -104,9 +92,11 @@ WeView2's is designed to yield concise, readable code. Here's the equivalent log
 ```
 
 * With iOS Auto Layout you need to worry about complications such as constraint priority, constraint sufficiency, constraint conflicts, ambiguous layout, common ancestors, etc.
-* In iOS Auto Layout constraints are (and must be) specified on a per-view basis.  This doesn't work well when UIViews need to be layed out in groups.
-* Some conceptually simple layouts are difficult to describe with constraints.
-* Where possible, WeView2's leverages your existing understanding of how layout works with HTML/CSS.
+* iOS Auto Layout is constraint-based.  
+Constraints are a powerful but awkward way to describe layouts.
+Constraints are (and must be) specified on a per-view basis.
+Some conceptually simple layouts are difficult to describe with constraints.
+This doesn't work well when UIViews need to be layed out in groups.
 
 
 ### What's new in WeView2?
