@@ -108,8 +108,6 @@ WeView2's is designed to yield concise, readable code. Here's the equivalent log
 * Some conceptually simple layouts are difficult to describe with constraints.
 * Where possible, WeView2's leverages your existing understanding of how layout works with HTML/CSS.
 
-```
-
 
 ### What's new in WeView2?
 
