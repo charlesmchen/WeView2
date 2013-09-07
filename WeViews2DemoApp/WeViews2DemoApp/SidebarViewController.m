@@ -63,7 +63,7 @@
     NSMutableArray *subviews = [NSMutableArray array];
     for (UIViewController *childViewController in self.childViewControllers)
     {
-        [subviews addObject:[childViewController.view withPureStretch]];
+        [subviews addObject:[childViewController.view setStretchesIgnoringDesiredSize]];
     }
 
     [self.rootView addSubviews:subviews];

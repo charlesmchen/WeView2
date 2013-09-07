@@ -172,7 +172,7 @@
     //    self.table.rowHeight = 5;
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    [self.table withPureStretch];
+    [self.table setStretchesIgnoringDesiredSize];
     [[self addSubviews:@[self.table,]]
      setContentVAlign:V_ALIGN_TOP];
 

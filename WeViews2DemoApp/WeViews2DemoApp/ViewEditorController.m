@@ -208,15 +208,15 @@ typedef void (^SetterBlock)(UIView *view);
          setSpacing:4];
 
         [container useVerticalDefaultLayout];
-        [[[[container addSubviews:@[[topPanel withStretch],
-                                    [bottomPanel withStretch], ]]
+        [[[[container addSubviews:@[[topPanel setStretches],
+                                    [bottomPanel setStretches], ]]
            setHMargin:10]
           setVMargin:2]
          setSpacing:4];
     }
     else
     {
-        [subviews addObject: [[[UIView alloc] init] withPureStretch]];
+        [subviews addObject: [[[UIView alloc] init] setStretchesIgnoringDesiredSize]];
         [subviews addObjectsFromArray:setterViews];
         [[[[[container addSubviews:subviews]
             setContentHAlign:H_ALIGN_LEFT]

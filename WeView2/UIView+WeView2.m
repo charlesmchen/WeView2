@@ -422,16 +422,14 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
 
 /* CODEGEN MARKER: Accessors End */
 
-// TODO: Rename this method.
-- (UIView *)withStretch
+- (UIView *)setStretches
 {
     // Layout should stretch this subview to fit any available space.
     [self setStretchWeight:1.f];
     return self;
 }
 
-// TODO: Rename this method.
-- (UIView *)withPureStretch
+- (UIView *)setStretchesIgnoringDesiredSize
 {
     // Layout should stretch this subview to fit any available space, ignoring its desired size.
     [self setStretchWeight:1.f];

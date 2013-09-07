@@ -23,12 +23,42 @@
              [self verticalDemo2],
              [self flowDemo1],
              [self iphoneDemo1],
+             [self randomImageDemo1],
              ];
 }
 
 + (Demo *)defaultDemo
 {
-    return [self stackDemo1];
+    return [self horizontalDemo1];
+}
+
++ (Demo *)randomImageDemo1
+{
+    NSString *demoName = @"Random Image Demo 1";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        NSArray *imageNames = @[
+                                @"916px-Greatbasinmap.jpg",
+                                @"finder_512.png",
+                                @"The_shortening_winters_day_is_near_a_close_Farquharson.jpg",
+                                @"Coat_of_Arms_of_Yekaterinoslav_Governorate.png",
+                                @"finder_64.png",
+                                ];
+        NSString *imageName = imageNames[arc4random() % [imageNames count]];
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"Images/%@", imageName]];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        [[demoModel.rootView useStackDefaultLayout] addSubview:imageView];
+
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        //    result.debugLayout = YES;
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
 }
 
 + (Demo *)stackDemo1
@@ -255,7 +285,7 @@
         WeView2 *bodyView = [[WeView2 alloc] init];
         [[demoModel.rootView addSubviews:@[
           toolbar,
-          [bodyView withPureStretch],
+          [bodyView setStretchesIgnoringDesiredSize],
           ]]
          useVerticalDefaultLayout];
 
@@ -274,7 +304,7 @@
         [activityIndicatorView startAnimating];
         [bodyView addSubviewWithCustomLayout:activityIndicatorView];
 
-        [demoModel.rootView withPureStretch];
+        [demoModel.rootView setStretchesIgnoringDesiredSize];
         demoModel.rootView.debugName = demoName;
         return demoModel;
     };
