@@ -45,6 +45,15 @@
 - (WeView2 *)addSubview:(UIView *)subview
              withLayout:(WeView2Layout *)layout;
 
+// Add a subview with a custom layout that applies to just that subview.
+- (WeView2Layout *)addSubviewWithCustomLayout:(UIView *)subview;
+
+// Add subviews with a horizontal layout that applies to just these subview.
+- (WeView2Layout *)addSubviewsWithHorizontalLayout:(NSArray *)subviews;
+
+// Add subviews with a vertical layout that applies to just these subview.
+- (WeView2Layout *)addSubviewsWithVerticalLayout:(NSArray *)subviews;
+
 // Add a subview with a layout that stretches the subview to fill this view's bounds.
 - (WeView2Layout *)addSubviewWithFillLayout:(UIView *)subview;
 

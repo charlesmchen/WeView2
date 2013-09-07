@@ -24,7 +24,6 @@
 		34195FCD17CA80E00036F8DC /* UIView+WeView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FC517CA80E00036F8DC /* UIView+WeView2.m */; };
 		34195FCE17CA80E00036F8DC /* WeView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FC717CA80E00036F8DC /* WeView2.m */; };
 		34195FD417CA82300036F8DC /* Demo.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FD317CA82300036F8DC /* Demo.m */; };
-		34195FD717CA82520036F8DC /* LinearDemo1.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FD617CA82520036F8DC /* LinearDemo1.m */; };
 		34195FEB17CA87400036F8DC /* SidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FE717CA87400036F8DC /* SidebarViewController.m */; };
 		34195FEC17CA87400036F8DC /* SelectDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FE917CA87400036F8DC /* SelectDemoViewController.m */; };
 		344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */; };
@@ -38,8 +37,6 @@
 		344435EE17CED68100EFF341 /* WeView2ViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435ED17CED68100EFF341 /* WeView2ViewInfo.m */; };
 		344435F117CED6FE00EFF341 /* WeView2Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435F017CED6FE00EFF341 /* WeView2Common.m */; };
 		344435F417CF6DEA00EFF341 /* ViewEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435F317CF6DEA00EFF341 /* ViewEditorController.m */; };
-		344435FC17D2285C00EFF341 /* CenterDemo1.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435F917D2285B00EFF341 /* CenterDemo1.m */; };
-		344435FD17D2285C00EFF341 /* LinearDemo2.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435FB17D2285C00EFF341 /* LinearDemo2.m */; };
 		3444365817D22B0A00EFF341 /* DefaultSandboxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444365317D22B0A00EFF341 /* DefaultSandboxView.m */; };
 		3444365917D22B0A00EFF341 /* SandboxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444365517D22B0A00EFF341 /* SandboxView.m */; };
 		3444365A17D22B0A00EFF341 /* SandboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444365717D22B0A00EFF341 /* SandboxViewController.m */; };
@@ -54,11 +51,11 @@
 		3444367017D2A5E100EFF341 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3444366917D2A5E100EFF341 /* Icon.png */; };
 		3444367117D2A5E100EFF341 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3444366A17D2A5E100EFF341 /* Icon@2x.png */; };
 		3444367A17D2A7DC00EFF341 /* subtlepatterns.com in Resources */ = {isa = PBXBuildFile; fileRef = 3444367917D2A7DC00EFF341 /* subtlepatterns.com */; };
-		3444367D17D2AAC100EFF341 /* iPhoneDemo1.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444367C17D2AAC000EFF341 /* iPhoneDemo1.m */; };
 		3444368617D3B00F00EFF341 /* WeView2StackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444368517D3B00E00EFF341 /* WeView2StackLayout.m */; };
 		3444368917D3F9B700EFF341 /* WeView2GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3444368817D3F9B600EFF341 /* WeView2GridLayout.m */; };
 		3444368B17D3F9DB00EFF341 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3444368A17D3F9DA00EFF341 /* README.md */; };
 		3444368D17D3F9E300EFF341 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3444368C17D3F9E200EFF341 /* LICENSE */; };
+		34C19C6017DB967E0025914F /* DemoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19C5F17DB967E0025914F /* DemoFactory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,8 +95,6 @@
 		34195FCC17CA80E00036F8DC /* WeView2Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2Macros.h; sourceTree = "<group>"; };
 		34195FD217CA82300036F8DC /* Demo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Demo.h; sourceTree = "<group>"; };
 		34195FD317CA82300036F8DC /* Demo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Demo.m; sourceTree = "<group>"; };
-		34195FD517CA82520036F8DC /* LinearDemo1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearDemo1.h; sourceTree = "<group>"; };
-		34195FD617CA82520036F8DC /* LinearDemo1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinearDemo1.m; sourceTree = "<group>"; };
 		34195FE717CA87400036F8DC /* SidebarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarViewController.m; sourceTree = "<group>"; };
 		34195FE817CA87400036F8DC /* SelectDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectDemoViewController.h; sourceTree = "<group>"; };
 		34195FE917CA87400036F8DC /* SelectDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectDemoViewController.m; sourceTree = "<group>"; };
@@ -127,10 +122,6 @@
 		344435F017CED6FE00EFF341 /* WeView2Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2Common.m; sourceTree = "<group>"; };
 		344435F217CF6DEA00EFF341 /* ViewEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewEditorController.h; sourceTree = "<group>"; };
 		344435F317CF6DEA00EFF341 /* ViewEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewEditorController.m; sourceTree = "<group>"; };
-		344435F817D2285B00EFF341 /* CenterDemo1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterDemo1.h; sourceTree = "<group>"; };
-		344435F917D2285B00EFF341 /* CenterDemo1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterDemo1.m; sourceTree = "<group>"; };
-		344435FA17D2285C00EFF341 /* LinearDemo2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearDemo2.h; sourceTree = "<group>"; };
-		344435FB17D2285C00EFF341 /* LinearDemo2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinearDemo2.m; sourceTree = "<group>"; };
 		3444365217D22B0A00EFF341 /* DefaultSandboxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSandboxView.h; sourceTree = "<group>"; };
 		3444365317D22B0A00EFF341 /* DefaultSandboxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSandboxView.m; sourceTree = "<group>"; };
 		3444365417D22B0A00EFF341 /* SandboxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxView.h; sourceTree = "<group>"; };
@@ -150,14 +141,14 @@
 		3444366917D2A5E100EFF341 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = WeViews2DemoApp/Resources/Icon.png; sourceTree = "<group>"; };
 		3444366A17D2A5E100EFF341 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "WeViews2DemoApp/Resources/Icon@2x.png"; sourceTree = "<group>"; };
 		3444367917D2A7DC00EFF341 /* subtlepatterns.com */ = {isa = PBXFileReference; lastKnownFileType = folder; name = subtlepatterns.com; path = WeViews2DemoApp/Resources/subtlepatterns.com; sourceTree = "<group>"; };
-		3444367B17D2AAC000EFF341 /* iPhoneDemo1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneDemo1.h; sourceTree = "<group>"; };
-		3444367C17D2AAC000EFF341 /* iPhoneDemo1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPhoneDemo1.m; sourceTree = "<group>"; };
 		3444368417D3B00D00EFF341 /* WeView2StackLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2StackLayout.h; sourceTree = "<group>"; };
 		3444368517D3B00E00EFF341 /* WeView2StackLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2StackLayout.m; sourceTree = "<group>"; };
 		3444368717D3F9B500EFF341 /* WeView2GridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView2GridLayout.h; sourceTree = "<group>"; };
 		3444368817D3F9B600EFF341 /* WeView2GridLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView2GridLayout.m; sourceTree = "<group>"; };
 		3444368A17D3F9DA00EFF341 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		3444368C17D3F9E200EFF341 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		34C19C5E17DB967E0025914F /* DemoFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoFactory.h; sourceTree = "<group>"; };
+		34C19C5F17DB967E0025914F /* DemoFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoFactory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,16 +294,10 @@
 		34195FD117CA82270036F8DC /* Demos */ = {
 			isa = PBXGroup;
 			children = (
-				344435F817D2285B00EFF341 /* CenterDemo1.h */,
-				344435F917D2285B00EFF341 /* CenterDemo1.m */,
+				34C19C5E17DB967E0025914F /* DemoFactory.h */,
+				34C19C5F17DB967E0025914F /* DemoFactory.m */,
 				34195FD217CA82300036F8DC /* Demo.h */,
 				34195FD317CA82300036F8DC /* Demo.m */,
-				3444367B17D2AAC000EFF341 /* iPhoneDemo1.h */,
-				3444367C17D2AAC000EFF341 /* iPhoneDemo1.m */,
-				34195FD517CA82520036F8DC /* LinearDemo1.h */,
-				34195FD617CA82520036F8DC /* LinearDemo1.m */,
-				344435FA17D2285C00EFF341 /* LinearDemo2.h */,
-				344435FB17D2285C00EFF341 /* LinearDemo2.m */,
 			);
 			path = Demos;
 			sourceTree = "<group>";
@@ -489,7 +474,6 @@
 				34195FCD17CA80E00036F8DC /* UIView+WeView2.m in Sources */,
 				34195FCE17CA80E00036F8DC /* WeView2.m in Sources */,
 				34195FD417CA82300036F8DC /* Demo.m in Sources */,
-				34195FD717CA82520036F8DC /* LinearDemo1.m in Sources */,
 				34195FEB17CA87400036F8DC /* SidebarViewController.m in Sources */,
 				34195FEC17CA87400036F8DC /* SelectDemoViewController.m in Sources */,
 				344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */,
@@ -503,16 +487,14 @@
 				344435EE17CED68100EFF341 /* WeView2ViewInfo.m in Sources */,
 				344435F117CED6FE00EFF341 /* WeView2Common.m in Sources */,
 				344435F417CF6DEA00EFF341 /* ViewEditorController.m in Sources */,
-				344435FC17D2285C00EFF341 /* CenterDemo1.m in Sources */,
-				344435FD17D2285C00EFF341 /* LinearDemo2.m in Sources */,
 				3444365817D22B0A00EFF341 /* DefaultSandboxView.m in Sources */,
 				3444365917D22B0A00EFF341 /* SandboxView.m in Sources */,
 				3444365A17D22B0A00EFF341 /* SandboxViewController.m in Sources */,
 				3444365D17D2930100EFF341 /* DemoViewFactory.m in Sources */,
 				3444366017D2953400EFF341 /* WeView2BlockLayout.m in Sources */,
-				3444367D17D2AAC100EFF341 /* iPhoneDemo1.m in Sources */,
 				3444368617D3B00F00EFF341 /* WeView2StackLayout.m in Sources */,
 				3444368917D3F9B700EFF341 /* WeView2GridLayout.m in Sources */,
+				34C19C6017DB967E0025914F /* DemoFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

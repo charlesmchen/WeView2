@@ -31,17 +31,25 @@
     }
 
     BOOL debugMinSize = [self debugMinSize:view];
+    int indent = 0;
     if (debugMinSize)
     {
-        NSLog(@"+ minSizeOfContentsView: %@ thatFitsSize: %@", [view class], NSStringFromCGSize(guideSize));
+        indent = [self viewHierarchyDistanceToWindow:view];
+        NSLog(@"%@+ [%@ (%@) minSizeOfContentsView: %@] thatFitsSize: %@",
+              [self indentPrefix:indent],
+              [self class],
+              view.debugName,
+              [view class],
+              NSStringFromCGSize(guideSize));
     }
 
     CGRect contentBounds = [self contentBoundsOfView:view
-                                             forSize:view.size];
+                                             forSize:guideSize];
 
     if (debugMinSize)
     {
-        NSLog(@"getMaxContentSize: contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
+        NSLog(@"%@ contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
+              [self indentPrefix:indent + 1],
               FormatRect(contentBounds),
               FormatSize(guideSize),
               FormatSize([self insetSizeOfView:view]));
@@ -63,7 +71,9 @@
                               [self insetSizeOfView:view]);
     if (debugMinSize)
     {
-        NSLog(@"- minSizeOfContentsView: %@ thatFitsSize: = %@", [view class], NSStringFromCGSize(result));
+        NSLog(@"%@ thatFitsSize: = %@",
+              [self indentPrefix:indent + 1],
+              NSStringFromCGSize(result));
     }
     return result;
 }
@@ -76,11 +86,18 @@
         return;
     }
 
-    CGSize guideSize = view.size;
     BOOL debugLayout = [self debugLayout:view];
+    int indent = 0;
+    CGSize guideSize = view.size;
     if (debugLayout)
     {
-        NSLog(@"+ minSizeOfContentsView: %@ thatFitsSize: %@", [view class], NSStringFromCGSize(guideSize));
+        indent = [self viewHierarchyDistanceToWindow:view];
+        NSLog(@"%@+ [%@ (%@) layoutContentsOfView: %@] : %@",
+              [self indentPrefix:indent],
+              [self class],
+              view.debugName,
+              [view class],
+              NSStringFromCGSize(guideSize));
     }
 
     CGRect contentBounds = [self contentBoundsOfView:view
@@ -88,7 +105,8 @@
 
     if (debugLayout)
     {
-        NSLog(@"getMaxContentSize: contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
+        NSLog(@"%@ contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
+              [self indentPrefix:indent + 1],
               FormatRect(contentBounds),
               FormatSize(guideSize),
               FormatSize([self insetSizeOfView:view]));
@@ -108,11 +126,23 @@
             subviewSize = CGSizeMin(subviewSize, contentBounds.size);
         }
 
+        CGRect cellBounds = contentBounds;
         [self positionSubview:subview
                   inSuperview:view
                      withSize:subviewSize
-                 inCellBounds:contentBounds
+                 inCellBounds:cellBounds
               cellPositioning:cellPositioning];
+
+        if (debugLayout)
+        {
+            NSLog(@"%@ - final layout[%d] %@: %@, cellBounds: %@, subviewSize: %@",
+                  [self indentPrefix:indent + 2],
+                  i,
+                  [subview class],
+                  FormatRect(subview.frame),
+                  FormatRect(cellBounds),
+                  FormatCGSize(subviewSize));
+        }
     }
 }
 

@@ -39,10 +39,40 @@
 - (void)layoutContentsOfView:(UIView *)view
                     subviews:(NSArray *)subviews
 {
-    WeView2Assert(self.block);
-    for (UIView *subview in subviews)
+    if ([subviews count] < 1)
     {
+        return;
+    }
+
+    BOOL debugLayout = [self debugLayout:view];
+    int indent = 0;
+    CGSize guideSize = view.size;
+    if (debugLayout)
+    {
+        indent = [self viewHierarchyDistanceToWindow:view];
+        NSLog(@"%@+ [%@ (%@) layoutContentsOfView: %@] : %@",
+              [self indentPrefix:indent],
+              [self class],
+              view.debugName,
+              [view class],
+              NSStringFromCGSize(guideSize));
+    }
+
+    WeView2Assert(self.block);
+    int subviewCount = [subviews count];
+    for (int i=0; i < subviewCount; i++)
+    {
+        UIView* subview = subviews[i];
         self.block(view, subview);
+
+        if (debugLayout)
+        {
+            NSLog(@"%@ - final layout[%d] %@: %@",
+                  [self indentPrefix:indent + 2],
+                  i,
+                  [subview class],
+                  FormatRect(subview.frame));
+        }
     }
 }
 

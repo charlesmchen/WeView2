@@ -9,6 +9,7 @@ The WeView2 library is a tool for auto layout of iOS UIs.
 * WeView2 draws on the concepts and vocabulary used by HTML and CSS layout (ie. margins, spacing, alignment, etc.).
 * WeView2 takes advantage of ARC and blocks and requires a minimum of iOS 5.
 * WeView2 is available under a permissive license (see below).
+* WeView2 is available under a permissive license (see below).
 
 
 ## Design philosophy
@@ -19,6 +20,7 @@ The WeView2 library is a tool for auto layout of iOS UIs.
 * Avoid boilerplate by providing convenience accessors and factory methods.
 * Enable chaining by having all setters and configuration methods return a reference to the receiver.
 * Provide convenience accessors, factory methods etc. to make common tasks easier. 
+
 
 
 ## Why use auto layout at all?
@@ -56,6 +58,19 @@ constant:(CGFloat)c
 * Where possible, WeView2's leverages your existing understanding of how layout works with HTML/CSS.
 
 ```
+
+
+## What's new in WeView2?
+
+* WeView2 uses a category and associated objects to hang layout properties on any existing UIView,
+  removing the need for subclassing, implementing a protocol, etc.  This makes WeView2 far easier to
+  use.
+* WeView2 has a new cell-based layout model that is easier to understand.
+* WeView2 is a near-total rewrite, that should be more consistent and better handle edge cases such
+  as degenerate layouts.
+* WeView2 offers a number of new per-view properties that allow more fine-grained control over 
+   layout behavior.
+
 
 ## Documentation
 

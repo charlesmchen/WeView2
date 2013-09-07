@@ -10,19 +10,24 @@
 #import <Foundation/Foundation.h>
 #import "DemoModel.h"
 
+typedef DemoModel *(^CreateDemoModelBlock)();
+
 @interface Demo : NSObject
 
-- (NSString *)name;
+@property (nonatomic) NSString *name;
+@property (copy, nonatomic) CreateDemoModelBlock createDemoModelBlock;
 
-- (DemoModel *)demoModel;
-
-- (UILabel *)createLabel:(NSString *)text
-                fontSize:(CGFloat)fontSize;
-- (UILabel *)createLabel:(NSString *)text
-                fontSize:(CGFloat)fontSize
-               textColor:(UIColor *)textColor;
-
-- (void)assignRandomBackgroundColors:(NSArray *)views;
-- (NSArray *)collectSubviews:(UIView *)view;
+//- (NSString *)name;
+//
+//- (DemoModel *)demoModel;
+//
+//- (UILabel *)createLabel:(NSString *)text
+//                fontSize:(CGFloat)fontSize;
+//- (UILabel *)createLabel:(NSString *)text
+//                fontSize:(CGFloat)fontSize
+//               textColor:(UIColor *)textColor;
+//
+//- (void)assignRandomBackgroundColors:(NSArray *)views;
+//- (NSArray *)collectSubviews:(UIView *)view;
 
 @end

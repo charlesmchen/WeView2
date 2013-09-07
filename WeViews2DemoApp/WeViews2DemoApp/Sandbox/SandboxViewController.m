@@ -66,7 +66,7 @@
 
 - (void)displayDemo:(Demo *)demo
 {
-    self.demoModel = [demo demoModel];
+    self.demoModel = demo.createDemoModelBlock();
     [self.sandboxView displayDemoModel:self.demoModel];
 
     dispatch_async(dispatch_get_main_queue(), ^{

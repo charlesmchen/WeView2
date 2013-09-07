@@ -372,11 +372,11 @@
     {
         // Crop or Stretch if necessary.
 
+        BOOL cropSubviewOverflow = [self cropSubviewOverflow:view];
         CGFloat extraAxisSpace = maxTotalAxisSize - rawTotalAxisSize;
         BOOL hasNonEmptyGuideSize = guideSize.width * guideSize.height > 0;
         if (extraAxisSpace < 0)
         {
-            BOOL cropSubviewOverflow = [self cropSubviewOverflow:view];
             if (cropSubviewOverflow && hasNonEmptyGuideSize)
             {
                 [self distributeAdjustment:-extraAxisSpace
@@ -421,6 +421,14 @@
 
                     cellCrossSizes[i] = @(horizontal ? subviewSize.height : subviewSize.width);
                 }
+            }
+        }
+
+        if (cropSubviewOverflow)
+        {
+            for (int i=0; i < subviewCount; i++)
+            {
+                cellCrossSizes[i] = @(MIN([cellCrossSizes[i] floatValue], maxCrossSize));
             }
         }
     }

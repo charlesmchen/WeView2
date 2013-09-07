@@ -72,35 +72,35 @@ typedef enum
 
     WeView2 *modePanel = [[WeView2 alloc] init];
     [[[modePanel useVerticalDefaultLayout]
-     setSpacing:10]
+      setSpacing:10]
      setContentHAlign:H_ALIGN_LEFT];
 
-     [modePanel addSubviews:@[
-     [DemoViewFactory createFlatUIButton:@"Open layout at desired size"
+    [modePanel addSubviews:@[
+     [DemoViewFactory createFlatUIButton:@"Snap to desired size"
                                textColor:[UIColor colorWithWhite:1.f alpha:1.f]
                              buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
                                   target:self
                                 selector:@selector(snapToDesiredSize:)],
-      [DemoViewFactory createFlatUIButton:@"iPhone 4 (Portrait)"
-                                textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-                              buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-                                   target:self
-                                 selector:@selector(snapToIPhone4Portrait:)],
-      [DemoViewFactory createFlatUIButton:@"iPhone 4 (Landscape)"
-                                textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-                              buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-                                   target:self
-                                 selector:@selector(snapToIPhone4Landscape:)],
-      [DemoViewFactory createFlatUIButton:@"iPhone 5 (Portrait)"
-                                textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-                              buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-                                   target:self
-                                 selector:@selector(snapToIPhone5Portrait:)],
-      [DemoViewFactory createFlatUIButton:@"iPhone 5 (Landscape)"
-                                textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-                              buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-                                   target:self
-                                 selector:@selector(snapToIPhone5Landscape:)],
+     [DemoViewFactory createFlatUIButton:@"iPhone 4 (Portrait)"
+                               textColor:[UIColor colorWithWhite:1.f alpha:1.f]
+                             buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+                                  target:self
+                                selector:@selector(snapToIPhone4Portrait:)],
+     [DemoViewFactory createFlatUIButton:@"iPhone 4 (Landscape)"
+                               textColor:[UIColor colorWithWhite:1.f alpha:1.f]
+                             buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+                                  target:self
+                                selector:@selector(snapToIPhone4Landscape:)],
+     [DemoViewFactory createFlatUIButton:@"iPhone 5 (Portrait)"
+                               textColor:[UIColor colorWithWhite:1.f alpha:1.f]
+                             buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+                                  target:self
+                                selector:@selector(snapToIPhone5Portrait:)],
+     [DemoViewFactory createFlatUIButton:@"iPhone 5 (Landscape)"
+                               textColor:[UIColor colorWithWhite:1.f alpha:1.f]
+                             buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+                                  target:self
+                                selector:@selector(snapToIPhone5Landscape:)],
      ]];
 
     [self addSubview:modePanel
@@ -113,7 +113,7 @@ typedef enum
          subview.x = kHMargin;
          subview.bottom = subview.superview.height - kVMargin;
      }];
-//    self.setNeedsLayout;
+    //    self.setNeedsLayout;
 }
 
 - (void)snapToDesiredSize:(id)sender
@@ -198,6 +198,10 @@ typedef enum
                    [subview setNeedsLayout];
                }];
 
+    //    phoneContainer.debugLayout = YES;
+    phoneContainer.cropSubviewOverflow = NO;
+    self.cropSubviewOverflow = NO;
+
     [self useStackDefaultLayout];
     [self addSubviews:@[
      phoneContainer
@@ -220,7 +224,7 @@ typedef enum
         case SANDBOX_MODE_DEFAULT:
         {
             [self useStackDefaultLayout];
-//            [self useHorizontalDefaultLayout];
+            //            [self useHorizontalDefaultLayout];
             [self addSubviews:@[
              demoModel.rootView,
              ]];

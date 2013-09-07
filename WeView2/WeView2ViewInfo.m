@@ -22,6 +22,8 @@
 
         self.maxWidth = CGFLOAT_MAX;
         self.maxHeight = CGFLOAT_MAX;
+
+        self.cropSubviewOverflow = YES;
     }
 
     return self;

@@ -1,5 +1,5 @@
 //
-//  CenterDemo1.h
+//  DemoFactory.h
 //  WeViews2DemoApp
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -11,6 +11,9 @@
 
 #import "Demo.h"
 
-@interface CenterDemo1 : Demo
+@interface DemoFactory : NSObject
+
++ (NSArray *)allDemos;
++ (Demo *)defaultDemo;
 
 @end

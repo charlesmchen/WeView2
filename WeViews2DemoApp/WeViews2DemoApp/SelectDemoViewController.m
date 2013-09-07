@@ -7,14 +7,11 @@
 
 #import "SelectDemoViewController.h"
 
-#import "LinearDemo1.h"
-#import "LinearDemo2.h"
-#import "CenterDemo1.h"
-#import "iPhoneDemo1.h"
+#import "DemoFactory.h"
 
 @interface SelectDemoViewController ()
 
-@property (nonatomic) NSArray *demoClasses;
+@property (nonatomic) NSArray *demos;
 
 @end
 
@@ -30,16 +27,12 @@
         {
             self.clearsSelectionOnViewWillAppear = NO;
         }
-        self.demoClasses = @[
-                             [LinearDemo1 class],
-                             [LinearDemo2 class],
-                             [CenterDemo1 class],
-                             [iPhoneDemo1 class],
-                             ];
+        self.demos = [DemoFactory allDemos];
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate demoSelected:[[LinearDemo2 alloc] init]];
-//            [self demoSelected:[[LinearDemo1 alloc] init]];
+            Demo *demo = [DemoFactory defaultDemo];
+            [self.delegate demoSelected:demo];
+//            [self demoSelected:demo];
         });
     }
     return self;
@@ -65,7 +58,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.demoClasses.count;
+    return self.demos.count;
 }
 
 // Customize the appearance of table view cells.
@@ -83,8 +76,8 @@
         }
     }
 
-    Class clazz = self.demoClasses[indexPath.row];
-    cell.textLabel.text = [clazz description];
+    Demo *demo = self.demos[indexPath.row];
+    cell.textLabel.text = demo.name;
     cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
                                           size:14];
 
@@ -106,8 +99,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Class clazz = self.demoClasses[indexPath.row];
-    Demo *demo = [[clazz alloc] init];
+    Demo *demo = self.demos[indexPath.row];
     [self.delegate demoSelected:demo];
 }
 

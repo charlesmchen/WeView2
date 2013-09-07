@@ -163,6 +163,30 @@
 
 #pragma mark - Custom Layouts
 
+- (WeView2Layout *)addSubviewWithCustomLayout:(UIView *)subview
+{
+    WeView2Layout *layout = [WeView2StackLayout stackLayout];
+    [self addSubviews:@[subview,]
+           withLayout:layout];
+    return layout;
+}
+
+- (WeView2Layout *)addSubviewsWithHorizontalLayout:(NSArray *)subviews
+{
+    WeView2Layout *layout = [WeView2LinearLayout horizontalLayout];
+    [self addSubviews:subviews
+           withLayout:layout];
+    return layout;
+}
+
+- (WeView2Layout *)addSubviewsWithVerticalLayout:(NSArray *)subviews
+{
+    WeView2Layout *layout = [WeView2LinearLayout verticalLayout];
+    [self addSubviews:subviews
+           withLayout:layout];
+    return layout;
+}
+
 - (WeView2Layout *)addSubviewWithFillLayout:(UIView *)subview
 {
     // Fit and Fill layouts default to ignoring the superview's margins.
