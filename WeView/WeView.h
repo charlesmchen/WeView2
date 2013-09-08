@@ -47,9 +47,9 @@
 // Add subviews with a custom layout which will only apply for these subviews.
 
 - (WeView *)addSubviews:(NSArray *)subviews
-              withLayout:(WeViewLayout *)layout;
-- (WeView *)addSubview:(UIView *)subview
              withLayout:(WeViewLayout *)layout;
+- (WeView *)addSubview:(UIView *)subview
+            withLayout:(WeViewLayout *)layout;
 
 // Add a subview with a custom layout that applies to just that subview.
 - (WeViewLayout *)addSubviewWithCustomLayout:(UIView *)subview;
@@ -72,9 +72,9 @@
 - (WeViewLayout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview;
 
 - (WeViewLayout *)addSubviews:(NSArray *)subviews
-               withLayoutBlock:(BlockLayoutBlock)block;
-- (WeViewLayout *)addSubview:(UIView *)subview
               withLayoutBlock:(BlockLayoutBlock)block;
+- (WeViewLayout *)addSubview:(UIView *)subview
+             withLayoutBlock:(BlockLayoutBlock)block;
 
 #pragma mark -
 

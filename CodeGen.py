@@ -3,27 +3,27 @@
 import os, sys, types
 from collections import OrderedDict
 
-folderPath = os.path.abspath('WeView2')
+folderPath = os.path.abspath('WeView')
 if (not os.path.exists(folderPath) or
     not os.path.isdir(folderPath)):
     raise Exception('Invalid folderPath: %s' % folderPath)
 
-hFilePath = os.path.join(folderPath, 'UIView+WeView2.h')
-mFilePath = os.path.join(folderPath, 'UIView+WeView2.m')
-viewInfohFilePath = os.path.join(folderPath, 'WeView2ViewInfo.h')
-viewInfomFilePath = os.path.join(folderPath, 'WeView2ViewInfo.m')
+hFilePath = os.path.join(folderPath, 'UIView+WeView.h')
+mFilePath = os.path.join(folderPath, 'UIView+WeView.m')
+viewInfohFilePath = os.path.join(folderPath, 'WeViewViewInfo.h')
+viewInfomFilePath = os.path.join(folderPath, 'WeViewViewInfo.m')
 ViewEditorController_hFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.h')
 ViewEditorController_mFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.m')
-WeView2Layout_hFilePath = os.path.join(folderPath, 'Layouts', 'WeView2Layout.h')
-WeView2Layout_mFilePath = os.path.join(folderPath, 'Layouts', 'WeView2Layout.m')
+WeViewLayout_hFilePath = os.path.join(folderPath, 'Layouts', 'WeViewLayout.h')
+WeViewLayout_mFilePath = os.path.join(folderPath, 'Layouts', 'WeViewLayout.m')
 
 for filePath in (hFilePath,
                     mFilePath,
                     viewInfohFilePath, viewInfomFilePath,
                     ViewEditorController_hFilePath,
                     ViewEditorController_mFilePath,
-                    WeView2Layout_hFilePath,
-                    WeView2Layout_mFilePath,
+                    WeViewLayout_hFilePath,
+                    WeViewLayout_mFilePath,
                      ):
     if (not os.path.exists(filePath) or
         not os.path.isfile(filePath)):
@@ -155,7 +155,7 @@ propertyGroups = (
                   (
                    Property('cropSubviewOverflow', 'BOOL',
                        comments=(
-                           'By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView2 overflows its bounds, subviews are cropped to fit inside the available space.',
+                           'By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView overflows its bounds, subviews are cropped to fit inside the available space.',
                            'If cropSubviewOverflow is NO, no cropping occurs and subviews may overflow the bounds of their superview.',
                            ),
                        layoutProperty=True, ),
@@ -341,7 +341,7 @@ for customAccessor in customAccessors:
     asserts = ''
     #     if pseudoProperty.asserts:
     #         if type(pseudoProperty.asserts) == types.StringType:
-    #             asserts ='\n    WeView2Assert(%s);' % (property.asserts % 'value', )
+    #             asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
     #             pass
     #         else:
     #             raise Exception('Unknown asserts: %s' % str(property.asserts))
@@ -381,7 +381,7 @@ for propertyGroup in propertyGroups:
         asserts = ''
         if property.asserts:
             if type(property.asserts) == types.StringType:
-                asserts ='\n    WeView2Assert(%s);' % (property.asserts % 'value', )
+                asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
                 pass
             else:
                 raise Exception('Unknown asserts: %s' % str(property.asserts))
@@ -418,7 +418,7 @@ for customAccessor in customAccessors:
     asserts = ''
     #     if pseudoProperty.asserts:
     #         if type(pseudoProperty.asserts) == types.StringType:
-    #             asserts ='\n    WeView2Assert(%s);' % (property.asserts % 'value', )
+    #             asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
     #             pass
     #         else:
     #             raise Exception('Unknown asserts: %s' % str(property.asserts))
@@ -460,7 +460,7 @@ replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
 #         asserts = ''
 #         if property.asserts:
 #             if type(property.asserts) == types.StringType:
-#                 asserts ='\n    WeView2Assert(%s);' % (property.asserts % 'value', )
+#                 asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
 #                 pass
 #             else:
 #                 raise Exception('Unknown asserts: %s' % str(property.asserts))
@@ -486,7 +486,7 @@ replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
 #
 # - (id)set%s:(%s)value
 # {%s
-#     [self %s:value key:kWeView2Key_%s];
+#     [self %s:value key:kWeViewKey_%s];
 #     return self;
 # }''' % (property.typeName, property.name, property.name, property.UpperName(), property.typeName, asserts, setterName, property.UpperName(), ))
 #
@@ -494,7 +494,7 @@ replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
 #     asserts = ''
 #     #     if pseudoProperty.asserts:
 #     #         if type(pseudoProperty.asserts) == types.StringType:
-#     #             asserts ='\n    WeView2Assert(%s);' % (property.asserts % 'value', )
+#     #             asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
 #     #             pass
 #     #         else:
 #     #             raise Exception('Unknown asserts: %s' % str(property.asserts))
@@ -648,7 +648,7 @@ for propertyGroup in propertyGroups:
         # Getter
         lines.append('- (%s)%s:(UIView *)view;' % (property.typeName, property.name, ))
         # Setter
-        lines.append('- (WeView2Layout *)set%s:(%s)value;' % (property.UpperName(), property.typeName, ))
+        lines.append('- (WeViewLayout *)set%s:(%s)value;' % (property.UpperName(), property.typeName, ))
 
     if hasGroup:
         lines.append('')
@@ -664,11 +664,11 @@ for customAccessor in customAccessors:
     if customAccessor.getterValue:
         lines.append('- (%s)%s:(UIView *)view;' % (customAccessor.typeName, customAccessor.name, ))
     # Setter
-    lines.append('- (WeView2Layout *)set%s:(%s)value;\n' % (customAccessor.UpperName(), customAccessor.typeName, ))
+    lines.append('- (WeViewLayout *)set%s:(%s)value;\n' % (customAccessor.UpperName(), customAccessor.typeName, ))
 lines.append('')
 block = '\n'.join(lines)
 
-replaceBlock(WeView2Layout_hFilePath, 'Start', 'End', block)
+replaceBlock(WeViewLayout_hFilePath, 'Start', 'End', block)
 
 # --------
 
@@ -689,7 +689,7 @@ for propertyGroup in propertyGroups:
 lines.append('')
 block = '\n'.join(lines)
 
-replaceBlock(WeView2Layout_mFilePath, 'Members Start', 'Members End', block)
+replaceBlock(WeViewLayout_mFilePath, 'Members Start', 'Members End', block)
 
 
 # --------
@@ -703,7 +703,7 @@ for propertyGroup in propertyGroups:
         asserts = ''
         if property.asserts:
             if type(property.asserts) == types.StringType:
-                asserts ='\n    WeView2Assert(%s);' % (property.asserts % 'value', )
+                asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
                 pass
             else:
                 raise Exception('Unknown asserts: %s' % str(property.asserts))
@@ -731,7 +731,7 @@ for propertyGroup in propertyGroups:
     return [view %s];
 }
 
-- (WeView2Layout *)set%s:(%s)value
+- (WeViewLayout *)set%s:(%s)value
 {
     _%s = @(value);
     return self;
@@ -756,7 +756,7 @@ for customAccessor in customAccessors:
         subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
 
     lines.append('''
-- (WeView2Layout *)set%s:(%s)value
+- (WeViewLayout *)set%s:(%s)value
 {
 %s
     return self;
@@ -766,7 +766,7 @@ lines.append('')
 lines.append('')
 block = '\n'.join(lines)
 
-replaceBlock(WeView2Layout_mFilePath, 'Accessors Start', 'Accessors End', block)
+replaceBlock(WeViewLayout_mFilePath, 'Accessors Start', 'Accessors End', block)
 
 # --------
 

@@ -143,7 +143,7 @@
 }
 
 - (WeView *)addSubview:(UIView *)subview
-             withLayout:(WeViewLayout *)layout
+            withLayout:(WeViewLayout *)layout
 {
     WeViewAssert(layout);
     return [self addSubviews:@[subview,]
@@ -151,7 +151,7 @@
 }
 
 - (WeView *)addSubviews:(NSArray *)subviews
-              withLayout:(WeViewLayout *)layout
+             withLayout:(WeViewLayout *)layout
 {
     WeViewAssert(subviews);
     for (UIView *subview in subviews)
@@ -235,7 +235,7 @@
 }
 
 - (WeViewLayout *)addSubviews:(NSArray *)subviews
-               withLayoutBlock:(BlockLayoutBlock)block
+              withLayoutBlock:(BlockLayoutBlock)block
 {
     WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:block];
     [self addSubviews:subviews
@@ -244,7 +244,7 @@
 }
 
 - (WeViewLayout *)addSubview:(UIView *)subview
-              withLayoutBlock:(BlockLayoutBlock)block
+             withLayoutBlock:(BlockLayoutBlock)block
 {
     WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:block];
     [self addSubviews:@[subview,]

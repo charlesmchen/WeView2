@@ -44,9 +44,9 @@ typedef enum
 // cellSizeHint: The base cell size to use. The cell sizes will not reflect the desired sizes of
 //                their contents.
 + (WeViewGridLayout *)gridLayoutWithColumns:(int)columnCount
-                               isGridUniform:(BOOL)isGridUniform
-                               stretchPolicy:(GridStretchPolicy)stretchPolicy
-                                cellSizeHint:(CGSize)cellSizeHint;
+                              isGridUniform:(BOOL)isGridUniform
+                              stretchPolicy:(GridStretchPolicy)stretchPolicy
+                               cellSizeHint:(CGSize)cellSizeHint;
 
 // Use this factory method if the size of the cells should be based on their contents.
 //
@@ -56,7 +56,7 @@ typedef enum
 //                Each row will be as tall as the tallest row.
 // stretchPolicy: See the GridStretchPolicy enum.
 + (WeViewGridLayout *)gridLayoutWithColumns:(int)columnCount
-                               isGridUniform:(BOOL)isGridUniform
-                               stretchPolicy:(GridStretchPolicy)stretchPolicy;
+                              isGridUniform:(BOOL)isGridUniform
+                              stretchPolicy:(GridStretchPolicy)stretchPolicy;
 
 @end

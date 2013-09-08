@@ -110,9 +110,9 @@ typedef struct
 @implementation WeViewGridLayout
 
 + (WeViewGridLayout *)gridLayoutWithColumns:(int)columnCount
-                               isGridUniform:(BOOL)isGridUniform
-                               stretchPolicy:(GridStretchPolicy)stretchPolicy
-                                cellSizeHint:(CGSize)cellSizeHint
+                              isGridUniform:(BOOL)isGridUniform
+                              stretchPolicy:(GridStretchPolicy)stretchPolicy
+                               cellSizeHint:(CGSize)cellSizeHint
 {
     WeViewGridLayout *layout = [[WeViewGridLayout alloc] init];
     layout.columnCount = columnCount;
@@ -124,8 +124,8 @@ typedef struct
 }
 
 + (WeViewGridLayout *)gridLayoutWithColumns:(int)columnCount
-                               isGridUniform:(BOOL)isGridUniform
-                               stretchPolicy:(GridStretchPolicy)stretchPolicy
+                              isGridUniform:(BOOL)isGridUniform
+                              stretchPolicy:(GridStretchPolicy)stretchPolicy
 {
     WeViewGridLayout *layout = [[WeViewGridLayout alloc] init];
     layout.columnCount = columnCount;
