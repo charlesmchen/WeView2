@@ -1,5 +1,5 @@
 //
-//  WeView2NoopLayout.m
+//  WeViewNoopLayout.m
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -10,13 +10,13 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "WeView2NoopLayout.h"
+#import "WeViewNoopLayout.h"
 
-@implementation WeView2NoopLayout
+@implementation WeViewNoopLayout
 
-+ (WeView2NoopLayout *)noopLayout
++ (WeViewNoopLayout *)noopLayout
 {
-    WeView2NoopLayout *layout = [[WeView2NoopLayout alloc] init];
+    WeViewNoopLayout *layout = [[WeViewNoopLayout alloc] init];
     return layout;
 }
 

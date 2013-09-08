@@ -1,5 +1,5 @@
 //
-//  WeView2Macros.h
+//  WeViewMacros.h
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -14,9 +14,9 @@
 #import <UIKit/UIKit.h>
 
 #if defined(DEBUG)
-#define WeView2Assert(Condition) assert(Condition)
+#define WeViewAssert(Condition) assert(Condition)
 #else
-#define WeView2Assert(Condition)
+#define WeViewAssert(Condition)
 #endif
 
 #ifndef FormatCGSize

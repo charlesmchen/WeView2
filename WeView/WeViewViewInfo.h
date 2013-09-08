@@ -1,5 +1,5 @@
 //
-//  WeView2ViewInfo.h
+//  WeViewViewInfo.h
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -13,9 +13,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "WeView2Common.h"
+#import "WeViewCommon.h"
 
-@interface WeView2ViewInfo : NSObject
+@interface WeViewViewInfo : NSObject
 
 /* CODEGEN MARKER: View Info Start */
 
@@ -78,7 +78,7 @@
 @property (nonatomic) BOOL hasCellHAlign;
 @property (nonatomic) BOOL hasCellVAlign;
 
-// By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView2 overflows its bounds, subviews are cropped to fit inside the available
+// By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView overflows its bounds, subviews are cropped to fit inside the available
 // space.
 //
 // If cropSubviewOverflow is NO, no cropping occurs and subviews may overflow the bounds of their

@@ -1,5 +1,5 @@
 //
-//  WeView2GridLayout.h
+//  WeViewGridLayout.h
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "WeView2Layout.h"
+#import "WeViewLayout.h"
 
 typedef enum
 {
@@ -32,7 +32,7 @@ typedef enum
 
 #pragma mark -
 
-@interface WeView2GridLayout : WeView2Layout
+@interface WeViewGridLayout : WeViewLayout
 
 // Use this factory method if you want to specify a cellSizeHint.
 //
@@ -43,7 +43,7 @@ typedef enum
 // stretchPolicy: See the GridStretchPolicy enum.
 // cellSizeHint: The base cell size to use. The cell sizes will not reflect the desired sizes of
 //                their contents.
-+ (WeView2GridLayout *)gridLayoutWithColumns:(int)columnCount
++ (WeViewGridLayout *)gridLayoutWithColumns:(int)columnCount
                                isGridUniform:(BOOL)isGridUniform
                                stretchPolicy:(GridStretchPolicy)stretchPolicy
                                 cellSizeHint:(CGSize)cellSizeHint;
@@ -55,7 +55,7 @@ typedef enum
 //                Each column will be as wide as the widest column.
 //                Each row will be as tall as the tallest row.
 // stretchPolicy: See the GridStretchPolicy enum.
-+ (WeView2GridLayout *)gridLayoutWithColumns:(int)columnCount
++ (WeViewGridLayout *)gridLayoutWithColumns:(int)columnCount
                                isGridUniform:(BOOL)isGridUniform
                                stretchPolicy:(GridStretchPolicy)stretchPolicy;
 

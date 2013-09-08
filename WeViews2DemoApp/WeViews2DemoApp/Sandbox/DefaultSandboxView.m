@@ -8,10 +8,10 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-#import "WeView2.h"
+#import "WeView.h"
 #import "DefaultSandboxView.h"
-#import "WeView2Macros.h"
-#import "WeView2DemoConstants.h"
+#import "WeViewMacros.h"
+#import "WeViewDemoConstants.h"
 #import "DemoViewFactory.h"
 
 typedef enum
@@ -73,8 +73,8 @@ typedef enum
                                                               textColor:[DemoViewFactory colorWithRGBHex:0x888888]];
         [self addSubview:resizeInstructionsLabel
          withLayoutBlock:^(UIView *superview, UIView *subview) {
-             WeView2Assert(subview);
-             WeView2Assert(subview.superview);
+             WeViewAssert(subview);
+             WeViewAssert(subview.superview);
              const int kHMargin = 20 + 5;
              const int kVMargin = 20 + 5;
              subview.right = subview.superview.width - kHMargin;
@@ -87,7 +87,7 @@ typedef enum
         self.panGestureRecognizer.enabled = NO;
     }
 
-    WeView2 *modePanel = [[WeView2 alloc] init];
+    WeView *modePanel = [[WeView alloc] init];
     [[[modePanel useVerticalDefaultLayout]
       setSpacing:10]
      setContentHAlign:H_ALIGN_LEFT];
@@ -122,8 +122,8 @@ typedef enum
 
     [self addSubview:modePanel
      withLayoutBlock:^(UIView *superview, UIView *subview) {
-         WeView2Assert(subview);
-         WeView2Assert(subview.superview);
+         WeViewAssert(subview);
+         WeViewAssert(subview.superview);
          const int kHMargin = 20;
          const int kVMargin = 20;
          [subview sizeToFit];
@@ -197,20 +197,20 @@ typedef enum
                     imageName:(NSString *)imageName
                  screenBounds:(CGRect)screenBounds
 {
-    WeView2 *phoneScreen = [[WeView2 alloc] init];
+    WeView *phoneScreen = [[WeView alloc] init];
     phoneScreen.backgroundColor = [UIColor whiteColor];
     phoneScreen.opaque = YES;
 
     UIImageView *phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-    WeView2Assert(phoneImageView.image);
-    WeView2 *phoneContainer = [[WeView2 alloc] init];
+    WeViewAssert(phoneImageView.image);
+    WeView *phoneContainer = [[WeView alloc] init];
     [[phoneContainer useStackDefaultLayout]
      addSubview:phoneImageView];
     phoneContainer.fixedSize = phoneImageView.image.size;
     [phoneContainer addSubview:phoneScreen
                withLayoutBlock:^(UIView *superview, UIView *subview) {
-                   WeView2Assert(subview);
-                   WeView2Assert(subview.superview);
+                   WeViewAssert(subview);
+                   WeViewAssert(subview.superview);
                    subview.frame = screenBounds;
                    [subview setNeedsLayout];
                }];
@@ -235,7 +235,7 @@ typedef enum
 {
     [self removeAllSubviews];
     [self resetAllLayoutProperties];
-    WeView2Assert([self.subviews count] == 0);
+    WeViewAssert([self.subviews count] == 0);
 
     switch (mode)
     {
@@ -270,7 +270,7 @@ typedef enum
                            screenBounds:CGRectMake(119, 29, 568, 320)];
             break;
         default:
-            WeView2Assert(0);
+            WeViewAssert(0);
             break;
     }
 

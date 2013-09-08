@@ -1,5 +1,5 @@
 //
-//  WeView2GridLayout.m
+//  WeViewGridLayout.m
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -10,9 +10,9 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "UIView+WeView2.h"
-#import "WeView2GridLayout.h"
-#import "WeView2Macros.h"
+#import "UIView+WeView.h"
+#import "WeViewGridLayout.h"
+#import "WeViewMacros.h"
 
 typedef struct
 {
@@ -47,7 +47,7 @@ typedef struct
 }
 
 - (CGSize)totalSpacingSize:(UIView *)superview
-                    layout:(WeView2Layout *)layout
+                    layout:(WeViewLayout *)layout
 {
     CGSize result = CGSizeZero;
     for (NSNumber *columnSpacing in self.columnSpacings)
@@ -62,7 +62,7 @@ typedef struct
 }
 
 - (CGSize)totalCellSize:(UIView *)superview
-                 layout:(WeView2Layout *)layout
+                 layout:(WeViewLayout *)layout
 {
     int columnCount = self.columnCount;
     int rowCount = self.rowCount;
@@ -79,7 +79,7 @@ typedef struct
 }
 
 - (CGSize)totalSize:(UIView *)superview
-             layout:(WeView2Layout *)layout
+             layout:(WeViewLayout *)layout
 {
     CGSize contentSize = CGSizeAdd([self totalCellSize:superview
                                        layout:layout],
@@ -94,7 +94,7 @@ typedef struct
 
 #pragma mark -
 
-@interface WeView2GridLayout ()
+@interface WeViewGridLayout ()
 
 @property (nonatomic) int columnCount;
 @property (nonatomic) BOOL isGridUniform;
@@ -107,14 +107,14 @@ typedef struct
 
 #pragma mark -
 
-@implementation WeView2GridLayout
+@implementation WeViewGridLayout
 
-+ (WeView2GridLayout *)gridLayoutWithColumns:(int)columnCount
++ (WeViewGridLayout *)gridLayoutWithColumns:(int)columnCount
                                isGridUniform:(BOOL)isGridUniform
                                stretchPolicy:(GridStretchPolicy)stretchPolicy
                                 cellSizeHint:(CGSize)cellSizeHint
 {
-    WeView2GridLayout *layout = [[WeView2GridLayout alloc] init];
+    WeViewGridLayout *layout = [[WeViewGridLayout alloc] init];
     layout.columnCount = columnCount;
     layout.isGridUniform = isGridUniform;
     layout.stretchPolicy = stretchPolicy;
@@ -123,11 +123,11 @@ typedef struct
     return layout;
 }
 
-+ (WeView2GridLayout *)gridLayoutWithColumns:(int)columnCount
++ (WeViewGridLayout *)gridLayoutWithColumns:(int)columnCount
                                isGridUniform:(BOOL)isGridUniform
                                stretchPolicy:(GridStretchPolicy)stretchPolicy
 {
-    WeView2GridLayout *layout = [[WeView2GridLayout alloc] init];
+    WeViewGridLayout *layout = [[WeViewGridLayout alloc] init];
     layout.columnCount = columnCount;
     layout.isGridUniform = isGridUniform;
     layout.stretchPolicy = stretchPolicy;
@@ -419,13 +419,13 @@ typedef struct
                         cellsOrigin.x += extraCellSpace.width;
                         break;
                     default:
-                        WeView2Assert(0);
+                        WeViewAssert(0);
                         break;
                 }
                 break;
             }
             default:
-                WeView2Assert(0);
+                WeViewAssert(0);
                 break;
         }
     }
@@ -480,13 +480,13 @@ typedef struct
                     case V_ALIGN_TOP:
                         break;
                     default:
-                        WeView2Assert(0);
+                        WeViewAssert(0);
                         break;
                 }
                 break;
             }
             default:
-                WeView2Assert(0);
+                WeViewAssert(0);
                 break;
         }
     }
@@ -512,8 +512,8 @@ typedef struct
         UIView* subview = subviews[i];
         int row = i / columnCount;
         int column = i % columnCount;
-        WeView2Assert(column < gridLayoutInfo.columnCount);
-        WeView2Assert(row < gridLayoutInfo.rowCount);
+        WeViewAssert(column < gridLayoutInfo.columnCount);
+        WeViewAssert(row < gridLayoutInfo.rowCount);
         CGRect cellBounds = CGRectMake(cellOrigin.x,
                                        cellOrigin.y,
                                        [gridLayoutInfo.columnWidths[column] floatValue],

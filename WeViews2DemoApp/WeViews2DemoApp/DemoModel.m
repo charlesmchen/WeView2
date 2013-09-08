@@ -9,14 +9,14 @@
 //
 
 #import "DemoModel.h"
-#import "WeView2DemoConstants.h"
+#import "WeViewDemoConstants.h"
 
 @implementation DemoModel
 
 + (DemoModel *)create
 {
     DemoModel* result = [[DemoModel alloc] init];
-    result.rootView = [[WeView2 alloc] init];
+    result.rootView = [[WeView alloc] init];
 
     return result;
 }

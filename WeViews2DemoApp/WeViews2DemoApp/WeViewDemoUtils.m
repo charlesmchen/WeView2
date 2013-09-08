@@ -1,5 +1,5 @@
 //
-//  WeView2DemoUtils.m
+//  WeViewDemoUtils.m
 //  WeViews2DemoApp
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -8,9 +8,9 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-#import "WeView2DemoUtils.h"
+#import "WeViewDemoUtils.h"
 
-@implementation WeView2DemoUtils
+@implementation WeViewDemoUtils
 
 + (BOOL)ignoreChildrenOfView:(UIView *)view
 {

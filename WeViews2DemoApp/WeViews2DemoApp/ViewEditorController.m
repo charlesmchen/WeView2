@@ -10,10 +10,10 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "UIView+WeView2.h"
+#import "UIView+WeView.h"
 #import "ViewEditorController.h"
-#import "WeView2DemoConstants.h"
-#import "WeView2Macros.h"
+#import "WeViewDemoConstants.h"
+#import "WeViewMacros.h"
 #import "DemoFactory.h"
 
 NSString *FormatFloat(CGFloat value)
@@ -58,7 +58,7 @@ NSString *FormatBoolean(BOOL value)
 - (void)configureCell:(UITableViewCell *)cell
              withView:(UIView *)view
 {
-    WeView2Assert(0);
+    WeViewAssert(0);
 }
 
 @end
@@ -141,7 +141,7 @@ typedef void (^SetterBlock)(UIView *view);
 - (void)configureCell:(UITableViewCell *)cell
              withView:(UIView *)view
 {
-    WeView2 *container = [[WeView2 alloc] init];
+    WeView *container = [[WeView alloc] init];
     container.backgroundColor = [UIColor clearColor];
     container.opaque = NO;
     [cell addSubview:container];
@@ -192,7 +192,7 @@ typedef void (^SetterBlock)(UIView *view);
 
     if (self.doubleHeight)
     {
-        WeView2 *topPanel = [[WeView2 alloc] init];
+        WeView *topPanel = [[WeView alloc] init];
         [topPanel useHorizontalDefaultLayout];
         topPanel.backgroundColor = [UIColor clearColor];
         topPanel.opaque = NO;
@@ -200,7 +200,7 @@ typedef void (^SetterBlock)(UIView *view);
             setContentHAlign:H_ALIGN_LEFT]
          setSpacing:4];
 
-        WeView2 *bottomPanel = [[WeView2 alloc] init];
+        WeView *bottomPanel = [[WeView alloc] init];
         [bottomPanel useHorizontalDefaultLayout];
         bottomPanel.backgroundColor = [UIColor clearColor];
         bottomPanel.opaque = NO;
@@ -623,7 +623,7 @@ typedef void (^SetterBlock)(UIView *view);
     viewParameter.delegate = self;
     [viewParameter configureCell:cell withView:self.currentView];
 
-//    ((WeView2 *)cell.subviews[0]).debugLayout = indexPath.row == 2;
+//    ((WeView *)cell.subviews[0]).debugLayout = indexPath.row == 2;
 
     return cell;
 }

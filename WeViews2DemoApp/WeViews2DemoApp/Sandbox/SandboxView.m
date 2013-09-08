@@ -9,27 +9,27 @@
 //
 
 #import "SandboxView.h"
-#import "WeView2Macros.h"
+#import "WeViewMacros.h"
 
 @implementation SandboxView
 
 - (void)displayDemoModel:(DemoModel *)demoModel
 {
     // Subclasses should implement this method.
-    WeView2Assert(0);
+    WeViewAssert(0);
 }
 
 - (CGSize)rootViewSize
 {
     // Subclasses should implement this method.
-    WeView2Assert(0);
+    WeViewAssert(0);
     return CGSizeZero;
 }
 
 - (void)setControlsHidden:(BOOL)value
 {
     // Subclasses should implement this method.
-    WeView2Assert(0);
+    WeViewAssert(0);
 }
 
 @end

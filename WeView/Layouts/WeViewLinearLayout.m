@@ -1,5 +1,5 @@
 //
-//  WeView2LinearLayout.m
+//  WeViewLinearLayout.m
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -10,11 +10,11 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "UIView+WeView2.h"
-#import "WeView2LinearLayout.h"
-#import "WeView2Macros.h"
+#import "UIView+WeView.h"
+#import "WeViewLinearLayout.h"
+#import "WeViewMacros.h"
 
-@interface WeView2LinearLayout ()
+@interface WeViewLinearLayout ()
 
 @property (nonatomic) BOOL isHorizontal;
 
@@ -22,7 +22,7 @@
 
 #pragma mark -
 
-@implementation WeView2LinearLayout
+@implementation WeViewLinearLayout
 
 - (id)init
 {
@@ -37,16 +37,16 @@
 {
 }
 
-+ (WeView2LinearLayout *)horizontalLayout
++ (WeViewLinearLayout *)horizontalLayout
 {
-    WeView2LinearLayout *layout = [[WeView2LinearLayout alloc] init];
+    WeViewLinearLayout *layout = [[WeViewLinearLayout alloc] init];
     layout.isHorizontal = YES;
     return layout;
 }
 
-+ (WeView2LinearLayout *)verticalLayout
++ (WeViewLinearLayout *)verticalLayout
 {
-    WeView2LinearLayout *layout = [[WeView2LinearLayout alloc] init];
+    WeViewLinearLayout *layout = [[WeViewLinearLayout alloc] init];
     layout.isHorizontal = NO;
     return layout;
 }
@@ -251,7 +251,7 @@
             *index = *index + extraSpace;
             break;
         default:
-            WeView2Assert(0);
+            WeViewAssert(0);
             break;
     }
 }
@@ -271,7 +271,7 @@
             *index = *index + extraSpace;
             break;
         default:
-            WeView2Assert(0);
+            WeViewAssert(0);
             break;
     }
 }

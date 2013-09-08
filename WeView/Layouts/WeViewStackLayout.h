@@ -1,5 +1,5 @@
 //
-//  WeView2StackLayout.h
+//  WeViewStackLayout.h
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -13,13 +13,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "WeView2Layout.h"
+#import "WeViewLayout.h"
 
-@interface WeView2StackLayout : WeView2Layout
+@interface WeViewStackLayout : WeViewLayout
 
 // Factory method.
 //
 // Lays out all views stacked on top of each other.
-+ (WeView2StackLayout *)stackLayout;
++ (WeViewStackLayout *)stackLayout;
 
 @end

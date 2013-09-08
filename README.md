@@ -1,14 +1,14 @@
 
-WeView2
+WeView
 =======
 
-The WeView2 library is a tool for auto layout of iOS UIs. 
+The WeView library is a tool for auto layout of iOS UIs. 
 
-* WeView2 is an alternative to [iOS's built-in Auto Layout Mechanism](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/Articles/Introduction.html).
-* WeView2 builds on iOS's existing sizing and layout mechanisms.  WeView2 is compatible with any properly implemented UIViews without any modifications.
-* WeView2 draws on the concepts and vocabulary used by HTML and CSS layout (ie. margins, spacing, alignment, etc.).
-* WeView2 takes advantage of ARC and blocks and is compatible with iOS 5 and later.
-* WeView2 is available under a permissive license (see below).
+* WeView is an alternative to [iOS's built-in Auto Layout Mechanism](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/Articles/Introduction.html).
+* WeView builds on iOS's existing sizing and layout mechanisms.  WeView is compatible with any properly implemented UIViews without any modifications.
+* WeView draws on the concepts and vocabulary used by HTML and CSS layout (ie. margins, spacing, alignment, etc.).
+* WeView takes advantage of ARC and blocks and is compatible with iOS 5 and later.
+* WeView is available under a permissive license (see below).
 
 
 ### Design philosophy
@@ -34,7 +34,7 @@ Auto layout allows a UI to...
 This becomes even more important with iOS 7, which lets users adjust text sizes outside of your app.
 
 
-### Why use WeView2 instead of iOS' built-in Auto Layout?
+### Why use WeView instead of iOS' built-in Auto Layout?
 
 * The syntax of iOS Auto Layout can be difficult to work with.
 Here's an example taken from Apple's sample code of how to center a button at the bottom of it's
@@ -80,11 +80,11 @@ cn = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[superview]-(<=1)-[labe
                                                views:variableMap];
 ```
 
-WeView2's is designed to yield concise, readable code. Here's the equivalent logic using a WeView2:
+WeView's is designed to yield concise, readable code. Here's the equivalent logic using a WeView:
 
 ```
 UIButton *button; // pre-existing UIButton.
-WeView2 *superview; // pre-existing superview of UIButton is a WeView2.
+WeView *superview; // pre-existing superview of UIButton is a WeView.
 
 [[[superview addSubviewWithCustomLayout:button]
 setContentVAlign:V_ALIGN_BOTTOM]
@@ -99,24 +99,24 @@ Some conceptually simple layouts are difficult to describe with constraints.
 This doesn't work well when UIViews need to be layed out in groups.
 
 
-### What's new in WeView2?
+### What's new in WeView?
 
-* WeView2 is a near-total rewrite, that should be more consistent and better handle edge cases such
+* WeView is a near-total rewrite, that should be more consistent and better handle edge cases such
   as degenerate layouts.
-* WeView2 uses a category and associated objects to hang layout properties on any existing UIView,
-  removing the need for subclassing, implementing a protocol, etc.  This makes WeView2 far easier to
+* WeView uses a category and associated objects to hang layout properties on any existing UIView,
+  removing the need for subclassing, implementing a protocol, etc.  This makes WeView far easier to
   use.
-* WeView2 has a new cell-based layout model that is easier to understand.
-* WeView2 should be more consistent and better handle edge cases such as degenerate layouts.
-* WeView2 offers a number of new per-view properties that allow more fine-grained control over 
+* WeView has a new cell-based layout model that is easier to understand.
+* WeView should be more consistent and better handle edge cases such as degenerate layouts.
+* WeView offers a number of new per-view properties that allow more fine-grained control over 
    layout behavior.
 
 
 ### License
 
-WeView2 is distributed under the [Apache License Version 2.0](LICENSE)
+WeView is distributed under the [Apache License Version 2.0](LICENSE)
 
 ### FAQ
 
-See the [WeView2 Frequently Asked Questions](FAQ.md).
+See the [WeView Frequently Asked Questions](FAQ.md).
 

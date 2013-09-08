@@ -1,5 +1,5 @@
 //
-//  WeView2LinearLayout.h
+//  WeViewLinearLayout.h
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -13,18 +13,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "WeView2Layout.h"
+#import "WeViewLayout.h"
 
-@interface WeView2LinearLayout : WeView2Layout
+@interface WeViewLinearLayout : WeViewLayout
 
 // Factory method.
 //
 // Lays out subviews horizontally, left-to-right.
-+ (WeView2LinearLayout *)horizontalLayout;
++ (WeViewLinearLayout *)horizontalLayout;
 
 // Factory method.
 //
 // Lays out subviews vertically, top-to-bottom.
-+ (WeView2LinearLayout *)verticalLayout;
++ (WeViewLinearLayout *)verticalLayout;
 
 @end

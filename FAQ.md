@@ -1,5 +1,5 @@
 
-WeView2 FAQ
+WeView FAQ
 ===========
 
 This document has yet to be written.
@@ -13,7 +13,7 @@ TODO:
 
 ## About
 
-WeView2 is complete rewrite of the WeViews library.
+WeView is complete rewrite of the WeViews library.
 
 
 # TODO: Move the concepts section to another page.
@@ -22,7 +22,7 @@ WeView2 is complete rewrite of the WeViews library.
 
 ## Creating UIs programmatically.
 
-Using WeView2 involves (at least partially) creating your UI
+Using WeView involves (at least partially) creating your UI
 programatically.  Although this requires...
 
 
@@ -36,13 +36,13 @@ For some views that value is fixed.  A UIImageView, for example, returns the siz
 For other views the behavior is more complicated.  
 
 As of iOS 6, UIViews have an [UIView intrinsicContentSize] method that is used by iOS's built-in
-Auto Layout.  This method is _NOT_ used by WeView2.
+Auto Layout.  This method is _NOT_ used by WeView.
 
 ## Sub-pixel alignment.
 
 Sub-pixel alignment is not supported.
 Many UIViews (such as UILabel) can look blurry when they are not pixel aligned.
-WeView2 layouts go one step further and always point-align views, 
+WeView layouts go one step further and always point-align views, 
 so that views will lay out in a consistent way on Retina and non-Retina devices.
 
 Details

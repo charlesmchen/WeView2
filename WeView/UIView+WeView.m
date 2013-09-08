@@ -1,5 +1,5 @@
 //
-//  UIView+WeView2.m
+//  UIView+WeView.m
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -11,29 +11,29 @@
 #import <assert.h>
 #import <objc/runtime.h>
 
-#import "UIView+WeView2.h"
-#import "WeView2Macros.h"
+#import "UIView+WeView.h"
+#import "WeViewMacros.h"
 
-static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
+static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
-@implementation UIView (WeView2)
+@implementation UIView (WeView)
 
 #pragma mark - Associated Values
 
-- (WeView2ViewInfo *)viewInfo
+- (WeViewViewInfo *)viewInfo
 {
-    WeView2ViewInfo *value = objc_getAssociatedObject(self, kWeView2Key_ViewInfo);
+    WeViewViewInfo *value = objc_getAssociatedObject(self, kWeViewKey_ViewInfo);
     if (!value)
     {
-        value = [[WeView2ViewInfo alloc] init];
-        objc_setAssociatedObject(self, kWeView2Key_ViewInfo, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        value = [[WeViewViewInfo alloc] init];
+        objc_setAssociatedObject(self, kWeViewKey_ViewInfo, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return value;
 }
 
 - (void)resetAllLayoutProperties
 {
-    objc_setAssociatedObject(self, kWeView2Key_ViewInfo, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kWeViewKey_ViewInfo, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 /* CODEGEN MARKER: Accessors Start */
@@ -533,9 +533,9 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
 
 - (void)centerAlignHorizontallyWithView:(UIView *)view
 {
-    WeView2Assert(view);
-    WeView2Assert(self.superview);
-    WeView2Assert(view.superview);
+    WeViewAssert(view);
+    WeViewAssert(self.superview);
+    WeViewAssert(view.superview);
     CGPoint otherCenter = [view.superview convertPoint:view.center
                                                 toView:self.superview];
     self.x = roundf(otherCenter.x - self.width * 0.5f);
@@ -543,9 +543,9 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
 
 - (void)centerAlignVerticallyWithView:(UIView *)view
 {
-    WeView2Assert(view);
-    WeView2Assert(self.superview);
-    WeView2Assert(view.superview);
+    WeViewAssert(view);
+    WeViewAssert(self.superview);
+    WeViewAssert(view.superview);
     CGPoint otherCenter = [view.superview convertPoint:view.center
                                                 toView:self.superview];
     self.y = roundf(otherCenter.y - self.height * 0.5f);
@@ -553,13 +553,13 @@ static const void *kWeView2Key_ViewInfo = &kWeView2Key_ViewInfo;
 
 - (void)centerHorizontallyInSuperview
 {
-    WeView2Assert(self.superview);
+    WeViewAssert(self.superview);
     self.x = roundf((self.superview.width - self.width) * 0.5f);
 }
 
 - (void)centerVerticallyInSuperview
 {
-    WeView2Assert(self.superview);
+    WeViewAssert(self.superview);
     self.y = roundf((self.superview.height - self.height) * 0.5f);
 }
 

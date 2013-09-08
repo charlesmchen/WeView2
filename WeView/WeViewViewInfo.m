@@ -1,5 +1,5 @@
 //
-//  WeView2ViewInfo.m
+//  WeViewViewInfo.m
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -11,10 +11,10 @@
 #import <assert.h>
 #import <objc/runtime.h>
 
-#import "WeView2ViewInfo.h"
-#import "WeView2Macros.h"
+#import "WeViewViewInfo.h"
+#import "WeViewMacros.h"
 
-@implementation WeView2ViewInfo
+@implementation WeViewViewInfo
 
 - (id)init
 {

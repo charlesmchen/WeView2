@@ -1,5 +1,5 @@
 //
-//  WeView2NoopLayout.h
+//  WeViewNoopLayout.h
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -13,13 +13,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "WeView2Layout.h"
+#import "WeViewLayout.h"
 
-@interface WeView2NoopLayout : WeView2Layout
+@interface WeViewNoopLayout : WeViewLayout
 
 // Factory method.
 //
 // Does _NOT_ alter the layout of subviews.
-+ (WeView2NoopLayout *)noopLayout;
++ (WeViewNoopLayout *)noopLayout;
 
 @end

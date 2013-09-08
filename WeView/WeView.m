@@ -1,5 +1,5 @@
 //
-//  WeView2.m
+//  WeView.m
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -10,19 +10,19 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "UIView+WeView2.h"
-#import "WeView2.h"
-#import "WeView2Layout.h"
-#import "WeView2LinearLayout.h"
-#import "WeView2Macros.h"
-#import "WeView2NoopLayout.h"
-#import "WeView2Macros.h"
-#import "WeView2StackLayout.h"
+#import "UIView+WeView.h"
+#import "WeView.h"
+#import "WeViewLayout.h"
+#import "WeViewLinearLayout.h"
+#import "WeViewMacros.h"
+#import "WeViewNoopLayout.h"
+#import "WeViewMacros.h"
+#import "WeViewStackLayout.h"
 
-@interface WeView2 ()
+@interface WeView ()
 
 // The default layout for subviews not associated with a specific layout.
-@property (nonatomic) WeView2Layout *defaultLayout;
+@property (nonatomic) WeViewLayout *defaultLayout;
 
 // A map of subview-to-layout of subviews associated with specific layouts.
 @property (nonatomic) NSMutableDictionary *subviewLayoutMap;
@@ -31,7 +31,7 @@
 
 #pragma mark -
 
-@implementation WeView2
+@implementation WeView
 
 - (void)commonInit
 {
@@ -66,37 +66,37 @@
 
 #pragma mark - Default Layout
 
-- (WeView2 *)useHorizontalDefaultLayout
+- (WeView *)useHorizontalDefaultLayout
 {
-    self.defaultLayout = [WeView2LinearLayout horizontalLayout];
+    self.defaultLayout = [WeViewLinearLayout horizontalLayout];
     return self;
 }
 
-- (WeView2 *)useVerticalDefaultLayout
+- (WeView *)useVerticalDefaultLayout
 {
-    self.defaultLayout = [WeView2LinearLayout verticalLayout];
+    self.defaultLayout = [WeViewLinearLayout verticalLayout];
     return self;
 }
 
-- (WeView2 *)useNoDefaultLayout
+- (WeView *)useNoDefaultLayout
 {
-    self.defaultLayout = [WeView2NoopLayout noopLayout];
+    self.defaultLayout = [WeViewNoopLayout noopLayout];
     return self;
 }
 
-- (WeView2 *)useStackDefaultLayout
+- (WeView *)useStackDefaultLayout
 {
-    self.defaultLayout = [WeView2StackLayout stackLayout];
+    self.defaultLayout = [WeViewStackLayout stackLayout];
     return self;
 }
 
-- (WeView2 *)useBlockDefaultLayout:(BlockLayoutBlock)block
+- (WeView *)useBlockDefaultLayout:(BlockLayoutBlock)block
 {
-    self.defaultLayout = [WeView2BlockLayout blockLayoutWithBlock:block];
+    self.defaultLayout = [WeViewBlockLayout blockLayoutWithBlock:block];
     return self;
 }
 
-- (void)setDefaultLayout:(WeView2Layout *)defaultLayout
+- (void)setDefaultLayout:(WeViewLayout *)defaultLayout
 {
     _defaultLayout = defaultLayout;
     [self setNeedsLayout];
@@ -104,7 +104,7 @@
 
 #pragma mark -
 
-- (NSArray *)subviewsForLayout:(WeView2Layout *)layout
+- (NSArray *)subviewsForLayout:(WeViewLayout *)layout
 {
     NSMutableArray *result = [NSMutableArray array];
     for (UIView *subview in self.subviews)
@@ -120,13 +120,13 @@
 
 - (void)layoutSubviews
 {
-    WeView2Assert(self.defaultLayout);
+    WeViewAssert(self.defaultLayout);
     NSSet *layouts = [NSSet setWithArray:[self.subviewLayoutMap allValues]];
-    for (WeView2Layout *layout in layouts)
+    for (WeViewLayout *layout in layouts)
     {
         NSArray *layoutSubviews = [self subviewsForLayout:layout];
-        WeView2Assert(layoutSubviews);
-        WeView2Assert([layoutSubviews count] > 0);
+        WeViewAssert(layoutSubviews);
+        WeViewAssert([layoutSubviews count] > 0);
         [layout layoutContentsOfView:self
                             subviews:layoutSubviews];
     }
@@ -136,28 +136,28 @@
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    WeView2Assert(self.defaultLayout);
+    WeViewAssert(self.defaultLayout);
     return [self.defaultLayout minSizeOfContentsView:self
                                             subviews:[self subviewsForLayout:nil]
                                         thatFitsSize:size];
 }
 
-- (WeView2 *)addSubview:(UIView *)subview
-             withLayout:(WeView2Layout *)layout
+- (WeView *)addSubview:(UIView *)subview
+             withLayout:(WeViewLayout *)layout
 {
-    WeView2Assert(layout);
+    WeViewAssert(layout);
     return [self addSubviews:@[subview,]
                   withLayout:layout];
 }
 
-- (WeView2 *)addSubviews:(NSArray *)subviews
-              withLayout:(WeView2Layout *)layout
+- (WeView *)addSubviews:(NSArray *)subviews
+              withLayout:(WeViewLayout *)layout
 {
-    WeView2Assert(subviews);
+    WeViewAssert(subviews);
     for (UIView *subview in subviews)
     {
-        WeView2Assert(subview);
-        WeView2Assert(![self.subviews containsObject:subview]);
+        WeViewAssert(subview);
+        WeViewAssert(![self.subviews containsObject:subview]);
 
         if (layout)
         {
@@ -169,7 +169,7 @@
     return self;
 }
 
-- (WeView2 *)addSubviews:(NSArray *)subviews
+- (WeView *)addSubviews:(NSArray *)subviews
 {
     return [self addSubviews:subviews
            withLayout:nil];
@@ -177,34 +177,34 @@
 
 #pragma mark - Custom Layouts
 
-- (WeView2Layout *)addSubviewWithCustomLayout:(UIView *)subview
+- (WeViewLayout *)addSubviewWithCustomLayout:(UIView *)subview
 {
-    WeView2Layout *layout = [WeView2StackLayout stackLayout];
+    WeViewLayout *layout = [WeViewStackLayout stackLayout];
     [self addSubviews:@[subview,]
            withLayout:layout];
     return layout;
 }
 
-- (WeView2Layout *)addSubviewsWithHorizontalLayout:(NSArray *)subviews
+- (WeViewLayout *)addSubviewsWithHorizontalLayout:(NSArray *)subviews
 {
-    WeView2Layout *layout = [WeView2LinearLayout horizontalLayout];
+    WeViewLayout *layout = [WeViewLinearLayout horizontalLayout];
     [self addSubviews:subviews
            withLayout:layout];
     return layout;
 }
 
-- (WeView2Layout *)addSubviewsWithVerticalLayout:(NSArray *)subviews
+- (WeViewLayout *)addSubviewsWithVerticalLayout:(NSArray *)subviews
 {
-    WeView2Layout *layout = [WeView2LinearLayout verticalLayout];
+    WeViewLayout *layout = [WeViewLinearLayout verticalLayout];
     [self addSubviews:subviews
            withLayout:layout];
     return layout;
 }
 
-- (WeView2Layout *)addSubviewWithFillLayout:(UIView *)subview
+- (WeViewLayout *)addSubviewWithFillLayout:(UIView *)subview
 {
     // Fit and Fill layouts default to ignoring the superview's margins.
-    WeView2Layout *layout = [[[WeView2StackLayout stackLayout]
+    WeViewLayout *layout = [[[WeViewStackLayout stackLayout]
                               setMargin:0]
                              setCellPositioning:CELL_POSITION_FILL];
     [self addSubviews:@[subview,]
@@ -212,10 +212,10 @@
     return layout;
 }
 
-- (WeView2Layout *)addSubviewWithFillLayoutWAspectRatio:(UIView *)subview
+- (WeViewLayout *)addSubviewWithFillLayoutWAspectRatio:(UIView *)subview
 {
     // Fit and Fill layouts default to ignoring the superview's margins.
-    WeView2Layout *layout = [[[WeView2StackLayout stackLayout]
+    WeViewLayout *layout = [[[WeViewStackLayout stackLayout]
                               setMargin:0]
                              setCellPositioning:CELL_POSITION_FILL_W_ASPECT_RATIO];
     [self addSubviews:@[subview,]
@@ -223,10 +223,10 @@
     return layout;
 }
 
-- (WeView2Layout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview
+- (WeViewLayout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview
 {
     // Fit and Fill layouts default to ignoring the superview's margins.
-    WeView2Layout *layout = [[[WeView2StackLayout stackLayout]
+    WeViewLayout *layout = [[[WeViewStackLayout stackLayout]
                               setMargin:0]
                              setCellPositioning:CELL_POSITION_FIT_W_ASPECT_RATIO];
     [self addSubviews:@[subview,]
@@ -234,19 +234,19 @@
     return layout;
 }
 
-- (WeView2Layout *)addSubviews:(NSArray *)subviews
+- (WeViewLayout *)addSubviews:(NSArray *)subviews
                withLayoutBlock:(BlockLayoutBlock)block
 {
-    WeView2BlockLayout *layout = [WeView2BlockLayout blockLayoutWithBlock:block];
+    WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:block];
     [self addSubviews:subviews
            withLayout:layout];
     return layout;
 }
 
-- (WeView2Layout *)addSubview:(UIView *)subview
+- (WeViewLayout *)addSubview:(UIView *)subview
               withLayoutBlock:(BlockLayoutBlock)block
 {
-    WeView2BlockLayout *layout = [WeView2BlockLayout blockLayoutWithBlock:block];
+    WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:block];
     [self addSubviews:@[subview,]
            withLayout:layout];
     return layout;
@@ -260,18 +260,18 @@
     {
         [subview removeFromSuperview];
     }
-    WeView2Assert(self.subviewLayoutMap);
-    WeView2Assert([self.subviewLayoutMap count] == 0);
+    WeViewAssert(self.subviewLayoutMap);
+    WeViewAssert([self.subviewLayoutMap count] == 0);
 }
 
 - (void)didAddSubview:(UIView *)subview
 {
-    WeView2Assert(subview);
+    WeViewAssert(subview);
 }
 
 - (void)willRemoveSubview:(UIView *)subview
 {
-    WeView2Assert(subview);
+    WeViewAssert(subview);
     if (self.subviewLayoutMap[subview])
     {
         [self.subviewLayoutMap removeObjectForKey:subview];

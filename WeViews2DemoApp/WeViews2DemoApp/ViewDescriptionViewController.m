@@ -8,7 +8,7 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-#import "UIView+WeView2.h"
+#import "UIView+WeView.h"
 #import "ViewDescriptionViewController.h"
 
 @interface ViewDescriptionViewController ()

@@ -1,5 +1,5 @@
 //
-//  WeView2Layout.h
+//  WeViewLayout.h
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -13,9 +13,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "WeView2Common.h"
+#import "WeViewCommon.h"
 
-@interface WeView2Layout : NSObject
+@interface WeViewLayout : NSObject
 
 - (void)layoutContentsOfView:(UIView *)view
                     subviews:(NSArray *)subviews;
@@ -26,45 +26,45 @@
 
 #pragma mark - Per-Layout Properties
 
-// Layouts default to use the superview's properties (See: UIView+WeView2.h).  However, any values
+// Layouts default to use the superview's properties (See: UIView+WeView.h).  However, any values
 // set on the layout itself with supercede values from the superview.
 
 /* CODEGEN MARKER: Start */
 
 // The left margin of the contents of this view.
 - (CGFloat)leftMargin:(UIView *)view;
-- (WeView2Layout *)setLeftMargin:(CGFloat)value;
+- (WeViewLayout *)setLeftMargin:(CGFloat)value;
 // The right margin of the contents of this view.
 - (CGFloat)rightMargin:(UIView *)view;
-- (WeView2Layout *)setRightMargin:(CGFloat)value;
+- (WeViewLayout *)setRightMargin:(CGFloat)value;
 // The top margin of the contents of this view.
 - (CGFloat)topMargin:(UIView *)view;
-- (WeView2Layout *)setTopMargin:(CGFloat)value;
+- (WeViewLayout *)setTopMargin:(CGFloat)value;
 // The bottom margin of the contents of this view.
 - (CGFloat)bottomMargin:(UIView *)view;
-- (WeView2Layout *)setBottomMargin:(CGFloat)value;
+- (WeViewLayout *)setBottomMargin:(CGFloat)value;
 
 // The vertical spacing between subviews of this view.
 - (CGFloat)vSpacing:(UIView *)view;
-- (WeView2Layout *)setVSpacing:(CGFloat)value;
+- (WeViewLayout *)setVSpacing:(CGFloat)value;
 // The horizontal spacing between subviews of this view.
 - (CGFloat)hSpacing:(UIView *)view;
-- (WeView2Layout *)setHSpacing:(CGFloat)value;
+- (WeViewLayout *)setHSpacing:(CGFloat)value;
 
 // The horizontal alignment of subviews of this view within their layout cells.
 - (HAlign)contentHAlign:(UIView *)view;
-- (WeView2Layout *)setContentHAlign:(HAlign)value;
+- (WeViewLayout *)setContentHAlign:(HAlign)value;
 // The vertical alignment of subviews within this view.
 - (VAlign)contentVAlign:(UIView *)view;
-- (WeView2Layout *)setContentVAlign:(VAlign)value;
+- (WeViewLayout *)setContentVAlign:(VAlign)value;
 
-// By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView2 overflows its bounds, subviews are cropped to fit inside the available
+// By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView overflows its bounds, subviews are cropped to fit inside the available
 // space.
 //
 // If cropSubviewOverflow is NO, no cropping occurs and subviews may overflow the bounds of their
 // superview.
 - (BOOL)cropSubviewOverflow:(UIView *)view;
-- (WeView2Layout *)setCropSubviewOverflow:(BOOL)value;
+- (WeViewLayout *)setCropSubviewOverflow:(BOOL)value;
 // By default, cellPositioning has a value of CELL_POSITION_NORMAL and cell size is based on their desired size and they are aligned within their layout
 // cell.
 //
@@ -77,24 +77,24 @@
 // If cellPositioning is set to CELL_POSITION_FIT_W_ASPECT_RATIO, subviews are "fit" inside the bounds of their layout cell and retain the aspect ratio of their desired
 // size.
 - (CellPositioningMode)cellPositioning:(UIView *)view;
-- (WeView2Layout *)setCellPositioning:(CellPositioningMode)value;
+- (WeViewLayout *)setCellPositioning:(CellPositioningMode)value;
 
 - (BOOL)debugLayout:(UIView *)view;
-- (WeView2Layout *)setDebugLayout:(BOOL)value;
+- (WeViewLayout *)setDebugLayout:(BOOL)value;
 - (BOOL)debugMinSize:(UIView *)view;
-- (WeView2Layout *)setDebugMinSize:(BOOL)value;
+- (WeViewLayout *)setDebugMinSize:(BOOL)value;
 
 // ['// Convenience accessor(s) for the leftMargin and rightMargin properties.']
-- (WeView2Layout *)setHMargin:(CGFloat)value;
+- (WeViewLayout *)setHMargin:(CGFloat)value;
 
 // ['// Convenience accessor(s) for the topMargin and bottomMargin properties.']
-- (WeView2Layout *)setVMargin:(CGFloat)value;
+- (WeViewLayout *)setVMargin:(CGFloat)value;
 
 // ['// Convenience accessor(s) for the leftMargin, rightMargin, topMargin and bottomMargin', '// properties.']
-- (WeView2Layout *)setMargin:(CGFloat)value;
+- (WeViewLayout *)setMargin:(CGFloat)value;
 
 // ['// Convenience accessor(s) for the hSpacing and vSpacing properties.']
-- (WeView2Layout *)setSpacing:(CGFloat)value;
+- (WeViewLayout *)setSpacing:(CGFloat)value;
 
 /* CODEGEN MARKER: End */
 

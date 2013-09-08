@@ -12,11 +12,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "WeView2.h"
+#import "WeView.h"
 
 #import "Demo.h"
 
-@interface SandboxView : WeView2
+@interface SandboxView : WeView
 
 - (void)displayDemoModel:(DemoModel *)demoModel;
 - (CGSize)rootViewSize;

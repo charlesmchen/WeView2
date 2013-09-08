@@ -8,7 +8,7 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-#import "WeView2/WeViews2DemoApp/WeViews2DemoAppTests/WeViews2DemoAppTests.h"
+#import "WeView/WeViews2DemoApp/WeViews2DemoAppTests/WeViews2DemoAppTests.h"
 
 @implementation WeViews2DemoAppTests
 

@@ -10,11 +10,11 @@
 
 #pragma once
 
-#import "WeView2.h"
+#import "WeView.h"
 
 @class DemoModel;
 
-@interface ViewHierarchyTree : WeView2
+@interface ViewHierarchyTree : WeView
 
 + (ViewHierarchyTree *)create:(DemoModel *)demoModel;
 

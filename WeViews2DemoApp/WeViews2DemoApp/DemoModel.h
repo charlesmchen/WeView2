@@ -10,7 +10,7 @@
 
 #pragma once
 
-#import "WeView2.h"
+#import "WeView.h"
 
 @protocol DemoModelDelegate <NSObject>
 
@@ -22,7 +22,7 @@
 
 @property (nonatomic, weak) id<DemoModelDelegate> delegate;
 @property (nonatomic) id selection;
-@property (nonatomic) WeView2 *rootView;
+@property (nonatomic) WeView *rootView;
 @property (nonatomic) BOOL useIPhoneSandboxByDefault;
 
 + (DemoModel *)create;

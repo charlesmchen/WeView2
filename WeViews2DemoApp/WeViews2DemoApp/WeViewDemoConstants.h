@@ -1,5 +1,5 @@
 //
-//  WeView2DemoConstants.h
+//  WeViewDemoConstants.h
 //  WeViews2DemoApp
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.

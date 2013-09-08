@@ -10,8 +10,8 @@
 
 #import "ViewHierarchyTree.h"
 #import "DemoModel.h"
-#import "WeView2DemoConstants.h"
-#import "WeView2DemoUtils.h"
+#import "WeViewDemoConstants.h"
+#import "WeViewDemoUtils.h"
 
 @interface ViewHierarchyTree () <UITableViewDelegate, UITableViewDataSource>
 
@@ -29,7 +29,7 @@
 
 #pragma mark -
 
-@interface TreeNode : WeView2
+@interface TreeNode : WeView
 
 @property (nonatomic) DemoModel *demoModel;
 @property (nonatomic) UIView *item;
@@ -220,7 +220,7 @@
     [self.visibleViews addObject:pseudoView];
     [self.indents addObject:[NSNumber numberWithInt:indent]];
 
-    if ([WeView2DemoUtils ignoreChildrenOfView:pseudoView])
+    if ([WeViewDemoUtils ignoreChildrenOfView:pseudoView])
     {
         // Ignore children of certain UIView subclasses.
         return;

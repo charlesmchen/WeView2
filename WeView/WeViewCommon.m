@@ -1,5 +1,5 @@
 //
-//  WeView2Common.m
+//  WeViewCommon.m
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -11,8 +11,8 @@
 #import <assert.h>
 #import <objc/runtime.h>
 
-#import "WeView2Common.h"
-#import "WeView2Macros.h"
+#import "WeViewCommon.h"
+#import "WeViewMacros.h"
 
 NSString* FormatHAlign(HAlign value)
 {
@@ -25,7 +25,7 @@ NSString* FormatHAlign(HAlign value)
         case H_ALIGN_RIGHT:
             return @"Right";
         default:
-            WeView2Assert(0);
+            WeViewAssert(0);
             return nil;
     }
 }
@@ -41,7 +41,7 @@ NSString* FormatVAlign(VAlign value)
         case V_ALIGN_BOTTOM:
             return @"Bottom";
         default:
-            WeView2Assert(0);
+            WeViewAssert(0);
             return nil;
     }
 }
@@ -59,7 +59,7 @@ NSString* FormatCellPositioningMode(CellPositioningMode value)
         case CELL_POSITION_FIT_W_ASPECT_RATIO:
             return @"Fit (AR)";
         default:
-            WeView2Assert(0);
+            WeViewAssert(0);
             return nil;
     }
 }

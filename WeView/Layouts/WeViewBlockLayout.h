@@ -1,5 +1,5 @@
 //
-//  WeView2BlockLayout.h
+//  WeViewBlockLayout.h
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -13,17 +13,17 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "WeView2Layout.h"
+#import "WeViewLayout.h"
 
 // Block used for custom positioning of subviews.  Called once for each subview of the superview.
 //
-// Like HTML "absolute" positioning, subviews layed out by a WeView2BlockLayout do not effect the
+// Like HTML "absolute" positioning, subviews layed out by a WeViewBlockLayout do not effect the
 // size of their superview.
 typedef void(^BlockLayoutBlock)(UIView *superview, UIView *subview);
 
-@interface WeView2BlockLayout : WeView2Layout
+@interface WeViewBlockLayout : WeViewLayout
 
 // Factory method.
-+ (WeView2BlockLayout *)blockLayoutWithBlock:(BlockLayoutBlock)block;
++ (WeViewBlockLayout *)blockLayoutWithBlock:(BlockLayoutBlock)block;
 
 @end

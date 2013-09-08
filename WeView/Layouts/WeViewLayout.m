@@ -1,5 +1,5 @@
 //
-//  WeView2Layout.m
+//  WeViewLayout.m
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -10,11 +10,11 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "UIView+WeView2.h"
-#import "WeView2LinearLayout.h"
-#import "WeView2Macros.h"
+#import "UIView+WeView.h"
+#import "WeViewLinearLayout.h"
+#import "WeViewMacros.h"
 
-@interface WeView2Layout ()
+@interface WeViewLayout ()
 {
 /* CODEGEN MARKER: Members Start */
 
@@ -42,7 +42,7 @@ NSNumber *_debugMinSize;
 
 #pragma mark -
 
-@implementation WeView2Layout
+@implementation WeViewLayout
 
 - (id)init
 {
@@ -84,7 +84,7 @@ NSNumber *_debugMinSize;
     return [view leftMargin];
 }
 
-- (WeView2Layout *)setLeftMargin:(CGFloat)value
+- (WeViewLayout *)setLeftMargin:(CGFloat)value
 {
     _leftMargin = @(value);
     return self;
@@ -99,7 +99,7 @@ NSNumber *_debugMinSize;
     return [view rightMargin];
 }
 
-- (WeView2Layout *)setRightMargin:(CGFloat)value
+- (WeViewLayout *)setRightMargin:(CGFloat)value
 {
     _rightMargin = @(value);
     return self;
@@ -114,7 +114,7 @@ NSNumber *_debugMinSize;
     return [view topMargin];
 }
 
-- (WeView2Layout *)setTopMargin:(CGFloat)value
+- (WeViewLayout *)setTopMargin:(CGFloat)value
 {
     _topMargin = @(value);
     return self;
@@ -129,7 +129,7 @@ NSNumber *_debugMinSize;
     return [view bottomMargin];
 }
 
-- (WeView2Layout *)setBottomMargin:(CGFloat)value
+- (WeViewLayout *)setBottomMargin:(CGFloat)value
 {
     _bottomMargin = @(value);
     return self;
@@ -144,7 +144,7 @@ NSNumber *_debugMinSize;
     return [view vSpacing];
 }
 
-- (WeView2Layout *)setVSpacing:(CGFloat)value
+- (WeViewLayout *)setVSpacing:(CGFloat)value
 {
     _vSpacing = @(value);
     return self;
@@ -159,7 +159,7 @@ NSNumber *_debugMinSize;
     return [view hSpacing];
 }
 
-- (WeView2Layout *)setHSpacing:(CGFloat)value
+- (WeViewLayout *)setHSpacing:(CGFloat)value
 {
     _hSpacing = @(value);
     return self;
@@ -174,7 +174,7 @@ NSNumber *_debugMinSize;
     return [view contentHAlign];
 }
 
-- (WeView2Layout *)setContentHAlign:(HAlign)value
+- (WeViewLayout *)setContentHAlign:(HAlign)value
 {
     _contentHAlign = @(value);
     return self;
@@ -189,7 +189,7 @@ NSNumber *_debugMinSize;
     return [view contentVAlign];
 }
 
-- (WeView2Layout *)setContentVAlign:(VAlign)value
+- (WeViewLayout *)setContentVAlign:(VAlign)value
 {
     _contentVAlign = @(value);
     return self;
@@ -204,7 +204,7 @@ NSNumber *_debugMinSize;
     return [view cropSubviewOverflow];
 }
 
-- (WeView2Layout *)setCropSubviewOverflow:(BOOL)value
+- (WeViewLayout *)setCropSubviewOverflow:(BOOL)value
 {
     _cropSubviewOverflow = @(value);
     return self;
@@ -219,7 +219,7 @@ NSNumber *_debugMinSize;
     return [view cellPositioning];
 }
 
-- (WeView2Layout *)setCellPositioning:(CellPositioningMode)value
+- (WeViewLayout *)setCellPositioning:(CellPositioningMode)value
 {
     _cellPositioning = @(value);
     return self;
@@ -234,7 +234,7 @@ NSNumber *_debugMinSize;
     return [view debugLayout];
 }
 
-- (WeView2Layout *)setDebugLayout:(BOOL)value
+- (WeViewLayout *)setDebugLayout:(BOOL)value
 {
     _debugLayout = @(value);
     return self;
@@ -249,27 +249,27 @@ NSNumber *_debugMinSize;
     return [view debugMinSize];
 }
 
-- (WeView2Layout *)setDebugMinSize:(BOOL)value
+- (WeViewLayout *)setDebugMinSize:(BOOL)value
 {
     _debugMinSize = @(value);
     return self;
 }
 
-- (WeView2Layout *)setHMargin:(CGFloat)value
+- (WeViewLayout *)setHMargin:(CGFloat)value
 {
     [self setLeftMargin:value];
     [self setRightMargin:value];
     return self;
 }
 
-- (WeView2Layout *)setVMargin:(CGFloat)value
+- (WeViewLayout *)setVMargin:(CGFloat)value
 {
     [self setTopMargin:value];
     [self setBottomMargin:value];
     return self;
 }
 
-- (WeView2Layout *)setMargin:(CGFloat)value
+- (WeViewLayout *)setMargin:(CGFloat)value
 {
     [self setLeftMargin:value];
     [self setRightMargin:value];
@@ -278,7 +278,7 @@ NSNumber *_debugMinSize;
     return self;
 }
 
-- (WeView2Layout *)setSpacing:(CGFloat)value
+- (WeViewLayout *)setSpacing:(CGFloat)value
 {
     [self setHSpacing:value];
     [self setVSpacing:value];
@@ -431,7 +431,7 @@ NSNumber *_debugMinSize;
 {
     // Weighted distribution of space between cells.
 
-    WeView2Assert([cellWeights count] > 0);
+    WeViewAssert([cellWeights count] > 0);
 
     CGFloat totalCellWeight = 0.f;
     int cellCountWithWeight = 0;
@@ -445,7 +445,7 @@ NSNumber *_debugMinSize;
         }
     }
 
-    WeView2Assert(cellCountWithWeight > 0);
+    WeViewAssert(cellCountWithWeight > 0);
 
     CGFloat spaceRemainder = space;
     int cellRemainder = cellCountWithWeight;
@@ -472,7 +472,7 @@ NSNumber *_debugMinSize;
             cellRemainder--;
             spaceRemainder -= cellDistribution;
             weightRemainder -= cellWeight;
-            WeView2Assert(spaceRemainder >= 0);
+            WeViewAssert(spaceRemainder >= 0);
         }
         [result addObject:@(cellDistribution)];
     }
@@ -486,10 +486,10 @@ NSNumber *_debugMinSize;
                     withSign:(CGFloat)sign
                  withMaxZero:(BOOL)withMaxZero
 {
-    WeView2Assert([values count] == [weights count]);
+    WeViewAssert([values count] == [weights count]);
     NSArray *adjustments = [self distributeSpace:roundf(totalAdjustment)
                           acrossCellsWithWeights:weights];
-    WeView2Assert([values count] == [adjustments count]);
+    WeViewAssert([values count] == [adjustments count]);
     int count = [values count];
     for (int i=0; i < count; i++)
     {

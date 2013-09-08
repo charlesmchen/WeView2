@@ -8,10 +8,10 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-#import "WeView2.h"
+#import "WeView.h"
 #import "SandboxViewController.h"
-#import "WeView2Macros.h"
-#import "WeView2DemoConstants.h"
+#import "WeViewMacros.h"
+#import "WeViewDemoConstants.h"
 #import "DefaultSandboxView.h"
 #import <QuartzCore/QuartzCore.h>
 #import <ImageIO/ImageIO.h>
@@ -192,8 +192,8 @@
                                                  withIntermediateDirectories:NO
                                                                   attributes:nil
                                                                        error:&error];
-        WeView2Assert(created);
-        WeView2Assert(!error);
+        WeViewAssert(created);
+        WeViewAssert(!error);
         self.snapshotsFolderPath = folderPath;
     }
 
@@ -245,7 +245,7 @@
 
     if (!CGImageDestinationFinalize(destination))
     {
-        WeView2Assert(0);
+        WeViewAssert(0);
     }
     CFRelease(destination);
 

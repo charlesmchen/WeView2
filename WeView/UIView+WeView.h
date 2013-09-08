@@ -1,5 +1,5 @@
 //
-//  UIView+WeView2.h
+//  UIView+WeView.h
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -13,12 +13,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "WeView2Common.h"
-#import "WeView2ViewInfo.h"
+#import "WeViewCommon.h"
+#import "WeViewViewInfo.h"
 
-@interface UIView (WeView2) <NSCopying>
+@interface UIView (WeView) <NSCopying>
 
-// See comments in WeView2ViewInfo.
+// See comments in WeViewViewInfo.
 
 /* CODEGEN MARKER: Start */
 
@@ -102,7 +102,7 @@
 - (BOOL)hasCellVAlign;
 - (UIView *)setHasCellVAlign:(BOOL)value;
 
-// By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView2 overflows its bounds, subviews are cropped to fit inside the available
+// By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView overflows its bounds, subviews are cropped to fit inside the available
 // space.
 //
 // If cropSubviewOverflow is NO, no cropping occurs and subviews may overflow the bounds of their

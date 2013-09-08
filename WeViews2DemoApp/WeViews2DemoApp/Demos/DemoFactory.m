@@ -8,7 +8,7 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-#import "WeView2.h"
+#import "WeView.h"
 #import "DemoFactory.h"
 #import "DemoViewFactory.h"
 
@@ -127,7 +127,7 @@
                          fontSize:16.f],
          [DemoFactory createLabel:@"To"
                          fontSize:24.f],
-         [DemoFactory createLabel:@"WeView2"
+         [DemoFactory createLabel:@"WeView"
                          fontSize:32.f],
          [DemoFactory createWrappingLabel],
          ]];
@@ -158,7 +158,7 @@
                          fontSize:16.f],
          [DemoFactory createLabel:@"To"
                          fontSize:24.f],
-         [DemoFactory createLabel:@"WeView2"
+         [DemoFactory createLabel:@"WeView"
                          fontSize:32.f],
          [DemoFactory createWrappingLabel],
          ]];
@@ -183,28 +183,28 @@
     {
         DemoModel *demoModel = [DemoModel create];
 
-        WeView2 *topPanel = [[WeView2 alloc] init];
+        WeView *topPanel = [[WeView alloc] init];
         [[topPanel useHorizontalDefaultLayout]
          addSubviews:@[
          [DemoFactory createLabel:@"Welcome"
                   fontSize:16.f],
          [DemoFactory createLabel:@"To"
                   fontSize:24.f],
-         [DemoFactory createLabel:@"WeView2"
+         [DemoFactory createLabel:@"WeView"
                   fontSize:32.f],
          ]];
         [[[topPanel setVMargin:10]
           setHMargin:20]
          setSpacing:5];
 
-        WeView2 *bottomPanel = [[WeView2 alloc] init];
+        WeView *bottomPanel = [[WeView alloc] init];
         [[bottomPanel useHorizontalDefaultLayout]
          addSubviews:@[
          [DemoFactory createLabel:@"Welcome"
                   fontSize:16.f],
          [DemoFactory createLabel:@"To"
                   fontSize:24.f],
-         [DemoFactory createLabel:@"WeView2"
+         [DemoFactory createLabel:@"WeView"
                   fontSize:32.f],
          ]];
         [[[bottomPanel setVMargin:10]
@@ -238,33 +238,33 @@
     {
         DemoModel *demoModel = [DemoModel create];
 
-        WeView2 *singleViewPanel = [[WeView2 alloc] init];
+        WeView *singleViewPanel = [[WeView alloc] init];
         [[singleViewPanel useStackDefaultLayout] addSubview:[DemoFactory createWrappingLabel]];
         [[[singleViewPanel setVMargin:10]
           setHMargin:20]
          setSpacing:5];
 
-        WeView2 *horizontalPanel = [[WeView2 alloc] init];
+        WeView *horizontalPanel = [[WeView alloc] init];
         [[horizontalPanel useHorizontalDefaultLayout]
          addSubviews:@[
          [DemoFactory createWrappingLabel],
          [DemoFactory createLabel:@"To"
                          fontSize:24.f],
-         [DemoFactory createLabel:@"WeView2"
+         [DemoFactory createLabel:@"WeView"
                          fontSize:32.f],
          ]];
         [[[horizontalPanel setVMargin:10]
           setHMargin:20]
          setSpacing:5];
 
-        WeView2 *verticalPanel = [[WeView2 alloc] init];
+        WeView *verticalPanel = [[WeView alloc] init];
         [[verticalPanel useVerticalDefaultLayout]
          addSubviews:@[
          [DemoFactory createLabel:@"Welcome"
                          fontSize:16.f],
          [DemoFactory createLabel:@"To"
                          fontSize:24.f],
-         [DemoFactory createLabel:@"WeView2"
+         [DemoFactory createLabel:@"WeView"
                          fontSize:32.f],
          ]];
         [[[verticalPanel setVMargin:10]
@@ -311,7 +311,7 @@
          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
          ]
                  animated:NO];
-        WeView2 *bodyView = [[WeView2 alloc] init];
+        WeView *bodyView = [[WeView alloc] init];
         [[demoModel.rootView addSubviews:@[
           toolbar,
           [bodyView setStretchesIgnoringDesiredSize],

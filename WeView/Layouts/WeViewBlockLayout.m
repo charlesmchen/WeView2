@@ -1,5 +1,5 @@
 //
-//  WeView2BlockLayout.m
+//  WeViewBlockLayout.m
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -10,11 +10,11 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "WeView2BlockLayout.h"
-#import "UIView+WeView2.h"
-#import "WeView2Macros.h"
+#import "WeViewBlockLayout.h"
+#import "UIView+WeView.h"
+#import "WeViewMacros.h"
 
-@interface WeView2BlockLayout ()
+@interface WeViewBlockLayout ()
 
 @property (copy, nonatomic) BlockLayoutBlock block;
 
@@ -22,12 +22,12 @@
 
 #pragma mark -
 
-@implementation WeView2BlockLayout
+@implementation WeViewBlockLayout
 
-+ (WeView2BlockLayout *)blockLayoutWithBlock:(BlockLayoutBlock)block
++ (WeViewBlockLayout *)blockLayoutWithBlock:(BlockLayoutBlock)block
 {
-    WeView2Assert(block);
-    WeView2BlockLayout *layout = [[WeView2BlockLayout alloc] init];
+    WeViewAssert(block);
+    WeViewBlockLayout *layout = [[WeViewBlockLayout alloc] init];
     layout.block = block;
     return layout;
 }
@@ -61,7 +61,7 @@
               NSStringFromCGSize(guideSize));
     }
 
-    WeView2Assert(self.block);
+    WeViewAssert(self.block);
     int subviewCount = [subviews count];
     for (int i=0; i < subviewCount; i++)
     {

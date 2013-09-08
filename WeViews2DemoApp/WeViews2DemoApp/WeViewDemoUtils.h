@@ -1,5 +1,5 @@
 //
-//  WeView2DemoUtils.h
+//  WeViewDemoUtils.h
 //  WeViews2DemoApp
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
@@ -10,7 +10,7 @@
 
 #pragma once
 
-@interface WeView2DemoUtils : NSObject
+@interface WeViewDemoUtils : NSObject
 
 + (BOOL)ignoreChildrenOfView:(UIView *)view;
 

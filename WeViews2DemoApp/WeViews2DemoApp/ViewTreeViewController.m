@@ -8,14 +8,14 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-#import "UIView+WeView2.h"
+#import "UIView+WeView.h"
 #import "ViewTreeViewController.h"
 #import "ViewHierarchyTree.h"
-#import "WeView2DemoConstants.h"
+#import "WeViewDemoConstants.h"
 
 @interface ViewTreeViewController ()
 
-@property (nonatomic) WeView2 *rootView;
+@property (nonatomic) WeView *rootView;
 
 @property (nonatomic) ViewHierarchyTree *viewHierarchyTree;
 
@@ -52,7 +52,7 @@
 
 - (void)loadView
 {
-    self.rootView = [[[WeView2 alloc] init]
+    self.rootView = [[[WeView alloc] init]
                      useVerticalDefaultLayout];
     [self.rootView setContentVAlign:V_ALIGN_TOP];
     //    self.rootView.debugLayout = YES;

@@ -5,10 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>WeView2 Demo</string>
+	<string>WeView Demo</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-
 	<key>CFBundleIconFile</key>
 	<string>Icon.png</string>
 	<key>CFBundleIconFiles</key>
@@ -20,7 +19,6 @@
 		<string>Icon.png</string>
 		<string>Icon@2x.png</string>
 	</array>
-	
 	<key>CFBundleIdentifier</key>
 	<string>com.fightingquaker.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>

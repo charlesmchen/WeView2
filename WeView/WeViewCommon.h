@@ -1,5 +1,5 @@
 //
-//  WeView2Common.h
+//  WeViewCommon.h
 //  Unknown Project
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.

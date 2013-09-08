@@ -8,13 +8,13 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-#import "UIView+WeView2.h"
-#import "WeView2.h"
+#import "UIView+WeView.h"
+#import "WeView.h"
 #import "SidebarViewController.h"
 
 @interface SidebarViewController ()
 
-@property (nonatomic) WeView2 *rootView;
+@property (nonatomic) WeView *rootView;
 
 @end
 
@@ -48,7 +48,7 @@
 
 - (void)loadView
 {
-    self.rootView = [[[WeView2 alloc] init]
+    self.rootView = [[[WeView alloc] init]
                      useVerticalDefaultLayout];
 //    self.rootView.debugLayout = YES;
     self.rootView.opaque = YES;
