@@ -7,7 +7,7 @@ category: tutorial
 Tutorial
 ==
 
-![Alt text](Images/snapshot-0-0.png)
-![Alt text](Images/snapshot-0-1.png)
-![Alt text](Images/snapshot-0-2.png)
+![Alt text](images/snapshot-0-0.png)
+![Alt text](images/snapshot-0-1.png)
+![Alt text](images/snapshot-0-2.png)
 
