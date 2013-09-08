@@ -19,5 +19,7 @@
 @interface SandboxView : WeView2
 
 - (void)displayDemoModel:(DemoModel *)demoModel;
+- (CGSize)rootViewSize;
+- (void)setControlsHidden:(BOOL)value;
 
 @end

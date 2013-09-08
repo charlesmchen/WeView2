@@ -50,6 +50,20 @@ typedef enum
     return self;
 }
 
+- (CGSize)rootViewSize
+{
+    return ((UIView *) self.subviews[0]).size;
+}
+
+- (void)setControlsHidden:(BOOL)value
+{
+    for (int i=0; i < [self.subviews count]; i++)
+    {
+        UIView *subview = self.subviews[i];
+        subview.hidden = i > 0 && value;
+    }
+}
+
 - (void)createContents:(SandboxMode)mode
 {
     if (mode == SANDBOX_MODE_DEFAULT)
@@ -223,7 +237,8 @@ typedef enum
     [self resetAllLayoutProperties];
     WeView2Assert([self.subviews count] == 0);
 
-    switch (mode) {
+    switch (mode)
+    {
         case SANDBOX_MODE_DEFAULT:
         {
             [self useStackDefaultLayout];

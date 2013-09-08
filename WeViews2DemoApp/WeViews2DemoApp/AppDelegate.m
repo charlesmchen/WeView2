@@ -35,8 +35,10 @@
 
     self.sandboxViewController = [[SandboxViewController alloc] init];
 
+    UINavigationController *sandboxNavigationController = [[UINavigationController alloc] initWithRootViewController:self.sandboxViewController];
+
     self.splitViewController = [[UISplitViewController alloc] init];
-    self.splitViewController.viewControllers = @[self.sidebarViewController, self.sandboxViewController];
+    self.splitViewController.viewControllers = @[self.sidebarViewController, sandboxNavigationController];
 
     self.window.rootViewController = self.splitViewController;
 

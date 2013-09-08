@@ -66,29 +66,29 @@ cn = [NSLayoutConstraint constraintWithItem:button
 iOS Auto Layout also supports a Visual Format Language.  Here's the sample layout using VFL:
 
 ```
-    UIButton *button; // pre-existing UIButton.
-    UIView *superview = button.superview;
-    NSDictionary *variableMap = NSDictionaryOfVariableBindings(label, superview);
-    NSLayoutConstraint *cn = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[button]-12-[superview]"
-                                                                     options:0
-                                                                     metrics:nil
-                                                                       views:variableMap];
-    
-    cn = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[superview]-(<=1)-[label]"
-                                                 options: NSLayoutFormatAlignAllCenterY
-                                                 metrics:nil
-                                                   views:variableMap];
+UIButton *button; // pre-existing UIButton.
+UIView *superview = button.superview;
+NSDictionary *variableMap = NSDictionaryOfVariableBindings(label, superview);
+NSLayoutConstraint *cn = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[button]-12-[superview]"
+                                                                 options:0
+                                                                 metrics:nil
+                                                                   views:variableMap];
+
+cn = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[superview]-(<=1)-[label]"
+                                             options: NSLayoutFormatAlignAllCenterY
+                                             metrics:nil
+                                               views:variableMap];
 ```
 
 WeView2's is designed to yield concise, readable code. Here's the equivalent logic using a WeView2:
 
 ```
-    UIButton *button; // pre-existing UIButton.
-    WeView2 *superview; // pre-existing superview of UIButton is a WeView2.
-    
-    [[[superview addSubviewWithCustomLayout:button]
-    setContentVAlign:V_ALIGN_BOTTOM]
-     setMargin:20];
+UIButton *button; // pre-existing UIButton.
+WeView2 *superview; // pre-existing superview of UIButton is a WeView2.
+
+[[[superview addSubviewWithCustomLayout:button]
+setContentVAlign:V_ALIGN_BOTTOM]
+ setMargin:20];
 ```
 
 * With iOS Auto Layout you need to worry about complications such as constraint priority, constraint sufficiency, constraint conflicts, ambiguous layout, common ancestors, etc.

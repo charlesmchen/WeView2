@@ -141,9 +141,12 @@
     CGFloat maxTotalAxisSize = horizontal ? maxTotalSubviewsSize.width : maxTotalSubviewsSize.height;
 
     CGFloat extraAxisSpace = maxTotalAxisSize - rawTotalAxisSize;
+    // TODO: Use hasNonEmptyGuideSize in other layouts as well.
     BOOL hasNonEmptyGuideSize = guideSize.width * guideSize.height > 0;
     if (extraAxisSpace < 0)
     {
+        // TODO: crop from subviews with axis stretch first.  Then crop other subviews only if
+        // necessary.
         BOOL cropSubviewOverflow = [self cropSubviewOverflow:view];
         if (cropSubviewOverflow && hasNonEmptyGuideSize)
         {

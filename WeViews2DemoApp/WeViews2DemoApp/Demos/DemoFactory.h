@@ -19,4 +19,6 @@
 + (NSArray *)allDemos;
 + (Demo *)defaultDemo;
 
++ (void)assignRandomBackgroundColor:(UIView *)view;
+
 @end

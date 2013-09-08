@@ -57,6 +57,8 @@
 		3444368D17D3F9E300EFF341 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3444368C17D3F9E200EFF341 /* LICENSE */; };
 		34C19C6017DB967E0025914F /* DemoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19C5F17DB967E0025914F /* DemoFactory.m */; };
 		34C19C6417DBE8DA0025914F /* FAQ.md in Resources */ = {isa = PBXBuildFile; fileRef = 34C19C6317DBE8DA0025914F /* FAQ.md */; };
+		34C19C7A17DCF2160025914F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19C7917DCF2160025914F /* ImageIO.framework */; };
+		34C19C7C17DCF22E0025914F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19C7B17DCF22E0025914F /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +153,8 @@
 		34C19C5E17DB967E0025914F /* DemoFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoFactory.h; sourceTree = "<group>"; };
 		34C19C5F17DB967E0025914F /* DemoFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoFactory.m; sourceTree = "<group>"; };
 		34C19C6317DBE8DA0025914F /* FAQ.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FAQ.md; path = ../FAQ.md; sourceTree = "<group>"; };
+		34C19C7917DCF2160025914F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		34C19C7B17DCF22E0025914F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +162,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34C19C7C17DCF22E0025914F /* MobileCoreServices.framework in Frameworks */,
+				34C19C7A17DCF2160025914F /* ImageIO.framework in Frameworks */,
 				34195F7D17CA80A90036F8DC /* UIKit.framework in Frameworks */,
 				34195F7F17CA80A90036F8DC /* Foundation.framework in Frameworks */,
 				34195F8117CA80A90036F8DC /* CoreGraphics.framework in Frameworks */,
@@ -180,6 +186,8 @@
 		34195F7017CA80A90036F8DC = {
 			isa = PBXGroup;
 			children = (
+				34C19C7B17DCF22E0025914F /* MobileCoreServices.framework */,
+				34C19C7917DCF2160025914F /* ImageIO.framework */,
 				34195F7B17CA80A90036F8DC /* Frameworks */,
 				3444368C17D3F9E200EFF341 /* LICENSE */,
 				34195F7A17CA80A90036F8DC /* Products */,

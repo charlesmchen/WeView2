@@ -24,6 +24,7 @@
              [self flowDemo1],
              [self iphoneDemo1],
              [self randomImageDemo1],
+             [self horizontalDemo3],
              ];
 }
 
@@ -73,6 +74,34 @@
         [[demoModel.rootView useStackDefaultLayout] addSubview:[DemoFactory createWrappingLabel]];
         [[[demoModel.rootView setVMargin:10]
           setHMargin:20]
+         setSpacing:5];
+
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        //    result.debugLayout = YES;
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)horizontalDemo3
+{
+    NSString *demoName = @"Horizontal Demo 3";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        [[demoModel.rootView useHorizontalDefaultLayout]
+         addSubviews:@[
+         [DemoFactory createLabel:@"A UILabel"
+                         fontSize:16.f],
+         [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]],
+         [self buttonWithImageName:@"Images/ok_button_up"],
+         ]];
+        [[[demoModel.rootView setVMargin:5]
+          setHMargin:10]
          setSpacing:5];
 
         [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
@@ -316,7 +345,7 @@
     return [DemoViewFactory colorWithRGBHex:hex];
 }
 
-+ (void)assignRandomBackgroundColors:(NSArray *)views
++ (void)assignRandomBackgroundColor:(UIView *)view
 {
     static NSArray *colors = nil;
     if (!colors)
@@ -336,12 +365,18 @@
                    ];
     }
     static int colorIndexCounter = 0;
+    int colorIndex = colorIndexCounter;
+    colorIndexCounter = (colorIndexCounter + 1) % [colors count];
+    view.backgroundColor = colors[colorIndex];
+    view.opaque = YES;
+    view.opaque = NO;
+}
+
++ (void)assignRandomBackgroundColors:(NSArray *)views
+{
     for (UIView *view in views)
     {
-        int colorIndex = colorIndexCounter;
-        colorIndexCounter = (colorIndexCounter + 1) % [colors count];
-        view.backgroundColor = colors[colorIndex];
-        view.opaque = YES;
+        [self assignRandomBackgroundColor:view];
     }
 }
 

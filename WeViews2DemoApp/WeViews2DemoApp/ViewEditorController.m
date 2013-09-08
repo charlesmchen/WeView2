@@ -14,6 +14,7 @@
 #import "ViewEditorController.h"
 #import "WeView2DemoConstants.h"
 #import "WeView2Macros.h"
+#import "DemoFactory.h"
 
 NSString *FormatFloat(CGFloat value)
 {
@@ -302,6 +303,30 @@ typedef void (^SetterBlock)(UIView *view);
 
 @implementation ViewEditorController
 
+- (CGFloat)UIColorAlpha:(UIColor *)color
+{
+    CGFloat alpha, red, green, blue;
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    return alpha;
+}
+
+- (unsigned int)UIColorToArgb:(UIColor *)color
+{
+    CGFloat alpha, red, green, blue;
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+
+    unsigned int argb = (((0xff & (unsigned int) roundf(alpha * 255.f)) << 24) |
+                         ((0xff & (unsigned int) roundf(red * 255.f)) << 16) |
+                         ((0xff & (unsigned int) roundf(green * 255.f)) << 8) |
+                         ((0xff & (unsigned int) roundf(blue * 255.f)) << 0));
+    return argb;
+}
+
+- (NSString *)FormatUIColor:(UIColor *)color
+{
+    return [NSString stringWithFormat:@"0x%08X", [self UIColorToArgb:color]];
+}
+
 - (id)init
 {
     self = [super initWithStyle:UITableViewStylePlain];
@@ -329,6 +354,27 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatCGSize([view sizeThatFits:CGSizeZero]);
                                             }
                                                 setters:@[]],
+                            [ViewParameterSimple create:@"background"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                if (view.backgroundColor &&
+                                                    [self UIColorAlpha:view.backgroundColor] > 0)
+                                                {
+                                                    return [self FormatUIColor:view.backgroundColor];
+                                                }
+                                                return @"None";
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"Clear"
+                                             setterBlock:^(UIView *view) {
+                                                 view.backgroundColor = [UIColor clearColor];
+                                                 view.opaque = NO;
+                                             }],
+                             [ViewParameterSetter create:@"Random"
+                                             setterBlock:^(UIView *view) {
+                                                 [DemoFactory assignRandomBackgroundColor:view];
+                                                 view.opaque = NO;
+                                             }],
+                             ]],
 
                             [ViewParameterSimple booleanProperty:@"hidden"],
                             [ViewParameterSimple booleanProperty:@"clipsToBounds"],

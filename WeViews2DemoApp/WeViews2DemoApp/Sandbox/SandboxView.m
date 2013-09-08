@@ -19,4 +19,17 @@
     WeView2Assert(0);
 }
 
+- (CGSize)rootViewSize
+{
+    // Subclasses should implement this method.
+    WeView2Assert(0);
+    return CGSizeZero;
+}
+
+- (void)setControlsHidden:(BOOL)value
+{
+    // Subclasses should implement this method.
+    WeView2Assert(0);
+}
+
 @end

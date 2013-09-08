@@ -20,17 +20,4 @@ typedef DemoModel *(^CreateDemoModelBlock)();
 @property (nonatomic) NSString *name;
 @property (copy, nonatomic) CreateDemoModelBlock createDemoModelBlock;
 
-//- (NSString *)name;
-//
-//- (DemoModel *)demoModel;
-//
-//- (UILabel *)createLabel:(NSString *)text
-//                fontSize:(CGFloat)fontSize;
-//- (UILabel *)createLabel:(NSString *)text
-//                fontSize:(CGFloat)fontSize
-//               textColor:(UIColor *)textColor;
-//
-//- (void)assignRandomBackgroundColors:(NSArray *)views;
-//- (NSArray *)collectSubviews:(UIView *)view;
-
 @end
