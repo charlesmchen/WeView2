@@ -1,3 +1,4 @@
 python ./sidebar.py 
 jekyll build
-mv _site/index_temp.html _site/index.html
+cp _site/home.html _site/index.html
+cp _site/home.html index.html

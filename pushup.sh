@@ -1,5 +1,5 @@
-jekyll build
-cp _site/index_temp.html index.html
+./makey.sh
+
 git add .
 git commit -m "Update pages."
 git push

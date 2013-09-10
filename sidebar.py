@@ -23,7 +23,7 @@ layout: default
 ---
 ''' 
 links = ( 
-  Link('index.md', 'Home', indent=0, dstFilename='index_temp.html', sidebarFilename='index.html'),
+  Link('home.md', 'Home', indent=0, sidebarFilename='index.html'),
   Link('designPhilosophy.md', 'Design Philosophy'),
   Link('whyAutolayout.md', 'Why Auto Layout?'),
   Link('whyWeView2.md', 'Why WeView 2?'),
