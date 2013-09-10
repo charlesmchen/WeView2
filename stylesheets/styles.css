@@ -114,7 +114,13 @@ header {
   position:fixed;
 }
 
-header ul {
+header ul.linkage li {
+    font:16px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+}
+
+
+header ul.linky {
   list-style:none;
   height:40px;
   
@@ -133,15 +139,14 @@ header ul {
   box-shadow:inset #fff 0 1px 0, inset rgba(0,0,0,0.03) 0 -1px 0;
   width:270px;
 }
-
-header li {
+header ul.linky li {
   width:89px;
   float:left;
   border-right:1px solid #d2d2d2;
   height:40px;
 }
 
-header ul a {
+header ul.linky a {
   line-height:1;
   font-size:11px;
   color:#999;
@@ -156,17 +161,17 @@ strong {
   font-weight:700;
 }
 
-header ul li + li {
+header ul.linky li + li {
   width:88px;
   border-left:1px solid #fff;
 }
 
-header ul li + li + li {
+header ul.linky li + li + li {
   border-right:none;
   width:89px;
 }
 
-header ul a strong {
+header ul.linky a strong {
   font-size:14px;
   display:block;
   color:#222;

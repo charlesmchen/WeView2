@@ -1,4 +1,3 @@
-cp index.prefix index.md
-curl https://raw.github.com/charlesmchen/WeView2/master/README.md >> index.md
+python ./sidebar.py 
 jekyll build
-
+mv _site/index_temp.html _site/index.html

@@ -1,10 +1,11 @@
 ---
-title: Tutorial
 permalink: Tutorial1.html
-category: tutorial
 layout: default
 ---
 
+Prev\: [License](License.html)
+
+<!-- TEMPLATE START -->
 
 Tutorial
 ==
@@ -74,3 +75,7 @@ A WeView layou
 ![Layout Snapshot](images/snapshot-0-0.png)
 ![Layout Snapshot](images/snapshot-0-1.png)
 ![Layout Snapshot](images/snapshot-0-2.png)
+
+<!-- TEMPLATE END -->
+
+Prev\: [License](License.html)
