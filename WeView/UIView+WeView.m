@@ -424,14 +424,18 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 - (UIView *)setStretches
 {
-    // Layout should stretch this subview to fit any available space.
     [self setStretchWeight:1.f];
+    return self;
+}
+
+- (UIView *)setIgnoreDesiredSize
+{
+    self.ignoreDesiredSize = YES;
     return self;
 }
 
 - (UIView *)setStretchesIgnoringDesiredSize
 {
-    // Layout should stretch this subview to fit any available space, ignoring its desired size.
     [self setStretchWeight:1.f];
     self.ignoreDesiredSize = YES;
     return self;

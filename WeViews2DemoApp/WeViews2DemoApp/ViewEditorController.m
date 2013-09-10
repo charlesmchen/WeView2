@@ -354,6 +354,7 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatCGSize([view sizeThatFits:CGSizeZero]);
                                             }
                                                 setters:@[]],
+                            
                             [ViewParameterSimple create:@"background"
                                             getterBlock:^NSString *(UIView *view) {
                                                 if (view.backgroundColor &&
@@ -374,9 +375,55 @@ typedef void (^SetterBlock)(UIView *view);
                                                  [DemoFactory assignRandomBackgroundColor:view];
                                                  view.opaque = NO;
                                              }],
-                             ]],
-
+                             [ViewParameterSetter create:@"0.25"
+                                             setterBlock:^(UIView *view) {
+                                                 view.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.f];
+                                                 view.opaque = NO;
+                                             }],
+                             [ViewParameterSetter create:@"0.5"
+                                             setterBlock:^(UIView *view) {
+                                                 view.backgroundColor = [UIColor colorWithWhite:0.5f alpha:1.f];
+                                                 view.opaque = NO;
+                                             }],
+                             [ViewParameterSetter create:@"0.75"
+                                             setterBlock:^(UIView *view) {
+                                                 view.backgroundColor = [UIColor colorWithWhite:0.75f alpha:1.f];
+                                                 view.opaque = NO;
+                                             }],
+                             ] doubleHeight:YES],
+                            
+                            
+                            [ViewParameterSimple create:@"border"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                if (view.layer.borderColor &&
+                                                    view.layer.borderWidth > 0)
+                                                {
+                                                    return [NSString stringWithFormat:@"%0.1fpt %@",
+                                                            view.layer.borderWidth,
+                                                            [self FormatUIColor:[UIColor colorWithCGColor:view.layer.borderColor]]];
+                                                }
+                                                return @"None";
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"Clear"
+                                             setterBlock:^(UIView *view) {
+                                                 view.layer.borderColor = nil;
+                                                 view.layer.borderWidth = 0.f;
+                                             }],
+                             [ViewParameterSetter create:@"Random"
+                                             setterBlock:^(UIView *view) {
+                                                 view.layer.borderColor = [DemoFactory randomForegroundColor].CGColor;
+                                                 view.layer.borderWidth = 1.f;
+                                             }],
+                             [ViewParameterSetter create:@"Yellow"
+                                             setterBlock:^(UIView *view) {
+                                                 view.layer.borderColor = [UIColor yellowColor].CGColor;
+                                                 view.layer.borderWidth = 1.f;
+                                             }],
+                             ] doubleHeight:YES],
+                            
                             [ViewParameterSimple booleanProperty:@"hidden"],
+                            [ViewParameterSimple booleanProperty:@"opaque"],
                             [ViewParameterSimple booleanProperty:@"clipsToBounds"],
 
         /* CODEGEN MARKER: Parameters Start */

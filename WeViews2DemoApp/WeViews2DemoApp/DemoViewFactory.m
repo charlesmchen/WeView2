@@ -63,15 +63,18 @@
     button.layer.cornerRadius = 5.f;
     button.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     [button setTitle:label
-                  forState:UIControlStateNormal];
+            forState:UIControlStateNormal];
     [button setTitleColor:textColor
-                       forState:UIControlStateNormal];
+                 forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
                                                    size:14];
     [button addTarget:target
                      action:selector
      forControlEvents:UIControlEventTouchUpInside];
+    button.titleLabel.backgroundColor = [UIColor clearColor];
+    button.titleLabel.opaque = NO;
     [button sizeToFit];
+    
     return button;
 }
 

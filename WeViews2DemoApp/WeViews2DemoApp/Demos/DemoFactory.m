@@ -12,6 +12,18 @@
 #import "DemoFactory.h"
 #import "DemoViewFactory.h"
 
+UIColor *UIColorRGB(unsigned int rgb)
+{
+    CGFloat alpha = 1.f;
+    CGFloat red = ((rgb >> 16) & 0xff) / 255.f;
+    CGFloat green = ((rgb >> 8) & 0xff) / 255.f;
+    CGFloat blue = ((rgb >> 0) & 0xff) / 255.f;
+    return [UIColor colorWithRed:red
+                           green:green
+                            blue:blue
+                           alpha:alpha];
+}
+
 @implementation DemoFactory
 
 + (NSArray *)allDemos
@@ -30,7 +42,7 @@
 
 + (Demo *)defaultDemo
 {
-    return [self horizontalDemo1];
+    return [self horizontalDemo3];
 }
 
 + (Demo *)randomImageDemo1
@@ -98,7 +110,12 @@
          [DemoFactory createLabel:@"A UILabel"
                          fontSize:16.f],
          [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]],
-         [self buttonWithImageName:@"Images/ok_button_up"],
+         [DemoViewFactory createFlatUIButton:@"Cancel"
+                                   textColor:[UIColor whiteColor]
+                                 buttonColor:[self randomBackgroundColor]
+                                      target:nil
+                                    selector:nil],
+//         [self buttonWithImageName:@"Images/ok_button_up.png"],
          ]];
         [[[demoModel.rootView setVMargin:5]
           setHMargin:10]
@@ -414,7 +431,10 @@
     [result addObject:view];
     for (UIView *subview in view.subviews)
     {
-        [result addObjectsFromArray:[self collectSubviews:subview]];
+        if (![subview isKindOfClass:[UIButton class]])
+        {
+            [result addObjectsFromArray:[self collectSubviews:subview]];
+        }
     }
     return result;
 }
@@ -426,6 +446,155 @@
             forState:UIControlStateNormal];
     [button sizeToFit];
     return button;
+}
+
++ (NSArray*) backgroundColors {
+    return [NSArray arrayWithObjects:
+            [UIColor redColor],
+            [UIColor greenColor],
+            [UIColor blueColor],
+            //            [UIColor colorWithWhite:0.25f alpha:1.0f],
+            [UIColor orangeColor],
+            [UIColor purpleColor],
+            [UIColor brownColor],
+            [UIColor yellowColor],
+            [UIColor cyanColor],
+            [UIColor magentaColor],
+            
+            [UIColor whiteColor],
+            [UIColor colorWithWhite:0.75f alpha:1.0f],
+            [UIColor colorWithWhite:0.5f alpha:1.0f],
+            [UIColor colorWithWhite:0.25f alpha:1.0f],
+            [UIColor blackColor],
+            
+            UIColorRGB(0x5f8ab7),
+            UIColorRGB(0xf3f6f9),
+            UIColorRGB(0xb9c8cf),
+            UIColorRGB(0xe7e7e7),
+            UIColorRGB(0x026db1),
+            UIColorRGB(0xa5a5a5),
+            UIColorRGB(0x0196ce),
+            UIColorRGB(0x3e5386),
+            UIColorRGB(0x314d8a),
+            UIColorRGB(0x5572b1),
+            UIColorRGB(0xf7f7f7),
+            UIColorRGB(0x303034),
+            UIColorRGB(0xE6E6E6),
+            
+//            [[UIColor redColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor greenColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor blueColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor orangeColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor purpleColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor brownColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor yellowColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor cyanColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor magentaColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor whiteColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor blackColor] colorWithAlphaComponent:0.5f],
+            
+//            [UIColor clearColor],
+            nil];
+}
+
+//+ (NSArray*) allColors {
+//    return [NSArray arrayWithObjects:
+//            [UIColor redColor],
+//            [UIColor greenColor],
+//            [UIColor blueColor],
+//            //            [UIColor colorWithWhite:0.25f alpha:1.0f],
+//            [UIColor orangeColor],
+//            [UIColor purpleColor],
+//            [UIColor brownColor],
+//            [UIColor yellowColor],
+//            [UIColor cyanColor],
+//            [UIColor magentaColor],
+//            
+//            [UIColor whiteColor],
+//            [UIColor colorWithWhite:0.75f alpha:1.0f],
+//            [UIColor colorWithWhite:0.5f alpha:1.0f],
+//            [UIColor colorWithWhite:0.25f alpha:1.0f],
+//            [UIColor blackColor],
+//            
+//            UIColorRGB(0x5f8ab7),
+//            UIColorRGB(0xf3f6f9),
+//            UIColorRGB(0xb9c8cf),
+//            UIColorRGB(0xe7e7e7),
+//            UIColorRGB(0x026db1),
+//            UIColorRGB(0xa5a5a5),
+//            UIColorRGB(0x0196ce),
+//            UIColorRGB(0x3e5386),
+//            UIColorRGB(0x314d8a),
+//            UIColorRGB(0x5572b1),
+//            UIColorRGB(0xf7f7f7),
+//            UIColorRGB(0x303034),
+//            UIColorRGB(0xE6E6E6),
+//            
+//            [[UIColor redColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor greenColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor blueColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor orangeColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor purpleColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor brownColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor yellowColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor cyanColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor magentaColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor whiteColor] colorWithAlphaComponent:0.5f],
+//            [[UIColor blackColor] colorWithAlphaComponent:0.5f],
+//            
+//            [UIColor clearColor],
+//            nil];
+//}
+//
+//+ (NSArray*) foregroundColors {
+//    return [self allColors];
+//}
+//
+//+ (NSArray*) backgroundColors {
+//    return [self allColors];
+//}
+
++ (NSArray*) foregroundColors {
+    return [NSArray arrayWithObjects:
+            [UIColor redColor],
+            [UIColor greenColor],
+            [UIColor blueColor],
+            //            [UIColor colorWithWhite:0.25f alpha:1.0f],
+            [UIColor colorWithWhite:0.75f alpha:1.0f],
+            [UIColor colorWithWhite:0.5f alpha:1.0f],
+            [UIColor orangeColor],
+            [UIColor purpleColor],
+            [UIColor brownColor],
+            [UIColor yellowColor],
+            nil];
+}
+//
+//+ (NSArray*) backgroundColors {
+//    return [NSArray arrayWithObjects:
+//            [UIColor whiteColor],
+//            [UIColor colorWithWhite:0.25f alpha:1.0f],
+//            [UIColor blackColor],
+//            [UIColor clearColor],
+//            nil];
+//}
+//
+//+ (NSArray*) allColors {
+//    NSMutableArray* result = [NSMutableArray array];
+//    [result addObjectsFromArray:[self foregroundColors]];
+//    [result addObjectsFromArray:[self backgroundColors]];
+//    return result;
+//}
+
++ (UIColor*) randomForegroundColor {
+    NSArray* colorOptions = [self foregroundColors];
+    UIColor* value = [colorOptions objectAtIndex:arc4random() % [colorOptions count]];
+    return value;
+}
+
++ (UIColor*) randomBackgroundColor {
+    NSArray* colorOptions = [self backgroundColors];
+    UIColor* value = [colorOptions objectAtIndex:arc4random() % [colorOptions count]];
+    return value;
 }
 
 @end

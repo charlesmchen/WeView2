@@ -50,6 +50,10 @@
     drawRect.origin.y = roundf((imageSize.height - self.image.size.height) * 0.5f);
     CGContextDrawImage(context, drawRect, self.image.CGImage);
 
+    [[UIColor colorWithWhite:0.5f alpha:0.5f] setStroke];
+    CGContextSetLineWidth(context, 1.f);
+    CGContextStrokeRect(context, CGRectMake(0, 0, imageSize.width, imageSize.height));
+    
     UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
 
     UIGraphicsEndImageContext();

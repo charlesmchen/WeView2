@@ -168,10 +168,13 @@
 
 /* CODEGEN MARKER: End */
 
-// Layout should stretch this subview to fit any available space.
+// The layout should stretch this subview to fit any available space.
 - (UIView *)setStretches;
 
-// Layout should stretch this subview to fit any available space, ignoring its desired size.
+// The layout should ignore this view's desired size.
+- (UIView *)setIgnoreDesiredSize;
+
+// The layout should stretch this subview to fit any available space, ignoring its desired size.
 - (UIView *)setStretchesIgnoringDesiredSize;
 
 #pragma mark - Convenience Accessors
