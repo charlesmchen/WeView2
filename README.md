@@ -1,4 +1,3 @@
-
 WeView
 =======
 
@@ -9,6 +8,11 @@ The WeView library is a tool for auto layout of iOS UIs.
 * WeView draws on the concepts and vocabulary used by HTML and CSS layout (ie. margins, spacing, alignment, etc.).
 * WeView takes advantage of ARC and blocks and is compatible with iOS 5 and later.
 * WeView is available under a permissive license (see below).
+
+
+### Documentation and Tutorial
+
+See the [Project Pages](http://charlesmchen.github.io/WeView2/).
 
 
 ### Design philosophy
