@@ -7,6 +7,19 @@ body {
   font-weight:300;
 }
 
+section {
+  font:16px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+section em {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.gist {
+  font:14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 h1, h2, h3, h4, h5, h6 {
   color:#222;
   margin:0 0 20px;
@@ -46,7 +59,7 @@ a small {
 }
 
 .wrapper {
-  width:860px;
+  width:1010px;
   margin:0 auto;
 }
 
@@ -160,7 +173,7 @@ header ul a strong {
 }
 
 section {
-  width:500px;
+  width:650px;
   float:right;
   padding-bottom:50px;
 }
