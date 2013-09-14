@@ -1,11 +1,11 @@
 ---
-permalink: Tutorial1.html
+permalink: Tutorial2.html
 layout: default
 ---
 
-Prev\: [License](License.html)
+Prev\: [Tutorial 1: Examples](Tutorial1.html)
 
-Next\: [Tutorial 2: Layouts](Tutorial2.html)
+Next\: [Tutorial 3: Test](Tutorial3.html)
 
 <!-- TEMPLATE START -->
 
@@ -80,6 +80,6 @@ A WeView layou
 
 <!-- TEMPLATE END -->
 
-Prev\: [License](License.html)
+Prev\: [Tutorial 1: Examples](Tutorial1.html)
 
-Next\: [Tutorial 2: Layouts](Tutorial2.html)
+Next\: [Tutorial 3: Test](Tutorial3.html)

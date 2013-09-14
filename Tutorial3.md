@@ -1,17 +1,17 @@
 ---
-permalink: Tutorial1.html
+permalink: Tutorial3.html
 layout: default
 ---
 
-Prev\: [License](License.html)
-
-Next\: [Tutorial 2: Layouts](Tutorial2.html)
+Prev\: [Tutorial 2: Layouts](Tutorial2.html)
 
 <!-- TEMPLATE START -->
 
 Tutorial
 ==
 
+<EMBED SRC="videos/video-633796AA-99BC-4296-853C-CD30D8AD2EE0-54898-00058943C9E1C927.mov" WIDTH="241" HEIGHT="94" AUTOPLAY="true" CONTROLLER="false" LOOP="true" PLUGINSPAGE="http://www.apple.com/quicktime/" />
+	
 The core class of this library is the __WeView__.  
 WeView is a subclass of UIView that can position its subviews using a variety of layouts.
 
@@ -80,6 +80,4 @@ A WeView layou
 
 <!-- TEMPLATE END -->
 
-Prev\: [License](License.html)
-
-Next\: [Tutorial 2: Layouts](Tutorial2.html)
+Prev\: [Tutorial 2: Layouts](Tutorial2.html)

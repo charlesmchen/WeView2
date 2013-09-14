@@ -30,6 +30,8 @@ links = (
   Link('whatsNewWeView2.md', 'What\'s new in WeView 2'),
   Link('License.md', 'License'),
   Link('Tutorial1.md', 'Tutorial 1: Examples'),
+  Link('Tutorial2.md', 'Tutorial 2: Layouts'),
+  Link('Tutorial3.md', 'Tutorial 3: Test'),
 )
 
 for index, link in enumerate(links):
