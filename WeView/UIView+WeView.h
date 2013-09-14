@@ -18,8 +18,6 @@
 
 @interface UIView (WeView) <NSCopying>
 
-// See comments in WeViewViewInfo.
-
 /* CODEGEN MARKER: Start */
 
 // The minimum desired width of this view. Trumps the maxWidth.

@@ -78,9 +78,13 @@
 
 #pragma mark -
 
-// Subviews added without a custom layout (ie. with [UIView addSubview:(UIView *)view] or this
-// method) will use the default layout.
-- (WeView *)addSubviews:(NSArray *)subviews;
+// Add subview to default layout.
+//
+// Functionally equivalent to [UIView addSubview], but can be chained.
+- (WeViewLayout *)addSubviewToDefaultLayout:(UIView *)subview;
+
+// Add subviews to default layout.
+- (WeViewLayout *)addSubviewsToDefaultLayout:(NSArray *)subviews;
 
 - (void)removeAllSubviews;
 

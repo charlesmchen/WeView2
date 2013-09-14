@@ -93,7 +93,7 @@ typedef enum
       setSpacing:10]
      setHAlign:H_ALIGN_LEFT];
 
-    [modePanel addSubviews:@[
+    [modePanel addSubviewsToDefaultLayout:@[
      [DemoViewFactory createFlatUIButton:@"Snap to desired size"
                                textColor:[UIColor colorWithWhite:1.f alpha:1.f]
                              buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
@@ -222,14 +222,10 @@ typedef enum
 
     [[self useStackDefaultLayout]
      setCropSubviewOverflow:NO];
-    [self addSubviews:@[
-     phoneContainer
-     ]];
+    [self addSubviewToDefaultLayout:phoneContainer];
 
     [phoneScreen useStackDefaultLayout];
-    [phoneScreen addSubviews:@[
-     self.demoModel.rootView,
-     ]];
+    [phoneScreen addSubviewToDefaultLayout:self.demoModel.rootView];
 }
 
 - (void)displayDemoModel:(DemoModel *)demoModel
@@ -245,9 +241,7 @@ typedef enum
         {
             [self useStackDefaultLayout];
             //            [self useHorizontalDefaultLayout];
-            [self addSubviews:@[
-             demoModel.rootView,
-             ]];
+            [self addSubviewToDefaultLayout:demoModel.rootView];
 
             break;
         }

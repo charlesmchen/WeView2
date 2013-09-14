@@ -486,4 +486,11 @@ BOOL _debugMinSize;
     }
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
+}
+
 @end

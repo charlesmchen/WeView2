@@ -107,7 +107,7 @@ UIColor *UIColorRGB(unsigned int rgb)
     {
         DemoModel *demoModel = [DemoModel create];
 
-        [demoModel.rootView addSubviews:@[
+        [demoModel.rootView addSubviewsToDefaultLayout:@[
          [DemoFactory createLabel:@"A UILabel"
                          fontSize:16.f],
          [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]],
@@ -116,8 +116,8 @@ UIColor *UIColorRGB(unsigned int rgb)
                                  buttonColor:[self randomBackgroundColor]
                                       target:nil
                                     selector:nil],
-//         [self buttonWithImageName:@"Images/ok_button_up.png"],
-          ]];
+         //         [self buttonWithImageName:@"Images/ok_button_up.png"],
+         ]];
         [[[[demoModel.rootView useHorizontalDefaultLayout]
            setVMargin:5]
           setHMargin:10]
@@ -140,15 +140,16 @@ UIColor *UIColorRGB(unsigned int rgb)
     {
         DemoModel *demoModel = [DemoModel create];
 
-        [[[[[demoModel.rootView addSubviews:@[
-             [DemoFactory createLabel:@"Welcome"
-                             fontSize:16.f],
-             [DemoFactory createLabel:@"To"
-                             fontSize:24.f],
-             [DemoFactory createLabel:@"WeView"
-                             fontSize:32.f],
-             [DemoFactory createWrappingLabel],
-             ]] useHorizontalDefaultLayout]
+        [demoModel.rootView useHorizontalDefaultLayout];
+        [[[[demoModel.rootView addSubviewsToDefaultLayout:@[
+            [DemoFactory createLabel:@"Welcome"
+                            fontSize:16.f],
+            [DemoFactory createLabel:@"To"
+                            fontSize:24.f],
+            [DemoFactory createLabel:@"WeView"
+                            fontSize:32.f],
+            [DemoFactory createWrappingLabel],
+            ]]
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
@@ -170,16 +171,17 @@ UIColor *UIColorRGB(unsigned int rgb)
     {
         DemoModel *demoModel = [DemoModel create];
 
-        [[[[[demoModel.rootView addSubviews:@[
-         [DemoFactory createLabel:@"Welcome"
-                         fontSize:16.f],
-         [DemoFactory createLabel:@"To"
-                         fontSize:24.f],
-         [DemoFactory createLabel:@"WeView"
-                         fontSize:32.f],
-         [DemoFactory createWrappingLabel],
-         ]] useVerticalDefaultLayout]
-          setVMargin:10]
+        [demoModel.rootView useVerticalDefaultLayout];
+        [[[[demoModel.rootView addSubviewsToDefaultLayout:@[
+            [DemoFactory createLabel:@"Welcome"
+                            fontSize:16.f],
+            [DemoFactory createLabel:@"To"
+                            fontSize:24.f],
+            [DemoFactory createLabel:@"WeView"
+                            fontSize:32.f],
+            [DemoFactory createWrappingLabel],
+            ]]
+           setVMargin:10]
           setHMargin:20]
          setSpacing:5];
 
@@ -201,35 +203,38 @@ UIColor *UIColorRGB(unsigned int rgb)
         DemoModel *demoModel = [DemoModel create];
 
         WeView *topPanel = [[WeView alloc] init];
-        [[[[[topPanel addSubviews:@[
-             [DemoFactory createLabel:@"Welcome"
-                             fontSize:16.f],
-             [DemoFactory createLabel:@"To"
-                             fontSize:24.f],
-             [DemoFactory createLabel:@"WeView"
-                             fontSize:32.f],
-             ]] useHorizontalDefaultLayout]
+        [topPanel useHorizontalDefaultLayout];
+        [[[[topPanel addSubviewsToDefaultLayout:@[
+            [DemoFactory createLabel:@"Welcome"
+                            fontSize:16.f],
+            [DemoFactory createLabel:@"To"
+                            fontSize:24.f],
+            [DemoFactory createLabel:@"WeView"
+                            fontSize:32.f],
+            ]]
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
 
         WeView *bottomPanel = [[WeView alloc] init];
-        [[[[[bottomPanel addSubviews:@[
-             [DemoFactory createLabel:@"Welcome"
-                             fontSize:16.f],
-             [DemoFactory createLabel:@"To"
-                             fontSize:24.f],
-             [DemoFactory createLabel:@"WeView"
-                             fontSize:32.f],
-             ]] useHorizontalDefaultLayout]
+        [bottomPanel useHorizontalDefaultLayout];
+        [[[[bottomPanel addSubviewsToDefaultLayout:@[
+            [DemoFactory createLabel:@"Welcome"
+                            fontSize:16.f],
+            [DemoFactory createLabel:@"To"
+                            fontSize:24.f],
+            [DemoFactory createLabel:@"WeView"
+                            fontSize:32.f],
+            ]]
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
 
-        [[[[demoModel.rootView addSubviews:@[
-            topPanel,
-            bottomPanel,
-            ]] useVerticalDefaultLayout]
+        [demoModel.rootView useVerticalDefaultLayout];
+        [[[demoModel.rootView addSubviewsToDefaultLayout:@[
+           topPanel,
+           bottomPanel,
+           ]]
           setMargin:10]
          setSpacing:10];
 
@@ -260,36 +265,39 @@ UIColor *UIColorRGB(unsigned int rgb)
          setSpacing:5];
 
         WeView *horizontalPanel = [[WeView alloc] init];
-        [[[[[horizontalPanel addSubviews:@[
-             [DemoFactory createWrappingLabel],
-             [DemoFactory createLabel:@"To"
-                             fontSize:24.f],
-             [DemoFactory createLabel:@"WeView"
-                             fontSize:32.f],
-             ]] useHorizontalDefaultLayout]
+        [horizontalPanel useHorizontalDefaultLayout];
+        [[[[horizontalPanel addSubviewsToDefaultLayout:@[
+            [DemoFactory createWrappingLabel],
+            [DemoFactory createLabel:@"To"
+                            fontSize:24.f],
+            [DemoFactory createLabel:@"WeView"
+                            fontSize:32.f],
+            ]]
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
 
         WeView *verticalPanel = [[WeView alloc] init];
-        [[[[[verticalPanel addSubviews:@[
-             [DemoFactory createLabel:@"Welcome"
-                             fontSize:16.f],
-             [DemoFactory createLabel:@"To"
-                             fontSize:24.f],
-             [DemoFactory createLabel:@"WeView"
-                             fontSize:32.f],
-             ]] useVerticalDefaultLayout]
+        [verticalPanel useVerticalDefaultLayout];
+        [[[[verticalPanel addSubviewsToDefaultLayout:@[
+            [DemoFactory createLabel:@"Welcome"
+                            fontSize:16.f],
+            [DemoFactory createLabel:@"To"
+                            fontSize:24.f],
+            [DemoFactory createLabel:@"WeView"
+                            fontSize:32.f],
+            ]]
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
 
-        [[[[demoModel.rootView addSubviews:@[
-            [DemoFactory createWrappingLabel],
-            singleViewPanel,
-            horizontalPanel,
-            verticalPanel,
-            ]] useVerticalDefaultLayout]
+        [demoModel.rootView useVerticalDefaultLayout];
+        [[[demoModel.rootView addSubviewsToDefaultLayout:@[
+           [DemoFactory createWrappingLabel],
+           singleViewPanel,
+           horizontalPanel,
+           verticalPanel,
+           ]]
           setMargin:10]
          setSpacing:10];
 
@@ -324,11 +332,11 @@ UIColor *UIColorRGB(unsigned int rgb)
          ]
                  animated:NO];
         WeView *bodyView = [[WeView alloc] init];
-        [[demoModel.rootView addSubviews:@[
-          toolbar,
-          [bodyView setStretchesIgnoringDesiredSize],
-          ]]
-         useVerticalDefaultLayout];
+        [demoModel.rootView useVerticalDefaultLayout];
+        [demoModel.rootView addSubviewsToDefaultLayout:@[
+         toolbar,
+         [bodyView setStretchesIgnoringDesiredSize],
+         ]];
 
         [bodyView addSubviewWithFillLayoutWAspectRatio:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/The_shortening_winters_day_is_near_a_close_Farquharson.jpg"]]];
         bodyView.clipsToBounds = YES;
@@ -416,7 +424,7 @@ UIColor *UIColorRGB(unsigned int rgb)
                               fontSize:14.f];
     label.numberOfLines = 0;
     label.lineBreakMode = NSLineBreakByWordWrapping;
-//    label.stretchWeight = 1.f;
+    //    label.stretchWeight = 1.f;
     return label;
 }
 
@@ -477,19 +485,19 @@ UIColor *UIColorRGB(unsigned int rgb)
             UIColorRGB(0x303034),
             UIColorRGB(0xE6E6E6),
 
-//            [[UIColor redColor] colorWithAlphaComponent:0.5f],
-//            [[UIColor greenColor] colorWithAlphaComponent:0.5f],
-//            [[UIColor blueColor] colorWithAlphaComponent:0.5f],
-//            [[UIColor orangeColor] colorWithAlphaComponent:0.5f],
-//            [[UIColor purpleColor] colorWithAlphaComponent:0.5f],
-//            [[UIColor brownColor] colorWithAlphaComponent:0.5f],
-//            [[UIColor yellowColor] colorWithAlphaComponent:0.5f],
-//            [[UIColor cyanColor] colorWithAlphaComponent:0.5f],
-//            [[UIColor magentaColor] colorWithAlphaComponent:0.5f],
-//            [[UIColor whiteColor] colorWithAlphaComponent:0.5f],
-//            [[UIColor blackColor] colorWithAlphaComponent:0.5f],
+            //            [[UIColor redColor] colorWithAlphaComponent:0.5f],
+            //            [[UIColor greenColor] colorWithAlphaComponent:0.5f],
+            //            [[UIColor blueColor] colorWithAlphaComponent:0.5f],
+            //            [[UIColor orangeColor] colorWithAlphaComponent:0.5f],
+            //            [[UIColor purpleColor] colorWithAlphaComponent:0.5f],
+            //            [[UIColor brownColor] colorWithAlphaComponent:0.5f],
+            //            [[UIColor yellowColor] colorWithAlphaComponent:0.5f],
+            //            [[UIColor cyanColor] colorWithAlphaComponent:0.5f],
+            //            [[UIColor magentaColor] colorWithAlphaComponent:0.5f],
+            //            [[UIColor whiteColor] colorWithAlphaComponent:0.5f],
+            //            [[UIColor blackColor] colorWithAlphaComponent:0.5f],
 
-//            [UIColor clearColor],
+            //            [UIColor clearColor],
             nil];
 }
 

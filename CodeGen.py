@@ -557,99 +557,103 @@ replaceBlock(viewInfomFilePath, 'Debug Start', 'Debug End', block)
 
 # --------
 
-lines = []
-lines.append('')
-for propertyGroup in view_propertyGroups:
-    for property in propertyGroup:
-        if property.typeName == 'CGFloat':
-            lines.append('''
-                            [ViewParameterSimple floatProperty:@"%s"],''' % (property.name, ) )
-        elif property.typeName == 'BOOL':
-            lines.append('''
-                            [ViewParameterSimple booleanProperty:@"%s"],''' % (property.name, ) )
-        elif property.typeName == 'HAlign':
-            lines.append('''
-                            [ViewParameterSimple create:@"%s"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatHAlign(view.%s);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:@"Left"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = H_ALIGN_LEFT;
-                                             }],
-                             [ViewParameterSetter create:@"Center"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = H_ALIGN_CENTER;
-                                             }],
-                             [ViewParameterSetter create:@"Right"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = H_ALIGN_RIGHT;
-                                             }],
-                             ]
-                             doubleHeight:YES],
-                             ''' % (property.name, property.name, property.name, property.name, property.name, ) )
-        elif property.typeName == 'VAlign':
-            lines.append('''
-                            [ViewParameterSimple create:@"%s"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatVAlign(view.%s);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:@"Top"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = V_ALIGN_TOP;
-                                             }],
-                             [ViewParameterSetter create:@"Center"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = V_ALIGN_CENTER;
-                                             }],
-                             [ViewParameterSetter create:@"Bottom"
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = V_ALIGN_BOTTOM;
-                                             }],
-                             ]
-                             doubleHeight:YES],
-                             ''' % (property.name, property.name, property.name, property.name, property.name, ) )
-        elif property.typeName == 'CellPositioningMode':
-            lines.append('''
-                            [ViewParameterSimple create:@"%s"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatCellPositioningMode(view.%s);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_NORMAL)
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = CELL_POSITION_NORMAL;
-                                             }],
-                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL)
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = CELL_POSITION_FILL;
-                                             }],
-                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL_W_ASPECT_RATIO)
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = CELL_POSITION_FILL_W_ASPECT_RATIO;
-                                             }],
-                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FIT_W_ASPECT_RATIO)
-                                             setterBlock:^(UIView *view) {
-                                                 view.%s = CELL_POSITION_FIT_W_ASPECT_RATIO;
-                                             }],
-                             ]
-                             doubleHeight:YES],
-                             ''' % (property.name, property.name, property.name, property.name, property.name, property.name, ) )
-        else:
-            print 'Unknown typeName:', property.typeName
+def createViewEditorControllerParameters(propertyGroups, blockStartKey, blockEndKey, itemCast):
+    lines = []
+    lines.append('')
+    for propertyGroup in propertyGroups:
+        for property in propertyGroup:
+            if property.typeName == 'CGFloat':
+                lines.append('''
+                                [ViewParameterSimple floatProperty:@"%s"],''' % (property.name, ) )
+            elif property.typeName == 'BOOL':
+                lines.append('''
+                                [ViewParameterSimple booleanProperty:@"%s"],''' % (property.name, ) )
+            elif property.typeName == 'HAlign':
+                lines.append('''
+                                [ViewParameterSimple create:@"%s"
+                                                getterBlock:^NSString *(id item) {
+                                                    return FormatHAlign(%s.%s);
+                                                }
+                                                    setters:@[
+                                 [ViewParameterSetter create:@"Left"
+                                                 setterBlock:^(id item) {
+                                                     %s.%s = H_ALIGN_LEFT;
+                                                 }],
+                                 [ViewParameterSetter create:@"Center"
+                                                 setterBlock:^(id item) {
+                                                     %s.%s = H_ALIGN_CENTER;
+                                                 }],
+                                 [ViewParameterSetter create:@"Right"
+                                                 setterBlock:^(id item) {
+                                                     %s.%s = H_ALIGN_RIGHT;
+                                                 }],
+                                 ]
+                                 doubleHeight:YES],
+                                 ''' % (property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, ) )
+            elif property.typeName == 'VAlign':
+                lines.append('''
+                                [ViewParameterSimple create:@"%s"
+                                                getterBlock:^NSString *(id item) {
+                                                    return FormatVAlign(%s.%s);
+                                                }
+                                                    setters:@[
+                                 [ViewParameterSetter create:@"Top"
+                                                 setterBlock:^(id item) {
+                                                     %s.%s = V_ALIGN_TOP;
+                                                 }],
+                                 [ViewParameterSetter create:@"Center"
+                                                 setterBlock:^(id item) {
+                                                     %s.%s = V_ALIGN_CENTER;
+                                                 }],
+                                 [ViewParameterSetter create:@"Bottom"
+                                                 setterBlock:^(id item) {
+                                                     %s.%s = V_ALIGN_BOTTOM;
+                                                 }],
+                                 ]
+                                 doubleHeight:YES],
+                                 ''' % (property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, ) )
+            elif property.typeName == 'CellPositioningMode':
+                lines.append('''
+                                [ViewParameterSimple create:@"%s"
+                                                getterBlock:^NSString *(id item) {
+                                                    return FormatCellPositioningMode(%s.%s);
+                                                }
+                                                    setters:@[
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_NORMAL)
+                                                 setterBlock:^(id item) {
+                                                     %s.%s = CELL_POSITION_NORMAL;
+                                                 }],
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL)
+                                                 setterBlock:^(id item) {
+                                                     %s.%s = CELL_POSITION_FILL;
+                                                 }],
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL_W_ASPECT_RATIO)
+                                                 setterBlock:^(id item) {
+                                                     %s.%s = CELL_POSITION_FILL_W_ASPECT_RATIO;
+                                                 }],
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FIT_W_ASPECT_RATIO)
+                                                 setterBlock:^(id item) {
+                                                     %s.%s = CELL_POSITION_FIT_W_ASPECT_RATIO;
+                                                 }],
+                                 ]
+                                 doubleHeight:YES],
+                                 ''' % (property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, ) )
+            else:
+                print 'Unknown typeName:', property.typeName
 
-        # value = '@(self.%s)' % property.name
-        # if property.typeName.endswith(' *'):
-        #     value = 'self.%s' % property.name
-        # lines.append('    [result appendString:[self formatLayoutDescriptionItem:@"%s" value:%s]];' % (property.name, value, ))
-        pass
-lines.append('')
-lines.append('')
-block = '\n'.join(lines)
+            # value = '@(self.%s)' % property.name
+            # if property.typeName.endswith(' *'):
+            #     value = 'self.%s' % property.name
+            # lines.append('    [result appendString:[self formatLayoutDescriptionItem:@"%s" value:%s]];' % (property.name, value, ))
+            pass
+    lines.append('')
+    lines.append('')
+    block = '\n'.join(lines)
 
-replaceBlock(ViewEditorController_mFilePath, 'Parameters Start', 'Parameters End', block)
+    replaceBlock(ViewEditorController_mFilePath, blockStartKey, blockEndKey, block)
+
+createViewEditorControllerParameters(view_propertyGroups, 'View Parameters Start', 'View Parameters End', '((UIView *) item)')
+createViewEditorControllerParameters(layout_propertyGroups, 'Layout Parameters Start', 'Layout Parameters End', '((WeViewLayout *) item)')
 
 # --------
 

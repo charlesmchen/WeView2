@@ -18,4 +18,6 @@
 
 + (ViewHierarchyTree *)create:(DemoModel *)demoModel;
 
+- (NSArray *)getSubviewsForLayout:(WeViewLayout *)layout;
+
 @end

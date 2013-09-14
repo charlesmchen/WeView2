@@ -15,7 +15,7 @@
 
 #import "WeViewCommon.h"
 
-@interface WeViewLayout : NSObject
+@interface WeViewLayout : NSObject <NSCopying>
 
 - (void)layoutContentsOfView:(UIView *)view
                     subviews:(NSArray *)subviews;

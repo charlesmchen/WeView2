@@ -66,7 +66,7 @@
         [subviews addObject:[childViewController.view setStretchesIgnoringDesiredSize]];
     }
 
-    [self.rootView addSubviews:subviews];
+    [self.rootView addSubviewsToDefaultLayout:subviews];
 //    self.rootView.debugLayout = YES;
 }
 

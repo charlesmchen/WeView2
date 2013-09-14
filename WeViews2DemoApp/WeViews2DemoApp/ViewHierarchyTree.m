@@ -12,6 +12,17 @@
 #import "DemoModel.h"
 #import "WeViewDemoConstants.h"
 #import "WeViewDemoUtils.h"
+#import "WeViewMacros.h"
+
+@interface WeView (Private)
+
+- (NSArray *)allLayouts;
+
+- (NSArray *)subviewsForLayout:(WeViewLayout *)layout;
+
+@end
+
+#pragma mark -
 
 @interface ViewHierarchyTree () <UITableViewDelegate, UITableViewDataSource>
 
@@ -20,6 +31,7 @@
 @property (nonatomic) NSMutableArray *visibleViews;
 @property (nonatomic) NSMutableArray *indents;
 @property (nonatomic) NSMutableSet *expandedViews;
+@property (nonatomic) NSMutableDictionary *layoutSubviewMap;
 
 - (void)updateState;
 - (void)toggleExpanded:(UIView *)pseudoView;
@@ -32,7 +44,7 @@
 @interface TreeNode : WeView
 
 @property (nonatomic) DemoModel *demoModel;
-@property (nonatomic) UIView *item;
+@property (nonatomic) id item;
 // Not retained.
 @property (nonatomic, weak) ViewHierarchyTree *parent;
 @property (nonatomic) BOOL expanded;
@@ -49,6 +61,10 @@
     [self removeAllSubviews];
 
     BOOL selected = self.demoModel.selection == self.item;
+    //    NSLog(@"selected: %d, selection: %@, item: %@",
+    //          selected,
+    //          self.demoModel.selection,
+    //          self.item);
     if (selected)
     {
         self.backgroundColor = [UIColor colorWithRed:0.8f
@@ -78,13 +94,17 @@
     expandLabel.textColor = [UIColor blackColor];
     expandLabel.userInteractionEnabled = YES;
     [expandLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleExpand)]];
-    expandLabel.hidden = [[self.item subviews] count] == 0;
+    expandLabel.hidden = YES;
+    if ([self.item isKindOfClass:[UIView class]])
+    {
+        expandLabel.hidden = [[self.item subviews] count] == 0;
+    }
 
     NSString* description = [[self.item class] description];
-    if (self.item.debugName)
-    {
-        description = [NSString stringWithFormat:@"%@ (%@)", description, self.item.debugName];
-    }
+    //    if (self.item.debugName)
+    //    {
+    //        description = [NSString stringWithFormat:@"%@ (%@)", description, self.item.debugName];
+    //    }
 
     UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor clearColor];
@@ -96,9 +116,9 @@
     label.textColor = [UIColor blackColor];
     label.userInteractionEnabled = YES;
 
-    const int INDENT_PIXELS = 5;
-    [[[[[[self addSubviews:@[expandLabel, label,]]
-        useHorizontalDefaultLayout]
+    const int INDENT_PIXELS = 8;
+    [self useHorizontalDefaultLayout];
+    [[[[[self addSubviewsToDefaultLayout:@[expandLabel, label,]]
         setHMargin:10 + self.indentLevel * INDENT_PIXELS]
        setVMargin:3]
       setSpacing:5]
@@ -168,16 +188,15 @@
 
 - (void)setup
 {
-    self.stretchWeight = 1.0f;
+    [self setStretchesIgnoringDesiredSize];
     self.table = [[UITableView alloc] init];
     self.table.backgroundColor = [UIColor whiteColor];
     self.table.opaque = YES;
-    //    self.table.rowHeight = 5;
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self.table setStretchesIgnoringDesiredSize];
-    [[[self addSubviews:@[self.table,]]
-     useHorizontalDefaultLayout]
+    [self useVerticalDefaultLayout];
+    [[self addSubviewsToDefaultLayout:@[self.table,]]
      setVAlign:V_ALIGN_TOP];
 
     self.table.delegate = self;
@@ -202,13 +221,13 @@
 
 - (void)handleItemAdded:(NSNotification *)notification
 {
-//    NSLog(@"tree handleItemAdded: %@", notification.object);
+    //    NSLog(@"tree handleItemAdded: %@", notification.object);
     [self.expandedViews addObject:notification.object];
 }
 
 - (void)handleSelectionChanged
 {
-//    NSLog(@"tree handleSelectionChanged");
+    //    NSLog(@"tree handleSelectionChanged");
     [self updateState];
 }
 
@@ -217,9 +236,8 @@
 - (void)buildVisibleViews:(UIView *)pseudoView
                    indent:(int)indent
 {
-
     [self.visibleViews addObject:pseudoView];
-    [self.indents addObject:[NSNumber numberWithInt:indent]];
+    [self.indents addObject:@(indent)];
 
     if ([WeViewDemoUtils ignoreChildrenOfView:pseudoView])
     {
@@ -227,19 +245,41 @@
         return;
     }
 
-    NSMutableArray* ignores = [NSMutableArray array];
     if ([self.expandedViews containsObject:pseudoView])
     {
-        for (UIView* subview in pseudoView.subviews)
+        if ([pseudoView isKindOfClass:[WeView class]])
         {
-            if ([ignores containsObject:subview])
+            WeView *weView = (WeView *) pseudoView;
+
+            for (WeViewLayout *layout in weView.allLayouts)
             {
-                continue;
+                NSArray *layoutSubviews = [weView subviewsForLayout:layout];
+                self.layoutSubviewMap[layout] = layoutSubviews;
+
+                [self.visibleViews addObject:layout];
+                [self.indents addObject:@(indent + 1)];
+
+                for (UIView* subview in layoutSubviews)
+                {
+                    [self buildVisibleViews:subview
+                                     indent:indent + 2];
+                }
             }
-            [self buildVisibleViews:subview
-                             indent:indent + 1];
+        }
+        else
+        {
+            for (UIView* subview in pseudoView.subviews)
+            {
+                [self buildVisibleViews:subview
+                                 indent:indent + 1];
+            }
         }
     }
+}
+
+- (NSArray *)getSubviewsForLayout:(WeViewLayout *)layout
+{
+    return self.layoutSubviewMap[layout];
 }
 
 - (void)updateState
@@ -256,6 +296,7 @@
     // Always expand root object.
     [self.expandedViews addObject:self.demoModel.rootView];
 
+    self.layoutSubviewMap = [NSMutableDictionary dictionary];
     [self buildVisibleViews:self.demoModel.rootView
                      indent:0];
 
@@ -263,8 +304,12 @@
     [self.expandedViews intersectSet:[NSSet setWithArray:self.visibleViews]];
 
     [self.table reloadData];
-
     [self setNeedsLayout];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
 }
 
 - (void)toggleExpanded:(id)item
@@ -325,6 +370,8 @@
     result.frame = resultFrame;
     itemView.frame = resultFrame;
     [result addSubview:itemView];
+
+    result.backgroundColor = [UIColor redColor];
 
     return result;
 }

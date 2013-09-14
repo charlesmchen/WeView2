@@ -112,6 +112,11 @@
 
 - (NSArray *)subviewsForLayout:(WeViewLayout *)layout
 {
+    if (layout == self._defaultLayout)
+    {
+        // Use "nil" to find the subviews for the default layout.
+        layout = nil;
+    }
     NSMutableArray *result = [NSMutableArray array];
     for (UIView *subview in self.subviews)
     {
@@ -175,10 +180,17 @@
     return self;
 }
 
-- (WeView *)addSubviews:(NSArray *)subviews
+- (WeViewLayout *)addSubviewToDefaultLayout:(UIView *)subview
 {
-    return [self addSubviews:subviews
+    return [self addSubviews:@[subview,]
+                  withLayout:nil];
+}
+
+- (WeViewLayout *)addSubviewsToDefaultLayout:(NSArray *)subviews
+{
+    [self addSubviews:subviews
            withLayout:nil];
+    return self._defaultLayout;
 }
 
 #pragma mark - Custom Layouts
@@ -282,6 +294,13 @@
     {
         [self.subviewLayoutMap removeObjectForKey:subview];
     }
+}
+
+- (NSArray *)allLayouts
+{
+    NSMutableArray *result = [[self.subviewLayoutMap allValues] mutableCopy];
+    [result insertObject:self._defaultLayout atIndex:0];
+    return result;
 }
 
 @end
