@@ -80,7 +80,7 @@
         return [self insetSizeOfView:view];
     }
 
-    BOOL debugMinSize = [self debugMinSize:view];
+    BOOL debugMinSize = [self debugMinSize];
     int indent = 0;
     if (debugMinSize)
     {
@@ -96,7 +96,7 @@
     BOOL horizontal = self.isHorizontal;
     int subviewCount = [subviews count];
 
-    CGFloat spacing = MAX(0, ceilf(horizontal ? [self hSpacing:view] : [self vSpacing:view]));
+    CGFloat spacing = MAX(0, ceilf(horizontal ? [self hSpacing] : [self vSpacing]));
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:guideSize];
     CGSize totalSpacingSize = CGSizeMake(horizontal ? spacing * (subviewCount - 1) : 0.f,
@@ -147,7 +147,7 @@
     {
         // TODO: crop from subviews with axis stretch first.  Then crop other subviews only if
         // necessary.
-        BOOL cropSubviewOverflow = [self cropSubviewOverflow:view];
+        BOOL cropSubviewOverflow = [self cropSubviewOverflow];
         if (cropSubviewOverflow && hasNonEmptyGuideSize)
         {
             [self distributeAdjustment:-extraAxisSpace
@@ -240,7 +240,7 @@
          extraSpace:(CGFloat)extraSpace
                view:(UIView *)view
 {
-    switch ([self contentHAlign:view])
+    switch ([self hAlign])
     {
         case H_ALIGN_LEFT:
             break;
@@ -260,7 +260,7 @@
          extraSpace:(CGFloat)extraSpace
                view:(UIView *)view
 {
-    switch ([self contentVAlign:view])
+    switch ([self vAlign])
     {
         case V_ALIGN_TOP:
             break;
@@ -284,7 +284,7 @@
         return;
     }
 
-    BOOL debugLayout = [self debugLayout:view];
+    BOOL debugLayout = [self debugLayout];
     int indent = 0;
     CGSize guideSize = view.size;
     if (debugLayout)
@@ -301,7 +301,7 @@
     BOOL horizontal = self.isHorizontal;
     int subviewCount = [subviews count];
 
-    CGFloat spacing = MAX(0, ceilf(horizontal ? [self hSpacing:view] : [self vSpacing:view]));
+    CGFloat spacing = MAX(0, ceilf(horizontal ? [self hSpacing] : [self vSpacing]));
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:guideSize];
     CGSize totalSpacingSize = CGSizeMake(horizontal ? spacing * (subviewCount - 1) : 0.f,
@@ -378,7 +378,7 @@
     {
         // Crop or Stretch if necessary.
 
-        BOOL cropSubviewOverflow = [self cropSubviewOverflow:view];
+        BOOL cropSubviewOverflow = [self cropSubviewOverflow];
         CGFloat extraAxisSpace = maxTotalAxisSize - rawTotalAxisSize;
         BOOL hasNonEmptyGuideSize = guideSize.width * guideSize.height > 0;
         if (extraAxisSpace < 0)
@@ -526,7 +526,7 @@
     }
 
     // Calculate and apply the subviews' frames.
-    CellPositioningMode cellPositioning = [self cellPositioning:view];
+    CellPositioningMode cellPositioning = [self cellPositioning];
     for (int i=0; i < subviewCount; i++)
     {
         UIView* subview = subviews[i];

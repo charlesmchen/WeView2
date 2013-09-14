@@ -59,6 +59,9 @@
 		34C19CD117DD1D4C0025914F /* WeViewCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CC517DD1D4B0025914F /* WeViewCommon.m */; };
 		34C19CD217DD1D4C0025914F /* WeViewViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CC817DD1D4C0025914F /* WeViewViewInfo.m */; };
 		34C19CD617DD1DA30025914F /* WeViewDemoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CD517DD1DA30025914F /* WeViewDemoUtils.m */; };
+		34C19CED17E172890025914F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19CEC17E172880025914F /* AVFoundation.framework */; };
+		34C19CEF17E172960025914F /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19CEE17E172960025914F /* CoreVideo.framework */; };
+		34C19CF117E1729F0025914F /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19CF017E1729F0025914F /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +158,9 @@
 		34C19CD317DD1DA30025914F /* WeViewDemoConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewDemoConstants.h; sourceTree = "<group>"; };
 		34C19CD417DD1DA30025914F /* WeViewDemoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewDemoUtils.h; sourceTree = "<group>"; };
 		34C19CD517DD1DA30025914F /* WeViewDemoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewDemoUtils.m; sourceTree = "<group>"; };
+		34C19CEC17E172880025914F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		34C19CEE17E172960025914F /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		34C19CF017E1729F0025914F /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +168,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34C19CF117E1729F0025914F /* CoreMedia.framework in Frameworks */,
+				34C19CEF17E172960025914F /* CoreVideo.framework in Frameworks */,
+				34C19CED17E172890025914F /* AVFoundation.framework in Frameworks */,
 				34C19C7C17DCF22E0025914F /* MobileCoreServices.framework in Frameworks */,
 				34C19C7A17DCF2160025914F /* ImageIO.framework in Frameworks */,
 				34195F7D17CA80A90036F8DC /* UIKit.framework in Frameworks */,
@@ -188,9 +197,7 @@
 			children = (
 				34C19C6317DBE8DA0025914F /* FAQ.md */,
 				34195F7B17CA80A90036F8DC /* Frameworks */,
-				34C19C7917DCF2160025914F /* ImageIO.framework */,
 				3444368C17D3F9E200EFF341 /* LICENSE */,
-				34C19C7B17DCF22E0025914F /* MobileCoreServices.framework */,
 				34195F7A17CA80A90036F8DC /* Products */,
 				3444368A17D3F9DA00EFF341 /* README.md */,
 				3444366117D2A5AB00EFF341 /* Resources */,
@@ -212,6 +219,11 @@
 		34195F7B17CA80A90036F8DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34C19CF017E1729F0025914F /* CoreMedia.framework */,
+				34C19CEE17E172960025914F /* CoreVideo.framework */,
+				34C19CEC17E172880025914F /* AVFoundation.framework */,
+				34C19C7917DCF2160025914F /* ImageIO.framework */,
+				34C19C7B17DCF22E0025914F /* MobileCoreServices.framework */,
 				34195F7C17CA80A90036F8DC /* UIKit.framework */,
 				34195F7E17CA80A90036F8DC /* Foundation.framework */,
 				34195F8017CA80A90036F8DC /* CoreGraphics.framework */,

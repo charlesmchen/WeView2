@@ -31,7 +31,7 @@
         return [self insetSizeOfView:view];
     }
 
-    BOOL debugMinSize = [self debugMinSize:view];
+    BOOL debugMinSize = [self debugMinSize];
     int indent = 0;
     if (debugMinSize)
     {
@@ -85,7 +85,7 @@
         return;
     }
 
-    BOOL debugLayout = [self debugLayout:view];
+    BOOL debugLayout = [self debugLayout];
     int indent = 0;
     CGSize guideSize = view.size;
     if (debugLayout)
@@ -111,8 +111,8 @@
               FormatSize([self insetSizeOfView:view]));
     }
 
-    BOOL cropSubviewOverflow = [self cropSubviewOverflow:view];
-    CellPositioningMode cellPositioning = [self cellPositioning:view];
+    BOOL cropSubviewOverflow = [self cropSubviewOverflow];
+    CellPositioningMode cellPositioning = [self cellPositioning];
     for (int i=0; i < [subviews count]; i++)
     {
         UIView* subview = subviews[i];

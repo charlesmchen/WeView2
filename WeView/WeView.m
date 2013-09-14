@@ -22,7 +22,7 @@
 @interface WeView ()
 
 // The default layout for subviews not associated with a specific layout.
-@property (nonatomic) WeViewLayout *defaultLayout;
+@property (nonatomic) WeViewLayout *_defaultLayout;
 
 // A map of subview-to-layout of subviews associated with specific layouts.
 @property (nonatomic) NSMutableDictionary *subviewLayoutMap;
@@ -66,40 +66,46 @@
 
 #pragma mark - Default Layout
 
-- (WeView *)useHorizontalDefaultLayout
+- (WeViewLayout *)useHorizontalDefaultLayout
 {
     self.defaultLayout = [WeViewLinearLayout horizontalLayout];
-    return self;
+    return self.defaultLayout;
 }
 
-- (WeView *)useVerticalDefaultLayout
+- (WeViewLayout *)useVerticalDefaultLayout
 {
     self.defaultLayout = [WeViewLinearLayout verticalLayout];
-    return self;
+    return self.defaultLayout;
 }
 
-- (WeView *)useNoDefaultLayout
+- (WeViewLayout *)useNoDefaultLayout
 {
     self.defaultLayout = [WeViewNoopLayout noopLayout];
-    return self;
+    return self.defaultLayout;
 }
 
-- (WeView *)useStackDefaultLayout
+- (WeViewLayout *)useStackDefaultLayout
 {
     self.defaultLayout = [WeViewStackLayout stackLayout];
-    return self;
+    return self.defaultLayout;
 }
 
-- (WeView *)useBlockDefaultLayout:(BlockLayoutBlock)block
+- (WeViewLayout *)useBlockDefaultLayout:(BlockLayoutBlock)block
 {
     self.defaultLayout = [WeViewBlockLayout blockLayoutWithBlock:block];
+    return self.defaultLayout;
+}
+
+- (WeView *)setDefaultLayout:(WeViewLayout *)defaultLayout
+{
+    self._defaultLayout = defaultLayout;
+    [self setNeedsLayout];
     return self;
 }
 
-- (void)setDefaultLayout:(WeViewLayout *)defaultLayout
+- (WeViewLayout *)defaultLayout
 {
-    _defaultLayout = defaultLayout;
-    [self setNeedsLayout];
+    return self._defaultLayout;
 }
 
 #pragma mark -

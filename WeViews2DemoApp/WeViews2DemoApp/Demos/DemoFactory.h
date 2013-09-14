@@ -21,8 +21,7 @@
 
 + (void)assignRandomBackgroundColor:(UIView *)view;
 
-+ (UIColor*) randomForegroundColor;
-+ (UIColor*) randomBackgroundColor;
-
++ (UIColor *)randomForegroundColor;
++ (UIColor *)randomBackgroundColor;
 
 @end

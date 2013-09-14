@@ -176,8 +176,8 @@ typedef struct
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:CGSizeZero];
     CGSize maxSubviewSize = contentBounds.size;
-    CGFloat hSpacing = ceilf([self hSpacing:view]);
-    CGFloat vSpacing = ceilf([self vSpacing:view]);
+    CGFloat hSpacing = ceilf([self hSpacing]);
+    CGFloat vSpacing = ceilf([self vSpacing]);
     maxSubviewSize.width = MAX(0, maxSubviewSize.width - hSpacing * (columnCount - 1));
     maxSubviewSize.height = MAX(0, maxSubviewSize.height - vSpacing * (rowCount - 1));
     if (self.isGridUniform)
@@ -313,7 +313,7 @@ typedef struct
         return [self insetSizeOfView:view];
     }
 
-    BOOL debugMinSize = [self debugMinSize:view];
+    BOOL debugMinSize = [self debugMinSize];
     int indent = 0;
     if (debugMinSize)
     {
@@ -333,7 +333,7 @@ typedef struct
     CGSize totalSize = [gridLayoutInfo totalSize:view
                                           layout:self];
 
-    if (view.debugLayout)
+    if (self.debugLayout)
     {
         NSLog(@"%@ result: %@",
               [self indentPrefix:indent + 1],
@@ -349,7 +349,7 @@ typedef struct
     {
         return;
     }
-    BOOL debugLayout = [self debugLayout:view];
+    BOOL debugLayout = [self debugLayout];
     int indent = 0;
     CGSize guideSize = view.size;
     if (debugLayout)
@@ -408,7 +408,7 @@ typedef struct
             case GRID_STRETCH_POLICY_NO_STRETCH:
             {
                 // Don't stretch cells or spacing; instead align grid body within the extra space.
-                switch ([self contentHAlign:view])
+                switch ([self hAlign])
                 {
                     case H_ALIGN_LEFT:
                         break;
@@ -431,7 +431,7 @@ typedef struct
     }
     else if (extraCellSpace.width < 0)
     {
-        if (view.cropSubviewOverflow)
+        if (self.cropSubviewOverflow)
         {
             // Crop the width of cells based on their existing width - ie. crop wider columns more.
             [self distributeAdjustment:-extraCellSpace.width
@@ -469,7 +469,7 @@ typedef struct
             case GRID_STRETCH_POLICY_NO_STRETCH:
             {
                 // Don't stretch cells or spacing; instead align grid body within the extra space.
-                switch ([self contentVAlign:view])
+                switch ([self vAlign])
                 {
                     case V_ALIGN_BOTTOM:
                         cellsOrigin.y += extraCellSpace.height;
@@ -492,7 +492,7 @@ typedef struct
     }
     else if (extraCellSpace.height < 0)
     {
-        if (view.cropSubviewOverflow)
+        if (self.cropSubviewOverflow)
         {
             // Crop the height of cells based on their existing height - ie. crop taller rows more.
             [self distributeAdjustment:-extraCellSpace.height
@@ -504,7 +504,7 @@ typedef struct
     }
 
     // Calculate and apply the subviews' frames.
-    CellPositioningMode cellPositioning = [self cellPositioning:view];
+    CellPositioningMode cellPositioning = [self cellPositioning];
     CGPoint cellOrigin = cellsOrigin;
     int subviewCount = [subviews count];
     for (int i=0; i < subviewCount; i++)

@@ -193,24 +193,24 @@ typedef void (^SetterBlock)(UIView *view);
     if (self.doubleHeight)
     {
         WeView *topPanel = [[WeView alloc] init];
-        [topPanel useHorizontalDefaultLayout];
         topPanel.backgroundColor = [UIColor clearColor];
         topPanel.opaque = NO;
-        [[[topPanel addSubviews:subviews]
-            setContentHAlign:H_ALIGN_LEFT]
+        [[[[topPanel addSubviews:subviews]
+           useHorizontalDefaultLayout]
+          setHAlign:H_ALIGN_LEFT]
          setSpacing:4];
 
         WeView *bottomPanel = [[WeView alloc] init];
-        [bottomPanel useHorizontalDefaultLayout];
         bottomPanel.backgroundColor = [UIColor clearColor];
         bottomPanel.opaque = NO;
-        [[[bottomPanel addSubviews:setterViews]
-            setContentHAlign:H_ALIGN_RIGHT]
+        [[[[bottomPanel addSubviews:setterViews]
+           useHorizontalDefaultLayout]
+          setHAlign:H_ALIGN_RIGHT]
          setSpacing:4];
 
-        [container useVerticalDefaultLayout];
-        [[[[container addSubviews:@[[topPanel setStretches],
+        [[[[[container addSubviews:@[[topPanel setStretches],
                                     [bottomPanel setStretches], ]]
+           useVerticalDefaultLayout]
            setHMargin:10]
           setVMargin:2]
          setSpacing:4];
@@ -219,8 +219,9 @@ typedef void (^SetterBlock)(UIView *view);
     {
         [subviews addObject: [[[UIView alloc] init] setStretchesIgnoringDesiredSize]];
         [subviews addObjectsFromArray:setterViews];
-        [[[[[container addSubviews:subviews]
-            setContentHAlign:H_ALIGN_LEFT]
+        [[[[[[container addSubviews:subviews]
+            useHorizontalDefaultLayout]
+            setHAlign:H_ALIGN_LEFT]
            setHMargin:10]
           setVMargin:2]
          setSpacing:4];
@@ -354,7 +355,7 @@ typedef void (^SetterBlock)(UIView *view);
                                                 return FormatCGSize([view sizeThatFits:CGSizeZero]);
                                             }
                                                 setters:@[]],
-                            
+
                             [ViewParameterSimple create:@"background"
                                             getterBlock:^NSString *(UIView *view) {
                                                 if (view.backgroundColor &&
@@ -391,8 +392,7 @@ typedef void (^SetterBlock)(UIView *view);
                                                  view.opaque = NO;
                                              }],
                              ] doubleHeight:YES],
-                            
-                            
+
                             [ViewParameterSimple create:@"border"
                                             getterBlock:^NSString *(UIView *view) {
                                                 if (view.layer.borderColor &&
@@ -421,7 +421,7 @@ typedef void (^SetterBlock)(UIView *view);
                                                  view.layer.borderWidth = 1.f;
                                              }],
                              ] doubleHeight:YES],
-                            
+
                             [ViewParameterSimple booleanProperty:@"hidden"],
                             [ViewParameterSimple booleanProperty:@"opaque"],
                             [ViewParameterSimple booleanProperty:@"clipsToBounds"],
@@ -436,18 +436,6 @@ typedef void (^SetterBlock)(UIView *view);
 
                             [ViewParameterSimple floatProperty:@"maxHeight"],
 
-                            [ViewParameterSimple floatProperty:@"leftMargin"],
-
-                            [ViewParameterSimple floatProperty:@"rightMargin"],
-
-                            [ViewParameterSimple floatProperty:@"topMargin"],
-
-                            [ViewParameterSimple floatProperty:@"bottomMargin"],
-
-                            [ViewParameterSimple floatProperty:@"vSpacing"],
-
-                            [ViewParameterSimple floatProperty:@"hSpacing"],
-
                             [ViewParameterSimple floatProperty:@"hStretchWeight"],
 
                             [ViewParameterSimple floatProperty:@"vStretchWeight"],
@@ -457,46 +445,6 @@ typedef void (^SetterBlock)(UIView *view);
                             [ViewParameterSimple floatProperty:@"desiredHeightAdjustment"],
 
                             [ViewParameterSimple booleanProperty:@"ignoreDesiredSize"],
-
-                            [ViewParameterSimple create:@"contentHAlign"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatHAlign(view.contentHAlign);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:@"Left"
-                                             setterBlock:^(UIView *view) {
-                                                 view.contentHAlign = H_ALIGN_LEFT;
-                                             }],
-                             [ViewParameterSetter create:@"Center"
-                                             setterBlock:^(UIView *view) {
-                                                 view.contentHAlign = H_ALIGN_CENTER;
-                                             }],
-                             [ViewParameterSetter create:@"Right"
-                                             setterBlock:^(UIView *view) {
-                                                 view.contentHAlign = H_ALIGN_RIGHT;
-                                             }],
-                             ]
-                             doubleHeight:YES],
-
-                            [ViewParameterSimple create:@"contentVAlign"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatVAlign(view.contentVAlign);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:@"Top"
-                                             setterBlock:^(UIView *view) {
-                                                 view.contentVAlign = V_ALIGN_TOP;
-                                             }],
-                             [ViewParameterSetter create:@"Center"
-                                             setterBlock:^(UIView *view) {
-                                                 view.contentVAlign = V_ALIGN_CENTER;
-                                             }],
-                             [ViewParameterSetter create:@"Bottom"
-                                             setterBlock:^(UIView *view) {
-                                                 view.contentVAlign = V_ALIGN_BOTTOM;
-                                             }],
-                             ]
-                             doubleHeight:YES],
 
                             [ViewParameterSimple create:@"cellHAlign"
                                             getterBlock:^NSString *(UIView *view) {
@@ -541,36 +489,6 @@ typedef void (^SetterBlock)(UIView *view);
                             [ViewParameterSimple booleanProperty:@"hasCellHAlign"],
 
                             [ViewParameterSimple booleanProperty:@"hasCellVAlign"],
-
-                            [ViewParameterSimple booleanProperty:@"cropSubviewOverflow"],
-
-                            [ViewParameterSimple create:@"cellPositioning"
-                                            getterBlock:^NSString *(UIView *view) {
-                                                return FormatCellPositioningMode(view.cellPositioning);
-                                            }
-                                                setters:@[
-                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_NORMAL)
-                                             setterBlock:^(UIView *view) {
-                                                 view.cellPositioning = CELL_POSITION_NORMAL;
-                                             }],
-                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL)
-                                             setterBlock:^(UIView *view) {
-                                                 view.cellPositioning = CELL_POSITION_FILL;
-                                             }],
-                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL_W_ASPECT_RATIO)
-                                             setterBlock:^(UIView *view) {
-                                                 view.cellPositioning = CELL_POSITION_FILL_W_ASPECT_RATIO;
-                                             }],
-                             [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FIT_W_ASPECT_RATIO)
-                                             setterBlock:^(UIView *view) {
-                                                 view.cellPositioning = CELL_POSITION_FIT_W_ASPECT_RATIO;
-                                             }],
-                             ]
-                             doubleHeight:YES],
-
-                            [ViewParameterSimple booleanProperty:@"debugLayout"],
-
-                            [ViewParameterSimple booleanProperty:@"debugMinSize"],
 
 /* CODEGEN MARKER: Parameters End */
                             ];

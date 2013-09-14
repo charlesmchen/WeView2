@@ -25,22 +25,22 @@
 // Set the default layout for subviews of this view.
 
 // By default, lay out subviews horiztonally, left-to-right.
-- (WeView *)useHorizontalDefaultLayout;
+- (WeViewLayout *)useHorizontalDefaultLayout;
 
 // By default, lay out subviews vertically, top-to-bottom.
-- (WeView *)useVerticalDefaultLayout;
+- (WeViewLayout *)useVerticalDefaultLayout;
 
 // By default, lay out subviews on top of each other.
-- (WeView *)useStackDefaultLayout;
+- (WeViewLayout *)useStackDefaultLayout;
 
 // By default, layout views using a block.
-- (WeView *)useBlockDefaultLayout:(BlockLayoutBlock)block;
+- (WeViewLayout *)useBlockDefaultLayout:(BlockLayoutBlock)block;
 
 // By default, _DO NOT_ lay out subviews.
-- (WeView *)useNoDefaultLayout;
+- (WeViewLayout *)useNoDefaultLayout;
 
 // Use a specific layout as the default layout.
-- (void)setDefaultLayout:(WeViewLayout *)defaultLayout;
+- (WeView *)setDefaultLayout:(WeViewLayout *)defaultLayout;
 
 #pragma mark - Custom Layouts
 

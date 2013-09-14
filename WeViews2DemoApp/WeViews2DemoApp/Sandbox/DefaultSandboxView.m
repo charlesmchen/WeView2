@@ -39,8 +39,9 @@ typedef enum
     self = [super init];
     if (self)
     {
-        [self useHorizontalDefaultLayout];
-        self.margin = 40;
+        [[self useHorizontalDefaultLayout]
+         setMargin:40];
+//        self.margin = 40;
         self.opaque = YES;
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"subtlepatterns.com/graphy_modified/graphy_modified"]];
 
@@ -90,7 +91,7 @@ typedef enum
     WeView *modePanel = [[WeView alloc] init];
     [[[modePanel useVerticalDefaultLayout]
       setSpacing:10]
-     setContentHAlign:H_ALIGN_LEFT];
+     setHAlign:H_ALIGN_LEFT];
 
     [modePanel addSubviews:@[
      [DemoViewFactory createFlatUIButton:@"Snap to desired size"
@@ -204,22 +205,23 @@ typedef enum
     UIImageView *phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
     WeViewAssert(phoneImageView.image);
     WeView *phoneContainer = [[WeView alloc] init];
+    [phoneContainer addSubview:phoneImageView];
     [[phoneContainer useStackDefaultLayout]
-     addSubview:phoneImageView];
+     setCropSubviewOverflow:NO];
     phoneContainer.fixedSize = phoneImageView.image.size;
-    [phoneContainer addSubview:phoneScreen
+    [[phoneContainer addSubview:phoneScreen
                withLayoutBlock:^(UIView *superview, UIView *subview) {
                    WeViewAssert(subview);
                    WeViewAssert(subview.superview);
                    subview.frame = screenBounds;
                    [subview setNeedsLayout];
-               }];
+               }]
+     setCropSubviewOverflow:NO];
 
     //    phoneContainer.debugLayout = YES;
-    phoneContainer.cropSubviewOverflow = NO;
-    self.cropSubviewOverflow = NO;
 
-    [self useStackDefaultLayout];
+    [[self useStackDefaultLayout]
+     setCropSubviewOverflow:NO];
     [self addSubviews:@[
      phoneContainer
      ]];

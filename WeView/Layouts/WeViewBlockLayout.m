@@ -47,7 +47,7 @@
         return;
     }
 
-    BOOL debugLayout = [self debugLayout:view];
+    BOOL debugLayout = [self debugLayout];
     int indent = 0;
     CGSize guideSize = view.size;
     if (debugLayout)

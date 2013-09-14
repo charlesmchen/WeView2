@@ -74,7 +74,7 @@
     button.titleLabel.backgroundColor = [UIColor clearColor];
     button.titleLabel.opaque = NO;
     [button sizeToFit];
-    
+
     return button;
 }
 

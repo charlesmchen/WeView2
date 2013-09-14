@@ -82,72 +82,6 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     return self;
 }
 
-- (CGFloat)leftMargin
-{
-    return [self.viewInfo leftMargin];
-}
-
-- (UIView *)setLeftMargin:(CGFloat)value
-{
-    [self.viewInfo setLeftMargin:value];
-    return self;
-}
-
-- (CGFloat)rightMargin
-{
-    return [self.viewInfo rightMargin];
-}
-
-- (UIView *)setRightMargin:(CGFloat)value
-{
-    [self.viewInfo setRightMargin:value];
-    return self;
-}
-
-- (CGFloat)topMargin
-{
-    return [self.viewInfo topMargin];
-}
-
-- (UIView *)setTopMargin:(CGFloat)value
-{
-    [self.viewInfo setTopMargin:value];
-    return self;
-}
-
-- (CGFloat)bottomMargin
-{
-    return [self.viewInfo bottomMargin];
-}
-
-- (UIView *)setBottomMargin:(CGFloat)value
-{
-    [self.viewInfo setBottomMargin:value];
-    return self;
-}
-
-- (CGFloat)vSpacing
-{
-    return [self.viewInfo vSpacing];
-}
-
-- (UIView *)setVSpacing:(CGFloat)value
-{
-    [self.viewInfo setVSpacing:value];
-    return self;
-}
-
-- (CGFloat)hSpacing
-{
-    return [self.viewInfo hSpacing];
-}
-
-- (UIView *)setHSpacing:(CGFloat)value
-{
-    [self.viewInfo setHSpacing:value];
-    return self;
-}
-
 - (CGFloat)hStretchWeight
 {
     return [self.viewInfo hStretchWeight];
@@ -203,28 +137,6 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     return self;
 }
 
-- (HAlign)contentHAlign
-{
-    return [self.viewInfo contentHAlign];
-}
-
-- (UIView *)setContentHAlign:(HAlign)value
-{
-    [self.viewInfo setContentHAlign:value];
-    return self;
-}
-
-- (VAlign)contentVAlign
-{
-    return [self.viewInfo contentVAlign];
-}
-
-- (UIView *)setContentVAlign:(VAlign)value
-{
-    [self.viewInfo setContentVAlign:value];
-    return self;
-}
-
 - (HAlign)cellHAlign
 {
     return [self.viewInfo cellHAlign];
@@ -269,28 +181,6 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     return self;
 }
 
-- (BOOL)cropSubviewOverflow
-{
-    return [self.viewInfo cropSubviewOverflow];
-}
-
-- (UIView *)setCropSubviewOverflow:(BOOL)value
-{
-    [self.viewInfo setCropSubviewOverflow:value];
-    return self;
-}
-
-- (CellPositioningMode)cellPositioning
-{
-    return [self.viewInfo cellPositioning];
-}
-
-- (UIView *)setCellPositioning:(CellPositioningMode)value
-{
-    [self.viewInfo setCellPositioning:value];
-    return self;
-}
-
 - (NSString *)debugName
 {
     return [self.viewInfo debugName];
@@ -299,28 +189,6 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setDebugName:(NSString *)value
 {
     [self.viewInfo setDebugName:value];
-    return self;
-}
-
-- (BOOL)debugLayout
-{
-    return [self.viewInfo debugLayout];
-}
-
-- (UIView *)setDebugLayout:(BOOL)value
-{
-    [self.viewInfo setDebugLayout:value];
-    return self;
-}
-
-- (BOOL)debugMinSize
-{
-    return [self.viewInfo debugMinSize];
-}
-
-- (UIView *)setDebugMinSize:(BOOL)value
-{
-    [self.viewInfo setDebugMinSize:value];
     return self;
 }
 
@@ -387,36 +255,6 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 {
     [self setVStretchWeight:value];
     [self setHStretchWeight:value];
-    return self;
-}
-
-- (UIView *)setHMargin:(CGFloat)value
-{
-    [self setLeftMargin:value];
-    [self setRightMargin:value];
-    return self;
-}
-
-- (UIView *)setVMargin:(CGFloat)value
-{
-    [self setTopMargin:value];
-    [self setBottomMargin:value];
-    return self;
-}
-
-- (UIView *)setMargin:(CGFloat)value
-{
-    [self setLeftMargin:value];
-    [self setRightMargin:value];
-    [self setTopMargin:value];
-    [self setBottomMargin:value];
-    return self;
-}
-
-- (UIView *)setSpacing:(CGFloat)value
-{
-    [self setHSpacing:value];
-    [self setVSpacing:value];
     return self;
 }
 

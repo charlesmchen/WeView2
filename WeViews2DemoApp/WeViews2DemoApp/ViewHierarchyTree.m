@@ -97,12 +97,12 @@
     label.userInteractionEnabled = YES;
 
     const int INDENT_PIXELS = 5;
-    [[[[[[self useHorizontalDefaultLayout]
-         addSubviews:@[expandLabel, label,]]
+    [[[[[[self addSubviews:@[expandLabel, label,]]
+        useHorizontalDefaultLayout]
         setHMargin:10 + self.indentLevel * INDENT_PIXELS]
        setVMargin:3]
       setSpacing:5]
-     setContentHAlign:H_ALIGN_LEFT];
+     setHAlign:H_ALIGN_LEFT];
 
     [self setNeedsLayout];
 }
@@ -176,8 +176,9 @@
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self.table setStretchesIgnoringDesiredSize];
-    [[self addSubviews:@[self.table,]]
-     setContentVAlign:V_ALIGN_TOP];
+    [[[self addSubviews:@[self.table,]]
+     useHorizontalDefaultLayout]
+     setVAlign:V_ALIGN_TOP];
 
     self.table.delegate = self;
     self.table.dataSource = self;

@@ -18,22 +18,22 @@
 {
 /* CODEGEN MARKER: Members Start */
 
-NSNumber *_leftMargin;
-NSNumber *_rightMargin;
-NSNumber *_topMargin;
-NSNumber *_bottomMargin;
+CGFloat _leftMargin;
+CGFloat _rightMargin;
+CGFloat _topMargin;
+CGFloat _bottomMargin;
 
-NSNumber *_vSpacing;
-NSNumber *_hSpacing;
+CGFloat _vSpacing;
+CGFloat _hSpacing;
 
-NSNumber *_contentHAlign;
-NSNumber *_contentVAlign;
+HAlign _hAlign;
+VAlign _vAlign;
 
-NSNumber *_cropSubviewOverflow;
-NSNumber *_cellPositioning;
+BOOL _cropSubviewOverflow;
+CellPositioningMode _cellPositioning;
 
-NSNumber *_debugLayout;
-NSNumber *_debugMinSize;
+BOOL _debugLayout;
+BOOL _debugMinSize;
 
 /* CODEGEN MARKER: Members End */
 }
@@ -46,10 +46,14 @@ NSNumber *_debugMinSize;
 
 - (id)init
 {
-    self = [super init];
-    if (self)
+    if (self = [super init])
     {
+        _hAlign = H_ALIGN_CENTER;
+        _vAlign = V_ALIGN_CENTER;
+
+        _cropSubviewOverflow = YES;
     }
+
     return self;
 }
 
@@ -75,183 +79,135 @@ NSNumber *_debugMinSize;
 
 /* CODEGEN MARKER: Accessors Start */
 
-- (CGFloat)leftMargin:(UIView *)view
+- (CGFloat)leftMargin
 {
-    if (_leftMargin)
-    {
-        return [_leftMargin floatValue];
-    }
-    return [view leftMargin];
+    return _leftMargin;
 }
 
 - (WeViewLayout *)setLeftMargin:(CGFloat)value
 {
-    _leftMargin = @(value);
+    _leftMargin = value;
     return self;
 }
 
-- (CGFloat)rightMargin:(UIView *)view
+- (CGFloat)rightMargin
 {
-    if (_rightMargin)
-    {
-        return [_rightMargin floatValue];
-    }
-    return [view rightMargin];
+    return _rightMargin;
 }
 
 - (WeViewLayout *)setRightMargin:(CGFloat)value
 {
-    _rightMargin = @(value);
+    _rightMargin = value;
     return self;
 }
 
-- (CGFloat)topMargin:(UIView *)view
+- (CGFloat)topMargin
 {
-    if (_topMargin)
-    {
-        return [_topMargin floatValue];
-    }
-    return [view topMargin];
+    return _topMargin;
 }
 
 - (WeViewLayout *)setTopMargin:(CGFloat)value
 {
-    _topMargin = @(value);
+    _topMargin = value;
     return self;
 }
 
-- (CGFloat)bottomMargin:(UIView *)view
+- (CGFloat)bottomMargin
 {
-    if (_bottomMargin)
-    {
-        return [_bottomMargin floatValue];
-    }
-    return [view bottomMargin];
+    return _bottomMargin;
 }
 
 - (WeViewLayout *)setBottomMargin:(CGFloat)value
 {
-    _bottomMargin = @(value);
+    _bottomMargin = value;
     return self;
 }
 
-- (CGFloat)vSpacing:(UIView *)view
+- (CGFloat)vSpacing
 {
-    if (_vSpacing)
-    {
-        return [_vSpacing floatValue];
-    }
-    return [view vSpacing];
+    return _vSpacing;
 }
 
 - (WeViewLayout *)setVSpacing:(CGFloat)value
 {
-    _vSpacing = @(value);
+    _vSpacing = value;
     return self;
 }
 
-- (CGFloat)hSpacing:(UIView *)view
+- (CGFloat)hSpacing
 {
-    if (_hSpacing)
-    {
-        return [_hSpacing floatValue];
-    }
-    return [view hSpacing];
+    return _hSpacing;
 }
 
 - (WeViewLayout *)setHSpacing:(CGFloat)value
 {
-    _hSpacing = @(value);
+    _hSpacing = value;
     return self;
 }
 
-- (HAlign)contentHAlign:(UIView *)view
+- (HAlign)hAlign
 {
-    if (_contentHAlign)
-    {
-        return [_contentHAlign intValue];
-    }
-    return [view contentHAlign];
+    return _hAlign;
 }
 
-- (WeViewLayout *)setContentHAlign:(HAlign)value
+- (WeViewLayout *)setHAlign:(HAlign)value
 {
-    _contentHAlign = @(value);
+    _hAlign = value;
     return self;
 }
 
-- (VAlign)contentVAlign:(UIView *)view
+- (VAlign)vAlign
 {
-    if (_contentVAlign)
-    {
-        return [_contentVAlign intValue];
-    }
-    return [view contentVAlign];
+    return _vAlign;
 }
 
-- (WeViewLayout *)setContentVAlign:(VAlign)value
+- (WeViewLayout *)setVAlign:(VAlign)value
 {
-    _contentVAlign = @(value);
+    _vAlign = value;
     return self;
 }
 
-- (BOOL)cropSubviewOverflow:(UIView *)view
+- (BOOL)cropSubviewOverflow
 {
-    if (_cropSubviewOverflow)
-    {
-        return [_cropSubviewOverflow boolValue];
-    }
-    return [view cropSubviewOverflow];
+    return _cropSubviewOverflow;
 }
 
 - (WeViewLayout *)setCropSubviewOverflow:(BOOL)value
 {
-    _cropSubviewOverflow = @(value);
+    _cropSubviewOverflow = value;
     return self;
 }
 
-- (CellPositioningMode)cellPositioning:(UIView *)view
+- (CellPositioningMode)cellPositioning
 {
-    if (_cellPositioning)
-    {
-        return [_cellPositioning intValue];
-    }
-    return [view cellPositioning];
+    return _cellPositioning;
 }
 
 - (WeViewLayout *)setCellPositioning:(CellPositioningMode)value
 {
-    _cellPositioning = @(value);
+    _cellPositioning = value;
     return self;
 }
 
-- (BOOL)debugLayout:(UIView *)view
+- (BOOL)debugLayout
 {
-    if (_debugLayout)
-    {
-        return [_debugLayout boolValue];
-    }
-    return [view debugLayout];
+    return _debugLayout;
 }
 
 - (WeViewLayout *)setDebugLayout:(BOOL)value
 {
-    _debugLayout = @(value);
+    _debugLayout = value;
     return self;
 }
 
-- (BOOL)debugMinSize:(UIView *)view
+- (BOOL)debugMinSize
 {
-    if (_debugMinSize)
-    {
-        return [_debugMinSize boolValue];
-    }
-    return [view debugMinSize];
+    return _debugMinSize;
 }
 
 - (WeViewLayout *)setDebugMinSize:(BOOL)value
 {
-    _debugMinSize = @(value);
+    _debugMinSize = value;
     return self;
 }
 
@@ -296,7 +252,7 @@ NSNumber *_debugMinSize;
     {
         return subview.cellHAlign;
     }
-    return superview.contentHAlign;
+    return _hAlign;
 }
 
 - (VAlign)subviewCellVAlign:(UIView *)view
@@ -306,7 +262,7 @@ NSNumber *_debugMinSize;
     {
         return subview.cellVAlign;
     }
-    return view.contentVAlign;
+    return _vAlign;
 }
 
 - (void)positionSubview:(UIView *)subview
@@ -386,10 +342,10 @@ NSNumber *_debugMinSize;
 {
     CGFloat borderWidth = view.layer.borderWidth;
 
-    int left = ceilf([self leftMargin:view] + borderWidth);
-    int top = ceilf([self topMargin:view] + borderWidth);
-    int right = floorf(size.width - ceilf([self rightMargin:view] + borderWidth));
-    int bottom = floorf(size.height - ceilf([self bottomMargin:view] + borderWidth));
+    int left = ceilf([self leftMargin] + borderWidth);
+    int top = ceilf([self topMargin] + borderWidth);
+    int right = floorf(size.width - ceilf([self rightMargin] + borderWidth));
+    int bottom = floorf(size.height - ceilf([self bottomMargin] + borderWidth));
 
     return CGRectMake(left,
                       top,
@@ -401,10 +357,10 @@ NSNumber *_debugMinSize;
 {
     CGFloat borderWidth = view.layer.borderWidth;
 
-    int left = ceilf([self leftMargin:view] + borderWidth);
-    int top = ceilf([self topMargin:view] + borderWidth);
-    int right = ceilf([self rightMargin:view] + borderWidth);
-    int bottom = ceilf([self bottomMargin:view] + borderWidth);
+    int left = ceilf([self leftMargin] + borderWidth);
+    int top = ceilf([self topMargin] + borderWidth);
+    int right = ceilf([self rightMargin] + borderWidth);
+    int bottom = ceilf([self bottomMargin] + borderWidth);
 
     return CGSizeMake(left + right, top + bottom);
 }

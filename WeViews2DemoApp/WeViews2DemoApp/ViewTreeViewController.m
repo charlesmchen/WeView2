@@ -52,9 +52,8 @@
 
 - (void)loadView
 {
-    self.rootView = [[[WeView alloc] init]
-                     useVerticalDefaultLayout];
-    [self.rootView setContentVAlign:V_ALIGN_TOP];
+    self.rootView = [[WeView alloc] init];
+    [[self.rootView useVerticalDefaultLayout] setVAlign:V_ALIGN_TOP];
     //    self.rootView.debugLayout = YES;
     self.rootView.opaque = YES;
     self.rootView.backgroundColor = [UIColor whiteColor];
