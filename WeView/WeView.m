@@ -182,8 +182,9 @@
 
 - (WeViewLayout *)addSubviewToDefaultLayout:(UIView *)subview
 {
-    return [self addSubviews:@[subview,]
-                  withLayout:nil];
+    [self addSubviews:@[subview,]
+           withLayout:nil];
+    return self._defaultLayout;
 }
 
 - (WeViewLayout *)addSubviewsToDefaultLayout:(NSArray *)subviews

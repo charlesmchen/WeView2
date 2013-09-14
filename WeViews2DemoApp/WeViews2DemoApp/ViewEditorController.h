@@ -15,6 +15,4 @@
 
 @interface ViewEditorController : UITableViewController
 
-//- (void)updateDemoModel:(DemoModel *)demoModel;
-
 @end

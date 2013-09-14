@@ -182,6 +182,20 @@ typedef void (^SetterBlock)(id item);
         setterButton.contentEdgeInsets = UIEdgeInsetsMake(3, 5, 2, 5);
         [setterButton setTitle:setter.name forState:UIControlStateNormal];
         [setterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [setterButton setTitleColor:[UIColor colorWithWhite:0.5f
+                                                      alpha:1.f]
+                           forState:UIControlStateHighlighted];
+
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(1.f, 1.f), NO, 1.f);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [[UIColor colorWithWhite:0.25f alpha:1.f] setFill];
+        CGContextFillRect(context, CGRectMake(0.f, 0.f, 1.f, 1.f));
+        UIImage *highlightBackgroundImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        [setterButton setBackgroundImage:highlightBackgroundImage
+                                forState:UIControlStateHighlighted];
+        setterButton.clipsToBounds = YES;
+
         //        setterButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
         setterButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
                                                        size:14];

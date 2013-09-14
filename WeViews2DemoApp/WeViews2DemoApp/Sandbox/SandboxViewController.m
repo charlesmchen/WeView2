@@ -16,8 +16,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import <ImageIO/ImageIO.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-//#import <CoreVideo/CoreVideo.h>
+
 #import <AVFoundation/AVFoundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface SandboxSnapshot : NSObject
 
@@ -659,6 +660,18 @@
 
 - (void)handleSelectionAltered:(NSNotification *)notification
 {
+    [self.sandboxView.layer removeAllAnimations];
+    [UIView animateWithDuration:0.35f
+                          delay:0.f
+                        options:(UIViewAnimationOptionLayoutSubviews
+                                 | UIViewAnimationOptionBeginFromCurrentState)
+                     animations:^{
+                         [self.sandboxView layoutSubviews];
+                     }
+                     completion:^(BOOL finished) {
+                         [self.sandboxView setNeedsLayout];
+                     }];
+
     [self.sandboxView setNeedsLayout];
 }
 
