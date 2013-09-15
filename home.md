@@ -3,7 +3,7 @@ permalink: home.html
 layout: default
 ---
 
-Next\: [Design Philosophy](designPhilosophy.html)
+Next\: [Why use Auto Layout?](whyAutolayout.html)
 
 WeView 2
 ==
@@ -25,4 +25,4 @@ See the [WeView Frequently Asked Questions](FAQ.md).
 
 <!-- TEMPLATE END -->
 
-Next\: [Design Philosophy](designPhilosophy.html)
+Next\: [Why use Auto Layout?](whyAutolayout.html)

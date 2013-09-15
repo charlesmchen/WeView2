@@ -3,7 +3,7 @@ permalink: Tutorial2.html
 layout: default
 ---
 
-Next\: [Tutorial 3: Test](Tutorial3.html)
+Next\: [Design Philosophy](designPhilosophy.html)
 
 Tutorial 2: iPhone Demo
 ==
@@ -34,29 +34,6 @@ Here's the code:
 
 
 
-The _bodyView_ is also configured with _\[UIView setIgnoreDesiredSize\]_ which indicates to the layout that the __desired size__ of this view should be ignored.
-
-
-![Layout Snapshot](images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-1.png)
-![Layout Snapshot](images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-0.png)
-
-A WeView layou
-
-![Layout Snapshot](images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-2.png)
-![Layout Snapshot](images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-1.png)
-![Layout Snapshot](images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-0.png)
-
-
-
-![Layout Snapshot](images/snapshot-0-0.png)
-![Layout Snapshot](images/snapshot-0-1.png)
-![Layout Snapshot](images/snapshot-0-2.png)
-
-
-![Layout Snapshot](images/snapshot-0-0.png)
-![Layout Snapshot](images/snapshot-0-1.png)
-![Layout Snapshot](images/snapshot-0-2.png)
-
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 3: Test](Tutorial3.html)
+Next\: [Design Philosophy](designPhilosophy.html)

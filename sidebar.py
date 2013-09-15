@@ -27,13 +27,13 @@ layout: default
 ''' 
 links = ( 
   Link('home.md', 'Home', indent=0, sidebarFilename='index.html', pageTitle='WeView 2'),
-  Link('designPhilosophy.md', 'Design Philosophy'),
   Link('whyAutolayout.md', 'Why use Auto Layout?'),
   Link('whyWeView2.md', 'Why use WeView 2?'),
-  Link('whatsNewWeView2.md', 'What\'s New in WeView 2'),
-  Link('License.md', 'License'),
   Link('Tutorial1.md', 'Tutorial 1: Simple Demo'),
   Link('Tutorial2.md', 'Tutorial 2: iPhone Demo'),
+  Link('designPhilosophy.md', 'Design Philosophy'),
+  Link('whatsNewWeView2.md', 'What\'s New in WeView 2'),
+  Link('License.md', 'License'),
   Link('Tutorial3.md', 'Tutorial 3: Test'),
 )
 
