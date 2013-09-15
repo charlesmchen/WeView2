@@ -452,7 +452,7 @@
 
 //    frameSize.width = 700;
 //    frameSize.height = 700;
-    NSLog(@"frameSize: %@", NSStringFromCGSize(frameSize));
+//    NSLog(@"frameSize: %@", NSStringFromCGSize(frameSize));
 
     NSDictionary *options = @{
 //                              (NSString *)kCVPixelBufferCGImageCompatibilityKey: @YES,
