@@ -3,9 +3,9 @@ permalink: Tutorial3.html
 layout: default
 ---
 
+Next\: [Design Philosophy](designPhilosophy.html)
 
-
-Tutorial 3: Test
+Tutorial 3: The Layouts
 ==
 
 <!-- TEMPLATE START -->
@@ -80,3 +80,4 @@ A WeView layou
 
 <!-- TEMPLATE END -->
 
+Next\: [Design Philosophy](designPhilosophy.html)

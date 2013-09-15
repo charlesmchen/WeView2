@@ -10,15 +10,15 @@ Why use WeView 2?
 
 <!-- TEMPLATE START -->
 
-* The syntax of iOS Auto Layout can be difficult to work with. Here's an example taken from Apple's sample code of how to center a button at the bottom of it's superview with a certain spacing using iOS Auto Layout:
+* The syntax of iOS Auto Layout can be difficult to work with. _Here's a simple comparison_, based on Apple's sample code demonstrating how to center a button at the bottom of it's superview with a certain spacing using _iOS Auto Layout_:
 
 {% gist 6504510 %}
 
-iOS Auto Layout also supports a Visual Format Language.  Here's the sample layout using VFL:
+iOS Auto Layout also supports a _Visual Format Language_.  Here's the sample layout using VFL:
 
 {% gist 6504515 %}
 
-WeView's is designed to yield concise, readable code. Here's the equivalent logic using a WeView:
+WeView's is designed to yield concise, readable code. Here's the equivalent logic using a _WeView_:
 
 {% gist 6504519 %}
 

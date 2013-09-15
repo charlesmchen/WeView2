@@ -3,7 +3,7 @@ permalink: Tutorial2.html
 layout: default
 ---
 
-Next\: [Design Philosophy](designPhilosophy.html)
+Next\: [Tutorial 3: Concepts](TutorialConcepts.html)
 
 Tutorial 2: iPhone Demo
 ==
@@ -36,4 +36,4 @@ Here's the code:
 
 <!-- TEMPLATE END -->
 
-Next\: [Design Philosophy](designPhilosophy.html)
+Next\: [Tutorial 3: Concepts](TutorialConcepts.html)
