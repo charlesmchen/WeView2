@@ -260,6 +260,18 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 /* CODEGEN MARKER: Accessors End */
 
+- (UIView *)setHStretches
+{
+    [self setHStretchWeight:1.f];
+    return self;
+}
+
+- (UIView *)setVStretches
+{
+    [self setVStretchWeight:1.f];
+    return self;
+}
+
 - (UIView *)setStretches
 {
     [self setStretchWeight:1.f];

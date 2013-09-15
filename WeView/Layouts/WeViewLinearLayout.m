@@ -321,7 +321,8 @@
     NSMutableArray *cellAxisSizes = [NSMutableArray array];
     NSMutableArray *cellCrossSizes = [NSMutableArray array];
     NSMutableArray *cellStretchWeights = [NSMutableArray array];
-    BOOL hasCellWithStretch = NO;
+    BOOL hasCellWithAxisStretch = NO;
+    BOOL hasCellWithCrossStretch = NO;
     for (int i=0; i < subviewCount; i++)
     {
         UIView* subview = subviews[i];
@@ -343,11 +344,15 @@
          ? subviewSize.height
                                  : subviewSize.width)];
 
-        CGFloat cellStretchWeight = MAX(0, (horizontal
-                                            ? subview.hStretchWeight
-                                            : subview.vStretchWeight));
-        [cellStretchWeights addObject:@(cellStretchWeight)];
-        hasCellWithStretch |= cellStretchWeight > 0.f;
+        CGFloat cellAxisStretchWeight = MAX(0, (horizontal
+                                                ? subview.hStretchWeight
+                                                : subview.vStretchWeight));
+        CGFloat cellCrossStretchWeight = MAX(0, (horizontal
+                                                 ? subview.vStretchWeight
+                                                 : subview.hStretchWeight));
+        [cellStretchWeights addObject:@(cellAxisStretchWeight)];
+        hasCellWithAxisStretch |= cellAxisStretchWeight > 0.f;
+        hasCellWithCrossStretch |= cellCrossStretchWeight > 0.f;
     }
 
     CGFloat maxCrossSize = horizontal ? maxTotalSubviewsSize.height : maxTotalSubviewsSize.width;
@@ -407,7 +412,7 @@
         }
         else if (extraAxisSpace > 0)
         {
-            if (hasCellWithStretch && hasNonEmptyGuideSize)
+            if (hasCellWithAxisStretch && hasNonEmptyGuideSize)
             {
                 [self distributeAdjustment:extraAxisSpace
                               acrossValues:cellAxisSizes
@@ -467,7 +472,7 @@
     CGFloat bodyCrossSize = [self maxFloats:cellCrossSizes];
     CGFloat totalAxisSize = [self sumFloats:cellAxisSizes];
 
-    if (hasCellWithStretch)
+    if (hasCellWithAxisStretch)
     {
         totalAxisSize = maxTotalAxisSize;
     }
@@ -496,7 +501,7 @@
         [self hAlignIndex:&axisIndex
                extraSpace:extraAxisSpace
                      view:view];
-        if (!hasCellWithStretch)
+        if (!hasCellWithCrossStretch)
         {
             [self vAlignIndex:&crossIndex
                    extraSpace:extraCrossSpace
@@ -508,7 +513,7 @@
         [self vAlignIndex:&axisIndex
                extraSpace:extraAxisSpace
                      view:view];
-        if (!hasCellWithStretch)
+        if (!hasCellWithCrossStretch)
         {
             [self hAlignIndex:&crossIndex
                    extraSpace:extraCrossSpace

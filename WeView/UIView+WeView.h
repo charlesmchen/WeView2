@@ -111,7 +111,13 @@
 
 /* CODEGEN MARKER: End */
 
-// The layout should stretch this subview to fit any available space.
+// The layout should stretch this subview horizontally to fit any available space.
+- (UIView *)setHStretches;
+
+// The layout should stretch this subview vertically to fit any available space.
+- (UIView *)setVStretches;
+
+// The layout should stretch this subview horizontally and vertically to fit any available space.
 - (UIView *)setStretches;
 
 // The layout should ignore this view's desired size.

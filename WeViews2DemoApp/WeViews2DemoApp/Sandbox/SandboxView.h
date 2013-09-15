@@ -22,4 +22,6 @@
 - (CGSize)rootViewSize;
 - (void)setControlsHidden:(BOOL)value;
 
+- (void)animateRelayout;
+
 @end

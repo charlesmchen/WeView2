@@ -22,14 +22,29 @@
 
 @interface SandboxSnapshot : NSObject
 
-@property (nonatomic) UIImage *image;
+//@property (nonatomic) UIImage *image;
 @property (nonatomic) CGSize rootViewSize;
+@property (nonatomic) NSString *filePath;
 
 @end
 
 #pragma mark -
 
 @implementation SandboxSnapshot
+
+- (void)setImage:(UIImage *)image
+{
+    NSString *imageUuid = [[NSProcessInfo processInfo] globallyUniqueString];
+    self.filePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"snapshot-%@.png",
+                                                                                 imageUuid]];
+    [UIImagePNGRepresentation(image) writeToFile:self.filePath
+                                      atomically:YES];
+}
+
+- (UIImage *)image
+{
+    return [UIImage imageWithContentsOfFile:self.filePath];
+}
 
 - (UIImage *)cropSnapshotWithSize:(CGSize)imageSize
 {
@@ -213,14 +228,19 @@
     }
 
     CGSize maxSnapshotSize = CGSizeZero;
-    NSArray *snapshots = self.snapshots;
-    int frameCount = [snapshots count];
+//    NSArray *snapshots = self.snapshots;
+    int frameCount = [self.snapshots count];
     for (NSUInteger i = 0; i < frameCount; i++)
     {
-        SandboxSnapshot *snapshot = snapshots[i];
+        SandboxSnapshot *snapshot = self.snapshots[i];
         maxSnapshotSize = CGSizeMax(maxSnapshotSize, snapshot.rootViewSize);
     }
+    DebugSize(@"maxSnapshotSize", maxSnapshotSize);
     CGSize frameSize = CGSizeAdd(CGSizeFloor(maxSnapshotSize), CGSizeMake(20, 20));
+    // Handbrake doesn't handle odd frame sizes well, so ensure that the width and height are even
+    // multiples of 4.
+    frameSize = CGSizeScale(CGSizeFloor(CGSizeScale(frameSize, 1 / 4.f)), 4.f);
+    DebugSize(@"frameSize", frameSize);
 
     [self ensureSnapshotsFolderPath];
 
@@ -267,11 +287,18 @@
     [videoWriter startSessionAtSourceTime:kCMTimeZero];
 
     int videoFrameCount = 0;
-    for (NSUInteger i = 0; i < frameCount; i++)
+    while ([self.snapshots count] > 0)
+//    for (NSUInteger i = 0; i < frameCount; i++)
     {
+        {
+            NSDate *maxDate = [NSDate dateWithTimeIntervalSinceNow:0.01];
+            [[NSRunLoop currentRunLoop] runUntilDate:maxDate];
+        }
+
         @autoreleasepool
         {
-            SandboxSnapshot *snapshot = snapshots[i];
+            SandboxSnapshot *snapshot = self.snapshots[0];
+            [self.snapshots removeObjectAtIndex:0];
 
             UIImage *image = [snapshot cropSnapshotWithSize:frameSize];
             NSParameterAssert(image);
@@ -289,12 +316,14 @@
             }
 
             [adaptor appendPixelBuffer:pixelBuffer
-                       withPresentationTime:frameTime];
+                  withPresentationTime:frameTime];
             CVPixelBufferRelease(pixelBuffer);
 
             videoFrameCount++;
         }
     }
+
+    [self.snapshots removeAllObjects];
 
     [writerInput markAsFinished];
     CMTime frameTime = CMTimeMake(videoFrameCount, 30);
@@ -513,6 +542,10 @@
 - (UIImage *)takeSnapshot
 {
     CGSize imageSize = self.sandboxView.size;
+    if (imageSize.width * imageSize.height == 0)
+    {
+        return nil;
+    }
 
     UIGraphicsBeginImageContext(imageSize);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -524,7 +557,27 @@
     CGContextSetAllowsFontSmoothing(context, YES);
 
     [self.sandboxView setControlsHidden:YES];
-    [self.sandboxView.layer renderInContext:context];
+
+    // -renderInContext: renders in the coordinate space of the layer,
+    // so we must first apply the layer's geometry to the graphics context
+    CGContextSaveGState(context);
+    // Center the context around the window's anchor point
+    CGContextTranslateCTM(context, [self.sandboxView center].x, [self.sandboxView center].y);
+    // Apply the window's transform about the anchor point
+    CGContextConcatCTM(context, [self.sandboxView transform]);
+    // Offset by the portion of the bounds left of and above the anchor point
+    CGContextTranslateCTM(context,
+                          -[self.sandboxView bounds].size.width * [[self.sandboxView layer] anchorPoint].x,
+                          -[self.sandboxView bounds].size.height * [[self.sandboxView layer] anchorPoint].y);
+
+    // Render the layer hierarchy to the current context
+    //
+    // IMPORTANT: use presentation layer to reflect Core Animations.
+    [[self.sandboxView layer].presentationLayer renderInContext:context];
+
+    // Restore the context
+    CGContextRestoreGState(context);
+
     [self.sandboxView setControlsHidden:NO];
 
     UIImage* viewImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -538,6 +591,10 @@
 {
     SandboxSnapshot *snapshot = [[SandboxSnapshot alloc] init];
     snapshot.image = [self takeSnapshot];
+    if (!snapshot.image)
+    {
+        return;
+    }
     snapshot.rootViewSize = [self.sandboxView rootViewSize];
     [self.snapshots addObject:snapshot];
 }
@@ -660,19 +717,7 @@
 
 - (void)handleSelectionAltered:(NSNotification *)notification
 {
-    [self.sandboxView.layer removeAllAnimations];
-    [UIView animateWithDuration:0.35f
-                          delay:0.f
-                        options:(UIViewAnimationOptionLayoutSubviews
-                                 | UIViewAnimationOptionBeginFromCurrentState)
-                     animations:^{
-                         [self.sandboxView layoutSubviews];
-                     }
-                     completion:^(BOOL finished) {
-                         [self.sandboxView setNeedsLayout];
-                     }];
-
-    [self.sandboxView setNeedsLayout];
+    [self.sandboxView animateRelayout];
 }
 
 - (void)loadView

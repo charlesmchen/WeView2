@@ -62,6 +62,7 @@
 		34C19CED17E172890025914F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19CEC17E172880025914F /* AVFoundation.framework */; };
 		34C19CEF17E172960025914F /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19CEE17E172960025914F /* CoreVideo.framework */; };
 		34C19CF117E1729F0025914F /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19CF017E1729F0025914F /* CoreMedia.framework */; };
+		34C19D2517E64CCA0025914F /* TutorialCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19D2417E64CCA0025914F /* TutorialCode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +162,8 @@
 		34C19CEC17E172880025914F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		34C19CEE17E172960025914F /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		34C19CF017E1729F0025914F /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		34C19D2317E64CCA0025914F /* TutorialCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialCode.h; sourceTree = "<group>"; };
+		34C19D2417E64CCA0025914F /* TutorialCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialCode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,10 +302,12 @@
 		34195FD117CA82270036F8DC /* Demos */ = {
 			isa = PBXGroup;
 			children = (
-				34C19C5E17DB967E0025914F /* DemoFactory.h */,
-				34C19C5F17DB967E0025914F /* DemoFactory.m */,
 				34195FD217CA82300036F8DC /* Demo.h */,
 				34195FD317CA82300036F8DC /* Demo.m */,
+				34C19C5E17DB967E0025914F /* DemoFactory.h */,
+				34C19C5F17DB967E0025914F /* DemoFactory.m */,
+				34C19D2317E64CCA0025914F /* TutorialCode.h */,
+				34C19D2417E64CCA0025914F /* TutorialCode.m */,
 			);
 			path = Demos;
 			sourceTree = "<group>";
@@ -519,6 +524,7 @@
 				34C19CD117DD1D4C0025914F /* WeViewCommon.m in Sources */,
 				34C19CD217DD1D4C0025914F /* WeViewViewInfo.m in Sources */,
 				34C19CD617DD1DA30025914F /* WeViewDemoUtils.m in Sources */,
+				34C19D2517E64CCA0025914F /* TutorialCode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
