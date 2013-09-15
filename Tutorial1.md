@@ -3,19 +3,14 @@ permalink: Tutorial1.html
 layout: default
 ---
 
-Prev\: [License](License.html)
+Next\: [Tutorial 2: iPhone Demo](Tutorial2.html)
 
-Next\: [Tutorial 2: Layouts](Tutorial2.html)
+Tutorial 1: Simple Demo
+==
 
 <!-- TEMPLATE START -->
 
-Tutorial
-==
-
-The core class of this library is the __WeView__.  
-WeView is a subclass of UIView that can position its subviews using a variety of layouts.
-
-### Example 1
+The core class of this library is the __WeView__.  WeView is a subclass of UIView that can position its subviews using a variety of layouts.
 
 Let's plunge right in with an example.  Here is a WeView that contains a UILabel, a UIImageView and a UIButton.
 
@@ -23,63 +18,72 @@ Let's plunge right in with an example.  Here is a WeView that contains a UILabel
 
 Here's the code:
 
-{% gist 6489061 %}
+{% gist 6573950 %}
+
 
 * The three subviews use a __horizontal layout__.  
 * The layout has 5pt __margins__ and 5pt __spacing__.  These properties are like their HTML/CSS equivalents.
 * The configuration methods _\[setMargin:\]_ and _\[setSpacing:\]_ are __chained__.  WeView2 configuration methods return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance. Chaining reduces the need for boilerplate code. Chaining is optional. 
 * The subviews are layed out at their __desired size__, ie. the size returned by _\[UIView sizeThatFits:\]_.
+* __Order matters__.  The subviews are layed out in the order in which they were added to their superview.
 * __The key idea__: Although the WeView needs to be layed out as usual, it takes care of laying out its subviews.  It is not necessary to ever set the size or position of any of the subviews - in fact, their existing size and position are ignored by the WeView layout.
 
-### Example 2
 
-Here's another example:
+Margins and Spacing
+===
 
-![Layout Snapshot](images/iphone_example.png)
+<video WIDTH="288" HEIGHT="112" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
+    <source src="videos/video-E5A4D704-7DA1-4BF8-A049-F5458EDF8B4E-76443-0005E3631CEDDA90.mp4" type="video/mp4" />
+    <source src="videos/video-E5A4D704-7DA1-4BF8-A049-F5458EDF8B4E-76443-0005E3631CEDDA90.webm" type="video/webm" />
+</video>
 
-Here's the code:
-
-{% gist 6489214 %}
-
-* There are two WeViews in this layout: the outer _rootView_ and the inner _bodyView_.  
-* The _rootView_ contains the toolbar and _bodyView_ in a __vertical layout__.
-* The _bodyView_ is configured with __\[UIView setStretches\]__ which indicates to the layout that it 
-should be stretched to receive any extra space in the layout.
-* The _bodyView_ is also configured with __\[UIView setIgnoreDesiredSize\]__ which indicates to the layout that the __desired size__ of this view should be ignored.
-* A background image is added to the _bodyView_ with a custom layout that exactly fills the _bodyView_'s bounds while retaining its aspect ratio.
-* A group of three buttons is added to the _bodyView_ using a horizontal layout.  This layout has __bottom alignment__ and a 20pt __bottom margin__.
-* An activity indicator is added to the _bodyView_ with its own layout.  That layout doesn't need to be configured, since the default behavior is to center subviews within their superview.
-* The _bodyView_ contains three separate groups of subviews: the background, the buttons and the activity indicator.  __Each group of subviews has its own layout__.  The layouts work independently and only affect their subviews.  
-* __Each layout can be configured separately__.  For example, the buttons' layout has bottom alignment, but that doesn't effect the activity indicator because it has a separate layout.
- 
+* The WeView's __desired size__ is the sum of it's subview's desired sizes plus margins, spacing, etc.
+* If we change the layout's __margins__ or __spacing__, the WeView's desired size changes and its subviews are repositioned accordingly (If we change a layout's properties we also need to call _\[UIView setNeedsDisplay\]_ on the WeView to trigger layout). 
+* You can set __margins__ with methods like _\[WeViewLayout setLeftMargin:\]_ or _\[WeViewLayout setTopMargin:\]_ or you can set multiple margins at once with methods like _\[WeViewLayout setMargin:\]_.
+* You can set __spacing__ with _\[WeViewLayout setHSpacing:\]_ or _\[WeViewLayout setVSpacing:\]_ or set both at once with _\[WeViewLayout setSpacing:\]_.
 
 
 
-The _bodyView_ is also configured with _\[UIView setIgnoreDesiredSize\]_ which indicates to the layout that the __desired size__ of this view should be ignored.
+Alignment 
+===
+
+<video WIDTH="380" HEIGHT="176" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
+    <source src="videos/video-408A68F3-4E9A-4617-BF0B-138C8DC3C9C7-76443-0005E3B3D9B61AEF.mp4" type="video/mp4" />
+    <source src="videos/video-408A68F3-4E9A-4617-BF0B-138C8DC3C9C7-76443-0005E3B3D9B61AEF.webm" type="video/webm" />
+</video>
+
+* If the WeView is resized, its contents are automatically re-layed out.
+* If the WeView's layout has extra space, its contents are positioned based on __alignment__.  By default, a horizontal layout has center alignment.
+* A WeView layout has separate __hAlign__ (left, center, right) and __vAlign__ (top, center, bottom) properties.
+* You can set alignment with _\[WeViewLayout setHAlign:\]_ or _\[WeViewLayout setVAlign:\]_ or you can set multiple margins at once with methods like _\[UIView setMargin:\]_.
+
+{% gist 6573942 %}
 
 
-![Layout Snapshot](images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-1.png)
-![Layout Snapshot](images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-0.png)
+Stretch
+===
 
-A WeView layou
+<video WIDTH="432" HEIGHT="256" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
+    <source src="videos/videovideo-E96286B9-A865-4D1A-A76F-3CCD927011F2-76443-0005E3BFD3FAA3EE.mp4" type="video/mp4" />
+    <source src="videos/video-E96286B9-A865-4D1A-A76F-3CCD927011F2-76443-0005E3BFD3FAA3EE.webm" type="video/webm" />
+</video>
 
-![Layout Snapshot](images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-2.png)
-![Layout Snapshot](images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-1.png)
-![Layout Snapshot](images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-0.png)
+* The UIView+WeView category adds a number of properties to all UIViews that allow us to control the layout process.  For example, we can specify that one of the views __stretches__, ie. that it should receive any extra space in the layout.  Stretching is controlled by __hStretchWeight__ and __vStretchWeight__ properties.
+* You can set stretch with _\[UIView setHStretchWeight:\]_ or _\[UIView setVStretchWeight:\]_ or simply _\[UIView setStretches\]_.
 
-
-
-![Layout Snapshot](images/snapshot-0-0.png)
-![Layout Snapshot](images/snapshot-0-1.png)
-![Layout Snapshot](images/snapshot-0-2.png)
+{% gist 6573957 %}
 
 
-![Layout Snapshot](images/snapshot-0-0.png)
-![Layout Snapshot](images/snapshot-0-1.png)
-![Layout Snapshot](images/snapshot-0-2.png)
+Overflow and cropping
+===
+
+<video WIDTH="268" HEIGHT="124" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
+    <source src="videos/video-036A3D47-789B-4CB4-B1A7-0FF87933C4DD-76443-0005E4417509FC15.mp4" type="video/mp4" />
+    <source src="videos/video-036A3D47-789B-4CB4-B1A7-0FF87933C4DD-76443-0005E4417509FC15.webm" type="video/webm" />
+</video>
+
+* If the WeView's bounds are smaller than it's desired size (ie. the subviews overflow their superview), the subviews of the layout are cropped to fit (unless the __cropSubviewOverflow__ property is set to NO).
 
 <!-- TEMPLATE END -->
 
-Prev\: [License](License.html)
-
-Next\: [Tutorial 2: Layouts](Tutorial2.html)
+Next\: [Tutorial 2: iPhone Demo](Tutorial2.html)

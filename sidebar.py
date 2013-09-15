@@ -4,7 +4,7 @@ import os
 import sys
 
 class Link:
-    def __init__(self, filename, name, indent=1, dstFilename=None, sidebarFilename=None):
+    def __init__(self, filename, name, indent=1, dstFilename=None, sidebarFilename=None, pageTitle=None):
         self.srcFilename = filename
         self.dstFilename = filename[:-3] + '.html'
         if dstFilename:
@@ -14,6 +14,9 @@ class Link:
             self.sidebarFilename = sidebarFilename
         self.name = name
         self.indent = indent
+        self.pageTitle = name
+        if pageTitle:
+            self.pageTitle = pageTitle
   
 '''
 ---
@@ -23,25 +26,26 @@ layout: default
 ---
 ''' 
 links = ( 
-  Link('home.md', 'Home', indent=0, sidebarFilename='index.html'),
+  Link('home.md', 'Home', indent=0, sidebarFilename='index.html', pageTitle='WeView 2'),
   Link('designPhilosophy.md', 'Design Philosophy'),
-  Link('whyAutolayout.md', 'Why Auto Layout?'),
-  Link('whyWeView2.md', 'Why WeView 2?'),
-  Link('whatsNewWeView2.md', 'What\'s new in WeView 2'),
+  Link('whyAutolayout.md', 'Why use Auto Layout?'),
+  Link('whyWeView2.md', 'Why use WeView 2?'),
+  Link('whatsNewWeView2.md', 'What\'s New in WeView 2'),
   Link('License.md', 'License'),
-  Link('Tutorial1.md', 'Tutorial 1: Examples'),
-  Link('Tutorial2.md', 'Tutorial 2: Layouts'),
+  Link('Tutorial1.md', 'Tutorial 1: Simple Demo'),
+  Link('Tutorial2.md', 'Tutorial 2: iPhone Demo'),
   Link('Tutorial3.md', 'Tutorial 3: Test'),
 )
 
 for index, link in enumerate(links):
     linkery = []
-    if index > 0:
-        prevLink = links[index - 1]
-        linkery.append('Prev\: [%s](%s)' % (prevLink.name, prevLink.sidebarFilename,) )
+    # if index > 0:
+    #     prevLink = links[index - 1]
+    #     linkery.append('Prev\: [%s](%s)' % (prevLink.name, prevLink.sidebarFilename,) )
     if index + 1 < len(links):
         nextLink = links[index + 1]
         linkery.append('Next\: [%s](%s)' % (nextLink.name, nextLink.sidebarFilename,) )
+
     linkery = '\n\n'.join(linkery)
     
     startMarker = '<!-- TEMPLATE START -->'
@@ -62,7 +66,10 @@ layout: default
 
 %s
 
-''' % (link.dstFilename, linkery)
+%s
+==
+
+''' % (link.dstFilename, linkery, link.pageTitle, )
 
     newText += text[startIndex:endIndex + len(endMarker)] + '\n\n' + linkery
 

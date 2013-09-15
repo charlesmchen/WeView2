@@ -5,10 +5,10 @@ layout: default
 
 Next\: [Design Philosophy](designPhilosophy.html)
 
-<!-- TEMPLATE START -->
+WeView 2
+==
 
-WeView
-=======
+<!-- TEMPLATE START -->
 
 The WeView library is a tool for auto layout of iOS UIs. 
 

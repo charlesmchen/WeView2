@@ -3,13 +3,12 @@ permalink: whatsNewWeView2.html
 layout: default
 ---
 
-Prev\: [Why WeView 2?](whyWeView2.html)
-
 Next\: [License](License.html)
 
-<!-- TEMPLATE START -->
+What's New in WeView 2
+==
 
-### What's new in WeView?
+<!-- TEMPLATE START -->
 
 * WeView is a near-total rewrite, that should be more consistent and better handle edge cases such
   as degenerate layouts.
@@ -22,7 +21,5 @@ Next\: [License](License.html)
    layout behavior.
 
 <!-- TEMPLATE END -->
-
-Prev\: [Why WeView 2?](whyWeView2.html)
 
 Next\: [License](License.html)

@@ -3,13 +3,12 @@ permalink: whyWeView2.html
 layout: default
 ---
 
-Prev\: [Why Auto Layout?](whyAutolayout.html)
+Next\: [What's New in WeView 2](whatsNewWeView2.html)
 
-Next\: [What's new in WeView 2](whatsNewWeView2.html)
+Why use WeView 2?
+==
 
 <!-- TEMPLATE START -->
-
-### Why use WeView instead of iOS' built-in Auto Layout?
 
 * The syntax of iOS Auto Layout can be difficult to work with.
 Here's an example taken from Apple's sample code of how to center a button at the bottom of it's
@@ -34,6 +33,4 @@ This doesn't work well when UIViews need to be layed out in groups.
 
 <!-- TEMPLATE END -->
 
-Prev\: [Why Auto Layout?](whyAutolayout.html)
-
-Next\: [What's new in WeView 2](whatsNewWeView2.html)
+Next\: [What's New in WeView 2](whatsNewWeView2.html)

@@ -3,14 +3,12 @@ permalink: License.html
 layout: default
 ---
 
-Prev\: [What's new in WeView 2](whatsNewWeView2.html)
-
-Next\: [Tutorial 1: Examples](Tutorial1.html)
-
-<!-- TEMPLATE START -->
+Next\: [Tutorial 1: Simple Demo](Tutorial1.html)
 
 License
-=======
+==
+
+<!-- TEMPLATE START -->
 
 WeView 2 is distributed under the [Apache License Version 2.0](LICENSE)
 
@@ -18,6 +16,4 @@ WeView 2 is distributed under the [Apache License Version 2.0](LICENSE)
 
 <!-- TEMPLATE END -->
 
-Prev\: [What's new in WeView 2](whatsNewWeView2.html)
-
-Next\: [Tutorial 1: Examples](Tutorial1.html)
+Next\: [Tutorial 1: Simple Demo](Tutorial1.html)

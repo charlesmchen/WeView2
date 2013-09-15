@@ -3,12 +3,12 @@ permalink: Tutorial3.html
 layout: default
 ---
 
-Prev\: [Tutorial 2: Layouts](Tutorial2.html)
+
+
+Tutorial 3: Test
+==
 
 <!-- TEMPLATE START -->
-
-Tutorial
-==
 
 <EMBED SRC="videos/video-633796AA-99BC-4296-853C-CD30D8AD2EE0-54898-00058943C9E1C927.mov" WIDTH="241" HEIGHT="94" AUTOPLAY="true" CONTROLLER="false" LOOP="true" PLUGINSPAGE="http://www.apple.com/quicktime/" />
 	
@@ -80,4 +80,3 @@ A WeView layou
 
 <!-- TEMPLATE END -->
 
-Prev\: [Tutorial 2: Layouts](Tutorial2.html)

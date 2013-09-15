@@ -3,13 +3,12 @@ permalink: whyAutolayout.html
 layout: default
 ---
 
-Prev\: [Design Philosophy](designPhilosophy.html)
+Next\: [Why use WeView 2?](whyWeView2.html)
 
-Next\: [Why WeView 2?](whyWeView2.html)
+Why use Auto Layout?
+==
 
 <!-- TEMPLATE START -->
-
-### Why use auto layout at all?
 
 Auto layout allows a UI to...
 
@@ -23,6 +22,4 @@ This becomes even more important with iOS 7, which lets users adjust text sizes 
 
 <!-- TEMPLATE END -->
 
-Prev\: [Design Philosophy](designPhilosophy.html)
-
-Next\: [Why WeView 2?](whyWeView2.html)
+Next\: [Why use WeView 2?](whyWeView2.html)

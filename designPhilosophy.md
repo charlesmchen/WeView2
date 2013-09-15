@@ -3,13 +3,12 @@ permalink: designPhilosophy.html
 layout: default
 ---
 
-Prev\: [Home](index.html)
+Next\: [Why use Auto Layout?](whyAutolayout.html)
 
-Next\: [Why Auto Layout?](whyAutolayout.html)
+Design Philosophy
+==
 
 <!-- TEMPLATE START -->
-
-### Design philosophy
 
 * Leverage existing understanding of HTML and CSS: container-driven, declarative layout.
 * Strive to be lightweight. Stay focused on solving a single problem. Add no third-party dependencies. Play nicely with other layout mechanisms.
@@ -20,6 +19,4 @@ Next\: [Why Auto Layout?](whyAutolayout.html)
 
 <!-- TEMPLATE END -->
 
-Prev\: [Home](index.html)
-
-Next\: [Why Auto Layout?](whyAutolayout.html)
+Next\: [Why use Auto Layout?](whyAutolayout.html)

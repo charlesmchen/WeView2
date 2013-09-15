@@ -59,7 +59,7 @@ a small {
 }
 
 .wrapper {
-  width:1010px;
+  width:1110px;
   margin:0 auto;
 }
 
@@ -178,7 +178,7 @@ header ul.linky a strong {
 }
 
 section {
-  width:650px;
+  width:750px;
   float:right;
   padding-bottom:50px;
 }
@@ -199,6 +199,10 @@ footer {
   float:left;
   position:fixed;
   bottom:50px;
+}
+
+embed.embedded_video {
+	border: 1px solid #ddd;
 }
 
 @media print, screen and (max-width: 960px) {
