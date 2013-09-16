@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "UIView+WeView.h"
+#import "WeView.h"
 #import "WeViewLinearLayout.h"
 #import "WeViewMacros.h"
 
@@ -36,6 +37,8 @@ BOOL _debugLayout;
 BOOL _debugMinSize;
 
 /* CODEGEN MARKER: Members End */
+
+    WeView *_superview;
 }
 
 @end
@@ -87,6 +90,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setLeftMargin:(CGFloat)value
 {
     _leftMargin = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -98,6 +102,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setRightMargin:(CGFloat)value
 {
     _rightMargin = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -109,6 +114,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setTopMargin:(CGFloat)value
 {
     _topMargin = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -120,6 +126,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setBottomMargin:(CGFloat)value
 {
     _bottomMargin = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -131,6 +138,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setVSpacing:(CGFloat)value
 {
     _vSpacing = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -142,6 +150,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setHSpacing:(CGFloat)value
 {
     _hSpacing = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -153,6 +162,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setHAlign:(HAlign)value
 {
     _hAlign = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -164,6 +174,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setVAlign:(VAlign)value
 {
     _vAlign = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -175,6 +186,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setCropSubviewOverflow:(BOOL)value
 {
     _cropSubviewOverflow = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -186,6 +198,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setCellPositioning:(CellPositioningMode)value
 {
     _cellPositioning = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -197,6 +210,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setDebugLayout:(BOOL)value
 {
     _debugLayout = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -208,6 +222,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setDebugMinSize:(BOOL)value
 {
     _debugMinSize = value;
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -215,6 +230,7 @@ BOOL _debugMinSize;
 {
     [self setLeftMargin:value];
     [self setRightMargin:value];
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -222,6 +238,7 @@ BOOL _debugMinSize;
 {
     [self setTopMargin:value];
     [self setBottomMargin:value];
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -231,6 +248,7 @@ BOOL _debugMinSize;
     [self setRightMargin:value];
     [self setTopMargin:value];
     [self setBottomMargin:value];
+    [_superview setNeedsLayout];
     return self;
 }
 
@@ -238,12 +256,20 @@ BOOL _debugMinSize;
 {
     [self setHSpacing:value];
     [self setVSpacing:value];
+    [_superview setNeedsLayout];
     return self;
 }
 
 /* CODEGEN MARKER: Accessors End */
 
 #pragma mark - Utility Methods
+
+- (void)bindToSuperview:(WeView *)superview
+{
+    // Layouts should not be shared or re-used.
+    WeViewAssert(!_superview);
+    _superview = superview;
+}
 
 - (HAlign)subviewCellHAlign:(UIView *)superview
                     subview:(UIView *)subview

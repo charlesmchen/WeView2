@@ -743,6 +743,7 @@ for propertyGroup in layout_propertyGroups:
 - (WeViewLayout *)set%s:(%s)value
 {
     _%s = value;
+    [_superview setNeedsLayout];
     return self;
 }''' % (property.UpperName(), property.typeName, property.name, ))
 
@@ -768,6 +769,7 @@ for customAccessor in layout_customAccessors:
 - (WeViewLayout *)set%s:(%s)value
 {
 %s
+    [_superview setNeedsLayout];
     return self;
 }''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
 

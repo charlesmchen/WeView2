@@ -19,6 +19,15 @@
 #import "WeViewMacros.h"
 #import "WeViewStackLayout.h"
 
+@interface WeViewLayout (WeView)
+
+// This method is private and should only be used internally.
+- (void)bindToSuperview:(WeView *)superview;
+
+@end
+
+#pragma mark -
+
 @interface WeView ()
 
 // The default layout for subviews not associated with a specific layout.
@@ -99,6 +108,7 @@
 - (WeView *)setDefaultLayout:(WeViewLayout *)defaultLayout
 {
     self._defaultLayout = defaultLayout;
+    [self._defaultLayout bindToSuperview:self];
     [self setNeedsLayout];
     return self;
 }
@@ -165,6 +175,7 @@
              withLayout:(WeViewLayout *)layout
 {
     WeViewAssert(subviews);
+    [layout bindToSuperview:self];
     for (UIView *subview in subviews)
     {
         WeViewAssert(subview);
