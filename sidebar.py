@@ -32,11 +32,12 @@ links = (
   Link('Tutorial1.md', 'Tutorial 1: Simple Demo'),
   Link('Tutorial2.md', 'Tutorial 2: iPhone Demo'),
   Link('TutorialConcepts.md', 'Tutorial 3: Concepts'),
-  Link('Tutorial3.md', 'Tutorial 3: The Layouts'),
+  Link('TutorialLayouts.md', 'Tutorial 4: The Layouts'),
   Link('designPhilosophy.md', 'Design Philosophy'),
   Link('whatsNewWeView2.md', 'What\'s New in WeView 2'),
   Link('License.md', 'License'),
 )
+  # Link('Tutorial3.md', 'Tutorial 3: The Layouts'),
 
 
 # ### FAQ

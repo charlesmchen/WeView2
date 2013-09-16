@@ -15,6 +15,12 @@ Tutorial 2: iPhone Demo
     <source src="videos/video-E268F6BC-4360-47CE-8EC4-36D19B2D15EF-76443-0005E485C8E73782.webm" type="video/webm" />
 </video>
 
+Here's the code:
+
+{% gist 6489214 %}
+
+Discussion
+---
 
 * There are two WeViews in this layout: the outer _rootView_ and the inner _bodyView_.  
 * The _rootView_ contains the toolbar and _bodyView_ in a __vertical layout__.
@@ -27,11 +33,6 @@ should be stretched to receive any extra space in the layout.
 * The _bodyView_ contains three separate groups of subviews: the background, the buttons and the activity indicator.  __Each group of subviews has its own layout__.  The layouts work independently and only affect their subviews.  
 * __Each layout can be configured separately__.  For example, the buttons' layout has bottom alignment, but that doesn't effect the activity indicator because it has a separate layout.
  
-
-Here's the code:
-
-{% gist 6489214 %}
-
 
 
 <!-- TEMPLATE END -->
