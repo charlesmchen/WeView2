@@ -38,6 +38,25 @@ NSString *FormatBoolean(BOOL value)
     return value ? @"YES" : @"NO";
 }
 
+#pragma mark -
+
+@interface WeView (ViewEditorController)
+
+- (WeViewLayout *)replaceLayoutWithHorizontalLayout:(WeViewLayout *)layout;
+- (WeViewLayout *)replaceLayoutWithVerticalLayout:(WeViewLayout *)layout;
+- (WeViewLayout *)replaceLayoutWithStackLayout:(WeViewLayout *)layout;
+- (WeViewLayout *)replaceLayoutWithGridLayout:(WeViewLayout *)layout;
+
+@end
+
+@interface WeViewLayout (ViewEditorController)
+
+- (WeView *)superview;
+
+@end
+
+#pragma mark -
+
 @protocol ViewParameterDelegate <NSObject>
 
 - (void)viewChanged;
@@ -93,10 +112,11 @@ typedef void (^SetterBlock)(id item);
 
 - (void)perform:(id)sender
 {
-    self.setterBlock(self.item);
+    ViewParameterSetter *strongSelf = self;
+    strongSelf.setterBlock(strongSelf.item);
 //    [self.view setNeedsLayout];
 //    [self.view.superview setNeedsLayout];
-    [self.delegate viewChanged];
+    [strongSelf.delegate viewChanged];
 }
 
 @end
@@ -535,12 +555,39 @@ typedef void (^SetterBlock)(id item);
     }
     else if ([self.currentItem isKindOfClass:[WeViewLayout class]])
     {
+        __weak ViewEditorController *weakSelf = self;
         self.viewParams = @[
                             [ViewParameterSimple create:@"class"
                                             getterBlock:^NSString *(UIView *view) {
                                                 return [[view class] description];
                                             }
-                                                setters:@[]],
+                                                setters:@[
+                             [ViewParameterSetter create:@"Horizontal"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 WeViewLayout *newLayout = [layout.superview replaceLayoutWithHorizontalLayout:layout];
+                                                 [weakSelf postSelectionChanged:newLayout];
+                                             }],
+                             [ViewParameterSetter create:@"Vertical"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 WeViewLayout *newLayout = [layout.superview replaceLayoutWithVerticalLayout:layout];
+                                                 [weakSelf postSelectionChanged:newLayout];
+                                             }],
+                             [ViewParameterSetter create:@"Stack"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 WeViewLayout *newLayout = [layout.superview replaceLayoutWithStackLayout:layout];
+                                                 [weakSelf postSelectionChanged:newLayout];
+                                             }],
+                             [ViewParameterSetter create:@"Grid"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 WeViewLayout *newLayout = [layout.superview replaceLayoutWithGridLayout:layout];
+                                                 [weakSelf postSelectionChanged:newLayout];
+                                             }],
+                             ]
+                                           doubleHeight:YES],
 
                             /* CODEGEN MARKER: Layout Parameters Start */
 
@@ -735,6 +782,14 @@ typedef void (^SetterBlock)(id item);
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
+}
+
+#pragma mark -
+
+- (void)postSelectionChanged:(id)newItem
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SET_SELECTION_TO
+                                                        object:newItem];
 }
 
 @end

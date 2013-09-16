@@ -13,6 +13,29 @@
 
 @implementation DemoModel
 
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleSetSelectionTo:)
+                                                     name:NOTIFICATION_SET_SELECTION_TO
+                                                   object:nil];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)handleSetSelectionTo:(NSNotification *)notification
+{
+    self.selection = notification.object;
+}
+
 + (DemoModel *)create
 {
     DemoModel* result = [[DemoModel alloc] init];

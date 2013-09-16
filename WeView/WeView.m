@@ -18,11 +18,15 @@
 #import "WeViewNoopLayout.h"
 #import "WeViewMacros.h"
 #import "WeViewStackLayout.h"
+#import "WeViewGridLayout.h"
 
 @interface WeViewLayout (WeView)
 
 // This method is private and should only be used internally.
 - (void)bindToSuperview:(WeView *)superview;
+
+// This method is private and should only be used internally.
+- (void)copyConfigurationOfLayout:(WeViewLayout *)layout;
 
 @end
 
@@ -231,12 +235,20 @@
     return layout;
 }
 
+- (WeViewLayout *)addSubviewsWithStackLayout:(NSArray *)subviews
+{
+    WeViewLayout *layout = [WeViewStackLayout stackLayout];
+    [self addSubviews:subviews
+           withLayout:layout];
+    return layout;
+}
+
 - (WeViewLayout *)addSubviewWithFillLayout:(UIView *)subview
 {
     // Fit and Fill layouts default to ignoring the superview's margins.
     WeViewLayout *layout = [[[WeViewStackLayout stackLayout]
-                              setMargin:0]
-                             setCellPositioning:CELL_POSITION_FILL];
+                             setMargin:0]
+                            setCellPositioning:CELL_POSITION_FILL];
     [self addSubviews:@[subview,]
            withLayout:layout];
     return layout;
@@ -313,6 +325,59 @@
     NSMutableArray *result = [[self.subviewLayoutMap allValues] mutableCopy];
     [result insertObject:self._defaultLayout atIndex:0];
     return result;
+}
+
+- (WeViewLayout *)replaceLayout:(WeViewLayout *)oldLayout
+                     withLayout:(WeViewLayout *)newLayout
+{
+    // This method should only be used by the demo.
+
+    [newLayout copyConfigurationOfLayout:oldLayout];
+
+    if (self._defaultLayout == oldLayout)
+    {
+        [self setDefaultLayout:newLayout];
+    }
+
+    for (id key in self.subviewLayoutMap)
+    {
+        if (self.subviewLayoutMap[key] == oldLayout)
+        {
+            self.subviewLayoutMap[key] = newLayout;
+        }
+    }
+    [self setNeedsDisplay];
+    return newLayout;
+}
+
+- (WeViewLayout *)replaceLayoutWithHorizontalLayout:(WeViewLayout *)oldLayout
+{
+    // This method should only be used by the demo.
+    return [self replaceLayout:oldLayout
+                    withLayout:[WeViewLinearLayout horizontalLayout]];
+}
+
+- (WeViewLayout *)replaceLayoutWithVerticalLayout:(WeViewLayout *)oldLayout
+{
+    // This method should only be used by the demo.
+    return [self replaceLayout:oldLayout
+                    withLayout:[WeViewLinearLayout verticalLayout]];
+}
+
+- (WeViewLayout *)replaceLayoutWithStackLayout:(WeViewLayout *)oldLayout
+{
+    // This method should only be used by the demo.
+    return [self replaceLayout:oldLayout
+                    withLayout:[WeViewStackLayout stackLayout]];
+}
+
+- (WeViewLayout *)replaceLayoutWithGridLayout:(WeViewLayout *)oldLayout
+{
+    // This method should only be used by the demo.
+    return [self replaceLayout:oldLayout
+                    withLayout:[WeViewGridLayout gridLayoutWithColumns:2
+                                                         isGridUniform:NO
+                                                         stretchPolicy:GRID_STRETCH_POLICY_STRETCH_SPACING]];
 }
 
 @end

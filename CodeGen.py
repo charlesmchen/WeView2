@@ -743,7 +743,7 @@ for propertyGroup in layout_propertyGroups:
 - (WeViewLayout *)set%s:(%s)value
 {
     _%s = value;
-    [_superview setNeedsLayout];
+    [self._superview setNeedsLayout];
     return self;
 }''' % (property.UpperName(), property.typeName, property.name, ))
 
@@ -769,7 +769,7 @@ for customAccessor in layout_customAccessors:
 - (WeViewLayout *)set%s:(%s)value
 {
 %s
-    [_superview setNeedsLayout];
+    [self._superview setNeedsLayout];
     return self;
 }''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
 
@@ -778,6 +778,20 @@ lines.append('')
 block = '\n'.join(lines)
 
 replaceBlock(WeViewLayout_mFilePath, 'Accessors Start', 'Accessors End', block)
+
+# --------
+
+lines = []
+lines.append('')
+lines.append('')
+for propertyGroup in layout_propertyGroups:
+    for property in propertyGroup:
+        lines.append('    self.%s = layout.%s;' % (property.name, property.name, ))
+lines.append('')
+lines.append('')
+block = '\n'.join(lines)
+
+replaceBlock(WeViewLayout_mFilePath, 'Copy Configuration Start', 'Copy Configuration End', block)
 
 # --------
 

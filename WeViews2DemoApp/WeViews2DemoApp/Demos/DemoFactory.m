@@ -8,6 +8,8 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "WeView.h"
 #import "DemoFactory.h"
 #import "DemoViewFactory.h"
@@ -111,9 +113,9 @@ UIColor *UIColorRGB(unsigned int rgb)
          [DemoFactory createLabel:@"A UILabel"
                          fontSize:16.f],
          [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]],
-         [DemoViewFactory createFlatUIButton:@"Cancel"
+         [DemoViewFactory createFlatUIButton:@"A UIButton"
                                    textColor:[UIColor whiteColor]
-                                 buttonColor:[self randomBackgroundColor]
+                                 buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
                                       target:nil
                                     selector:nil],
          //         [self buttonWithImageName:@"Images/ok_button_up.png"],
@@ -123,7 +125,11 @@ UIColor *UIColorRGB(unsigned int rgb)
           setHMargin:10]
          setSpacing:5];
 
-        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        demoModel.rootView.layer.borderWidth = 1.f;
+        demoModel.rootView.layer.borderColor = [UIColor yellowColor].CGColor;
+        demoModel.rootView.backgroundColor = [UIColor colorWithWhite:0.75f alpha:1.f];
+
+//        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         //    result.debugLayout = YES;
         demoModel.rootView.debugName = demoName;
         return demoModel;

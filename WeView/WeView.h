@@ -54,11 +54,14 @@
 // Add a subview with a custom layout that applies to just that subview.
 - (WeViewLayout *)addSubviewWithCustomLayout:(UIView *)subview;
 
-// Add subviews with a horizontal layout that applies to just these subview.
+// Add subviews with a horizontal layout that applies to just these subviews.
 - (WeViewLayout *)addSubviewsWithHorizontalLayout:(NSArray *)subviews;
 
-// Add subviews with a vertical layout that applies to just these subview.
+// Add subviews with a vertical layout that applies to just these subviews.
 - (WeViewLayout *)addSubviewsWithVerticalLayout:(NSArray *)subviews;
+
+// Add subviews with a stack layout that applies to just these subviews.
+- (WeViewLayout *)addSubviewsWithStackLayout:(NSArray *)subviews;
 
 // Add a subview with a layout that stretches the subview to fill this view's bounds.
 - (WeViewLayout *)addSubviewWithFillLayout:(UIView *)subview;
@@ -71,8 +74,11 @@
 // preserving its aspect ratio.
 - (WeViewLayout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview;
 
+// Add subviews with a block-based layout that applies to just these subviews.
 - (WeViewLayout *)addSubviews:(NSArray *)subviews
               withLayoutBlock:(BlockLayoutBlock)block;
+
+// Add a subview with a block-based layout that applies to just that subview.
 - (WeViewLayout *)addSubview:(UIView *)subview
              withLayoutBlock:(BlockLayoutBlock)block;
 
