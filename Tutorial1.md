@@ -12,7 +12,7 @@ Tutorial 1: Simple Demo
 
 The core class of this library is the __WeView__.  WeView is a subclass of UIView that can position its subviews using a variety of layouts.
 
-Let's plunge right in with an example.  Here is a WeView that contains a UILabel, a UIImageView and a UIButton.
+Let's plunge right in with an example.  Here is a WeView that has three subviews: a UILabel, a UIImageView and a UIButton.
 
 ![Layout Snapshot](images/snapshot-C8C60F9D-AE44-4405-B077-A3EAC0636E31-90246-0004232B38E3D685-2.png)
 
@@ -21,7 +21,7 @@ Here's the code:
 {% gist 6573950 %}
 
 
-* The three subviews use a __horizontal layout__.  
+* These three subviews use a __horizontal layout__.  
 * The layout has 5pt __margins__ and 5pt __spacing__.  These properties are like their HTML/CSS equivalents.
 * The configuration methods _\[setMargin:\]_ and _\[setSpacing:\]_ are __chained__.  WeView2 configuration methods return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance. Chaining reduces the need for boilerplate code. Chaining is optional. 
 * The subviews are layed out at their __desired size__, ie. the size returned by _\[UIView sizeThatFits:\]_.
@@ -37,11 +37,10 @@ Margins and Spacing
     <source src="videos/video-E5A4D704-7DA1-4BF8-A049-F5458EDF8B4E-76443-0005E3631CEDDA90.webm" type="video/webm" />
 </video>
 
-* The WeView's __desired size__ is the sum of it's subview's desired sizes plus margins, spacing, etc.
-* If we change the layout's __margins__ or __spacing__, the WeView's desired size changes and its subviews are repositioned accordingly (If we change a layout's properties we also need to call _\[UIView setNeedsDisplay\]_ on the WeView to trigger layout). 
+* A WeView's __desired size__ is the sum of it's subview's desired sizes plus margins, spacing, etc.
+* Changing a layout's __margins__ or __spacing__ affects its WeView's desired size and how its subviews are positioned.
 * You can set __margins__ with methods like _\[WeViewLayout setLeftMargin:\]_ or _\[WeViewLayout setTopMargin:\]_ or you can set multiple margins at once with methods like _\[WeViewLayout setMargin:\]_.
 * You can set __spacing__ with _\[WeViewLayout setHSpacing:\]_ or _\[WeViewLayout setVSpacing:\]_ or set both at once with _\[WeViewLayout setSpacing:\]_.
-
 
 
 Alignment 
@@ -52,8 +51,8 @@ Alignment
     <source src="videos/video-408A68F3-4E9A-4617-BF0B-138C8DC3C9C7-76443-0005E3B3D9B61AEF.webm" type="video/webm" />
 </video>
 
-* If the WeView is resized, its contents are automatically re-layed out.
-* If the WeView's layout has extra space, its contents are positioned based on __alignment__.  By default, a horizontal layout has center alignment.
+* If a WeView is resized, its contents are automatically re-layed out.  If any of its subviews are themeselves WeViews, they are also layed out.
+* If a WeView's layout has extra space, its contents are positioned based on __alignment__.  By default, a horizontal layout has center alignment.
 * A WeView layout has separate __hAlign__ (left, center, right) and __vAlign__ (top, center, bottom) properties.
 * You can set alignment with _\[WeViewLayout setHAlign:\]_ or _\[WeViewLayout setVAlign:\]_ or you can set multiple margins at once with methods like _\[UIView setMargin:\]_.
 
@@ -68,7 +67,9 @@ Stretch
     <source src="videos/video-E96286B9-A865-4D1A-A76F-3CCD927011F2-76443-0005E3BFD3FAA3EE.webm" type="video/webm" />
 </video>
 
-* The UIView+WeView category adds a number of properties to all UIViews that allow us to control the layout process.  For example, we can specify that one of the views __stretches__, ie. that it should receive any extra space in the layout.  Stretching is controlled by __hStretchWeight__ and __vStretchWeight__ properties.
+* The UIView+WeView category adds a number of properties to all UIViews that allow us to control the layout process.  
+* For example, we can specify that one of the views __stretches__, ie. that it should receive any extra space in the layout.  Stretching is controlled by __hStretchWeight__ and __vStretchWeight__ properties.  
+* A stretch weight of zero (the default value) indicates that the subview should not stretch.
 * You can set stretch with _\[UIView setHStretchWeight:\]_ or _\[UIView setVStretchWeight:\]_ or simply _\[UIView setStretches\]_.
 
 {% gist 6573957 %}

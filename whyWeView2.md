@@ -22,8 +22,11 @@ WeView's is designed to yield concise, readable code. Here's the equivalent logi
 
 {% gist 6504519 %}
 
+Concise code isn't just easier to write; it's more expressive and more maintainable.  The differences in syntax only become more clear as layouts become more complex.
+
 * iOS Auto Layout is constraint-based.  Constraints are a powerful but awkward way to describe layouts. Constraints are (and must be) specified on a per-view basis. Some conceptually simple layouts are difficult to describe with constraints. This doesn't work well when UIViews need to be layed out in groups.
-* With iOS Auto Layout you need to worry about complications such as constraint priority, constraint sufficiency, constraint conflicts, ambiguous layout, common ancestors, etc.
+* With iOS Auto Layout you need to worry about complications such as constraint priority, constraint sufficiency, constraint conflicts, ambiguous layout, common ancestors, etc. None of those problems apply to WeView 2.
+* iOS Auto Layout has the advantage of being integrated into Interface Builder.  WeView 2 can only be used programmatically.
 
 <!-- TEMPLATE END -->
 
