@@ -33,6 +33,10 @@
 // By default, lay out subviews on top of each other.
 - (WeViewLayout *)useStackDefaultLayout;
 
+// By default, lay out subviews in a "flow" layout that wraps subviews like text, left-to-right,
+// top-to-bottom.
+- (WeViewLayout *)useFlowDefaultLayout;
+
 // By default, layout views using a block.
 - (WeViewLayout *)useBlockDefaultLayout:(BlockLayoutBlock)block;
 

@@ -19,6 +19,7 @@
 #import "WeViewMacros.h"
 #import "WeViewStackLayout.h"
 #import "WeViewGridLayout.h"
+#import "WeViewFlowLayout.h"
 
 @interface WeViewLayout (WeView)
 
@@ -100,6 +101,12 @@
 - (WeViewLayout *)useStackDefaultLayout
 {
     self.defaultLayout = [WeViewStackLayout stackLayout];
+    return self.defaultLayout;
+}
+
+- (WeViewLayout *)useFlowDefaultLayout
+{
+    self.defaultLayout = [WeViewFlowLayout flowLayout];
     return self.defaultLayout;
 }
 
@@ -243,6 +250,14 @@
     return layout;
 }
 
+- (WeViewLayout *)addSubviewsWithFlowLayout:(NSArray *)subviews
+{
+    WeViewLayout *layout = [WeViewFlowLayout flowLayout];
+    [self addSubviews:subviews
+           withLayout:layout];
+    return layout;
+}
+
 - (WeViewLayout *)addSubviewWithFillLayout:(UIView *)subview
 {
     // Fit and Fill layouts default to ignoring the superview's margins.
@@ -369,6 +384,13 @@
     // This method should only be used by the demo.
     return [self replaceLayout:oldLayout
                     withLayout:[WeViewStackLayout stackLayout]];
+}
+
+- (WeViewLayout *)replaceLayoutWithFlowLayout:(WeViewLayout *)oldLayout
+{
+    // This method should only be used by the demo.
+    return [self replaceLayout:oldLayout
+                    withLayout:[WeViewFlowLayout flowLayout]];
 }
 
 - (WeViewLayout *)replaceLayoutWithGridLayout:(WeViewLayout *)oldLayout

@@ -45,6 +45,7 @@ NSString *FormatBoolean(BOOL value)
 - (WeViewLayout *)replaceLayoutWithHorizontalLayout:(WeViewLayout *)layout;
 - (WeViewLayout *)replaceLayoutWithVerticalLayout:(WeViewLayout *)layout;
 - (WeViewLayout *)replaceLayoutWithStackLayout:(WeViewLayout *)layout;
+- (WeViewLayout *)replaceLayoutWithFlowLayout:(WeViewLayout *)layout;
 - (WeViewLayout *)replaceLayoutWithGridLayout:(WeViewLayout *)layout;
 
 @end
@@ -578,6 +579,12 @@ typedef void (^SetterBlock)(id item);
                                              setterBlock:^(id item) {
                                                  WeViewLayout *layout = item;
                                                  WeViewLayout *newLayout = [layout.superview replaceLayoutWithStackLayout:layout];
+                                                 [weakSelf postSelectionChanged:newLayout];
+                                             }],
+                             [ViewParameterSetter create:@"Flow"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 WeViewLayout *newLayout = [layout.superview replaceLayoutWithFlowLayout:layout];
                                                  [weakSelf postSelectionChanged:newLayout];
                                              }],
                              [ViewParameterSetter create:@"Grid"
