@@ -19,12 +19,22 @@
 
 @interface WeViewLayout : NSObject <NSCopying>
 
-- (void)layoutContentsOfView:(UIView *)view
-                    subviews:(NSArray *)subviews;
-
+// Subclasses only need to implement two methods, [layoutContentsOfView: subviews:] and
+// [minSizeOfContentsView: subviews: thatFitsSize:].
+//
+// This method returns the minimum size for _view_ such that it can lay out the given list of
+// _subviews_ given the suggested _size_.
 - (CGSize)minSizeOfContentsView:(UIView *)view
                        subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)size;
+
+// Subclasses only need to implement two methods, [layoutContentsOfView: subviews:] and
+// [minSizeOfContentsView: subviews: thatFitsSize:].
+//
+// This method positions and resizes each of the _subviews_ within the bounds of _view_, ie. by
+// setting each subview's frame.
+- (void)layoutContentsOfView:(UIView *)view
+                    subviews:(NSArray *)subviews;
 
 #pragma mark - Per-Layout Properties
 

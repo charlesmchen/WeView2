@@ -32,19 +32,22 @@ UIColor *UIColorRGB(unsigned int rgb)
 {
     return @[
              [self stackDemo1],
+             [self stackDemo2],
              [self horizontalDemo1],
+             [self horizontalDemo2],
+             [self horizontalDemo3],
              [self verticalDemo1],
              [self verticalDemo2],
              [self flowDemo1],
              [self iphoneDemo1],
              [self randomImageDemo1],
-             [self horizontalDemo3],
+             [self sevenSmallViewsDemo],
              ];
 }
 
 + (Demo *)defaultDemo
 {
-    return [self horizontalDemo3];
+    return [self sevenSmallViewsDemo];
 }
 
 + (Demo *)randomImageDemo1
@@ -85,14 +88,79 @@ UIColor *UIColorRGB(unsigned int rgb)
     demo.createDemoModelBlock = ^DemoModel *()
     {
         DemoModel *demoModel = [DemoModel create];
-
+        
         [demoModel.rootView addSubview:[DemoFactory createWrappingLabel]];
         [[[[demoModel.rootView useStackDefaultLayout]
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
-
+        
         [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        //    result.debugLayout = YES;
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)stackDemo2
+{
+    NSString *demoName = @"Stack Demo 2";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+        
+        [demoModel.rootView addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]]];
+        [[[[demoModel.rootView useStackDefaultLayout]
+           setVMargin:10]
+          setHMargin:20]
+         setSpacing:5];
+        
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        //    result.debugLayout = YES;
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)sevenSmallViewsDemo
+{
+    NSString *demoName = @"7 Small Views Demo";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        [demoModel.rootView addSubviewsToDefaultLayout:@[
+         [DemoFactory createLabel:@"A UILabel"
+                         fontSize:16.f],
+         [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]],
+         [DemoFactory createLabel:@"=^)"
+                         fontSize:24.f],
+         [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/ok_button_up.png"]],
+         [DemoFactory createLabel:@"=^)"
+                         fontSize:24.f],
+         [DemoViewFactory createFlatUIButton:@"A UIButton"
+                                   textColor:[UIColor whiteColor]
+                                 buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+                                      target:nil
+                                    selector:nil],
+         [self createWrappingLabel],
+         ]];
+        [[[[demoModel.rootView useHorizontalDefaultLayout]
+           setVMargin:5]
+          setHMargin:10]
+         setSpacing:5];
+
+        demoModel.rootView.layer.borderWidth = 1.f;
+        demoModel.rootView.layer.borderColor = [UIColor yellowColor].CGColor;
+        demoModel.rootView.backgroundColor = [UIColor colorWithWhite:0.75f alpha:1.f];
+
+        //        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         //    result.debugLayout = YES;
         demoModel.rootView.debugName = demoName;
         return demoModel;
@@ -129,7 +197,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         demoModel.rootView.layer.borderColor = [UIColor yellowColor].CGColor;
         demoModel.rootView.backgroundColor = [UIColor colorWithWhite:0.75f alpha:1.f];
 
-//        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        //        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         //    result.debugLayout = YES;
         demoModel.rootView.debugName = demoName;
         return demoModel;
@@ -145,7 +213,37 @@ UIColor *UIColorRGB(unsigned int rgb)
     demo.createDemoModelBlock = ^DemoModel *()
     {
         DemoModel *demoModel = [DemoModel create];
+        
+        [demoModel.rootView useHorizontalDefaultLayout];
+        [[[[demoModel.rootView addSubviewsToDefaultLayout:@[
+            [DemoFactory createLabel:@"Welcome"
+                            fontSize:16.f],
+            [DemoFactory createLabel:@"To"
+                            fontSize:24.f],
+            [DemoFactory createLabel:@"WeView"
+                            fontSize:32.f],
+            ]]
+           setVMargin:10]
+          setHMargin:20]
+         setSpacing:5];
+        
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        //    result.debugLayout = YES;
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
 
++ (Demo *)horizontalDemo2
+{
+    NSString *demoName = @"Horizontal Demo 2";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+        
         [demoModel.rootView useHorizontalDefaultLayout];
         [[[[demoModel.rootView addSubviewsToDefaultLayout:@[
             [DemoFactory createLabel:@"Welcome"
@@ -159,7 +257,7 @@ UIColor *UIColorRGB(unsigned int rgb)
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
-
+        
         [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         //    result.debugLayout = YES;
         demoModel.rootView.debugName = demoName;

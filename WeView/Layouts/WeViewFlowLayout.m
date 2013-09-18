@@ -135,9 +135,11 @@
             proposedRowWidth > contentBounds.size.width)
         {
             // Overflow; start new row.
-            x = 0;
             y += rowHeight + vSpacing;
+            x = 0;
             itemsInRow = 0;
+            rowWidth = 0;
+            rowHeight = 0;
             row++;
         }
 
