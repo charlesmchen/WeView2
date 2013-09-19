@@ -16,7 +16,8 @@
 
 @interface WeViewBlockLayout ()
 
-@property (copy, nonatomic) BlockLayoutBlock block;
+@property (copy, nonatomic) WeView2LayoutBlock layoutBlock;
+@property (copy, nonatomic) WeView2DesiredSizeBlock desiredSizeBlock;
 
 @end
 
@@ -24,11 +25,22 @@
 
 @implementation WeViewBlockLayout
 
-+ (WeViewBlockLayout *)blockLayoutWithBlock:(BlockLayoutBlock)block
++ (WeViewBlockLayout *)blockLayoutWithBlock:(WeView2LayoutBlock)layoutBlock
+                           desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock
 {
-    WeViewAssert(block);
+    WeViewAssert(layoutBlock);
+    WeViewAssert(desiredSizeBlock);
     WeViewBlockLayout *layout = [[WeViewBlockLayout alloc] init];
-    layout.block = block;
+    layout.layoutBlock = layoutBlock;
+    layout.desiredSizeBlock = desiredSizeBlock;
+    return layout;
+}
+
++ (WeViewBlockLayout *)blockLayoutWithBlock:(WeView2LayoutBlock)layoutBlock
+{
+    WeViewAssert(layoutBlock);
+    WeViewBlockLayout *layout = [[WeViewBlockLayout alloc] init];
+    layout.layoutBlock = layoutBlock;
     return layout;
 }
 
@@ -36,7 +48,17 @@
                        subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize
 {
-    return CGSizeZero;
+    CGSize result = CGSizeZero;
+    if (self.desiredSizeBlock)
+    {
+        int subviewCount = [subviews count];
+        for (int i=0; i < subviewCount; i++)
+        {
+            UIView* subview = subviews[i];
+            result = CGSizeMax(result, self.desiredSizeBlock(view, subview));
+        }
+    }
+    return result;
 }
 
 - (void)layoutContentsOfView:(UIView *)view
@@ -61,12 +83,12 @@
               NSStringFromCGSize(guideSize));
     }
 
-    WeViewAssert(self.block);
+    WeViewAssert(self.layoutBlock);
     int subviewCount = [subviews count];
     for (int i=0; i < subviewCount; i++)
     {
         UIView* subview = subviews[i];
-        self.block(view, subview);
+        self.layoutBlock(view, subview);
 
         if (debugLayout)
         {

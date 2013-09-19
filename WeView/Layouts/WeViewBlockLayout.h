@@ -16,14 +16,19 @@
 #import "WeViewLayout.h"
 
 // Block used for custom positioning of subviews.  Called once for each subview of the superview.
-//
-// Like HTML "absolute" positioning, subviews layed out by a WeViewBlockLayout do not effect the
-// size of their superview.
-typedef void(^BlockLayoutBlock)(UIView *superview, UIView *subview);
+typedef void(^WeView2LayoutBlock)(UIView *superview, UIView *subview);
+
+// Block used for determining the desired size of subviews.  Called once for each subview of the
+// superview.
+typedef CGSize(^WeView2DesiredSizeBlock)(UIView *superview, UIView *subview);
 
 @interface WeViewBlockLayout : WeViewLayout
 
 // Factory method.
-+ (WeViewBlockLayout *)blockLayoutWithBlock:(BlockLayoutBlock)block;
++ (WeViewBlockLayout *)blockLayoutWithBlock:(WeView2LayoutBlock)layoutBlock
+                           desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock;
+
+// Factory method.
++ (WeViewBlockLayout *)blockLayoutWithBlock:(WeView2LayoutBlock)layoutBlock;
 
 @end

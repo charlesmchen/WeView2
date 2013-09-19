@@ -110,9 +110,17 @@
     return self.defaultLayout;
 }
 
-- (WeViewLayout *)useBlockDefaultLayout:(BlockLayoutBlock)block
+- (WeViewLayout *)useBlockDefaultLayout:(WeView2LayoutBlock)layoutBlock
 {
-    self.defaultLayout = [WeViewBlockLayout blockLayoutWithBlock:block];
+    self.defaultLayout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock];
+    return self.defaultLayout;
+}
+
+- (WeViewLayout *)useBlockDefaultLayout:(WeView2LayoutBlock)layoutBlock
+                       desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock
+{
+    self.defaultLayout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock
+                                                desiredSizeBlock:desiredSizeBlock];
     return self.defaultLayout;
 }
 
@@ -292,18 +300,40 @@
 }
 
 - (WeViewLayout *)addSubviews:(NSArray *)subviews
-              withLayoutBlock:(BlockLayoutBlock)block
+              withLayoutBlock:(WeView2LayoutBlock)layoutBlock
 {
-    WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:block];
+    WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock];
+    [self addSubviews:subviews
+           withLayout:layout];
+    return layout;
+}
+
+- (WeViewLayout *)addSubviews:(NSArray *)subviews
+              withLayoutBlock:(WeView2LayoutBlock)layoutBlock
+             desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock
+{
+    WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock
+                                                       desiredSizeBlock:desiredSizeBlock];
     [self addSubviews:subviews
            withLayout:layout];
     return layout;
 }
 
 - (WeViewLayout *)addSubview:(UIView *)subview
-             withLayoutBlock:(BlockLayoutBlock)block
+             withLayoutBlock:(WeView2LayoutBlock)layoutBlock
 {
-    WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:block];
+    WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock];
+    [self addSubviews:@[subview,]
+           withLayout:layout];
+    return layout;
+}
+
+- (WeViewLayout *)addSubview:(UIView *)subview
+             withLayoutBlock:(WeView2LayoutBlock)layoutBlock
+            desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock
+{
+    WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock
+                                                       desiredSizeBlock:desiredSizeBlock];
     [self addSubviews:@[subview,]
            withLayout:layout];
     return layout;
