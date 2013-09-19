@@ -67,7 +67,7 @@ Stretch
     <source src="videos/video-E96286B9-A865-4D1A-A76F-3CCD927011F2-76443-0005E3BFD3FAA3EE.webm" type="video/webm" />
 </video>
 
-* The UIView+WeView category adds a number of properties to all UIViews that allow us to control the layout process.  
+* The _UIView+WeView category_ adds a number of properties to all UIViews that allow us to control the layout process.  
 * For example, we can specify that one of the views __stretches__, ie. that it should receive any extra space in the layout.  Stretching is controlled by __hStretchWeight__ and __vStretchWeight__ properties.  
 * A stretch weight of zero (the default value) indicates that the subview should not stretch.
 * You can set stretch with _\[UIView setHStretchWeight:\]_ or _\[UIView setVStretchWeight:\]_ or simply _\[UIView setStretches\]_.
