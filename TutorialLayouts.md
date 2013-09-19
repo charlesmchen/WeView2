@@ -3,7 +3,7 @@ permalink: TutorialLayouts.html
 layout: default
 ---
 
-Next\: [Design Philosophy](designPhilosophy.html)
+Next\: [Tutorial 5: Stretch](TutorialStretch.html)
 
 Tutorial 4: The Layouts
 ==
@@ -66,4 +66,4 @@ WeView supports the following layouts:
 
 <!-- TEMPLATE END -->
 
-Next\: [Design Philosophy](designPhilosophy.html)
+Next\: [Tutorial 5: Stretch](TutorialStretch.html)
