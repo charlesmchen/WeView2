@@ -25,6 +25,7 @@
 //@property (nonatomic) UIImage *image;
 @property (nonatomic) CGSize rootViewSize;
 @property (nonatomic) NSString *filePath;
+//@property (nonatomic) BOOL ;
 
 @end
 
@@ -140,6 +141,10 @@
                                                                                 style:UIBarButtonItemStyleBordered
                                                                                target:self
                                                                                action:@selector(exportSnapshots:)],
+                                               [[UIBarButtonItem alloc] initWithTitle:@"Toggle Resize"
+                                                                                style:UIBarButtonItemStyleBordered
+                                                                               target:self
+                                                                               action:@selector(toggleResize:)],
                                                ];
     self.navigationItem.rightBarButtonItems = @[
                                                 [[UIBarButtonItem alloc] initWithTitle:@"Record"
@@ -607,6 +612,11 @@
     }
     [self makeAnimatedGifWithSnapshots:self.snapshots];
     self.snapshots = [NSMutableArray array];
+}
+
+- (void)toggleResize:(id)sender
+{
+    [self.sandboxView toggleResize];
 }
 
 - (void)ensureSnapshotsFolderPath

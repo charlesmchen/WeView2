@@ -51,6 +51,11 @@ typedef enum
     return self;
 }
 
+- (void)toggleResize
+{
+    self.panGestureRecognizer.enabled = !self.panGestureRecognizer.enabled;
+}
+
 - (CGSize)rootViewSize
 {
     CGSize rootViewSize = ((UIView *) self.subviews[0]).size;

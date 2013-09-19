@@ -42,12 +42,13 @@ UIColor *UIColorRGB(unsigned int rgb)
              [self iphoneDemo1],
              [self randomImageDemo1],
              [self sevenSmallViewsDemo],
+             [self stretchDemo1],
              ];
 }
 
 + (Demo *)defaultDemo
 {
-    return [self sevenSmallViewsDemo];
+    return [self stretchDemo1];
 }
 
 + (Demo *)randomImageDemo1
@@ -291,6 +292,39 @@ UIColor *UIColorRGB(unsigned int rgb)
 
         [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         //    result.debugLayout = YES;
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)stretchDemo1
+{
+    NSString *demoName = @"Stretch Demo 1";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        UIImageView *imageView = [self imageViewWithImageName:@"Images/916px-Greatbasinmap.jpg"];
+        UIScrollView *scrollView = [[UIScrollView alloc] init];
+        [scrollView addSubview:imageView];
+        scrollView.contentSize = imageView.size;
+        scrollView.bounces = NO;
+
+        [demoModel.rootView useVerticalDefaultLayout];
+        [[demoModel.rootView addSubviewsToDefaultLayout:@[
+          [DemoFactory createLabel:@"Welcome To WeView"
+                          fontSize:16.f],
+          [[scrollView setStretches]
+          setIgnoreDesiredSize],
+          ]]
+         setSpacing:5];
+        demoModel.rootView.layer.borderColor = [UIColor colorWithWhite:0.5f alpha:1.f].CGColor;
+        demoModel.rootView.layer.borderWidth = 2.f;
+
+        [self assignRandomBackgroundColor:demoModel.rootView];
         demoModel.rootView.debugName = demoName;
         return demoModel;
     };
@@ -543,6 +577,13 @@ UIColor *UIColorRGB(unsigned int rgb)
             [result addObjectsFromArray:[self collectSubviews:subview]];
         }
     }
+    return result;
+}
+
++ (UIImageView *)imageViewWithImageName:(NSString *)imageName
+{
+    UIImageView *result = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+    [result sizeToFit];
     return result;
 }
 

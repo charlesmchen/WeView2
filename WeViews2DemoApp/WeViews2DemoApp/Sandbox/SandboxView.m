@@ -75,4 +75,9 @@
     }
 }
 
+- (void)toggleResize
+{
+
+}
+
 @end
