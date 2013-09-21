@@ -14,7 +14,6 @@
 #import <UIKit/UIKit.h>
 
 #import "WeViewCommon.h"
-#import "WeViewViewInfo.h"
 
 @interface UIView (WeView) <NSCopying>
 

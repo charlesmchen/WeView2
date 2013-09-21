@@ -298,6 +298,50 @@ BOOL _debugMinSize;
     return _vAlign;
 }
 
+- (CGRect)alignSize:(CGSize)size
+         withinRect:(CGRect)rect
+             hAlign:(HAlign)hAlign
+             vAlign:(VAlign)vAlign
+{
+    CGRect result;
+    result.size = size;
+
+    switch (hAlign)
+    {
+        case H_ALIGN_LEFT:
+            result.origin.x = 0;
+            break;
+        case H_ALIGN_CENTER:
+            result.origin.x = (rect.size.width - size.width) / 2;
+            break;
+        case H_ALIGN_RIGHT:
+            result.origin.x = rect.size.width - size.width;
+            break;
+        default:
+            NSLog(@"Unknown hAlign: %d", hAlign);
+            assert(0);
+            break;
+    }
+    switch (vAlign)
+    {
+        case V_ALIGN_TOP:
+            result.origin.y = 0;
+            break;
+        case V_ALIGN_CENTER:
+            result.origin.y = (rect.size.height - size.height) / 2;
+            break;
+        case V_ALIGN_BOTTOM:
+            result.origin.y = rect.size.height - size.height;
+            break;
+        default:
+            NSLog(@"Unknown vAlign: %d", vAlign);
+            assert(0);
+            break;
+    }
+    result.origin = CGPointRound(CGPointAdd(result.origin, rect.origin));
+    return result;
+}
+
 - (void)positionSubview:(UIView *)subview
             inSuperview:(UIView *)superview
                withSize:(CGSize)subviewSize
@@ -318,12 +362,12 @@ BOOL _debugMinSize;
             }
 
             subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
-            subview.frame = alignSizeWithinRect(subviewSize,
-                                                cellBounds,
-                                                [self subviewCellHAlign:superview
-                                                                subview:subview],
-                                                [self subviewCellVAlign:superview
-                                                                subview:subview]);
+            subview.frame = [self alignSize:subviewSize
+                                 withinRect:cellBounds
+                                     hAlign:[self subviewCellHAlign:superview
+                                                            subview:subview]
+                                     vAlign:[self subviewCellVAlign:superview
+                                                            subview:subview]];
             break;
         }
         case CELL_POSITION_FILL:
@@ -356,12 +400,12 @@ BOOL _debugMinSize;
                 {
                     subviewSize = FitSizeInRect(cellBounds, desiredSize).size;
                     subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
-                    subview.frame = alignSizeWithinRect(subviewSize,
-                                                        cellBounds,
-                                                        [self subviewCellHAlign:superview
-                                                                        subview:subview],
-                                                        [self subviewCellVAlign:superview
-                                                                        subview:subview]);
+                    subview.frame = [self alignSize:subviewSize
+                                         withinRect:cellBounds
+                                             hAlign:[self subviewCellHAlign:superview
+                                                                    subview:subview]
+                                             vAlign:[self subviewCellVAlign:superview
+                                                                    subview:subview]];
                 }
             }
         }

@@ -13,6 +13,7 @@
 
 #import "UIView+WeView.h"
 #import "WeViewMacros.h"
+#import "WeViewViewInfo.h"
 
 static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 

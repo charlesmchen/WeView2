@@ -54,5 +54,3 @@ typedef enum
 } CellPositioningMode;
 
 NSString* FormatCellPositioningMode(CellPositioningMode value);
-
-CGRect alignSizeWithinRect(CGSize size, CGRect rect, HAlign hAlign, VAlign vAlign);
