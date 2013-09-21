@@ -5,12 +5,12 @@ layout: default
 
 Next\: [Design Philosophy](designPhilosophy.html)
 
-Tutorial 5: Stretch
+Tutorial 6: Stretch
 ==
 
 <!-- TEMPLATE START -->
 
-Stretch has a few roles in WeView.  Put simply, subviews can "stretch" to receive extra space in their layout.
+_Stretch_ is a per-subview property. It has a few roles in WeView.  Put simply, subviews can "stretch" to receive extra space in their layout.
 
 
 __Vertical Stretch in a Horizontal Layout__
@@ -21,6 +21,8 @@ __Vertical Stretch in a Horizontal Layout__
 </video>
 
 Here is a UILabel shown with and without vertical stretch.  Since it stretches _vertically_ in a _horizontal_ layout, its stretch _does not_ effect the layout of the other subviews.  
+
+The subview uses all of the vertical space within its _layout cell_ (See: [Layout Model](TutorialLayoutModel.html)).
 
 {% gist 6618909 %}
 
@@ -33,6 +35,8 @@ __Horizontal Stretch in a Horizontal Layout__
 </video>
 
 Here is the same UILabel shown with and without horizontal stretch.  Since it stretches _horizontally_ in a _horizontal_ layout, its stretch _does_ effect the layout of the other subviews.
+
+The subview's horizontal stretch affects the size of its _layout cell_.
 
 {% gist 6618913 %}
 

@@ -33,17 +33,14 @@ links = (
   Link('Tutorial2.md', 'Tutorial 2: iPhone Demo'),
   Link('TutorialConcepts.md', 'Tutorial 3: Concepts'),
   Link('TutorialLayouts.md', 'Tutorial 4: The Layouts'),
-  Link('TutorialStretch.md', 'Tutorial 5: Stretch'),
+  Link('TutorialLayoutModel.md', 'Tutorial 5: Layout Model'),
+  Link('TutorialStretch.md', 'Tutorial 6: Stretch'),
   Link('designPhilosophy.md', 'Design Philosophy'),
   Link('whatsNewWeView2.md', 'What\'s New in WeView 2'),
   Link('License.md', 'License'),
 )
-  # Link('Tutorial3.md', 'Tutorial 3: The Layouts'),
-
-
-# ### FAQ
-# 
-# See the [WeView Frequently Asked Questions](FAQ.md).
+# Layout model - Cells.
+# FAQ
 # Text wrapping.
 
 for index, link in enumerate(links):
