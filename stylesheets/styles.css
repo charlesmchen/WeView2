@@ -67,6 +67,14 @@ a small {
   margin:0 auto;
 }
 
+.social {
+}
+
+.social > iframe,
+.social > div {
+  padding-bottom: 18px;
+}  
+
 blockquote {
   border-left:1px solid #e5e5e5;
   margin:0;

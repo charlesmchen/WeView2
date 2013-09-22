@@ -39,6 +39,7 @@ links = (
   Link('TutorialStretch.md', 'Tutorial 8: Stretch'),
   Link('TutorialConvenience.md', 'Tutorial 9: Conveniences'),
   Link('FAQ.md', 'FAQ'),
+  Link('ExtrasDesiredSize.md', 'Extras 1: Desired Size'),
   Link('designPhilosophy.md', 'Design Philosophy'),
   Link('whatsNewWeView2.md', 'What\'s New in WeView 2'),
   Link('License.md', 'License'),

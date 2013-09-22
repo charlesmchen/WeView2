@@ -3,7 +3,7 @@ permalink: FAQ.html
 layout: default
 ---
 
-Next\: [Design Philosophy](designPhilosophy.html)
+Next\: [Extras 1: Desired Size](ExtrasDesiredSize.html)
 
 FAQ
 ==
@@ -17,4 +17,4 @@ __No.__  Many UIViews (ie. UILabels) don't render properly if they are not pixel
 
 <!-- TEMPLATE END -->
 
-Next\: [Design Philosophy](designPhilosophy.html)
+Next\: [Extras 1: Desired Size](ExtrasDesiredSize.html)

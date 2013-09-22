@@ -12,6 +12,8 @@ Tutorial 7: Desired Size
 
 ### Introduction
 
+What size will a subview be in WeView layout?
+
 The _\[UIView sizeThatFits:(CGSize)size\]_ method returns the _desired size_ for any given view.  A view's _desired size_ reflects the "natural" size for its content.
 
 ![Layout Snapshot](images/snapshot-DA93EC7C-4F70-4ED7-BDBE-8A59653911FA-27667-0006BEA3B59FF297-0.png)
@@ -73,21 +75,10 @@ These methods let you set a maximum or minimum desired width or height.
 	// Sets all of the minWidth, minHeight, maxWidth and maxHeight properties.
 	- (UIView *)setFixedSize:(CGSize)value;
 
-These methods let you set more than one property at a time.
+Yo ucan assign a UIView a _fixed_ desired width by setting its minWidth and maxWidth properties to the same value.
 
+These methods let you set more than one property at a time.  
 
-	// This adjustment can be used to manipulate the desired width of a view.
-	- (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
-	
-	// This adjustment can be used to manipulate the desired height of a view.
-	- (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
-	
-	// Sets both of the desiredWidthAdjustment and desiredHeightAdjustment properties.
-	- (UIView *)setDesiredSizeAdjustment:(CGSize)value;
-
-The _desired size adjustment_ properties let you add a fixed (positive or negative) adjustment to the desired width and/or height of the view.
-
-For example, UIButtons have a useful _contentEdgeInsets_ property that functions like _padding_.  UILabels do not have a similar property, but by setting a _desired size adjustment_, we can add padding to a UILabel.
 
 ### Ignoring Desired Sizes
 
