@@ -45,7 +45,6 @@
 		3444368B17D3F9DB00EFF341 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3444368A17D3F9DA00EFF341 /* README.md */; };
 		3444368D17D3F9E300EFF341 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3444368C17D3F9E200EFF341 /* LICENSE */; };
 		34C19C6017DB967E0025914F /* DemoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19C5F17DB967E0025914F /* DemoFactory.m */; };
-		34C19C6417DBE8DA0025914F /* FAQ.md in Resources */ = {isa = PBXBuildFile; fileRef = 34C19C6317DBE8DA0025914F /* FAQ.md */; };
 		34C19C7A17DCF2160025914F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19C7917DCF2160025914F /* ImageIO.framework */; };
 		34C19C7C17DCF22E0025914F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19C7B17DCF22E0025914F /* MobileCoreServices.framework */; };
 		34C19CC917DD1D4C0025914F /* WeViewBlockLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CB517DD1D4B0025914F /* WeViewBlockLayout.m */; };
@@ -133,7 +132,6 @@
 		3444368C17D3F9E200EFF341 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		34C19C5E17DB967E0025914F /* DemoFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoFactory.h; sourceTree = "<group>"; };
 		34C19C5F17DB967E0025914F /* DemoFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoFactory.m; sourceTree = "<group>"; };
-		34C19C6317DBE8DA0025914F /* FAQ.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FAQ.md; path = ../FAQ.md; sourceTree = "<group>"; };
 		34C19C7917DCF2160025914F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		34C19C7B17DCF22E0025914F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		34C19CB417DD1D4B0025914F /* WeViewBlockLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewBlockLayout.h; sourceTree = "<group>"; };
@@ -201,7 +199,6 @@
 		34195F7017CA80A90036F8DC = {
 			isa = PBXGroup;
 			children = (
-				34C19C6317DBE8DA0025914F /* FAQ.md */,
 				34195F7B17CA80A90036F8DC /* Frameworks */,
 				3444368C17D3F9E200EFF341 /* LICENSE */,
 				34195F7A17CA80A90036F8DC /* Products */,
@@ -467,7 +464,6 @@
 				3444367A17D2A7DC00EFF341 /* subtlepatterns.com in Resources */,
 				3444368B17D3F9DB00EFF341 /* README.md in Resources */,
 				3444368D17D3F9E300EFF341 /* LICENSE in Resources */,
-				34C19C6417DBE8DA0025914F /* FAQ.md in Resources */,
 				34C19D3417EEB3910025914F /* Glyphish_Icons in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

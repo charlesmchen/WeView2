@@ -139,8 +139,45 @@
 
 #pragma mark -
 
+- (NSArray *)getLayouts:(BOOL)activeOnly
+{
+    NSMutableArray *result = [NSMutableArray array];
+
+    // First, add the default layout if necessary.
+    if (!activeOnly ||
+        [[self subviewsForLayout:self._defaultLayout] count] > 0)
+    {
+        [result addObject:self._defaultLayout];
+    }
+
+    // Second, add the custom layouts _in subview order_.
+    for (UIView *subview in self.subviews)
+    {
+        WeViewLayout *layout = self.subviewLayoutMap[subview];
+        if (layout &&
+            ![result containsObject:layout])
+        {
+            [result addObject:layout];
+        }
+    }
+
+    return result;
+}
+
+- (NSArray *)activeLayouts
+{
+    return [self getLayouts:YES];
+}
+
+- (NSArray *)allLayouts
+{
+    return [self getLayouts:NO];
+}
+
 - (NSArray *)subviewsForLayout:(WeViewLayout *)layout
 {
+    // Returns the subviews for a given layout _in layout order_.
+
     if (layout == self._defaultLayout)
     {
         // Use "nil" to find the subviews for the default layout.
@@ -377,18 +414,6 @@
     {
         [self.subviewLayoutMap removeObjectForKey:subview];
     }
-}
-
-- (NSArray *)allLayouts
-{
-    NSMutableArray *result = [NSMutableArray array];
-    NSSet *customLayoutsSet = [NSSet setWithArray:[self.subviewLayoutMap allValues]];
-    [result addObjectsFromArray:[customLayoutsSet allObjects]];
-    if ([[self subviewsForLayout:self._defaultLayout] count] > 0)
-    {
-        [result insertObject:self._defaultLayout atIndex:0];
-    }
-    return result;
 }
 
 - (WeViewLayout *)replaceLayout:(WeViewLayout *)oldLayout

@@ -16,7 +16,7 @@
 
 @interface WeView (Private)
 
-- (NSArray *)allLayouts;
+- (NSArray *)activeLayouts;
 
 - (NSArray *)subviewsForLayout:(WeViewLayout *)layout;
 
@@ -101,10 +101,11 @@
     }
 
     NSString* description = [[self.item class] description];
-    //    if (self.item.debugName)
-    //    {
-    //        description = [NSString stringWithFormat:@"%@ (%@)", description, self.item.debugName];
-    //    }
+    if ([self.item isKindOfClass:[UIView class]] &&
+        ((UIView *) self.item).debugName)
+    {
+        description = [NSString stringWithFormat:@"%@ (%@)", description, ((UIView *) self.item).debugName];
+    }
 
     UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor clearColor];
@@ -251,7 +252,7 @@
         {
             WeView *weView = (WeView *) pseudoView;
 
-            for (WeViewLayout *layout in weView.allLayouts)
+            for (WeViewLayout *layout in weView.activeLayouts)
             {
                 NSArray *layoutSubviews = [weView subviewsForLayout:layout];
                 self.layoutSubviewMap[layout] = layoutSubviews;

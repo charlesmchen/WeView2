@@ -524,17 +524,13 @@ UIColor *UIColorRGB(unsigned int rgb)
 
         demoModel.useIPhoneSandboxByDefault = YES;
 
-        WeView *rootView = [[WeView alloc] init];
-        [[rootView setStretches]
-         setIgnoreDesiredSize];
-
         // Add image that exactly fills the background of the body panel while retaining its aspect ratio.
         UIImage *image = [UIImage imageNamed:@"Images/thun-stockhornkette-1904 1600.jpg"];
-        [[[rootView addSubviewWithCustomLayout:[[UIImageView alloc] initWithImage:image]]
+        [[[demoModel.rootView addSubviewWithCustomLayout:[[UIImageView alloc] initWithImage:image]]
           setCellPositioning:CELL_POSITION_FILL_W_ASPECT_RATIO]
          setVAlign:V_ALIGN_TOP];
         // The background will exceed the rootView's bounds, so we need to clip.
-        rootView.clipsToBounds = YES;
+        demoModel.rootView.clipsToBounds = YES;
 
         WeView *headerView = [[WeView alloc] init];
         headerView.backgroundColor = [UIColor colorWithWhite:0.5f alpha:0.5f];
@@ -550,13 +546,13 @@ UIColor *UIColorRGB(unsigned int rgb)
          setHAlign:H_ALIGN_RIGHT];
 
         // Add header to top of screen.
-        [[rootView addSubviewWithCustomLayout:[headerView setHStretches]]
+        [[demoModel.rootView addSubviewWithCustomLayout:[headerView setHStretches]]
          setVAlign:V_ALIGN_TOP];
 
         // Add pillbox buttons to bottom of screen.
         //
         // No need to set horizontal alignment; centering is the default.
-        [[[rootView addSubviewsWithHorizontalLayout:@[
+        [[[demoModel.rootView addSubviewsWithHorizontalLayout:@[
            [self createFlatUIPillboxButton:@"Prev"
                                      shape:H_ALIGN_LEFT],
            [self createFlatUIPillboxButton:@"More Info"
@@ -571,11 +567,12 @@ UIColor *UIColorRGB(unsigned int rgb)
         UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [activityIndicatorView startAnimating];
         // No need to set alignment; centering is the default.
-        [rootView addSubviewWithCustomLayout:activityIndicatorView];
+        [demoModel.rootView addSubviewWithCustomLayout:activityIndicatorView];
 
-        [demoModel.rootView addSubview:rootView];
         [demoModel.rootView setStretchesIgnoringDesiredSize];
-        demoModel.rootView.debugName = demoName;
+//        demoModel.rootView.debugName = demoName;
+        demoModel.rootView.debugName = @"rootView";
+        headerView.debugName = @"headerView";
         return demoModel;
     };
     return demo;
