@@ -28,6 +28,13 @@
     return CGSizeZero;
 }
 
+- (CGSize)maxViewSize
+{
+    // Subclasses should implement this method.
+    WeViewAssert(0);
+    return CGSizeZero;
+}
+
 - (void)setControlsHidden:(BOOL)value
 {
     // Subclasses should implement this method.

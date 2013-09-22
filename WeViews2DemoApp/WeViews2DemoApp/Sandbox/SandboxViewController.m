@@ -208,7 +208,10 @@
 
 - (void)grabVideoFrame
 {
-    [self addSnapshot:nil];
+    SandboxSnapshot *snapshot = [[SandboxSnapshot alloc] init];
+    snapshot.image = [self takeSnapshot];
+    snapshot.rootViewSize = [self.sandboxView rootViewSize];
+    [self.snapshots addObject:snapshot];
 }
 
 - (void)endVideoSession
@@ -228,6 +231,8 @@
     }
     DebugCGSize(@"maxSnapshotSize", maxSnapshotSize);
     CGSize frameSize = CGSizeAdd(CGSizeFloor(maxSnapshotSize), CGSizeMake(20, 20));
+    frameSize = CGSizeMin(frameSize,
+                          [self.sandboxView maxViewSize]);
     // Handbrake doesn't handle odd frame sizes well, so ensure that the width and height are even
     // multiples of 4.
     frameSize = CGSizeScale(CGSizeFloor(CGSizeScale(frameSize, 1 / 4.f)), 4.f);
@@ -589,6 +594,8 @@
         [self ensureSnapshotsFolderPath];
 
         CGSize frameSize = CGSizeAdd(rootViewSize, CGSizeMake(20, 20));
+        frameSize = CGSizeMin(frameSize,
+                              [self.sandboxView maxViewSize]);
 
         NSString *exportUuid = [[NSProcessInfo processInfo] globallyUniqueString];
 

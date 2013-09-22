@@ -62,6 +62,8 @@
 		34C19CF117E1729F0025914F /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19CF017E1729F0025914F /* CoreMedia.framework */; };
 		34C19D2517E64CCA0025914F /* TutorialCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19D2417E64CCA0025914F /* TutorialCode.m */; };
 		34C19D2817E7E0780025914F /* WeViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19D2717E7E0780025914F /* WeViewFlowLayout.m */; };
+		34C19D3417EEB3910025914F /* Glyphish_Icons in Resources */ = {isa = PBXBuildFile; fileRef = 34C19D3317EEB3910025914F /* Glyphish_Icons */; };
+		34C19D3617EEB6150025914F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19D3517EEB6140025914F /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +164,8 @@
 		34C19D2617E7E0780025914F /* WeViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewFlowLayout.h; sourceTree = "<group>"; };
 		34C19D2717E7E0780025914F /* WeViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewFlowLayout.m; sourceTree = "<group>"; };
 		34C19D3217EEA0A90025914F /* WeViewEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewEnums.h; sourceTree = "<group>"; };
+		34C19D3317EEB3910025914F /* Glyphish_Icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Glyphish_Icons; path = WeViews2DemoApp/Resources/Glyphish_Icons; sourceTree = "<group>"; };
+		34C19D3517EEB6140025914F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34C19D3617EEB6150025914F /* QuartzCore.framework in Frameworks */,
 				34C19CF117E1729F0025914F /* CoreMedia.framework in Frameworks */,
 				34C19CEF17E172960025914F /* CoreVideo.framework in Frameworks */,
 				34C19CED17E172890025914F /* AVFoundation.framework in Frameworks */,
@@ -220,15 +225,16 @@
 		34195F7B17CA80A90036F8DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34C19CEC17E172880025914F /* AVFoundation.framework */,
+				34195F8017CA80A90036F8DC /* CoreGraphics.framework */,
 				34C19CF017E1729F0025914F /* CoreMedia.framework */,
 				34C19CEE17E172960025914F /* CoreVideo.framework */,
-				34C19CEC17E172880025914F /* AVFoundation.framework */,
+				34195F7E17CA80A90036F8DC /* Foundation.framework */,
 				34C19C7917DCF2160025914F /* ImageIO.framework */,
 				34C19C7B17DCF22E0025914F /* MobileCoreServices.framework */,
-				34195F7C17CA80A90036F8DC /* UIKit.framework */,
-				34195F7E17CA80A90036F8DC /* Foundation.framework */,
-				34195F8017CA80A90036F8DC /* CoreGraphics.framework */,
+				34C19D3517EEB6140025914F /* QuartzCore.framework */,
 				34195FAC17CA80A90036F8DC /* SenTestingKit.framework */,
+				34195F7C17CA80A90036F8DC /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -326,6 +332,7 @@
 		3444366117D2A5AB00EFF341 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				34C19D3317EEB3910025914F /* Glyphish_Icons */,
 				3444367917D2A7DC00EFF341 /* subtlepatterns.com */,
 				3444366417D2A5E100EFF341 /* Icon-72.png */,
 				3444366517D2A5E100EFF341 /* icon-512.png */,
@@ -461,6 +468,7 @@
 				3444368B17D3F9DB00EFF341 /* README.md in Resources */,
 				3444368D17D3F9E300EFF341 /* LICENSE in Resources */,
 				34C19C6417DBE8DA0025914F /* FAQ.md in Resources */,
+				34C19D3417EEB3910025914F /* Glyphish_Icons in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

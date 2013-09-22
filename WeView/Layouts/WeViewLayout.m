@@ -439,19 +439,19 @@ BOOL _debugMinSize;
             {
                 if (cellPositioning == CELL_POSITION_FILL_W_ASPECT_RATIO)
                 {
-                    subview.frame = FillRectWithSize(cellBounds, desiredSize);
+                    subviewSize = FillRectWithSize(cellBounds, desiredSize).size;
                 }
                 else
                 {
                     subviewSize = FitSizeInRect(cellBounds, desiredSize).size;
-                    subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
-                    subview.frame = [self alignSize:subviewSize
-                                         withinRect:cellBounds
-                                             hAlign:[self subviewCellHAlign:superview
-                                                                    subview:subview]
-                                             vAlign:[self subviewCellVAlign:superview
-                                                                    subview:subview]];
                 }
+                subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
+                subview.frame = [self alignSize:subviewSize
+                                     withinRect:cellBounds
+                                         hAlign:[self subviewCellHAlign:superview
+                                                                subview:subview]
+                                         vAlign:[self subviewCellVAlign:superview
+                                                                subview:subview]];
             }
         }
         default:

@@ -20,6 +20,7 @@
 
 - (void)displayDemoModel:(DemoModel *)demoModel;
 - (CGSize)rootViewSize;
+- (CGSize)maxViewSize;
 - (void)setControlsHidden:(BOOL)value;
 
 - (void)animateRelayout;

@@ -56,6 +56,11 @@ typedef enum
     return CGSizeMin(self.size, rootViewSize);
 }
 
+- (CGSize)maxViewSize
+{
+    return self.size;
+}
+
 - (void)setControlsHidden:(BOOL)value
 {
     for (int i=0; i < [self.subviews count]; i++)

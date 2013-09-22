@@ -381,8 +381,13 @@
 
 - (NSArray *)allLayouts
 {
-    NSMutableArray *result = [[self.subviewLayoutMap allValues] mutableCopy];
-    [result insertObject:self._defaultLayout atIndex:0];
+    NSMutableArray *result = [NSMutableArray array];
+    NSSet *customLayoutsSet = [NSSet setWithArray:[self.subviewLayoutMap allValues]];
+    [result addObjectsFromArray:[customLayoutsSet allObjects]];
+    if ([[self subviewsForLayout:self._defaultLayout] count] > 0)
+    {
+        [result insertObject:self._defaultLayout atIndex:0];
+    }
     return result;
 }
 

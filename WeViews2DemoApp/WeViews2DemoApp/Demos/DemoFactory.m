@@ -41,6 +41,7 @@ UIColor *UIColorRGB(unsigned int rgb)
              [self flowDemo1],
              [self flowDemo2],
              [self iphoneDemo1],
+             [self iphoneDemo2],
              [self randomImageDemo1],
              [self sevenSmallViewsDemo],
              [self stretchDemo1],
@@ -51,7 +52,7 @@ UIColor *UIColorRGB(unsigned int rgb)
 
 + (Demo *)defaultDemo
 {
-    return [self flowDemo2];
+    return [self iphoneDemo2];
 }
 
 + (Demo *)randomImageDemo1
@@ -355,7 +356,7 @@ UIColor *UIColorRGB(unsigned int rgb)
           [DemoFactory createLabel:@"Welcome To WeView"
                           fontSize:16.f],
           [[scrollView setStretches]
-          setIgnoreDesiredSize],
+           setIgnoreDesiredSize],
           ]]
          setSpacing:5];
         demoModel.rootView.layer.borderColor = [UIColor colorWithWhite:0.5f alpha:1.f].CGColor;
@@ -510,6 +511,142 @@ UIColor *UIColorRGB(unsigned int rgb)
         return demoModel;
     };
     return demo;
+}
+
++ (Demo *)iphoneDemo2
+{
+    NSString *demoName = @"iPhone Demo 2";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        demoModel.useIPhoneSandboxByDefault = YES;
+
+        WeView *rootView = [[WeView alloc] init];
+        [[rootView setStretches]
+         setIgnoreDesiredSize];
+
+        // Add image that exactly fills the background of the body panel while retaining its aspect ratio.
+        UIImage *image = [UIImage imageNamed:@"Images/thun-stockhornkette-1904 1600.jpg"];
+        [[[rootView addSubviewWithCustomLayout:[[UIImageView alloc] initWithImage:image]]
+          setCellPositioning:CELL_POSITION_FILL_W_ASPECT_RATIO]
+         setVAlign:V_ALIGN_TOP];
+        // The background will exceed the rootView's bounds, so we need to clip.
+        rootView.clipsToBounds = YES;
+
+        WeView *headerView = [[WeView alloc] init];
+        headerView.backgroundColor = [UIColor colorWithWhite:0.5f alpha:0.5f];
+        headerView.opaque = NO;
+        // Add "title" UILabel to header.
+        [[headerView addSubviewWithCustomLayout:[DemoFactory createLabel:@"Ferdinand Hodler"
+                                                                fontSize:20.f]]
+         setMargin:5];
+        // Add "tag" button to header.
+        [[[[headerView addSubviewWithCustomLayout:[DemoFactory buttonWithImageName:@"Glyphish_Icons/14-tag.png"]]
+           setHMargin:10]
+          setVMargin:5]
+         setHAlign:H_ALIGN_RIGHT];
+
+        // Add header to top of screen.
+        [[rootView addSubviewWithCustomLayout:[headerView setHStretches]]
+         setVAlign:V_ALIGN_TOP];
+
+        // Add pillbox buttons to bottom of screen.
+        //
+        // No need to set horizontal alignment; centering is the default.
+        [[[rootView addSubviewsWithHorizontalLayout:@[
+           [self createFlatUIPillboxButton:@"Prev"
+                                     shape:H_ALIGN_LEFT],
+           [self createFlatUIPillboxButton:@"More Info"
+                                     shape:H_ALIGN_CENTER],
+           [self createFlatUIPillboxButton:@"Next"
+                                     shape:H_ALIGN_RIGHT],
+           ]]
+          setBottomMargin:25]
+         setVAlign:V_ALIGN_BOTTOM];
+
+        // Add activity indicator, centered on screen.
+        UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [activityIndicatorView startAnimating];
+        // No need to set alignment; centering is the default.
+        [rootView addSubviewWithCustomLayout:activityIndicatorView];
+
+        [demoModel.rootView addSubview:rootView];
+        [demoModel.rootView setStretchesIgnoringDesiredSize];
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (UIButton *)createFlatUIPillboxButton:(NSString *)label
+                                  shape:(HAlign)shape
+{
+    return [self createFlatUIPillboxButton:label
+                                 textColor:[UIColor whiteColor]
+                               buttonColor:[UIColor colorWithWhite:0.65f alpha:1.f]
+                                     shape:shape];
+}
+
++ (UIButton *)createFlatUIPillboxButton:(NSString *)label
+                              textColor:(UIColor *)textColor
+                            buttonColor:(UIColor *)buttonColor
+                                  shape:(HAlign)shape
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.opaque = NO;
+    button.backgroundColor = buttonColor;
+    button.contentEdgeInsets = UIEdgeInsetsMake(6, 15, 6, 15);
+    [button setTitle:label
+            forState:UIControlStateNormal];
+    [button setTitleColor:textColor
+                 forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"
+                                             size:16.f];
+    button.titleLabel.backgroundColor = [UIColor clearColor];
+    button.titleLabel.opaque = NO;
+    [button sizeToFit];
+
+    const int kPillboxRounding = 8;
+    if (shape == H_ALIGN_LEFT)
+    {
+        CGRect clipRect = button.bounds;
+        clipRect.size.width += kPillboxRounding;
+        CAShapeLayer *maskLayer = [CAShapeLayer layer];
+        maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:clipRect
+                                                    cornerRadius:kPillboxRounding].CGPath;
+        button.layer.mask = maskLayer;
+    }
+    else
+    {
+        CALayer *sublayer = [CALayer layer];
+        sublayer.backgroundColor = [UIColor colorWithWhite:1.f alpha:0.5f].CGColor;
+        sublayer.frame = CGRectMake(0, 0, 1.f, button.height);
+        [button.layer addSublayer:sublayer];
+    }
+
+    if (shape == H_ALIGN_RIGHT)
+    {
+        CGRect clipRect = button.bounds;
+        clipRect.origin.x -= kPillboxRounding;
+        clipRect.size.width += kPillboxRounding;
+        CAShapeLayer *maskLayer = [CAShapeLayer layer];
+        maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:clipRect
+                                                    cornerRadius:kPillboxRounding].CGPath;
+        button.layer.mask = maskLayer;
+
+    }
+    else
+    {
+        CALayer *sublayer = [CALayer layer];
+        sublayer.backgroundColor = [UIColor colorWithWhite:1.f alpha:0.5f].CGColor;
+        sublayer.frame = CGRectMake(button.width - 1.f, 0, 1.f, button.height);
+        [button.layer addSublayer:sublayer];
+    }
+
+    return button;
 }
 
 + (Demo *)iphoneDemo1
