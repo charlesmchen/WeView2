@@ -3,9 +3,9 @@ permalink: TutorialStretch.html
 layout: default
 ---
 
-Next\: [Design Philosophy](designPhilosophy.html)
+Next\: [Tutorial 8: Conveniences](TutorialConvenience.html)
 
-Tutorial 6: Stretch
+Tutorial 7: Stretch
 ==
 
 <!-- TEMPLATE START -->
@@ -13,7 +13,7 @@ Tutorial 6: Stretch
 _Stretch_ is a per-subview property. It has a few roles in WeView.  Put simply, subviews can "stretch" to receive extra space in their layout.
 
 
-__Vertical Stretch in a Horizontal Layout__
+### Vertical Stretch in a Horizontal Layout
 
 <video WIDTH="400" HEIGHT="152" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
     <source src="videos/video-9ABCF1F2-A327-4C9A-A13E-25EC9E666F1F-14185-0006A073D25D55DE.mp4" type="video/mp4" />
@@ -27,7 +27,7 @@ The subview uses all of the vertical space within its _layout cell_ (See: [Layou
 {% gist 6618909 %}
 
 
-__Horizontal Stretch in a Horizontal Layout__
+### Horizontal Stretch in a Horizontal Layout
 
 <video WIDTH="400" HEIGHT="152" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
     <source src="videos/video-A5C00D90-5687-4FCC-B1A8-8B67F1E6D742-14185-0006A0767357299A.mp4" type="video/mp4" />
@@ -41,7 +41,7 @@ The subview's horizontal stretch affects the size of its _layout cell_.
 {% gist 6618913 %}
 
 
-__When More Than One Subview Stretches...__
+### When More Than One Subview Stretches...
 
 <video WIDTH="400" HEIGHT="152" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
     <source src="videos/video-308F14F1-4EED-4322-A938-5438B0214F0E-14185-0006A0C8DDA3AB6E.mp4" type="video/mp4" />
@@ -55,7 +55,7 @@ Note that they _do not have the same width_; they each receive an _equal amount 
 {% gist 6619043 %}
 
 
-__Stretch Weight__
+### Stretch Weight
 
 <video WIDTH="400" HEIGHT="152" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
     <source src="videos/video-D48DFCA9-6095-42CD-81AA-77CDF1D053C1-14185-0006A1A248E1701E.mp4" type="video/mp4" />
@@ -69,7 +69,7 @@ In this example, the second label has an hStretchWeight of 1.0 and the first lab
 {% gist 6619029 %}
 
 
-__Stretch Properties and Accessors__
+### Stretch Properties and Accessors
 
 The _UIView+WeView_ category adds two stretch-related properties to all UIViews:
 
@@ -83,7 +83,7 @@ The _UIView+WeView_ category also adds a few convenience accessors:
 	- (UIView *)setStretches; // A convenience accessorethods that sets hStretchWeight = 1.f and vStretchWeight = 1.f.
 
 
-__Ignoring Desired Size__
+### Ignoring Desired Size
 
 As noted above, usually layouts will begin by laying out their subviews at their _desired sizes_ and then divide any extra space between stretching subviews if necessary.  Sometimes it is convenient to ignore the desired size of subviews.
 
@@ -99,4 +99,4 @@ It this example, we have a UILabel and a UIScrollView in a vertical layout.  The
 
 <!-- TEMPLATE END -->
 
-Next\: [Design Philosophy](designPhilosophy.html)
+Next\: [Tutorial 8: Conveniences](TutorialConvenience.html)

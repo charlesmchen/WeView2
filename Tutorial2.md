@@ -17,12 +17,11 @@ Here's another example that demonstrates a layout that is _responsive_ to change
     <source src="videos/video-E268F6BC-4360-47CE-8EC4-36D19B2D15EF-76443-0005E485C8E73782.webm" type="video/webm" />
 </video>
 
-Here's the code:
+### Code 
 
 {% gist 6489214 %}
 
-Discussion
----
+### Discussion
 
 * There are two WeViews in this layout: the outer _rootView_ and the inner _bodyView_.  
 * The _rootView_ contains the toolbar and _bodyView_ in a __vertical layout__.

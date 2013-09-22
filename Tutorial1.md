@@ -29,8 +29,8 @@ Here's the code:
 * __The key idea__: Although the WeView needs to be layed out as usual, it takes care of laying out its subviews.  It is not necessary to ever set the size or position of any of the subviews - in fact, their existing size and position are ignored by the WeView layout.
 
 
-Margins and Spacing
-===
+### Margins and Spacing
+
 
 <video WIDTH="288" HEIGHT="112" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
     <source src="videos/video-E5A4D704-7DA1-4BF8-A049-F5458EDF8B4E-76443-0005E3631CEDDA90.mp4" type="video/mp4" />
@@ -43,8 +43,8 @@ Margins and Spacing
 * You can set __spacing__ with _\[WeViewLayout setHSpacing:\]_ or _\[WeViewLayout setVSpacing:\]_ or set both at once with _\[WeViewLayout setSpacing:\]_.
 
 
-Alignment 
-===
+### Alignment 
+
 
 <video WIDTH="380" HEIGHT="176" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
     <source src="videos/video-408A68F3-4E9A-4617-BF0B-138C8DC3C9C7-76443-0005E3B3D9B61AEF.mp4" type="video/mp4" />
@@ -59,8 +59,8 @@ Alignment
 {% gist 6573942 %}
 
 
-Stretch
-===
+### Stretch
+
 
 <video WIDTH="432" HEIGHT="256" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
     <source src="videos/videovideo-E96286B9-A865-4D1A-A76F-3CCD927011F2-76443-0005E3BFD3FAA3EE.mp4" type="video/mp4" />
@@ -75,8 +75,8 @@ Stretch
 {% gist 6573957 %}
 
 
-Overflow and cropping
-===
+### Overflow and cropping
+
 
 <video WIDTH="268" HEIGHT="124" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
     <source src="videos/video-036A3D47-789B-4CB4-B1A7-0FF87933C4DD-76443-0005E4417509FC15.mp4" type="video/mp4" />

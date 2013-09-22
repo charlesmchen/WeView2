@@ -3,7 +3,7 @@ permalink: TutorialLayoutModel.html
 layout: default
 ---
 
-Next\: [Tutorial 6: Stretch](TutorialStretch.html)
+Next\: [Tutorial 6: Desired Size](TutorialDesiredSize.html)
 
 Tutorial 5: Layout Model
 ==
@@ -79,4 +79,4 @@ Here we use _center vertical cell alignment_.  We see the subviews...
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 6: Stretch](TutorialStretch.html)
+Next\: [Tutorial 6: Desired Size](TutorialDesiredSize.html)
