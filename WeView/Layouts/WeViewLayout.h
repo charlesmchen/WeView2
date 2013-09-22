@@ -1,6 +1,6 @@
 //
 //  WeViewLayout.h
-//  Unknown Project
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "WeViewCommon.h"
+#import "WeViewEnums.h"
 
 @class WeView;
 

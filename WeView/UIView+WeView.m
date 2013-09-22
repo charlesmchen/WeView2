@@ -1,6 +1,6 @@
 //
 //  UIView+WeView.m
-//  Unknown Project
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -13,9 +13,193 @@
 
 #import "UIView+WeView.h"
 #import "WeViewMacros.h"
-#import "WeViewViewInfo.h"
 
 static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
+
+@interface WeViewViewInfo : NSObject
+
+/* CODEGEN MARKER: View Info Start */
+
+// The minimum desired width of this view. Trumps the maxWidth.
+@property (nonatomic) CGFloat minWidth;
+
+// The maximum desired width of this view. Trumped by the minWidth.
+@property (nonatomic) CGFloat maxWidth;
+
+// The minimum desired height of this view. Trumps the maxHeight.
+@property (nonatomic) CGFloat minHeight;
+
+// The maximum desired height of this view. Trumped by the minHeight.
+@property (nonatomic) CGFloat maxHeight;
+
+// The horizontal stretch weight of this view. If non-zero, the view is willing to take available
+// space or be cropped if
+// necessary.
+//
+// Subviews with larger relative stretch weights will be stretched more.
+@property (nonatomic) CGFloat hStretchWeight;
+
+// The vertical stretch weight of this view. If non-zero, the view is willing to take available
+// space or be cropped if
+// necessary.
+//
+// Subviews with larger relative stretch weights will be stretched more.
+@property (nonatomic) CGFloat vStretchWeight;
+
+// This adjustment can be used to manipulate the desired width of a view.
+@property (nonatomic) CGFloat desiredWidthAdjustment;
+
+// This adjustment can be used to manipulate the desired height of a view.
+@property (nonatomic) CGFloat desiredHeightAdjustment;
+@property (nonatomic) BOOL ignoreDesiredSize;
+
+// The horizontal alignment preference of this view within in its layout cell.
+//
+// This value is optional.  The default value is the contentHAlign of its superview.
+//
+// cellHAlign should only be used for cells whose alignment differs from its superview's.
+@property (nonatomic) HAlign cellHAlign;
+
+// The vertical alignment preference of this view within in its layout cell.
+//
+// This value is optional.  The default value is the contentVAlign of its superview.
+//
+// cellVAlign should only be used for cells whose alignment differs from its superview's.
+@property (nonatomic) VAlign cellVAlign;
+@property (nonatomic) BOOL hasCellHAlign;
+@property (nonatomic) BOOL hasCellVAlign;
+
+@property (nonatomic) NSString *debugName;
+
+/* CODEGEN MARKER: View Info End */
+
+@end
+
+#pragma mark -
+
+@implementation WeViewViewInfo
+
+- (id)init
+{
+    if (self = [super init])
+    {
+        self.maxWidth = CGFLOAT_MAX;
+        self.maxHeight = CGFLOAT_MAX;
+    }
+
+    return self;
+}
+
+/* CODEGEN MARKER: View Info Start */
+
+- (void)setCellHAlign:(HAlign)value
+{
+    _cellHAlign = value;
+    self.hasCellHAlign = YES;
+}
+
+- (void)setCellVAlign:(VAlign)value
+{
+    _cellVAlign = value;
+    self.hasCellVAlign = YES;
+}
+
+- (CGSize)minSize
+{
+    return CGSizeMake(self.minWidth, self.minHeight);
+}
+
+- (void)setMinSize:(CGSize)value
+{
+    [self setMinWidth:value.width];
+    [self setMinHeight:value.height];
+}
+
+- (CGSize)maxSize
+{
+    return CGSizeMake(self.maxWidth, self.maxHeight);
+}
+
+- (void)setMaxSize:(CGSize)value
+{
+    [self setMaxWidth:value.width];
+    [self setMaxHeight:value.height];
+}
+
+- (CGSize)desiredSizeAdjustment
+{
+    return CGSizeMake(self.desiredWidthAdjustment, self.desiredHeightAdjustment);
+}
+
+- (void)setDesiredSizeAdjustment:(CGSize)value
+{
+    [self setDesiredWidthAdjustment:value.width];
+    [self setDesiredHeightAdjustment:value.height];
+}
+
+- (void)setFixedWidth:(CGFloat)value
+{
+    [self setMinWidth:value];
+    [self setMaxWidth:value];
+}
+
+- (void)setFixedHeight:(CGFloat)value
+{
+    [self setMinHeight:value];
+    [self setMaxHeight:value];
+}
+
+- (void)setFixedSize:(CGSize)value
+{
+    [self setMinWidth:value.width];
+    [self setMinHeight:value.height];
+    [self setMaxWidth:value.width];
+    [self setMaxHeight:value.height];
+}
+
+- (void)setStretchWeight:(CGFloat)value
+{
+    [self setVStretchWeight:value];
+    [self setHStretchWeight:value];
+}
+
+/* CODEGEN MARKER: View Info End */
+
+- (NSString *)formatLayoutDescriptionItem:(NSString *)key
+                                    value:(id)value
+{
+    return [NSString stringWithFormat:@"%@: %@, ", key, value];
+}
+
+- (NSString *)layoutDescription
+{
+    NSMutableString *result = [@"" mutableCopy];
+
+    /* CODEGEN MARKER: Debug Start */
+
+    [result appendString:[self formatLayoutDescriptionItem:@"minWidth" value:@(self.minWidth)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"maxWidth" value:@(self.maxWidth)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"minHeight" value:@(self.minHeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"maxHeight" value:@(self.maxHeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"hStretchWeight" value:@(self.hStretchWeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"vStretchWeight" value:@(self.vStretchWeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"desiredWidthAdjustment" value:@(self.desiredWidthAdjustment)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"desiredHeightAdjustment" value:@(self.desiredHeightAdjustment)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"ignoreDesiredSize" value:@(self.ignoreDesiredSize)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"cellHAlign" value:@(self.cellHAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"cellVAlign" value:@(self.cellVAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"hasCellHAlign" value:@(self.hasCellHAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"hasCellVAlign" value:@(self.hasCellVAlign)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"debugName" value:self.debugName]];
+
+    /* CODEGEN MARKER: Debug End */
+
+    return result;
+}
+
+@end
+
+#pragma mark -
 
 @implementation UIView (WeView)
 

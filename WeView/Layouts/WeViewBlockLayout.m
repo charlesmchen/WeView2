@@ -1,6 +1,6 @@
 //
 //  WeViewBlockLayout.m
-//  Unknown Project
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -96,7 +96,7 @@
                   [self indentPrefix:indent + 2],
                   i,
                   [subview class],
-                  FormatRect(subview.frame));
+                  FormatCGRect(subview.frame));
         }
     }
 }

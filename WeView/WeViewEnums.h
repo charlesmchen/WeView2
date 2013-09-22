@@ -1,6 +1,6 @@
 //
-//  WeViewCommon.m
-//  Unknown Project
+//  WeViewEnums.h
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -8,12 +8,34 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-#import <assert.h>
-#import <objc/runtime.h>
+#pragma once
 
-#import "WeViewCommon.h"
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 #import "WeViewMacros.h"
 
+/**
+ * Horizontal alignment constants.
+ */
+typedef enum
+{
+    H_ALIGN_LEFT = 0,
+    H_ALIGN_CENTER = 1,
+    H_ALIGN_RIGHT = 2,
+} HAlign;
+
+/**
+ * Vertical alignment constants.
+ */
+typedef enum
+{
+    V_ALIGN_TOP = 0,
+    V_ALIGN_CENTER = 1,
+    V_ALIGN_BOTTOM = 2,
+} VAlign;
+
+CG_INLINE
 NSString* FormatHAlign(HAlign value)
 {
     switch (value)
@@ -30,6 +52,7 @@ NSString* FormatHAlign(HAlign value)
     }
 }
 
+CG_INLINE
 NSString* FormatVAlign(VAlign value)
 {
     switch (value)
@@ -46,6 +69,24 @@ NSString* FormatVAlign(VAlign value)
     }
 }
 
+typedef enum
+{
+    // Subviews are positioned within their layout cell using stretch, alignment, etc.
+    CELL_POSITION_NORMAL,
+
+    // Subviews occupy the entirety of their layout cell.
+    CELL_POSITION_FILL,
+
+    // Subviews are scaled to fill the bounds of their layout cell, but perserving their desired
+    // aspect ratio.
+    CELL_POSITION_FILL_W_ASPECT_RATIO,
+
+    // Subviews are scaled to exactly fit inside the bounds of their layout cell, but perserving
+    // their desired aspect ratio.
+    CELL_POSITION_FIT_W_ASPECT_RATIO,
+} CellPositioningMode;
+
+CG_INLINE
 NSString* FormatCellPositioningMode(CellPositioningMode value)
 {
     switch (value)

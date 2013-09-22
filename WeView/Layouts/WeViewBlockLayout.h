@@ -1,6 +1,6 @@
 //
 //  WeViewBlockLayout.h
-//  Unknown Project
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //

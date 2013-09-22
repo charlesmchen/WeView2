@@ -1,6 +1,6 @@
 //
 //  WeViewStackLayout.m
-//  Unknown Project
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -51,9 +51,9 @@
     {
         NSLog(@"%@ contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
               [self indentPrefix:indent + 1],
-              FormatRect(contentBounds),
-              FormatSize(guideSize),
-              FormatSize([self insetSizeOfView:view]));
+              FormatCGRect(contentBounds),
+              FormatCGSize(guideSize),
+              FormatCGSize([self insetSizeOfView:view]));
     }
 
     CGSize maxSubviewSize = CGSizeZero;
@@ -106,9 +106,9 @@
     {
         NSLog(@"%@ contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
               [self indentPrefix:indent + 1],
-              FormatRect(contentBounds),
-              FormatSize(guideSize),
-              FormatSize([self insetSizeOfView:view]));
+              FormatCGRect(contentBounds),
+              FormatCGSize(guideSize),
+              FormatCGSize([self insetSizeOfView:view]));
     }
 
     BOOL cropSubviewOverflow = [self cropSubviewOverflow];
@@ -138,8 +138,8 @@
                   [self indentPrefix:indent + 2],
                   i,
                   [subview class],
-                  FormatRect(subview.frame),
-                  FormatRect(cellBounds),
+                  FormatCGRect(subview.frame),
+                  FormatCGRect(cellBounds),
                   FormatCGSize(subviewSize));
         }
     }

@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  WeViews2DemoApp
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //

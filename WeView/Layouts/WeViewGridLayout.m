@@ -1,6 +1,6 @@
 //
 //  WeViewGridLayout.m
-//  Unknown Project
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -296,9 +296,9 @@ typedef struct
     //        NSLog(@"result.maxRowHeight: %d",
     //              result.maxRowHeight);
     //        NSLog(@"result.contentSize: %@",
-    //              FormatSize(result.contentSize));
+    //              FormatCGSize(result.contentSize));
     //        NSLog(@"result.totalSize: %@",
-    //              FormatSize(result.totalSize));
+    //              FormatCGSize(result.totalSize));
     //    }
 
     return result;
@@ -533,7 +533,7 @@ typedef struct
             NSLog(@"%@ subview(%@).frame = %@, subviewSize: %@",
                   [self indentPrefix:indent + 1],
                   [subview class],
-                  FormatRect(subview.frame),
+                  FormatCGRect(subview.frame),
                   FormatCGSize(subviewSize));
         }
 

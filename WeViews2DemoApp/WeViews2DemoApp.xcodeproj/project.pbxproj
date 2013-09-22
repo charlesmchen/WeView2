@@ -56,8 +56,6 @@
 		34C19CCE17DD1D4C0025914F /* WeViewStackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CBF17DD1D4B0025914F /* WeViewStackLayout.m */; };
 		34C19CCF17DD1D4C0025914F /* UIView+WeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CC117DD1D4B0025914F /* UIView+WeView.m */; };
 		34C19CD017DD1D4C0025914F /* WeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CC317DD1D4B0025914F /* WeView.m */; };
-		34C19CD117DD1D4C0025914F /* WeViewCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CC517DD1D4B0025914F /* WeViewCommon.m */; };
-		34C19CD217DD1D4C0025914F /* WeViewViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CC817DD1D4C0025914F /* WeViewViewInfo.m */; };
 		34C19CD617DD1DA30025914F /* WeViewDemoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CD517DD1DA30025914F /* WeViewDemoUtils.m */; };
 		34C19CED17E172890025914F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19CEC17E172880025914F /* AVFoundation.framework */; };
 		34C19CEF17E172960025914F /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19CEE17E172960025914F /* CoreVideo.framework */; };
@@ -152,11 +150,7 @@
 		34C19CC117DD1D4B0025914F /* UIView+WeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WeView.m"; sourceTree = "<group>"; };
 		34C19CC217DD1D4B0025914F /* WeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeView.h; sourceTree = "<group>"; };
 		34C19CC317DD1D4B0025914F /* WeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeView.m; sourceTree = "<group>"; };
-		34C19CC417DD1D4B0025914F /* WeViewCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewCommon.h; sourceTree = "<group>"; };
-		34C19CC517DD1D4B0025914F /* WeViewCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewCommon.m; sourceTree = "<group>"; };
 		34C19CC617DD1D4B0025914F /* WeViewMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewMacros.h; sourceTree = "<group>"; };
-		34C19CC717DD1D4B0025914F /* WeViewViewInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewViewInfo.h; sourceTree = "<group>"; };
-		34C19CC817DD1D4C0025914F /* WeViewViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewViewInfo.m; sourceTree = "<group>"; };
 		34C19CD317DD1DA30025914F /* WeViewDemoConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewDemoConstants.h; sourceTree = "<group>"; };
 		34C19CD417DD1DA30025914F /* WeViewDemoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewDemoUtils.h; sourceTree = "<group>"; };
 		34C19CD517DD1DA30025914F /* WeViewDemoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewDemoUtils.m; sourceTree = "<group>"; };
@@ -167,6 +161,7 @@
 		34C19D2417E64CCA0025914F /* TutorialCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialCode.m; sourceTree = "<group>"; };
 		34C19D2617E7E0780025914F /* WeViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewFlowLayout.h; sourceTree = "<group>"; };
 		34C19D2717E7E0780025914F /* WeViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewFlowLayout.m; sourceTree = "<group>"; };
+		34C19D3217EEA0A90025914F /* WeViewEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewEnums.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,11 +347,8 @@
 				34C19CC117DD1D4B0025914F /* UIView+WeView.m */,
 				34C19CC217DD1D4B0025914F /* WeView.h */,
 				34C19CC317DD1D4B0025914F /* WeView.m */,
-				34C19CC417DD1D4B0025914F /* WeViewCommon.h */,
-				34C19CC517DD1D4B0025914F /* WeViewCommon.m */,
+				34C19D3217EEA0A90025914F /* WeViewEnums.h */,
 				34C19CC617DD1D4B0025914F /* WeViewMacros.h */,
-				34C19CC717DD1D4B0025914F /* WeViewViewInfo.h */,
-				34C19CC817DD1D4C0025914F /* WeViewViewInfo.m */,
 			);
 			name = WeView;
 			path = ../WeView;
@@ -526,8 +518,6 @@
 				34C19CCE17DD1D4C0025914F /* WeViewStackLayout.m in Sources */,
 				34C19CCF17DD1D4C0025914F /* UIView+WeView.m in Sources */,
 				34C19CD017DD1D4C0025914F /* WeView.m in Sources */,
-				34C19CD117DD1D4C0025914F /* WeViewCommon.m in Sources */,
-				34C19CD217DD1D4C0025914F /* WeViewViewInfo.m in Sources */,
 				34C19CD617DD1DA30025914F /* WeViewDemoUtils.m in Sources */,
 				34C19D2517E64CCA0025914F /* TutorialCode.m in Sources */,
 				34C19D2817E7E0780025914F /* WeViewFlowLayout.m in Sources */,

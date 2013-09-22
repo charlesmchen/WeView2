@@ -1,6 +1,6 @@
 //
 //  WeViewLinearLayout.m
-//  Unknown Project
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -108,9 +108,9 @@
     {
         NSLog(@"%@ contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
               [self indentPrefix:indent + 1],
-              FormatRect(contentBounds),
-              FormatSize(guideSize),
-              FormatSize([self insetSizeOfView:view]));
+              FormatCGRect(contentBounds),
+              FormatCGSize(guideSize),
+              FormatCGSize([self insetSizeOfView:view]));
     }
 
     NSMutableArray *cellAxisSizes = [NSMutableArray array];
@@ -231,7 +231,7 @@
               label,
               i,
               [subview class],
-              FormatSize(subviewSizes[i]),
+              FormatCGSize(subviewSizes[i]),
               stretchWeights[i]);
     }
 }
@@ -313,9 +313,9 @@
     {
         NSLog(@"%@ contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
               [self indentPrefix:indent + 1],
-              FormatRect(contentBounds),
-              FormatSize(guideSize),
-              FormatSize([self insetSizeOfView:view]));
+              FormatCGRect(contentBounds),
+              FormatCGSize(guideSize),
+              FormatCGSize([self insetSizeOfView:view]));
     }
 
     NSMutableArray *cellAxisSizes = [NSMutableArray array];
@@ -334,7 +334,7 @@
             NSLog(@"%@ subviewSize[%d]: %@",
                   [self indentPrefix:indent + 1],
                   i,
-                  FormatSize(subviewSize));
+                  FormatCGSize(subviewSize));
         }
 
         [cellAxisSizes addObject:@(horizontal
@@ -363,7 +363,7 @@
     {
         NSLog(@"%@ maxTotalSubviewsSize: %@, maxCrossSize: %f, rawTotalAxisSize: %f, maxTotalAxisSize: %f, ",
               [self indentPrefix:indent + 1],
-              FormatSize(maxTotalSubviewsSize),
+              FormatCGSize(maxTotalSubviewsSize),
               maxCrossSize,
               rawTotalAxisSize,
               maxTotalAxisSize);
@@ -556,8 +556,8 @@
                   [self indentPrefix:indent + 2],
                   i,
                   [subview class],
-                  FormatRect(subview.frame),
-                  FormatRect(cellBounds),
+                  FormatCGRect(subview.frame),
+                  FormatCGRect(cellBounds),
                   FormatCGSize(subviewSize));
         }
 

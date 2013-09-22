@@ -1,6 +1,6 @@
 //
 //  WeViewMacros.h
-//  Unknown Project
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -28,24 +28,15 @@
 #ifndef FormatCGRect
 #define FormatCGRect(__value) NSStringFromCGRect(__value)
 #endif
-#ifndef FormatSize
-#define FormatSize(__value) FormatCGSize(__value)
-#endif
-#ifndef FormatPoint
-#define FormatPoint(__value) FormatCGPoint(__value)
-#endif
-#ifndef FormatRect
-#define FormatRect(__value) FormatCGRect(__value)
-#endif
 
-#ifndef DebugSize
-#define DebugSize(__name, __value) NSLog(@"%@: %@", __name, NSStringFromCGSize(__value))
+#ifndef DebugCGSize
+#define DebugCGSize(__name, __value) NSLog(@"%@: %@", __name, NSStringFromCGSize(__value))
 #endif
-#ifndef DebugPoint
-#define DebugPoint(__name, __value) NSLog(@"%@: %@", __name, NSStringFromCGPoint(__value))
+#ifndef DebugCGPoint
+#define DebugCGPoint(__name, __value) NSLog(@"%@: %@", __name, NSStringFromCGPoint(__value))
 #endif
-#ifndef DebugRect
-#define DebugRect(__name, __value) NSLog(@"%@: %@", __name, NSStringFromCGRect(__value))
+#ifndef DebugCGRect
+#define DebugCGRect(__name, __value) NSLog(@"%@: %@", __name, NSStringFromCGRect(__value))
 #endif
 
 #define sqr(a) ((a) * (a))
@@ -270,88 +261,4 @@ CGRectCenter(const CGRect r)
 {
     return CGPointMake(r.origin.x + r.size.width * 0.5f,
                        r.origin.y + r.size.height * 0.5f);
-}
-
-#pragma mark - IntSize
-
-typedef struct
-{
-    int width, height;
-} IntSize;
-
-CG_INLINE IntSize
-IntSizeZero()
-{
-    IntSize result;
-    result.width = 0;
-    result.height = 0;
-    return result;
-}
-
-CG_INLINE IntSize
-IntSizeFromCGSize(CGSize value)
-{
-    IntSize result;
-    result.width = value.width;
-    result.height = value.height;
-    return result;
-}
-
-CG_INLINE CGSize
-CGSizeFromIntSize(IntSize value)
-{
-    CGSize result;
-    result.width = value.width;
-    result.height = value.height;
-    return result;
-}
-
-CG_INLINE NSString*
-FormatIntSize(IntSize value)
-{
-    return [NSString stringWithFormat:@"[width: %d, height: %d]",
-            value.width, value.height];
-}
-
-CG_INLINE CGRect CenterSizeOnRect(CGRect srcRect, CGSize srcSize)
-{
-    CGRect result = CGRectZero;
-    result.size = srcSize;
-    result.origin.x = roundf(srcRect.origin.x + (srcRect.size.width - result.size.width) * 0.5f);
-    result.origin.y = roundf(srcRect.origin.y + (srcRect.size.height - result.size.height) * 0.5f);
-    return result;
-}
-
-CG_INLINE CGRect FillRectWithSize(CGRect srcRect, CGSize srcSize)
-{
-    if (srcSize.width <= 0.f ||
-        srcSize.height <= 0.f)
-    {
-        return srcRect;
-    }
-
-    CGFloat widthFactor = srcRect.size.width / srcSize.width;
-    CGFloat heightFactor = srcRect.size.height / srcSize.height;
-    CGFloat factor = MAX(widthFactor, heightFactor);
-    CGSize resultSize;
-    resultSize.width = roundf(srcSize.width * factor);
-    resultSize.height = roundf(srcSize.height * factor);
-    return CenterSizeOnRect(srcRect, resultSize);
-}
-
-CG_INLINE CGRect FitSizeInRect(CGRect srcRect, CGSize srcSize)
-{
-    if (srcSize.width <= 0.f ||
-        srcSize.height <= 0.f)
-    {
-        return srcRect;
-    }
-
-    CGFloat widthFactor = srcRect.size.width / srcSize.width;
-    CGFloat heightFactor = srcRect.size.height / srcSize.height;
-    CGFloat factor = MIN(widthFactor, heightFactor);
-    CGSize resultSize;
-    resultSize.width = roundf(srcSize.width * factor);
-    resultSize.height = roundf(srcSize.height * factor);
-    return CenterSizeOnRect(srcRect, resultSize);
 }

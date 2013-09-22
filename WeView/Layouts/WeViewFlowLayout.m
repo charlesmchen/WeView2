@@ -1,6 +1,6 @@
 //
 //  WeViewFlowLayout.m
-//  Unknown Project
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -53,9 +53,9 @@
     {
         NSLog(@"%@ contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
               [self indentPrefix:indent + 1],
-              FormatRect(contentBounds),
-              FormatSize(guideSize),
-              FormatSize([self insetSizeOfView:view]));
+              FormatCGRect(contentBounds),
+              FormatCGSize(guideSize),
+              FormatCGSize([self insetSizeOfView:view]));
     }
 
     CGSize subviewDesiredSizes[subviewCount];
@@ -278,9 +278,9 @@
     {
         NSLog(@"%@ contentBounds: %@, guideSize: %@, insetSizeOfView: %@",
               [self indentPrefix:indent + 1],
-              FormatRect(contentBounds),
-              FormatSize(guideSize),
-              FormatSize([self insetSizeOfView:view]));
+              FormatCGRect(contentBounds),
+              FormatCGSize(guideSize),
+              FormatCGSize([self insetSizeOfView:view]));
     }
 
     CGSize subviewDesiredSizes[subviewCount];
@@ -314,8 +314,8 @@
                   [self indentPrefix:indent + 2],
                   i,
                   [subview class],
-                  FormatRect(subview.frame),
-                  FormatRect(cellBounds[i]),
+                  FormatCGRect(subview.frame),
+                  FormatCGRect(cellBounds[i]),
                   FormatCGSize(subviewDesiredSizes[i]));
         }
     }

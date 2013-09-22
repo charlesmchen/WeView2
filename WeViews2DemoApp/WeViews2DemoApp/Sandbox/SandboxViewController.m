@@ -1,6 +1,6 @@
 //
 //  SandboxViewController.m
-//  WeViews2DemoApp
+//  WeView 2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -226,12 +226,12 @@
         SandboxSnapshot *snapshot = self.snapshots[i];
         maxSnapshotSize = CGSizeMax(maxSnapshotSize, snapshot.rootViewSize);
     }
-    DebugSize(@"maxSnapshotSize", maxSnapshotSize);
+    DebugCGSize(@"maxSnapshotSize", maxSnapshotSize);
     CGSize frameSize = CGSizeAdd(CGSizeFloor(maxSnapshotSize), CGSizeMake(20, 20));
     // Handbrake doesn't handle odd frame sizes well, so ensure that the width and height are even
     // multiples of 4.
     frameSize = CGSizeScale(CGSizeFloor(CGSizeScale(frameSize, 1 / 4.f)), 4.f);
-    DebugSize(@"frameSize", frameSize);
+    DebugCGSize(@"frameSize", frameSize);
 
     [self ensureSnapshotsFolderPath];
 
@@ -585,15 +585,15 @@
         snapshot.image = [self takeSnapshot];
 
         CGSize rootViewSize = [self.sandboxView rootViewSize];
-        
+
         [self ensureSnapshotsFolderPath];
-        
+
         CGSize frameSize = CGSizeAdd(rootViewSize, CGSizeMake(20, 20));
-        
+
         NSString *exportUuid = [[NSProcessInfo processInfo] globallyUniqueString];
-        
+
         UIImage *image = [snapshot cropSnapshotWithSize:frameSize];
-        
+
         NSString *framePath = [self.snapshotsFolderPath stringByAppendingPathComponent:[NSString stringWithFormat:@"snapshot-%@.png",
                                                                                         exportUuid]];
         [UIImagePNGRepresentation(image) writeToFile:framePath
