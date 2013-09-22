@@ -75,9 +75,4 @@
     }
 }
 
-- (void)toggleResize
-{
-
-}
-
 @end

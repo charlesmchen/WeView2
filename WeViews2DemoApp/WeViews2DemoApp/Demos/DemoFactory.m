@@ -39,16 +39,19 @@ UIColor *UIColorRGB(unsigned int rgb)
              [self verticalDemo1],
              [self verticalDemo2],
              [self flowDemo1],
+             [self flowDemo2],
              [self iphoneDemo1],
              [self randomImageDemo1],
              [self sevenSmallViewsDemo],
              [self stretchDemo1],
+             [self wrappingUILabelDemo1],
+             [self smallUIImageViewDemo1],
              ];
 }
 
 + (Demo *)defaultDemo
 {
-    return [self stretchDemo1];
+    return [self flowDemo2];
 }
 
 + (Demo *)randomImageDemo1
@@ -217,12 +220,9 @@ UIColor *UIColorRGB(unsigned int rgb)
 
         [demoModel.rootView useHorizontalDefaultLayout];
         [[[[demoModel.rootView addSubviewsToDefaultLayout:@[
-            [DemoFactory createLabel:@"Welcome"
-                            fontSize:16.f],
-            [DemoFactory createLabel:@"To"
-                            fontSize:24.f],
-            [DemoFactory createLabel:@"WeView"
-                            fontSize:32.f],
+            [DemoFactory createLabel:@"Welcome" fontSize:16.f],
+            [DemoFactory createLabel:@"To" fontSize:24.f],
+            [DemoFactory createLabel:@"WeView" fontSize:32.f],
             ]]
            setVMargin:10]
           setHMargin:20]
@@ -261,6 +261,43 @@ UIColor *UIColorRGB(unsigned int rgb)
 
         [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         //    result.debugLayout = YES;
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)wrappingUILabelDemo1
+{
+    NSString *demoName = @"UILabel Wrap Demo 1";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        [demoModel.rootView addSubviewWithCustomLayout:[DemoFactory createWrappingLabel]];
+
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)smallUIImageViewDemo1
+{
+    NSString *demoName = @"Small UIImageView Demo 1";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        UIImageView *imageView = [self imageViewWithImageName:@"Images/finder_64.png"];
+        [demoModel.rootView addSubviewWithCustomLayout:imageView];
+
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         demoModel.rootView.debugName = demoName;
         return demoModel;
     };
@@ -445,6 +482,31 @@ UIColor *UIColorRGB(unsigned int rgb)
         singleViewPanel.debugName = @"singleViewPanel";
         horizontalPanel.debugName = @"horizontalPanel";
         verticalPanel.debugName = @"verticalPanel";
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)flowDemo2
+{
+    NSString *demoName = @"Flow Demo 2";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        [demoModel.rootView useFlowDefaultLayout];
+        [[[demoModel.rootView addSubviewsToDefaultLayout:@[
+           [DemoFactory createLabel:@"Before" fontSize:16.f],
+           [self imageViewWithImageName:@"Images/finder_64.png"],
+           [DemoFactory createLabel:@"After" fontSize:16.f],
+           ]]
+          setMargin:10]
+         setSpacing:10];
+
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        demoModel.rootView.debugName = demoName;
         return demoModel;
     };
     return demo;

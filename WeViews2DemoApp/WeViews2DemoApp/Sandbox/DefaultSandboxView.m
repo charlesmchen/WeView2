@@ -41,7 +41,6 @@ typedef enum
     {
         [[self useHorizontalDefaultLayout]
          setMargin:40];
-//        self.margin = 40;
         self.opaque = YES;
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"subtlepatterns.com/graphy_modified/graphy_modified"]];
 
@@ -49,11 +48,6 @@ typedef enum
         [self addGestureRecognizer:self.panGestureRecognizer];
     }
     return self;
-}
-
-- (void)toggleResize
-{
-    self.panGestureRecognizer.enabled = !self.panGestureRecognizer.enabled;
 }
 
 - (CGSize)rootViewSize

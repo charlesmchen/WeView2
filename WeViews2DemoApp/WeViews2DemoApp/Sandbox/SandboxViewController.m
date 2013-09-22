@@ -92,14 +92,8 @@
 
 @property (nonatomic) NSMutableArray *snapshots;
 @property (nonatomic) NSString *snapshotsFolderPath;
-@property (nonatomic) int exportCounter;
 
 @property (nonatomic) CADisplayLink *displayLink;
-//@property (nonatomic) NSDate *videoStartDate;
-//@property (nonatomic) AVAssetWriterInput *writerInput;
-//@property (nonatomic) AVAssetWriter *videoWriter;
-//@property (nonatomic) AVAssetWriterInputPixelBufferAdaptor *adaptor;
-//@property (nonatomic) int videoFrameCount;
 
 @end
 
@@ -137,14 +131,6 @@
                                                                                 style:UIBarButtonItemStyleBordered
                                                                                target:self
                                                                                action:@selector(addSnapshot:)],
-                                               [[UIBarButtonItem alloc] initWithTitle:@"Export"
-                                                                                style:UIBarButtonItemStyleBordered
-                                                                               target:self
-                                                                               action:@selector(exportSnapshots:)],
-                                               [[UIBarButtonItem alloc] initWithTitle:@"Toggle Resize"
-                                                                                style:UIBarButtonItemStyleBordered
-                                                                               target:self
-                                                                               action:@selector(toggleResize:)],
                                                ];
     self.navigationItem.rightBarButtonItems = @[
                                                 [[UIBarButtonItem alloc] initWithTitle:@"Record"
@@ -594,29 +580,25 @@
 
 - (void)addSnapshot:(id)sender
 {
-    SandboxSnapshot *snapshot = [[SandboxSnapshot alloc] init];
-    snapshot.image = [self takeSnapshot];
-    if (!snapshot.image)
-    {
-        return;
-    }
-    snapshot.rootViewSize = [self.sandboxView rootViewSize];
-    [self.snapshots addObject:snapshot];
-}
+    @autoreleasepool {
+        SandboxSnapshot *snapshot = [[SandboxSnapshot alloc] init];
+        snapshot.image = [self takeSnapshot];
 
-- (void)exportSnapshots:(id)sender
-{
-    if ([self.snapshots count] < 1)
-    {
-        return;
+        CGSize rootViewSize = [self.sandboxView rootViewSize];
+        
+        [self ensureSnapshotsFolderPath];
+        
+        CGSize frameSize = CGSizeAdd(rootViewSize, CGSizeMake(20, 20));
+        
+        NSString *exportUuid = [[NSProcessInfo processInfo] globallyUniqueString];
+        
+        UIImage *image = [snapshot cropSnapshotWithSize:frameSize];
+        
+        NSString *framePath = [self.snapshotsFolderPath stringByAppendingPathComponent:[NSString stringWithFormat:@"snapshot-%@.png",
+                                                                                        exportUuid]];
+        [UIImagePNGRepresentation(image) writeToFile:framePath
+                                          atomically:YES];
     }
-    [self makeAnimatedGifWithSnapshots:self.snapshots];
-    self.snapshots = [NSMutableArray array];
-}
-
-- (void)toggleResize:(id)sender
-{
-    [self.sandboxView toggleResize];
 }
 
 - (void)ensureSnapshotsFolderPath
@@ -645,84 +627,6 @@
         WeViewAssert(!error);
         self.snapshotsFolderPath = folderPath;
     }
-}
-
-- (void)makeAnimatedGifWithSnapshots:(NSArray *)snapshots
-{
-    // Code from: http://stackoverflow.com/questions/14915138/create-and-and-export-an-animated-gif-via-ios
-
-    int frameCount = [snapshots count];
-    CGFloat kFrameDuration = 1.f;
-
-    // We'll need a property dictionary to specify the number of times the animation should repeat:
-    NSDictionary *fileProperties = @{
-                                     (__bridge id) kCGImagePropertyGIFDictionary: @{
-                                             (__bridge id) kCGImagePropertyGIFLoopCount: @0,
-                                             }
-                                     };
-
-    NSDictionary *frameProperties = @{
-                                      (__bridge id) kCGImagePropertyGIFDictionary: @{
-                                              // a float (not double!) in seconds, rounded to centiseconds in the GIF data
-                                              (__bridge id) kCGImagePropertyGIFDelayTime: @(kFrameDuration),
-                                              }
-                                      };
-
-    [self ensureSnapshotsFolderPath];
-
-    NSString *filePath = [self.snapshotsFolderPath stringByAppendingPathComponent:[NSString stringWithFormat:@"snapshot-%d.gif",
-                                                                                   self.exportCounter]];
-    NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:filePath
-                                            isDirectory:NO];
-
-    // Now we can create a CGImageDestination that writes a GIF to the specified URL:
-
-    CGImageDestinationRef destination = CGImageDestinationCreateWithURL((__bridge CFURLRef) fileURL, kUTTypeGIF, frameCount, NULL);
-    CGImageDestinationSetProperties(destination, (__bridge CFDictionaryRef)fileProperties);
-    // I discovered that passing fileProperties as the last argument of CGImageDestinationCreateWithURL does not work. You have to use CGImageDestinationSetProperties.
-
-    // Now we can create and write our frames:
-
-    CGSize maxSnapshotSize = CGSizeZero;
-    for (NSUInteger i = 0; i < frameCount; i++)
-    {
-        SandboxSnapshot *snapshot = snapshots[i];
-        maxSnapshotSize = CGSizeMax(maxSnapshotSize, snapshot.rootViewSize);
-    }
-    CGSize frameSize = CGSizeAdd(maxSnapshotSize, CGSizeMake(20, 20));
-
-    NSString *exportUuid = [[NSProcessInfo processInfo] globallyUniqueString];
-    for (NSUInteger i = 0; i < frameCount; i++)
-    {
-        @autoreleasepool {
-            SandboxSnapshot *snapshot = snapshots[i];
-
-            UIImage *image = [snapshot cropSnapshotWithSize:frameSize];
-
-            CGImageDestinationAddImage(destination,
-                                       image.CGImage,
-                                       (__bridge CFDictionaryRef) frameProperties);
-
-            NSString *framePath = [self.snapshotsFolderPath stringByAppendingPathComponent:[NSString stringWithFormat:@"snapshot-%@-%d.png",
-                                                                                            exportUuid,
-                                                                                            //                                                                                            self.exportCounter,
-                                                                                            i]];
-            [UIImagePNGRepresentation(image) writeToFile:framePath
-                                              atomically:YES];
-        }
-    }
-
-    // Note that we pass the frame properties dictionary along with each frame image.
-    //
-    // After we've added exactly the specified number of frames, we finalize the destination and release it:
-
-    if (!CGImageDestinationFinalize(destination))
-    {
-        WeViewAssert(0);
-    }
-    CFRelease(destination);
-
-    self.exportCounter++;
 }
 
 - (void)handleSelectionAltered:(NSNotification *)notification

@@ -127,6 +127,9 @@
 
 #pragma mark - Convenience Accessors
 
+// Origin Accessors
+//
+// Setters affect the frame.
 - (CGPoint)origin;
 - (void)setOrigin:(CGPoint)origin;
 - (CGFloat)x;
@@ -134,7 +137,9 @@
 - (CGFloat)y;
 - (void)setY:(CGFloat)value;
 
-// The width, height and size have the same effect on the bounds and frame.
+// Size Accessors
+//
+// Setters affect the bounds and the frame.
 - (CGSize)size;
 - (void)setSize:(CGSize)size;
 - (CGFloat)width;
@@ -142,16 +147,27 @@
 - (CGFloat)height;
 - (void)setHeight:(CGFloat)value;
 
+// Right and Bottom Accessors
 - (CGFloat)right;
 - (void)setRight:(CGFloat)value;
 - (CGFloat)bottom;
 - (void)setBottom:(CGFloat)value;
+
+// Center Accessors
+- (CGFloat)hCenter;
+- (void)setHCenter:(CGFloat)value;
+- (CGFloat)vCenter;
+- (void)setVCenter:(CGFloat)value;
+
+#pragma mark - Manual alignment
 
 - (void)centerAlignHorizontallyWithView:(UIView *)view;
 - (void)centerAlignVerticallyWithView:(UIView *)view;
 
 - (void)centerHorizontallyInSuperview;
 - (void)centerVerticallyInSuperview;
+
+#pragma mark - Misc.
 
 - (NSString *)layoutDescription;
 

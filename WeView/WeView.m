@@ -177,9 +177,23 @@
 - (CGSize)sizeThatFits:(CGSize)size
 {
     WeViewAssert(self.defaultLayout);
-    return [self.defaultLayout minSizeOfContentsView:self
-                                            subviews:[self subviewsForLayout:nil]
-                                        thatFitsSize:size];
+    CGSize result = CGSizeZero;
+    NSSet *layouts = [NSSet setWithArray:[self.subviewLayoutMap allValues]];
+    for (WeViewLayout *layout in layouts)
+    {
+        NSArray *layoutSubviews = [self subviewsForLayout:layout];
+        WeViewAssert(layoutSubviews);
+        WeViewAssert([layoutSubviews count] > 0);
+        result = CGSizeMax(result,
+                           [layout minSizeOfContentsView:self
+                                                subviews:layoutSubviews
+                                            thatFitsSize:size]);
+    }
+    result = CGSizeMax(result,
+                       [self.defaultLayout minSizeOfContentsView:self
+                                                        subviews:[self subviewsForLayout:nil]
+                                                    thatFitsSize:size]);
+    return result;
 }
 
 - (WeView *)addSubview:(UIView *)subview

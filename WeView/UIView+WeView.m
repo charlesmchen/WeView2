@@ -302,7 +302,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (void)setOrigin:(CGPoint)origin
 {
     CGRect r = self.frame;
-    r.origin = origin;
+    r.origin = CGPointRound(origin);
     self.frame = r;
 }
 
@@ -314,7 +314,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (void)setSize:(CGSize)size
 {
     CGRect r = self.frame;
-    r.size = size;
+    r.size = CGSizeRound(size);
     self.frame = r;
 }
 
@@ -326,7 +326,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (void)setX:(CGFloat)value
 {
     CGRect r = self.frame;
-    r.origin.x = value;
+    r.origin.x = roundf(value);
     self.frame = r;
 }
 
@@ -338,7 +338,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (void)setY:(CGFloat)value
 {
     CGRect r = self.frame;
-    r.origin.y = value;
+    r.origin.y = roundf(value);
     self.frame = r;
 }
 
@@ -350,7 +350,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (void)setWidth:(CGFloat)value
 {
     CGRect r = self.frame;
-    r.size.width = value;
+    r.size.width = roundf(value);
     self.frame = r;
 }
 
@@ -362,7 +362,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (void)setHeight:(CGFloat)value
 {
     CGRect r = self.frame;
-    r.size.height = value;
+    r.size.height = roundf(value);
     self.frame = r;
 }
 
@@ -386,6 +386,26 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     self.y = value - self.height;
 }
 
+- (CGFloat)hCenter
+{
+    return self.x + self.width * 0.5f;
+}
+
+- (void)setHCenter:(CGFloat)value
+{
+    self.x = value - self.width * 0.5f;
+}
+
+- (CGFloat)vCenter
+{
+    return self.y + self.height * 0.5f;
+}
+
+- (void)setVCenter:(CGFloat)value
+{
+    self.y = value - self.height * 0.5f;
+}
+
 - (void)centerAlignHorizontallyWithView:(UIView *)view
 {
     WeViewAssert(view);
@@ -393,7 +413,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     WeViewAssert(view.superview);
     CGPoint otherCenter = [view.superview convertPoint:view.center
                                                 toView:self.superview];
-    self.x = roundf(otherCenter.x - self.width * 0.5f);
+    self.x = otherCenter.x - self.width * 0.5f;
 }
 
 - (void)centerAlignVerticallyWithView:(UIView *)view
@@ -403,19 +423,19 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     WeViewAssert(view.superview);
     CGPoint otherCenter = [view.superview convertPoint:view.center
                                                 toView:self.superview];
-    self.y = roundf(otherCenter.y - self.height * 0.5f);
+    self.y = otherCenter.y - self.height * 0.5f;
 }
 
 - (void)centerHorizontallyInSuperview
 {
     WeViewAssert(self.superview);
-    self.x = roundf((self.superview.width - self.width) * 0.5f);
+    self.x = (self.superview.width - self.width) * 0.5f;
 }
 
 - (void)centerVerticallyInSuperview
 {
     WeViewAssert(self.superview);
-    self.y = roundf((self.superview.height - self.height) * 0.5f);
+    self.y = (self.superview.height - self.height) * 0.5f;
 }
 
 #pragma mark - Debug

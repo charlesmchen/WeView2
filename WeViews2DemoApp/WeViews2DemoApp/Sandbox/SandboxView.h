@@ -23,6 +23,5 @@
 - (void)setControlsHidden:(BOOL)value;
 
 - (void)animateRelayout;
-- (void)toggleResize;
 
 @end
