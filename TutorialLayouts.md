@@ -3,9 +3,9 @@ permalink: TutorialLayouts.html
 layout: default
 ---
 
-Next\: [Tutorial 5: Layout Model](TutorialLayoutModel.html)
+Next\: [Tutorial 6: Layout Model](TutorialLayoutModel.html)
 
-Tutorial 4: The Layouts
+Tutorial 5: The Layouts
 ==
 
 <!-- TEMPLATE START -->
@@ -75,4 +75,4 @@ The Block-based layout can be used for unusual layouts.
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 5: Layout Model](TutorialLayoutModel.html)
+Next\: [Tutorial 6: Layout Model](TutorialLayoutModel.html)

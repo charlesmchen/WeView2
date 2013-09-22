@@ -3,9 +3,9 @@ permalink: TutorialConcepts.html
 layout: default
 ---
 
-Next\: [Tutorial 4: The Layouts](TutorialLayouts.html)
+Next\: [Tutorial 5: The Layouts](TutorialLayouts.html)
 
-Tutorial 3: Concepts
+Tutorial 4: Concepts
 ==
 
 <!-- TEMPLATE START -->
@@ -23,4 +23,4 @@ When a WeView layouts out it's subviews, there are three kinds of actors in play
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 4: The Layouts](TutorialLayouts.html)
+Next\: [Tutorial 5: The Layouts](TutorialLayouts.html)

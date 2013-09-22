@@ -3,7 +3,7 @@ permalink: Tutorial2.html
 layout: default
 ---
 
-Next\: [Tutorial 3: Concepts](TutorialConcepts.html)
+Next\: [Tutorial 3: Installing](TutorialInstalling.html)
 
 Tutorial 2: iPhone Demo
 ==
@@ -38,4 +38,4 @@ should be stretched to receive any extra space in the layout.
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 3: Concepts](TutorialConcepts.html)
+Next\: [Tutorial 3: Installing](TutorialInstalling.html)

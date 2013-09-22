@@ -3,9 +3,9 @@ permalink: TutorialStretch.html
 layout: default
 ---
 
-Next\: [Tutorial 8: Conveniences](TutorialConvenience.html)
+Next\: [Tutorial 9: Conveniences](TutorialConvenience.html)
 
-Tutorial 7: Stretch
+Tutorial 8: Stretch
 ==
 
 <!-- TEMPLATE START -->
@@ -99,4 +99,4 @@ It this example, we have a UILabel and a UIScrollView in a vertical layout.  The
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 8: Conveniences](TutorialConvenience.html)
+Next\: [Tutorial 9: Conveniences](TutorialConvenience.html)

@@ -3,9 +3,9 @@ permalink: TutorialDesiredSize.html
 layout: default
 ---
 
-Next\: [Tutorial 7: Stretch](TutorialStretch.html)
+Next\: [Tutorial 8: Stretch](TutorialStretch.html)
 
-Tutorial 6: Desired Size
+Tutorial 7: Desired Size
 ==
 
 <!-- TEMPLATE START -->
@@ -102,4 +102,4 @@ If this property is set, the WeView layouts will treat the _desired size_ of thi
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 7: Stretch](TutorialStretch.html)
+Next\: [Tutorial 8: Stretch](TutorialStretch.html)
