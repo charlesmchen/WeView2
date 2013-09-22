@@ -3,7 +3,7 @@ permalink: License.html
 layout: default
 ---
 
-
+Next\: [Acknowledgments](Acknowledgments.html)
 
 License
 ==
@@ -16,3 +16,4 @@ WeView 2 is distributed under the [Apache License Version 2.0](LICENSE)
 
 <!-- TEMPLATE END -->
 
+Next\: [Acknowledgments](Acknowledgments.html)
