@@ -16,7 +16,7 @@ Auto layout allows a UI to...
 * Adapt to orientation changes.
 * Adapt to design changes (ie. changing font size, adding or removing another subview, changing image size, etc.).
 * Adapt to textual changes as your UI is translated into other languages.
-* Adapt to dynamic content, ie. displaying content downloaded from the network.
+* Adapt to dynamic content, ie. displaying downloaded content.
 
 This becomes even more important with _iOS 7_, which allows users to adjust text sizes outside of your app.
 

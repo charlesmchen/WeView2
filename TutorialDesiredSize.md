@@ -28,7 +28,7 @@ The _desired size_ of a UIImageView is the size of its image.
 
 The _desired size_ of a WeView is the minimum size in which its subviews can be layed out properly, honoring its margins, spacing, etc.  
 
-* If a WeView has _multiple layouts_, its minimum size is the max width or height needed by any of its layouts.
+If a WeView has _multiple layouts_, its minimum size is the max width or height needed by any of its layouts.
 
 ### Text Wrap, Flow Layouts, etc.
 
@@ -53,6 +53,7 @@ For this reason, the _\[UIView sizeThatFits:(CGSize)size\]_ method has a _size_ 
 
 If _\[UIView sizeThatFits:(CGSize)size\]_ is called with a size of _CGSizeZero_ (ie. width = 0 and height = 0), a UIView should return its _ideal desired size_.  For a UILabel, this would be the _desired size_ without any text wrap.
 
+However, if _\[UIView sizeThatFits:(CGSize)size\]_ is called with a non-zero size, the UIView should return its _desired size_ in the context of the available space.
 
 
 ### Manipulating Desired Sizes
@@ -75,9 +76,9 @@ These methods let you set a maximum or minimum desired width or height.
 	// Sets all of the minWidth, minHeight, maxWidth and maxHeight properties.
 	- (UIView *)setFixedSize:(CGSize)value;
 
-Yo ucan assign a UIView a _fixed_ desired width by setting its minWidth and maxWidth properties to the same value.
-
 These methods let you set more than one property at a time.  
+
+You can assign a UIView a _fixed_ desired width by setting its minWidth and maxWidth properties to the same value.
 
 
 ### Ignoring Desired Sizes

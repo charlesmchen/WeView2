@@ -80,8 +80,9 @@ The _UIView+WeView_ category also adds a few convenience accessors:
 
 	- (UIView *)setHStretches; // A convenience accessor that sets hStretchWeight = 1.f.
 	- (UIView *)setVStretches; // A convenience accessor that sets vStretchWeight = 1.f.
-	- (UIView *)setStretches; // A convenience accessorethods that sets hStretchWeight = 1.f and vStretchWeight = 1.f.
+	- (UIView *)setStretches; // A convenience accessor that sets hStretchWeight = 1.f and vStretchWeight = 1.f.
 
+Typically, we just want to indicate which subviews stretch and which don't.  These convenience accessors set stretch to a default non-zero value.
 
 ### Ignoring Desired Size
 

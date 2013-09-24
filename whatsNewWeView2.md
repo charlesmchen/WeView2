@@ -20,6 +20,13 @@ What's New in WeView 2
 * WeView offers a number of new per-view properties that allow more fine-grained control over 
    layout behavior.
 
+### Migrating from WeViews to WeView 2
+
+* Use the _WeView_ class instead of the _WePanel_ class.  
+* We've streamlined the class structure.  Many of the old view classes are no longer necessary. Many of the old layouts have been combined or renamed.
+* We've combined _layers_ and _layouts_.  There are no _layers_ in WeView 2.
+
+
 <!-- TEMPLATE END -->
 
 Next\: [License](License.html)

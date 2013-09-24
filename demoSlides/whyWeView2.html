@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>WeView2 by charlesmchen</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+           <section>
+
+<h1 id='why_use_weview_2'>Why use WeView 2?</h1>
+
+<p>The syntax of iOS Auto Layout can be difficult to work with. <em>Here&#8217;s a simple comparison</em>, based on Apple&#8217;s sample code demonstrating how to center a button at the bottom of it&#8217;s superview with a certain spacing using <em>iOS Auto Layout</em>:</p>
+
+<script src='https://gist.github.com/6504510.js'> </script>
+<p>iOS Auto Layout also supports a <em>Visual Format Language</em>. Here&#8217;s the sample layout using <em>VFL</em>:</p>
+<script src='https://gist.github.com/6504515.js'> </script>
+<p>Here&#8217;s the equivalent logic using a <em>WeView</em>:</p>
+<script src='https://gist.github.com/6504519.js'> </script>
+<p><em>WeView 2 is designed to yield concise, expressive and maintainable code</em> . The benefits of the syntax only become more clear as layouts become more complex.</p>
+
+<ul>
+<li>iOS Auto Layout is constraint-based. <em>Constraints are a powerful but awkward way to describe layouts</em>. Constraints are (and must be) specified on a per-view basis. Some conceptually simple layouts are difficult to describe with constraints. This doesn&#8217;t work well when UIViews need to be layed out in groups.</li>
+
+<li>With iOS Auto Layout you need to worry about complications such as constraint priority, constraint sufficiency, constraint conflicts, ambiguous layout, common ancestors, etc. None of those problems apply to WeView 2.</li>
+
+<li>iOS Auto Layout has the advantage of being integrated into Interface Builder. <em>WeView 2 can only be used programmatically</em>.</li>
+</ul>
+
+
+      </section>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>

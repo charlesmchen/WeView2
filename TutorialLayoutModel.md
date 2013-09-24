@@ -20,7 +20,7 @@ Here is a horizontal layout with three UILabels.
 
 ![Layout Snapshot](images/snapshot-D6C32D2A-FAD5-4C82-A0CB-B2EBDEC05D6A-24400-0006B8654F081079-0.png)
 
-If we assign a background color to each UILabel, it's frame (ie. size and position) becomes clear.
+If we assign a background color to each UILabel, its frame (ie. size and position) becomes clear.
 
 ![Layout Snapshot](images/snapshot-D6C32D2A-FAD5-4C82-A0CB-B2EBDEC05D6A-24400-0006B8654F081079-1.png)
 
@@ -28,7 +28,7 @@ And here we see the layout's cells.
 
 * Each of the three UILabel's layout cells have the same height.  
 * The spaces between and around the cells reflect the layout's _spacing_ and _margin_ properties.
-* The WeView is shown at it's _desired size_, ie. just large enough to exactly fit its subviews. 
+* The WeView is shown at its _desired size_, ie. just large enough to exactly fit its subviews. 
 * The layout's _hAlign_ and _vAlign_ properties default to _center alignment_, so the subviews are centered within their cells.
 
 We reveal the subview's layout cells by setting the layout's _cellPositioning_ property to _CELL\_POSITION\_FILL_, which indicates that subviews should always fill the entirety of their layout cell's bounds, regardless of their desired size.
