@@ -16,5 +16,7 @@ The demo app uses a few icons from the [Glyphish Icon Set](http://www.glyphish.c
 
 The demo app uses a number of images in the public domain.
 
+GitHub Pages theme by [orderedlist](https://github.com/orderedlist).
+
 <!-- TEMPLATE END -->
 
