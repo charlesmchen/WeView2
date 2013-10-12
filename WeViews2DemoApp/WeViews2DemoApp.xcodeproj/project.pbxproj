@@ -25,6 +25,12 @@
 		34195FEB17CA87400036F8DC /* SidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FE717CA87400036F8DC /* SidebarViewController.m */; };
 		34195FEC17CA87400036F8DC /* SelectDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FE917CA87400036F8DC /* SelectDemoViewController.m */; };
 		3434437F1809D45C00079136 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 3434437E1809D45C00079136 /* CHANGELOG.md */; };
+		343443821809DAFC00079136 /* DemoCodeGeneration.m in Sources */ = {isa = PBXBuildFile; fileRef = 343443811809DAFC00079136 /* DemoCodeGeneration.m */; };
+		343443891809DEEB00079136 /* Inconsolata-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 343443841809DEEB00079136 /* Inconsolata-Bold.ttf */; };
+		3434438A1809DEEB00079136 /* Inconsolata-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 343443851809DEEB00079136 /* Inconsolata-Regular.ttf */; };
+		3434438B1809DEEB00079136 /* Inconsolata.zip in Resources */ = {isa = PBXBuildFile; fileRef = 343443861809DEEB00079136 /* Inconsolata.zip */; };
+		3434438C1809DEEB00079136 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 343443871809DEEB00079136 /* OFL.txt */; };
+		3434438D1809DEEB00079136 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 343443881809DEEB00079136 /* README.md */; };
 		344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */; };
 		344435C917CACFEB00EFF341 /* ViewHierarchyTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C717CACFEB00EFF341 /* ViewHierarchyTree.m */; };
 		344435CF17CAD20F00EFF341 /* DemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435CE17CAD20F00EFF341 /* DemoModel.m */; };
@@ -103,6 +109,14 @@
 		34195FE917CA87400036F8DC /* SelectDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectDemoViewController.m; sourceTree = "<group>"; };
 		34195FEA17CA87400036F8DC /* SidebarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarViewController.h; sourceTree = "<group>"; };
 		3434437E1809D45C00079136 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
+		343443801809DAFC00079136 /* DemoCodeGeneration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoCodeGeneration.h; sourceTree = "<group>"; };
+		343443811809DAFC00079136 /* DemoCodeGeneration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoCodeGeneration.m; sourceTree = "<group>"; };
+		343443841809DEEB00079136 /* Inconsolata-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inconsolata-Bold.ttf"; sourceTree = "<group>"; };
+		343443851809DEEB00079136 /* Inconsolata-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inconsolata-Regular.ttf"; sourceTree = "<group>"; };
+		343443861809DEEB00079136 /* Inconsolata.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Inconsolata.zip; sourceTree = "<group>"; };
+		343443871809DEEB00079136 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		343443881809DEEB00079136 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		343443981809EE4600079136 /* DemoMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoMacros.h; sourceTree = "<group>"; };
 		344435C417CACFEA00EFF341 /* ViewDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDescriptionViewController.h; sourceTree = "<group>"; };
 		344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDescriptionViewController.m; sourceTree = "<group>"; };
 		344435C617CACFEA00EFF341 /* ViewHierarchyTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewHierarchyTree.h; sourceTree = "<group>"; };
@@ -244,6 +258,9 @@
 			children = (
 				34195F8B17CA80A90036F8DC /* AppDelegate.h */,
 				34195F8C17CA80A90036F8DC /* AppDelegate.m */,
+				343443981809EE4600079136 /* DemoMacros.h */,
+				343443801809DAFC00079136 /* DemoCodeGeneration.h */,
+				343443811809DAFC00079136 /* DemoCodeGeneration.m */,
 				344435CD17CAD20F00EFF341 /* DemoModel.h */,
 				344435CE17CAD20F00EFF341 /* DemoModel.m */,
 				34195FD117CA82270036F8DC /* Demos */,
@@ -316,6 +333,19 @@
 			path = Demos;
 			sourceTree = "<group>";
 		};
+		343443831809DEEB00079136 /* Inconsolata */ = {
+			isa = PBXGroup;
+			children = (
+				343443841809DEEB00079136 /* Inconsolata-Bold.ttf */,
+				343443851809DEEB00079136 /* Inconsolata-Regular.ttf */,
+				343443861809DEEB00079136 /* Inconsolata.zip */,
+				343443871809DEEB00079136 /* OFL.txt */,
+				343443881809DEEB00079136 /* README.md */,
+			);
+			name = Inconsolata;
+			path = WeViews2DemoApp/Resources/Inconsolata;
+			sourceTree = "<group>";
+		};
 		3444365117D22B0800EFF341 /* Sandbox */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +362,7 @@
 		3444366117D2A5AB00EFF341 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				343443831809DEEB00079136 /* Inconsolata */,
 				34C19D3317EEB3910025914F /* Glyphish_Icons */,
 				3444367917D2A7DC00EFF341 /* subtlepatterns.com */,
 				3444366417D2A5E100EFF341 /* Icon-72.png */,
@@ -469,6 +500,11 @@
 				3444368D17D3F9E300EFF341 /* LICENSE in Resources */,
 				34C19D3417EEB3910025914F /* Glyphish_Icons in Resources */,
 				3434437F1809D45C00079136 /* CHANGELOG.md in Resources */,
+				343443891809DEEB00079136 /* Inconsolata-Bold.ttf in Resources */,
+				3434438A1809DEEB00079136 /* Inconsolata-Regular.ttf in Resources */,
+				3434438B1809DEEB00079136 /* Inconsolata.zip in Resources */,
+				3434438C1809DEEB00079136 /* OFL.txt in Resources */,
+				3434438D1809DEEB00079136 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +565,7 @@
 				34C19CD617DD1DA30025914F /* WeViewDemoUtils.m in Sources */,
 				34C19D2517E64CCA0025914F /* TutorialCode.m in Sources */,
 				34C19D2817E7E0780025914F /* WeViewFlowLayout.m in Sources */,
+				343443821809DAFC00079136 /* DemoCodeGeneration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

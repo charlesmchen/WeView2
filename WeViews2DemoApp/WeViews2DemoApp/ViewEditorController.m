@@ -16,34 +16,7 @@
 #import "WeViewMacros.h"
 #import "DemoFactory.h"
 #import "ViewHierarchyTree.h"
-
-NSString *FormatFloat(CGFloat value)
-{
-    if (value == CGFLOAT_MAX)
-    {
-        return @"\u221E";
-    }
-    else if (value == CGFLOAT_MIN)
-    {
-        return @"-\u221E";
-    }
-    else
-    {
-        return [@(value) description];
-    }
-}
-
-NSString *FormatInt(int value)
-{
-    return [@(value) description];
-}
-
-NSString *FormatBoolean(BOOL value)
-{
-    return value ? @"YES" : @"NO";
-}
-
-#pragma mark -
+#import "DemoMacros.h"
 
 @interface WeView (ViewEditorController)
 

@@ -84,7 +84,7 @@ BOOL _debugMinSize;
 /* CODEGEN MARKER: Members End */
 }
 
-@property (nonatomic) WeView *_superview;
+@property (nonatomic, weak) WeView *_superview;
 
 @end
 

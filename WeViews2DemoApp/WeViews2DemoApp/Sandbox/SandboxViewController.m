@@ -16,16 +16,15 @@
 #import <QuartzCore/QuartzCore.h>
 #import <ImageIO/ImageIO.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "DemoCodeGeneration.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 
 @interface SandboxSnapshot : NSObject
 
-//@property (nonatomic) UIImage *image;
 @property (nonatomic) CGSize rootViewSize;
 @property (nonatomic) NSString *filePath;
-//@property (nonatomic) BOOL ;
 
 @end
 
@@ -86,7 +85,10 @@
 
 @interface SandboxViewController ()
 
+@property (nonatomic) WeView *rootView;
 @property (nonatomic) SandboxView *sandboxView;
+
+@property (nonatomic) UITextView *generatedCodeView;
 
 @property (nonatomic) DemoModel *demoModel;
 
@@ -121,6 +123,38 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)loadView
+{
+    self.sandboxView = [[DefaultSandboxView alloc] init];
+    self.sandboxView.debugName = @"sandboxView";
+
+    self.generatedCodeView = [[UITextView alloc] init];
+    self.generatedCodeView.backgroundColor = [UIColor whiteColor];
+    self.generatedCodeView.opaque = YES;
+    self.generatedCodeView.textColor = [UIColor colorWithWhite:0.f
+                                                         alpha:0.8f];
+//    self.generatedCodeView.font = [UIFont fontWithName:@"Inconsolata-Bold"
+    self.generatedCodeView.font = [UIFont fontWithName:@"Inconsolata-Regular"
+                                                  size:13.f];
+    self.generatedCodeView.editable = NO;
+
+    self.rootView = [[WeView alloc] init];
+    self.rootView.backgroundColor = [UIColor blackColor];
+    self.rootView.opaque = YES;
+    [[self.rootView addSubviewsWithVerticalLayout:@[
+     [self.sandboxView setStretchWeight:4.f],
+     [self.generatedCodeView setStretchWeight:1.f],
+     ]]
+     setSpacing:5];
+
+    self.view = self.rootView;
+}
+
+- (void)updateGeneratedCode
+{
+    self.generatedCodeView.text = [[[DemoCodeGeneration alloc] init] generateCodeForView:self.demoModel.rootView];
 }
 
 - (void)viewDidLoad
@@ -708,13 +742,7 @@
 - (void)handleSelectionAltered:(NSNotification *)notification
 {
     [self.sandboxView animateRelayout];
-}
-
-- (void)loadView
-{
-    self.sandboxView = [[DefaultSandboxView alloc] init];
-    self.sandboxView.debugName = @"sandboxView";
-    self.view = self.sandboxView;
+    [self updateGeneratedCode];
 }
 
 - (void)didReceiveMemoryWarning
@@ -737,6 +765,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DEMO_CHANGED
                                                             object:self.demoModel];
     });
+
+    [self updateGeneratedCode];
 }
 
 - (void)viewWillLayoutSubviews

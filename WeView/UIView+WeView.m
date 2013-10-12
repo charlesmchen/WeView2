@@ -271,6 +271,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setMinWidth:(CGFloat)value
 {
     [self.viewInfo setMinWidth:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -282,6 +283,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setMaxWidth:(CGFloat)value
 {
     [self.viewInfo setMaxWidth:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -293,6 +295,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setMinHeight:(CGFloat)value
 {
     [self.viewInfo setMinHeight:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -304,6 +307,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setMaxHeight:(CGFloat)value
 {
     [self.viewInfo setMaxHeight:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -315,6 +319,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setHStretchWeight:(CGFloat)value
 {
     [self.viewInfo setHStretchWeight:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -326,6 +331,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setVStretchWeight:(CGFloat)value
 {
     [self.viewInfo setVStretchWeight:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -337,6 +343,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setPreviousSpacingAdjustment:(int)value
 {
     [self.viewInfo setPreviousSpacingAdjustment:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -348,6 +355,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setNextSpacingAdjustment:(int)value
 {
     [self.viewInfo setNextSpacingAdjustment:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -359,6 +367,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setDesiredWidthAdjustment:(CGFloat)value
 {
     [self.viewInfo setDesiredWidthAdjustment:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -370,6 +379,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setDesiredHeightAdjustment:(CGFloat)value
 {
     [self.viewInfo setDesiredHeightAdjustment:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -381,6 +391,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setIgnoreDesiredSize:(BOOL)value
 {
     [self.viewInfo setIgnoreDesiredSize:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -392,6 +403,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setCellHAlign:(HAlign)value
 {
     [self.viewInfo setCellHAlign:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -403,6 +415,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setCellVAlign:(VAlign)value
 {
     [self.viewInfo setCellVAlign:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -414,6 +427,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setHasCellHAlign:(BOOL)value
 {
     [self.viewInfo setHasCellHAlign:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -425,6 +439,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setHasCellVAlign:(BOOL)value
 {
     [self.viewInfo setHasCellVAlign:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -436,6 +451,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setDebugName:(NSString *)value
 {
     [self.viewInfo setDebugName:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -448,6 +464,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 {
     [self setMinWidth:value.width];
     [self setMinHeight:value.height];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -460,6 +477,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 {
     [self setMaxWidth:value.width];
     [self setMaxHeight:value.height];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -472,6 +490,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 {
     [self setDesiredWidthAdjustment:value.width];
     [self setDesiredHeightAdjustment:value.height];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -479,6 +498,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 {
     [self setMinWidth:value];
     [self setMaxWidth:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -486,6 +506,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 {
     [self setMinHeight:value];
     [self setMaxHeight:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -495,6 +516,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     [self setMinHeight:value.height];
     [self setMaxWidth:value.width];
     [self setMaxHeight:value.height];
+    [self.superview setNeedsLayout];
     return self;
 }
 
@@ -502,6 +524,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 {
     [self setVStretchWeight:value];
     [self setHStretchWeight:value];
+    [self.superview setNeedsLayout];
     return self;
 }
 

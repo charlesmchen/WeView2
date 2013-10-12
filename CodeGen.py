@@ -19,6 +19,7 @@ ViewEditorController_hFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp
 ViewEditorController_mFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.m')
 WeViewLayout_hFilePath = os.path.join(folderPath, 'Layouts', 'WeViewLayout.h')
 WeViewLayout_mFilePath = os.path.join(folderPath, 'Layouts', 'WeViewLayout.m')
+DemoCodeGeneration_mFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'DemoCodeGeneration.m')
 
 for filePath in (hFilePath,
                     mFilePath,
@@ -442,6 +443,7 @@ for propertyGroup in view_propertyGroups:
 - (UIView *)set%s:(%s)value
 {
     [self.viewInfo set%s:value];
+    [self.superview setNeedsLayout];
     return self;
 }''' % (property.typeName, property.name, property.name, property.UpperName(), property.typeName, property.UpperName(), ))
 
@@ -473,6 +475,7 @@ for customAccessor in view_customAccessors:
 - (UIView *)set%s:(%s)value
 {
 %s
+    [self.superview setNeedsLayout];
     return self;
 }''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
 
@@ -810,6 +813,42 @@ lines.append('')
 block = '\n'.join(lines)
 
 replaceBlock(WeViewLayout_mFilePath, 'Copy Configuration Start', 'Copy Configuration End', block)
+
+# --------
+
+
+def formatMethodNameForType(typeName):
+    if typeName == 'CGFloat':
+        return 'FormatFloat'
+    elif property.typeName == 'int':
+        return 'FormatInt'
+    elif property.typeName == 'BOOL':
+        return 'FormatBoolean'
+    elif property.typeName == 'HAlign':
+        return 'FormatHAlign'
+    elif property.typeName == 'VAlign':
+        return 'FormatVAlign'
+    # elif property.typeName == 'CellPositioningMode':
+    else:
+        print 'Unknown typeName:', property.typeName, property.name
+
+
+lines = []
+lines.append('')
+for propertyGroup in view_propertyGroups:
+    for property in propertyGroup:
+        if formatMethodNameForType(property.typeName):
+            lines.append('''
+    if (view.%s != virginView.%s)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%s", @"set%s", %s(view.%s)]];
+    }''' % ( property.name, property.name, '  %@:%@', property.UpperName(), formatMethodNameForType(property.typeName), property.name, ))
+
+lines.append('')
+lines.append('')
+block = '\n'.join(lines)
+
+replaceBlock(DemoCodeGeneration_mFilePath, 'Code Generation View Properties Start', 'Code Generation View Properties End', block)
 
 # --------
 
