@@ -825,9 +825,11 @@ def formatMethodNameForType(typeName):
     elif property.typeName == 'BOOL':
         return 'FormatBoolean'
     elif property.typeName == 'HAlign':
-        return 'FormatHAlign'
+        return 'ReprHAlign'
     elif property.typeName == 'VAlign':
-        return 'FormatVAlign'
+        return 'ReprVAlign'
+    elif property.typeName == 'CellPositioningMode':
+        return 'ReprCellPositioningMode'
     # elif property.typeName == 'CellPositioningMode':
     else:
         print 'Unknown typeName:', property.typeName, property.name
@@ -849,6 +851,67 @@ lines.append('')
 block = '\n'.join(lines)
 
 replaceBlock(DemoCodeGeneration_mFilePath, 'Code Generation View Properties Start', 'Code Generation View Properties End', block)
+
+# --------
+
+lines = []
+lines.append('')
+for propertyGroup in layout_propertyGroups:
+    for property in propertyGroup:
+        # if not property.layoutProperty:
+        #     continue
+
+        if formatMethodNameForType(property.typeName):
+            lines.append('''
+    if (layout.%s != virginLayout.%s)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%s", @"set%s", %s(layout.%s)]];
+    }''' % ( property.name, property.name, '  %@:%@', property.UpperName(), formatMethodNameForType(property.typeName), property.name, ))
+#
+#         lines.append('''
+# - (%s)%s
+# {
+#     return _%s;
+# }''' % (property.typeName, property.name, property.name, ))
+#         lines.append('''
+# - (WeViewLayout *)set%s:(%s)value
+# {
+#     _%s = value;
+#     [self._superview setNeedsLayout];
+#     return self;
+# }''' % (property.UpperName(), property.typeName, property.name, ))
+#
+# for customAccessor in layout_customAccessors:
+#     if not customAccessor.layoutProperty:
+#         continue
+#     # Getter
+#     if customAccessor.getterValue:
+#         lines.append('''
+# - (%s)%s:(UIView *)view
+# {
+#     return [view %s];
+# }''' % (customAccessor.typeName, customAccessor.name, customAccessor.name, ))
+#     # Setter
+#     subsetters = []
+#     for index, propertyName in enumerate(customAccessor.propertyNames()):
+#         valueName = 'value'
+#         if customAccessor.setterValues:
+#             valueName += customAccessor.setterValues[index]
+#         subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
+#
+#     lines.append('''
+# - (WeViewLayout *)set%s:(%s)value
+# {
+# %s
+#     [self._superview setNeedsLayout];
+#     return self;
+# }''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
+
+lines.append('')
+lines.append('')
+block = '\n'.join(lines)
+
+replaceBlock(DemoCodeGeneration_mFilePath, 'Code Generation Layout Properties Start', 'Code Generation Layout Properties End', block)
 
 # --------
 

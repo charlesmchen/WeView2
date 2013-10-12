@@ -73,6 +73,9 @@
 // Add subviews with a stack layout that applies to just these subviews.
 - (WeViewLayout *)addSubviewsWithStackLayout:(NSArray *)subviews;
 
+// Add subviews with a flow layout that applies to just these subviews.
+- (WeViewLayout *)addSubviewsWithFlowLayout:(NSArray *)subviews;
+
 // Add a subview with a layout that stretches the subview to fill this view's bounds.
 - (WeViewLayout *)addSubviewWithFillLayout:(UIView *)subview;
 
