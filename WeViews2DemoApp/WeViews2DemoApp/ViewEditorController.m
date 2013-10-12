@@ -405,7 +405,12 @@ typedef void (^SetterBlock)(id item);
                                             getterBlock:^NSString *(UIView *view) {
                                                 return [[view class] description];
                                             }
-                                                setters:@[]],
+                                                setters:@[
+                             [ViewParameterSetter create:@"Delete"
+                                             setterBlock:^(UIView *view) {
+                                                 [view removeFromSuperview];
+                                             }],
+                             ]],
                             [ViewParameterSimple create:@"frame"
                                             getterBlock:^NSString *(UIView *view) {
                                                 return FormatCGRect(view.frame);

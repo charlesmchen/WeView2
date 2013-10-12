@@ -94,6 +94,8 @@
 @property (nonatomic) NSString *snapshotsFolderPath;
 
 @property (nonatomic) CADisplayLink *displayLink;
+@property (nonatomic) int transformBlockCounter;
+@property (nonatomic) BOOL recordFullScreenVideo;
 
 @end
 
@@ -131,12 +133,20 @@
                                                                                 style:UIBarButtonItemStyleBordered
                                                                                target:self
                                                                                action:@selector(addSnapshot:)],
+                                               [[UIBarButtonItem alloc] initWithTitle:@"Transform"
+                                                                                style:UIBarButtonItemStyleBordered
+                                                                               target:self
+                                                                               action:@selector(transformDemoModel:)],
                                                ];
     self.navigationItem.rightBarButtonItems = @[
                                                 [[UIBarButtonItem alloc] initWithTitle:@"Record"
                                                                                  style:UIBarButtonItemStyleBordered
                                                                                 target:self
-                                                                                action:@selector(startVideo:)],
+                                                                                action:@selector(startSandboxVideo:)],
+                                                [[UIBarButtonItem alloc] initWithTitle:@"Record (All)"
+                                                                                 style:UIBarButtonItemStyleBordered
+                                                                                target:self
+                                                                                action:@selector(startFullscreenVideo:)],
                                                 [[UIBarButtonItem alloc] initWithTitle:@"Cut"
                                                                                  style:UIBarButtonItemStyleBordered
                                                                                 target:self
@@ -145,7 +155,30 @@
 #endif
 }
 
-- (void)startVideo:(id)sender
+- (void)transformDemoModel:(id)sender
+{
+    if (self.demoModel.transformBlocks &&
+        [self.demoModel.transformBlocks count] > 0)
+    {
+        self.transformBlockCounter = (self.transformBlockCounter + 1) % [self.demoModel.transformBlocks count];
+        DemoModelTransformBlock transformBlock = self.demoModel.transformBlocks[self.transformBlockCounter];
+        transformBlock();
+    }
+}
+
+- (void)startSandboxVideo:(id)sender
+{
+    self.recordFullScreenVideo = NO;
+    [self startVideo];
+}
+
+- (void)startFullscreenVideo:(id)sender
+{
+    self.recordFullScreenVideo = YES;
+    [self startVideo];
+}
+
+- (void)startVideo
 {
     if (!self.displayLink)
     {
@@ -209,7 +242,7 @@
 - (void)grabVideoFrame
 {
     SandboxSnapshot *snapshot = [[SandboxSnapshot alloc] init];
-    snapshot.image = [self takeSnapshot];
+    snapshot.image = [self takeSnapshot:self.recordFullScreenVideo];
     snapshot.rootViewSize = [self.sandboxView rootViewSize];
     [self.snapshots addObject:snapshot];
 }
@@ -227,12 +260,24 @@
     for (NSUInteger i = 0; i < frameCount; i++)
     {
         SandboxSnapshot *snapshot = self.snapshots[i];
-        maxSnapshotSize = CGSizeMax(maxSnapshotSize, snapshot.rootViewSize);
+        if (self.recordFullScreenVideo)
+        {
+            maxSnapshotSize = snapshot.image.size;
+            break;
+        }
+        else
+        {
+            maxSnapshotSize = CGSizeMax(maxSnapshotSize, snapshot.rootViewSize);
+        }
     }
     DebugCGSize(@"maxSnapshotSize", maxSnapshotSize);
-    CGSize frameSize = CGSizeAdd(CGSizeFloor(maxSnapshotSize), CGSizeMake(20, 20));
-    frameSize = CGSizeMin(frameSize,
-                          [self.sandboxView maxViewSize]);
+    CGSize frameSize = CGSizeFloor(maxSnapshotSize);
+    if (!self.recordFullScreenVideo)
+    {
+        frameSize = CGSizeAdd(frameSize, CGSizeMake(20, 20));
+        frameSize = CGSizeMin(frameSize,
+                              [self.sandboxView maxViewSize]);
+    }
     // Handbrake doesn't handle odd frame sizes well, so ensure that the width and height are even
     // multiples of 4.
     frameSize = CGSizeScale(CGSizeFloor(CGSizeScale(frameSize, 1 / 4.f)), 4.f);
@@ -535,9 +580,21 @@
     return pxbuffer;
 }
 
-- (UIImage *)takeSnapshot
+- (UIImage *)takeSnapshot:(BOOL)fullscreen
 {
-    CGSize imageSize = self.sandboxView.size;
+//    NSLog(@"takeSnapshot: %d", fullscreen);
+
+    UIView *snapshotView = self.sandboxView;
+    if (fullscreen)
+    {
+        snapshotView = [self lastViewControllerInResponderChain].view;
+    }
+
+    CGSize imageSize = snapshotView.size;
+    if (fullscreen)
+    {
+        imageSize = CGSizeMake(snapshotView.size.height, snapshotView.size.width);
+    }
     if (imageSize.width * imageSize.height == 0)
     {
         return nil;
@@ -557,19 +614,31 @@
     // -renderInContext: renders in the coordinate space of the layer,
     // so we must first apply the layer's geometry to the graphics context
     CGContextSaveGState(context);
-    // Center the context around the window's anchor point
-    CGContextTranslateCTM(context, [self.sandboxView center].x, [self.sandboxView center].y);
+
+    if (fullscreen)
+    {
+        // TODO: This can't be the best way of doing this but I can't be bothered to sort it out
+        // properly for a demo.
+
+        //    DebugCGPoint(@"snapshotView center", snapshotView.center);
+        //    DebugCGPoint(@"snapshotView.origin", snapshotView.origin);
+        //    DebugCGSize(@"imageSize", imageSize);
+        CGContextRotateCTM(context, M_PI_2);
+        CGContextTranslateCTM(context, 0, -imageSize.width);
+        CGContextTranslateCTM(context, -[snapshotView origin].x, -[snapshotView origin].y);
+    }
+    CGContextTranslateCTM(context, [snapshotView center].x, [snapshotView center].y);
     // Apply the window's transform about the anchor point
-    CGContextConcatCTM(context, [self.sandboxView transform]);
+    CGContextConcatCTM(context, [snapshotView transform]);
     // Offset by the portion of the bounds left of and above the anchor point
     CGContextTranslateCTM(context,
-                          -[self.sandboxView bounds].size.width * [[self.sandboxView layer] anchorPoint].x,
-                          -[self.sandboxView bounds].size.height * [[self.sandboxView layer] anchorPoint].y);
+                          -[snapshotView bounds].size.width * [[snapshotView layer] anchorPoint].x,
+                          -[snapshotView bounds].size.height * [[snapshotView layer] anchorPoint].y);
 
     // Render the layer hierarchy to the current context
     //
     // IMPORTANT: use presentation layer to reflect Core Animations.
-    [[self.sandboxView layer].presentationLayer renderInContext:context];
+    [[snapshotView layer].presentationLayer renderInContext:context];
 
     // Restore the context
     CGContextRestoreGState(context);
@@ -587,7 +656,7 @@
 {
     @autoreleasepool {
         SandboxSnapshot *snapshot = [[SandboxSnapshot alloc] init];
-        snapshot.image = [self takeSnapshot];
+        snapshot.image = [self takeSnapshot:NO];
 
         CGSize rootViewSize = [self.sandboxView rootViewSize];
 
@@ -657,6 +726,7 @@
 - (void)displayDemo:(Demo *)demo
 {
     self.demoModel = demo.createDemoModelBlock();
+    self.transformBlockCounter = 0;
     [self.sandboxView displayDemoModel:self.demoModel];
 
     dispatch_async(dispatch_get_main_queue(), ^{

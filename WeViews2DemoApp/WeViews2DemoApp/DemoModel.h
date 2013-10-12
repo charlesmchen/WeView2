@@ -12,6 +12,8 @@
 
 #import "WeView.h"
 
+typedef void(^DemoModelTransformBlock)();
+
 @protocol DemoModelDelegate <NSObject>
 
 - (void)selectionChanged:(id)selection;
@@ -24,6 +26,7 @@
 @property (nonatomic) id selection;
 @property (nonatomic) WeView *rootView;
 @property (nonatomic) BOOL useIPhoneSandboxByDefault;
+@property (nonatomic) NSArray *transformBlocks;
 
 + (DemoModel *)create;
 

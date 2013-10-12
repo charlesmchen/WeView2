@@ -555,7 +555,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         [[[demoModel.rootView addSubviewsWithHorizontalLayout:@[
            [self createFlatUIPillboxButton:@"Prev"
                                      shape:H_ALIGN_LEFT],
-           [self createFlatUIPillboxButton:@"More Info"
+           [self createFlatUIPillboxButton:@"Details"
                                      shape:H_ALIGN_CENTER],
            [self createFlatUIPillboxButton:@"Next"
                                      shape:H_ALIGN_RIGHT],
@@ -618,10 +618,10 @@ UIColor *UIColorRGB(unsigned int rgb)
     }
     else
     {
-        CALayer *sublayer = [CALayer layer];
-        sublayer.backgroundColor = [UIColor colorWithWhite:1.f alpha:0.5f].CGColor;
-        sublayer.frame = CGRectMake(0, 0, 1.f, button.height);
-        [button.layer addSublayer:sublayer];
+//        CALayer *sublayer = [CALayer layer];
+//        sublayer.backgroundColor = [UIColor colorWithWhite:1.f alpha:0.5f].CGColor;
+//        sublayer.frame = CGRectMake(0, 0, 1.f, button.height);
+//        [button.layer addSublayer:sublayer];
     }
 
     if (shape == H_ALIGN_RIGHT)
@@ -633,7 +633,6 @@ UIColor *UIColorRGB(unsigned int rgb)
         maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:clipRect
                                                     cornerRadius:kPillboxRounding].CGPath;
         button.layer.mask = maskLayer;
-
     }
     else
     {
