@@ -24,6 +24,7 @@
 		34195FD417CA82300036F8DC /* Demo.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FD317CA82300036F8DC /* Demo.m */; };
 		34195FEB17CA87400036F8DC /* SidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FE717CA87400036F8DC /* SidebarViewController.m */; };
 		34195FEC17CA87400036F8DC /* SelectDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34195FE917CA87400036F8DC /* SelectDemoViewController.m */; };
+		3434437F1809D45C00079136 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 3434437E1809D45C00079136 /* CHANGELOG.md */; };
 		344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */; };
 		344435C917CACFEB00EFF341 /* ViewHierarchyTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C717CACFEB00EFF341 /* ViewHierarchyTree.m */; };
 		344435CF17CAD20F00EFF341 /* DemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435CE17CAD20F00EFF341 /* DemoModel.m */; };
@@ -101,6 +102,7 @@
 		34195FE817CA87400036F8DC /* SelectDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectDemoViewController.h; sourceTree = "<group>"; };
 		34195FE917CA87400036F8DC /* SelectDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectDemoViewController.m; sourceTree = "<group>"; };
 		34195FEA17CA87400036F8DC /* SidebarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarViewController.h; sourceTree = "<group>"; };
+		3434437E1809D45C00079136 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		344435C417CACFEA00EFF341 /* ViewDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDescriptionViewController.h; sourceTree = "<group>"; };
 		344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDescriptionViewController.m; sourceTree = "<group>"; };
 		344435C617CACFEA00EFF341 /* ViewHierarchyTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewHierarchyTree.h; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 		34195F7017CA80A90036F8DC = {
 			isa = PBXGroup;
 			children = (
+				3434437E1809D45C00079136 /* CHANGELOG.md */,
 				34195F7B17CA80A90036F8DC /* Frameworks */,
 				3444368C17D3F9E200EFF341 /* LICENSE */,
 				34195F7A17CA80A90036F8DC /* Products */,
@@ -465,6 +468,7 @@
 				3444368B17D3F9DB00EFF341 /* README.md in Resources */,
 				3444368D17D3F9E300EFF341 /* LICENSE in Resources */,
 				34C19D3417EEB3910025914F /* Glyphish_Icons in Resources */,
+				3434437F1809D45C00079136 /* CHANGELOG.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
