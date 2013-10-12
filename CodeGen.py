@@ -844,10 +844,36 @@ for propertyGroup in view_propertyGroups:
     if (view.%s != virginView.%s)
     {
         [lines addObject:[NSString stringWithFormat:@"%s", @"set%s", %s(view.%s)]];
-    }''' % ( property.name, property.name, '  %@:%@', property.UpperName(), formatMethodNameForType(property.typeName), property.name, ))
+    }''' % ( property.name, property.name, '%@:%@', property.UpperName(), formatMethodNameForType(property.typeName), property.name, ))
+
+lines.append('')
+lines.append('    // Custom Accessors')
+lines.append('')
+
+for customAccessor in reversed(view_customAccessors):
+    if formatMethodNameForType(customAccessor.typeName):
+
+        linePrefixes = []
+        for propName in customAccessor.propertyList:
+            linePrefixes.append('@"set%s%s:"' % ( propName[0].upper(), propName[1:]))
+        linePrefixes = '@[' + (', '.join(linePrefixes)) + ']'
+
+        comparisons = []
+        for prop in customAccessor.propertyList[1:]:
+            comparisons.append('view.%s == view.%s' % ( customAccessor.propertyList[0], prop, ) )
+        comparisons = ' && '.join(comparisons)
+        lines.append('''
+    if ([self doDecorations:lines haveLinesWithPrefixes:%s] &&
+        %s)
+    {
+        lines = [self removeLines:lines withPrefixes:%s];
+        [lines addObject:[NSString stringWithFormat:@"%s", @"set%s", %s(view.%s)]];
+    }''' % ( linePrefixes, comparisons, linePrefixes,
+             '%@:%@', customAccessor.UpperName(), formatMethodNameForType(customAccessor.typeName), customAccessor.propertyList[0], ))
 
 lines.append('')
 lines.append('')
+
 block = '\n'.join(lines)
 
 replaceBlock(DemoCodeGeneration_mFilePath, 'Code Generation View Properties Start', 'Code Generation View Properties End', block)
@@ -866,49 +892,36 @@ for propertyGroup in layout_propertyGroups:
     if (layout.%s != virginLayout.%s)
     {
         [lines addObject:[NSString stringWithFormat:@"%s", @"set%s", %s(layout.%s)]];
-    }''' % ( property.name, property.name, '  %@:%@', property.UpperName(), formatMethodNameForType(property.typeName), property.name, ))
-#
-#         lines.append('''
-# - (%s)%s
-# {
-#     return _%s;
-# }''' % (property.typeName, property.name, property.name, ))
-#         lines.append('''
-# - (WeViewLayout *)set%s:(%s)value
-# {
-#     _%s = value;
-#     [self._superview setNeedsLayout];
-#     return self;
-# }''' % (property.UpperName(), property.typeName, property.name, ))
-#
-# for customAccessor in layout_customAccessors:
-#     if not customAccessor.layoutProperty:
-#         continue
-#     # Getter
-#     if customAccessor.getterValue:
-#         lines.append('''
-# - (%s)%s:(UIView *)view
-# {
-#     return [view %s];
-# }''' % (customAccessor.typeName, customAccessor.name, customAccessor.name, ))
-#     # Setter
-#     subsetters = []
-#     for index, propertyName in enumerate(customAccessor.propertyNames()):
-#         valueName = 'value'
-#         if customAccessor.setterValues:
-#             valueName += customAccessor.setterValues[index]
-#         subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
-#
-#     lines.append('''
-# - (WeViewLayout *)set%s:(%s)value
-# {
-# %s
-#     [self._superview setNeedsLayout];
-#     return self;
-# }''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
+    }''' % ( property.name, property.name, '%@:%@', property.UpperName(), formatMethodNameForType(property.typeName), property.name, ))
+
+lines.append('')
+lines.append('    // Custom Accessors')
+lines.append('')
+
+for customAccessor in reversed(layout_customAccessors):
+    if formatMethodNameForType(customAccessor.typeName):
+
+        linePrefixes = []
+        for propName in customAccessor.propertyList:
+            linePrefixes.append('@"set%s%s:"' % ( propName[0].upper(), propName[1:]))
+        linePrefixes = '@[' + (', '.join(linePrefixes)) + ']'
+
+        comparisons = []
+        for prop in customAccessor.propertyList[1:]:
+            comparisons.append('layout.%s == layout.%s' % ( customAccessor.propertyList[0], prop, ) )
+        comparisons = ' && '.join(comparisons)
+        lines.append('''
+    if ([self doDecorations:lines haveLinesWithPrefixes:%s] &&
+        %s)
+    {
+        lines = [self removeLines:lines withPrefixes:%s];
+        [lines addObject:[NSString stringWithFormat:@"%s", @"set%s", %s(layout.%s)]];
+    }''' % ( linePrefixes, comparisons, linePrefixes,
+             '%@:%@', customAccessor.UpperName(), formatMethodNameForType(customAccessor.typeName), customAccessor.propertyList[0], ))
 
 lines.append('')
 lines.append('')
+#
 block = '\n'.join(lines)
 
 replaceBlock(DemoCodeGeneration_mFilePath, 'Code Generation Layout Properties Start', 'Code Generation Layout Properties End', block)

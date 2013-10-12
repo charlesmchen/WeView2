@@ -307,6 +307,61 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 //             withLayoutBlock:(WeView2LayoutBlock)layoutBlock;
 //
 
+- (BOOL)doDecorations:(NSArray *)lines
+   haveLineWithPrefix:(NSString *)prefix
+{
+    for (NSString *line in lines)
+    {
+        if ([line hasPrefix:prefix])
+        {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL)doDecorations:(NSArray *)lines
+haveLinesWithPrefixes:(NSArray *)prefixes
+{
+    for (NSString *prefix in prefixes)
+    {
+        if (![self doDecorations:lines
+              haveLineWithPrefix:prefix])
+        {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (BOOL)doesLine:(NSString *)line
+haveAnyOfPrefixes:(NSArray *)prefixes
+{
+    for (NSString *prefix in prefixes)
+    {
+        if ([line hasPrefix:prefix])
+        {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (NSMutableArray *)removeLines:(NSArray *)lines
+                   withPrefixes:(NSArray *)prefixes
+{
+    NSMutableArray *result = [NSMutableArray array];
+    for (NSString *line in lines)
+    {
+        if (![self doesLine:line
+          haveAnyOfPrefixes:prefixes])
+        {
+            [result addObject:line];
+        }
+    }
+    return result;
+}
+
 - (NSString *)decorateLayoutWithProperties:(NSString *)layoutStatement
                                     layout:(WeViewLayout *)layout
 {
@@ -317,62 +372,92 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 
     if (layout.leftMargin != virginLayout.leftMargin)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setLeftMargin", FormatFloat(layout.leftMargin)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setLeftMargin", FormatFloat(layout.leftMargin)]];
     }
 
     if (layout.rightMargin != virginLayout.rightMargin)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setRightMargin", FormatFloat(layout.rightMargin)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setRightMargin", FormatFloat(layout.rightMargin)]];
     }
 
     if (layout.topMargin != virginLayout.topMargin)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setTopMargin", FormatFloat(layout.topMargin)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setTopMargin", FormatFloat(layout.topMargin)]];
     }
 
     if (layout.bottomMargin != virginLayout.bottomMargin)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setBottomMargin", FormatFloat(layout.bottomMargin)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setBottomMargin", FormatFloat(layout.bottomMargin)]];
     }
 
     if (layout.vSpacing != virginLayout.vSpacing)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setVSpacing", FormatInt(layout.vSpacing)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setVSpacing", FormatInt(layout.vSpacing)]];
     }
 
     if (layout.hSpacing != virginLayout.hSpacing)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setHSpacing", FormatInt(layout.hSpacing)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setHSpacing", FormatInt(layout.hSpacing)]];
     }
 
     if (layout.hAlign != virginLayout.hAlign)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setHAlign", ReprHAlign(layout.hAlign)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setHAlign", ReprHAlign(layout.hAlign)]];
     }
 
     if (layout.vAlign != virginLayout.vAlign)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setVAlign", ReprVAlign(layout.vAlign)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setVAlign", ReprVAlign(layout.vAlign)]];
     }
 
     if (layout.cropSubviewOverflow != virginLayout.cropSubviewOverflow)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setCropSubviewOverflow", FormatBoolean(layout.cropSubviewOverflow)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setCropSubviewOverflow", FormatBoolean(layout.cropSubviewOverflow)]];
     }
 
     if (layout.cellPositioning != virginLayout.cellPositioning)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setCellPositioning", ReprCellPositioningMode(layout.cellPositioning)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setCellPositioning", ReprCellPositioningMode(layout.cellPositioning)]];
     }
 
     if (layout.debugLayout != virginLayout.debugLayout)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setDebugLayout", FormatBoolean(layout.debugLayout)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDebugLayout", FormatBoolean(layout.debugLayout)]];
     }
 
     if (layout.debugMinSize != virginLayout.debugMinSize)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setDebugMinSize", FormatBoolean(layout.debugMinSize)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDebugMinSize", FormatBoolean(layout.debugMinSize)]];
+    }
+
+    // Custom Accessors
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setHSpacing:", @"setVSpacing:"]] &&
+        layout.hSpacing == layout.vSpacing)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setHSpacing:", @"setVSpacing:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setSpacing", FormatBoolean(layout.hSpacing)]];
+    }
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setLeftMargin:", @"setRightMargin:", @"setTopMargin:", @"setBottomMargin:"]] &&
+        layout.leftMargin == layout.rightMargin && layout.leftMargin == layout.topMargin && layout.leftMargin == layout.bottomMargin)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setLeftMargin:", @"setRightMargin:", @"setTopMargin:", @"setBottomMargin:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMargin", FormatFloat(layout.leftMargin)]];
+    }
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setTopMargin:", @"setBottomMargin:"]] &&
+        layout.topMargin == layout.bottomMargin)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setTopMargin:", @"setBottomMargin:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setVMargin", FormatFloat(layout.topMargin)]];
+    }
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setLeftMargin:", @"setRightMargin:"]] &&
+        layout.leftMargin == layout.rightMargin)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setLeftMargin:", @"setRightMargin:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setHMargin", FormatFloat(layout.leftMargin)]];
     }
 
 /* CODEGEN MARKER: Code Generation Layout Properties End */
@@ -395,77 +480,100 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 
     if (view.minWidth != virginView.minWidth)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setMinWidth", FormatFloat(view.minWidth)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMinWidth", FormatFloat(view.minWidth)]];
     }
 
     if (view.maxWidth != virginView.maxWidth)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setMaxWidth", FormatFloat(view.maxWidth)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMaxWidth", FormatFloat(view.maxWidth)]];
     }
 
     if (view.minHeight != virginView.minHeight)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setMinHeight", FormatFloat(view.minHeight)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMinHeight", FormatFloat(view.minHeight)]];
     }
 
     if (view.maxHeight != virginView.maxHeight)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setMaxHeight", FormatFloat(view.maxHeight)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMaxHeight", FormatFloat(view.maxHeight)]];
     }
 
     if (view.hStretchWeight != virginView.hStretchWeight)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setHStretchWeight", FormatFloat(view.hStretchWeight)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setHStretchWeight", FormatFloat(view.hStretchWeight)]];
     }
 
     if (view.vStretchWeight != virginView.vStretchWeight)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setVStretchWeight", FormatFloat(view.vStretchWeight)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setVStretchWeight", FormatFloat(view.vStretchWeight)]];
     }
 
     if (view.previousSpacingAdjustment != virginView.previousSpacingAdjustment)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setPreviousSpacingAdjustment", FormatInt(view.previousSpacingAdjustment)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setPreviousSpacingAdjustment", FormatInt(view.previousSpacingAdjustment)]];
     }
 
     if (view.nextSpacingAdjustment != virginView.nextSpacingAdjustment)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setNextSpacingAdjustment", FormatInt(view.nextSpacingAdjustment)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setNextSpacingAdjustment", FormatInt(view.nextSpacingAdjustment)]];
     }
 
     if (view.desiredWidthAdjustment != virginView.desiredWidthAdjustment)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setDesiredWidthAdjustment", FormatFloat(view.desiredWidthAdjustment)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDesiredWidthAdjustment", FormatFloat(view.desiredWidthAdjustment)]];
     }
 
     if (view.desiredHeightAdjustment != virginView.desiredHeightAdjustment)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setDesiredHeightAdjustment", FormatFloat(view.desiredHeightAdjustment)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDesiredHeightAdjustment", FormatFloat(view.desiredHeightAdjustment)]];
     }
 
     if (view.ignoreDesiredSize != virginView.ignoreDesiredSize)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setIgnoreDesiredSize", FormatBoolean(view.ignoreDesiredSize)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setIgnoreDesiredSize", FormatBoolean(view.ignoreDesiredSize)]];
     }
 
     if (view.cellHAlign != virginView.cellHAlign)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setCellHAlign", ReprHAlign(view.cellHAlign)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setCellHAlign", ReprHAlign(view.cellHAlign)]];
     }
 
     if (view.cellVAlign != virginView.cellVAlign)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setCellVAlign", ReprVAlign(view.cellVAlign)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setCellVAlign", ReprVAlign(view.cellVAlign)]];
     }
 
     if (view.hasCellHAlign != virginView.hasCellHAlign)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setHasCellHAlign", FormatBoolean(view.hasCellHAlign)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setHasCellHAlign", FormatBoolean(view.hasCellHAlign)]];
     }
 
     if (view.hasCellVAlign != virginView.hasCellVAlign)
     {
-        [lines addObject:[NSString stringWithFormat:@"  %@:%@", @"setHasCellVAlign", FormatBoolean(view.hasCellVAlign)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setHasCellVAlign", FormatBoolean(view.hasCellVAlign)]];
+    }
+
+    // Custom Accessors
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setVStretchWeight:", @"setHStretchWeight:"]] &&
+        view.vStretchWeight == view.hStretchWeight)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setVStretchWeight:", @"setHStretchWeight:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setStretchWeight", FormatFloat(view.vStretchWeight)]];
+    }
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setMinHeight:", @"setMaxHeight:"]] &&
+        view.minHeight == view.maxHeight)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setMinHeight:", @"setMaxHeight:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setFixedHeight", FormatFloat(view.minHeight)]];
+    }
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setMinWidth:", @"setMaxWidth:"]] &&
+        view.minWidth == view.maxWidth)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setMinWidth:", @"setMaxWidth:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setFixedWidth", FormatFloat(view.minWidth)]];
     }
 
 /* CODEGEN MARKER: Code Generation View Properties End */
@@ -480,7 +588,7 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
     {
         if (result)
         {
-            result = [NSString stringWithFormat:@"[%@\n  %@]", result, line];
+            result = [NSString stringWithFormat:@"[%@\n      %@]", result, line];
         }
         else
         {
@@ -534,7 +642,7 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
                 [subviewNames addObject:subviewWProperties];
                 [layoutSubviewsClause appendFormat:@"    %@,\n", subviewWProperties];
             }
-            [layoutSubviewsClause appendString:@"]"];
+            [layoutSubviewsClause appendString:@"   ]"];
 
             NSString *firstSubviewClause = ([layoutSubviews count] != 1
                                             ? nil
