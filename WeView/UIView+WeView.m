@@ -48,10 +48,14 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 // This adjustment can be used to manipulate the spacing immediately before this view.
 //
+// This value can be positive or negative.
+//
 // Only applies to the horizontal, vertical and flow layouts.
 @property (nonatomic) int previousSpacingAdjustment;
 
 // This adjustment can be used to manipulate the spacing immediately after this view.
+//
+// This value can be positive or negative.
 //
 // Only applies to the horizontal, vertical and flow layouts.
 @property (nonatomic) int nextSpacingAdjustment;

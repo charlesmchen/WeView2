@@ -59,7 +59,7 @@ def replaceBlock(filePath, blockStartKey, blockEndKey, block):
 
 
 class Property:
-    def __init__(self, name, typeName, defaultValue=None, asserts=None, comments=None, layoutProperty=False, extraSetterLine=None):
+    def __init__(self, name, typeName, defaultValue=None, asserts=None, comments=None, layoutProperty=False, extraSetterLine=None, doubleHeight=False):
         self.name = name
         self.typeName = typeName
         self.defaultValue = defaultValue
@@ -67,6 +67,7 @@ class Property:
         self.comments = comments
         self.layoutProperty = layoutProperty
         self.extraSetterLine = extraSetterLine
+        self.doubleHeight = doubleHeight
 
 
     def UpperName(self):
@@ -109,6 +110,7 @@ view_propertyGroups = (
                            'This value can be positive or negative.',
                            'Only applies to the horizontal, vertical and flow layouts.',
                            ),
+                       doubleHeight=True,
                        ),
                    Property('nextSpacingAdjustment', 'int',
                        comments=(
@@ -116,15 +118,20 @@ view_propertyGroups = (
                            'This value can be positive or negative.',
                            'Only applies to the horizontal, vertical and flow layouts.',
                            ),
+                       doubleHeight=True,
                        ),
                    ),
                   (
                    Property('desiredWidthAdjustment', 'CGFloat',
                        comments='This adjustment can be used to manipulate the desired width of a view.',
-                       asserts='%s >= 0', ),
+                       asserts='%s >= 0',
+                       doubleHeight=True,
+                        ),
                    Property('desiredHeightAdjustment', 'CGFloat',
                        comments='This adjustment can be used to manipulate the desired height of a view.',
-                       asserts='%s >= 0', ),
+                       asserts='%s >= 0',
+                       doubleHeight=True,
+                        ),
                    Property('ignoreDesiredSize', 'BOOL', ),
                    ),
                   (
@@ -568,14 +575,17 @@ def createViewEditorControllerParameters(propertyGroups, blockStartKey, blockEnd
     for propertyGroup in propertyGroups:
         for property in propertyGroup:
             if property.typeName == 'CGFloat':
+                doubleHeight = " doubleHeight:YES" if property.doubleHeight else ""
                 lines.append('''
-                                [ViewParameterSimple floatProperty:@"%s"],''' % (property.name, ) )
+                                [ViewParameterSimple floatProperty:@"%s"%s],''' % (property.name, doubleHeight, ) )
             elif property.typeName == 'int':
+                doubleHeight = " doubleHeight:YES" if property.doubleHeight else ""
                 lines.append('''
-                                [ViewParameterSimple intProperty:@"%s"],''' % (property.name, ) )
+                                [ViewParameterSimple intProperty:@"%s"%s],''' % (property.name, doubleHeight, ) )
             elif property.typeName == 'BOOL':
                 lines.append('''
                                 [ViewParameterSimple booleanProperty:@"%s"],''' % (property.name, ) )
+
             elif property.typeName == 'HAlign':
                 lines.append('''
                                 [ViewParameterSimple create:@"%s"

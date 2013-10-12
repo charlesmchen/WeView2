@@ -53,11 +53,15 @@
 
 // This adjustment can be used to manipulate the spacing immediately before this view.
 //
+// This value can be positive or negative.
+//
 // Only applies to the horizontal, vertical and flow layouts.
 - (int)previousSpacingAdjustment;
 - (UIView *)setPreviousSpacingAdjustment:(int)value;
 
 // This adjustment can be used to manipulate the spacing immediately after this view.
+//
+// This value can be positive or negative.
 //
 // Only applies to the horizontal, vertical and flow layouts.
 - (int)nextSpacingAdjustment;

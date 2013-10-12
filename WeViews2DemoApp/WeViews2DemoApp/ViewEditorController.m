@@ -294,6 +294,13 @@ typedef void (^SetterBlock)(id item);
 
 + (ViewParameterSimple *)floatProperty:(NSString *)name
 {
+    return [self floatProperty:name
+                  doubleHeight:NO];
+}
+
++ (ViewParameterSimple *)floatProperty:(NSString *)name
+                          doubleHeight:(BOOL)doubleHeight
+{
     return [ViewParameterSimple create:name
                            getterBlock:^NSString *(UIView *view) {
                                CGFloat value = [[view valueForKey:name] floatValue];
@@ -325,10 +332,18 @@ typedef void (^SetterBlock)(id item);
                                 [view setValue:@(value + 5) forKey:name];
                             }
              ],
-            ]];
+            ]
+                          doubleHeight:doubleHeight];
 }
 
 + (ViewParameterSimple *)intProperty:(NSString *)name
+{
+    return [self intProperty:name
+                doubleHeight:NO];
+}
+
++ (ViewParameterSimple *)intProperty:(NSString *)name
+                        doubleHeight:(BOOL)doubleHeight
 {
     return [ViewParameterSimple create:name
                            getterBlock:^NSString *(UIView *view) {
@@ -361,7 +376,8 @@ typedef void (^SetterBlock)(id item);
                                 [view setValue:@(value + 5) forKey:name];
                             }
              ],
-            ]];
+            ]
+                          doubleHeight:doubleHeight];
 }
 
 @end
@@ -547,13 +563,13 @@ typedef void (^SetterBlock)(id item);
 
                                 [ViewParameterSimple floatProperty:@"vStretchWeight"],
 
-                                [ViewParameterSimple intProperty:@"previousSpacingAdjustment"],
+                                [ViewParameterSimple intProperty:@"previousSpacingAdjustment" doubleHeight:YES],
 
-                                [ViewParameterSimple intProperty:@"nextSpacingAdjustment"],
+                                [ViewParameterSimple intProperty:@"nextSpacingAdjustment" doubleHeight:YES],
 
-                                [ViewParameterSimple floatProperty:@"desiredWidthAdjustment"],
+                                [ViewParameterSimple floatProperty:@"desiredWidthAdjustment" doubleHeight:YES],
 
-                                [ViewParameterSimple floatProperty:@"desiredHeightAdjustment"],
+                                [ViewParameterSimple floatProperty:@"desiredHeightAdjustment" doubleHeight:YES],
 
                                 [ViewParameterSimple booleanProperty:@"ignoreDesiredSize"],
 
