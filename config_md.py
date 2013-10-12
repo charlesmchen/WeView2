@@ -44,6 +44,7 @@ links = (
   Link('designPhilosophy.md', 'Design Philosophy'),
   Link('whatsNewWeView2.md', 'What\'s New in WeView 2'),
   Link('License.md', 'License'),
+  Link('CHANGELOG.md', 'Change Log'),
   Link('Acknowledgments.md', 'Acknowledgments'),
 )
 # Layout model - Cells.
