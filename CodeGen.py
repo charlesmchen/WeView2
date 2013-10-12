@@ -12,6 +12,9 @@ hFilePath = os.path.join(folderPath, 'UIView+WeView.h')
 mFilePath = os.path.join(folderPath, 'UIView+WeView.m')
 viewInfohFilePath = os.path.join(folderPath, 'WeViewViewInfo.h')
 viewInfomFilePath = os.path.join(folderPath, 'WeViewViewInfo.m')
+viewInfohFilePath = mFilePath
+viewInfomFilePath = mFilePath
+
 ViewEditorController_hFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.h')
 ViewEditorController_mFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.m')
 WeViewLayout_hFilePath = os.path.join(folderPath, 'Layouts', 'WeViewLayout.h')
@@ -100,6 +103,22 @@ view_propertyGroups = (
                        asserts='%s >= 0', ),
                    ),
                   (
+                   Property('previousSpacingAdjustment', 'int',
+                       comments=(
+                           'This adjustment can be used to manipulate the spacing immediately before this view.',
+                           'This value can be positive or negative.',
+                           'Only applies to the horizontal, vertical and flow layouts.',
+                           ),
+                       ),
+                   Property('nextSpacingAdjustment', 'int',
+                       comments=(
+                           'This adjustment can be used to manipulate the spacing immediately after this view.',
+                           'This value can be positive or negative.',
+                           'Only applies to the horizontal, vertical and flow layouts.',
+                           ),
+                       ),
+                   ),
+                  (
                    Property('desiredWidthAdjustment', 'CGFloat',
                        comments='This adjustment can be used to manipulate the desired width of a view.',
                        asserts='%s >= 0', ),
@@ -149,10 +168,10 @@ layout_propertyGroups = (
                        layoutProperty=True, ),
                    ),
                   (
-                   Property('vSpacing', 'CGFloat',
+                   Property('vSpacing', 'int',
                        comments='The vertical spacing between subviews of this view.',
                        layoutProperty=True, ),
-                   Property('hSpacing', 'CGFloat',
+                   Property('hSpacing', 'int',
                        comments='The horizontal spacing between subviews of this view.',
                         layoutProperty=True, ),
                    ),
@@ -282,7 +301,7 @@ layout_customAccessors = (
                     CustomAccessor('vMargin', 'CGFloat', ('topMargin', 'bottomMargin',), layoutProperty=True, ),
                     CustomAccessor('margin', 'CGFloat', ('leftMargin', 'rightMargin', 'topMargin', 'bottomMargin',), layoutProperty=True, ),
 
-                    CustomAccessor('spacing', 'CGFloat', ('hSpacing', 'vSpacing',), layoutProperty=True, ),
+                    CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',), layoutProperty=True, ),
                     )
 
 # --------
@@ -309,7 +328,7 @@ for customAccessor in view_customAccessors:
 lines.append('')
 block = '\n'.join(lines)
 
-replaceBlock(viewInfohFilePath, 'View Info Start', 'View Info End', block)
+replaceBlock(viewInfohFilePath, 'View Info H Start', 'View Info H End', block)
 
 # --------
 
@@ -389,7 +408,7 @@ lines.append('')
 lines.append('')
 block = '\n'.join(lines)
 
-replaceBlock(viewInfomFilePath, 'View Info Start', 'View Info End', block)
+replaceBlock(viewInfomFilePath, 'View Info M Start', 'View Info M End', block)
 
 # --------
 
@@ -404,20 +423,6 @@ for propertyGroup in view_propertyGroups:
                 pass
             else:
                 raise Exception('Unknown asserts: %s' % str(property.asserts))
-        if property.typeName == 'CGFloat':
-            getterName = 'associatedFloat'
-            setterName = 'setAssociatedFloat'
-        elif property.typeName == 'BOOL':
-            getterName = 'associatedBoolean'
-            setterName = 'setAssociatedBoolean'
-        elif property.typeName == 'NSString *':
-            getterName = 'associatedString'
-            setterName = 'setAssociatedString'
-        elif property.typeName in ('HAlign', 'VAlign', 'CellPositioningMode', ):
-            getterName = 'associatedInt'
-            setterName = 'setAssociatedInt'
-        else:
-            raise Exception('Unknown typeName: %s' % str(property.typeName))
         defaultValue = ''
         if property.defaultValue:
             defaultValue = ' defaultValue:%s' % property.defaultValue
@@ -553,7 +558,7 @@ lines.append('')
 lines.append('')
 block = '\n'.join(lines)
 
-replaceBlock(viewInfomFilePath, 'Debug Start', 'Debug End', block)
+replaceBlock(viewInfomFilePath, 'View Info Debug Start', 'View Info Debug End', block)
 
 # --------
 
@@ -565,6 +570,9 @@ def createViewEditorControllerParameters(propertyGroups, blockStartKey, blockEnd
             if property.typeName == 'CGFloat':
                 lines.append('''
                                 [ViewParameterSimple floatProperty:@"%s"],''' % (property.name, ) )
+            elif property.typeName == 'int':
+                lines.append('''
+                                [ViewParameterSimple intProperty:@"%s"],''' % (property.name, ) )
             elif property.typeName == 'BOOL':
                 lines.append('''
                                 [ViewParameterSimple booleanProperty:@"%s"],''' % (property.name, ) )
@@ -639,7 +647,7 @@ def createViewEditorControllerParameters(propertyGroups, blockStartKey, blockEnd
                                  doubleHeight:YES],
                                  ''' % (property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, ) )
             else:
-                print 'Unknown typeName:', property.typeName
+                print 'Unknown typeName:', property.typeName, property.name
 
             # value = '@(self.%s)' % property.name
             # if property.typeName.endswith(' *'):

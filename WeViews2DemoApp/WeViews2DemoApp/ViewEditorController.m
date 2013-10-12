@@ -33,6 +33,11 @@ NSString *FormatFloat(CGFloat value)
     }
 }
 
+NSString *FormatInt(int value)
+{
+    return [@(value) description];
+}
+
 NSString *FormatBoolean(BOOL value)
 {
     return value ? @"YES" : @"NO";
@@ -323,6 +328,42 @@ typedef void (^SetterBlock)(id item);
             ]];
 }
 
++ (ViewParameterSimple *)intProperty:(NSString *)name
+{
+    return [ViewParameterSimple create:name
+                           getterBlock:^NSString *(UIView *view) {
+                               int value = [[view valueForKey:name] intValue];
+                               return FormatInt(value);
+                           }
+                               setters:@[
+            [ViewParameterSetter create:@"-5"
+                            setterBlock:^(UIView *view) {
+                                int value = [[view valueForKey:name] intValue];
+                                [view setValue:@(value - 5) forKey:name];
+                            }],
+            [ViewParameterSetter create:@"-1"
+                            setterBlock:^(UIView *view) {
+                                int value = [[view valueForKey:name] intValue];
+                                [view setValue:@(value - 1) forKey:name];
+                            }],
+            [ViewParameterSetter create:@"0"
+                            setterBlock:^(UIView *view) {
+                                [view setValue:@(0) forKey:name];
+                            }],
+            [ViewParameterSetter create:@"+1"
+                            setterBlock:^(UIView *view) {
+                                int value = [[view valueForKey:name] intValue];
+                                [view setValue:@(value + 1) forKey:name];
+                            }],
+            [ViewParameterSetter create:@"+5"
+                            setterBlock:^(UIView *view) {
+                                int value = [[view valueForKey:name] intValue];
+                                [view setValue:@(value + 5) forKey:name];
+                            }
+             ],
+            ]];
+}
+
 @end
 
 #pragma mark -
@@ -506,6 +547,10 @@ typedef void (^SetterBlock)(id item);
 
                                 [ViewParameterSimple floatProperty:@"vStretchWeight"],
 
+                                [ViewParameterSimple intProperty:@"previousSpacingAdjustment"],
+
+                                [ViewParameterSimple intProperty:@"nextSpacingAdjustment"],
+
                                 [ViewParameterSimple floatProperty:@"desiredWidthAdjustment"],
 
                                 [ViewParameterSimple floatProperty:@"desiredHeightAdjustment"],
@@ -611,9 +656,9 @@ typedef void (^SetterBlock)(id item);
 
                                 [ViewParameterSimple floatProperty:@"bottomMargin"],
 
-                                [ViewParameterSimple floatProperty:@"vSpacing"],
+                                [ViewParameterSimple intProperty:@"vSpacing"],
 
-                                [ViewParameterSimple floatProperty:@"hSpacing"],
+                                [ViewParameterSimple intProperty:@"hSpacing"],
 
                                 [ViewParameterSimple create:@"hAlign"
                                                 getterBlock:^NSString *(id item) {

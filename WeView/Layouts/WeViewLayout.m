@@ -69,8 +69,8 @@ CGFloat _rightMargin;
 CGFloat _topMargin;
 CGFloat _bottomMargin;
 
-CGFloat _vSpacing;
-CGFloat _hSpacing;
+int _vSpacing;
+int _hSpacing;
 
 HAlign _hAlign;
 VAlign _vAlign;
@@ -175,24 +175,24 @@ BOOL _debugMinSize;
     return self;
 }
 
-- (CGFloat)vSpacing
+- (int)vSpacing
 {
     return _vSpacing;
 }
 
-- (WeViewLayout *)setVSpacing:(CGFloat)value
+- (WeViewLayout *)setVSpacing:(int)value
 {
     _vSpacing = value;
     [self._superview setNeedsLayout];
     return self;
 }
 
-- (CGFloat)hSpacing
+- (int)hSpacing
 {
     return _hSpacing;
 }
 
-- (WeViewLayout *)setHSpacing:(CGFloat)value
+- (WeViewLayout *)setHSpacing:(int)value
 {
     _hSpacing = value;
     [self._superview setNeedsLayout];
@@ -297,7 +297,7 @@ BOOL _debugMinSize;
     return self;
 }
 
-- (WeViewLayout *)setSpacing:(CGFloat)value
+- (WeViewLayout *)setSpacing:(int)value
 {
     [self setHSpacing:value];
     [self setVSpacing:value];

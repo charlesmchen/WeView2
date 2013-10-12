@@ -61,6 +61,16 @@
     return result;
 }
 
+- (int)sumInts:(NSArray *)values
+{
+    CGFloat result = 0;
+    for (NSNumber *value in values)
+    {
+        result += [value intValue];
+    }
+    return result;
+}
+
 - (CGFloat)maxFloats:(NSArray *)values
 {
     CGFloat result = 0;
@@ -69,6 +79,31 @@
         result = MAX(result, [value floatValue]);
     }
     return result;
+}
+
+- (NSArray *)getSpacings:(NSArray *)subviews
+              horizontal:(BOOL)horizontal
+{
+    // Determine the spacing.
+    int baseSpacing = MAX(0, ceilf(horizontal ? [self hSpacing] : [self vSpacing]));
+    int totalSpacing = baseSpacing;
+    NSMutableArray *spacings = [NSMutableArray array];
+    {
+        UIView* lastSubview = nil;
+        for (UIView* subview in subviews)
+        {
+            if (lastSubview)
+            {
+                int spacing = roundf(baseSpacing +
+                                     lastSubview.nextSpacingAdjustment +
+                                     subview.previousSpacingAdjustment);
+                totalSpacing += spacing;
+                [spacings addObject:@(spacing)];
+            }
+            lastSubview = subview;
+        }
+    }
+    return spacings;
 }
 
 - (CGSize)minSizeOfContentsView:(UIView *)view
@@ -96,11 +131,14 @@
     BOOL horizontal = self.isHorizontal;
     int subviewCount = [subviews count];
 
-    CGFloat spacing = MAX(0, ceilf(horizontal ? [self hSpacing] : [self vSpacing]));
+    NSArray *spacings = [self getSpacings:subviews
+                               horizontal:horizontal];
+    int totalSpacing = [self sumInts:spacings];
+
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:guideSize];
-    CGSize totalSpacingSize = CGSizeMake(horizontal ? spacing * (subviewCount - 1) : 0.f,
-                                         horizontal ? 0.f : spacing * (subviewCount - 1));
+    CGSize totalSpacingSize = CGSizeMake(horizontal ? totalSpacing : 0.f,
+                                         horizontal ? 0.f : totalSpacing);
     CGSize maxTotalSubviewsSize = CGSizeSubtract(contentBounds.size,
                                                  totalSpacingSize);
 
@@ -301,11 +339,14 @@
     BOOL horizontal = self.isHorizontal;
     int subviewCount = [subviews count];
 
-    CGFloat spacing = MAX(0, ceilf(horizontal ? [self hSpacing] : [self vSpacing]));
+    NSArray *spacings = [self getSpacings:subviews
+                               horizontal:horizontal];
+    int totalSpacing = [self sumInts:spacings];
+
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:guideSize];
-    CGSize totalSpacingSize = CGSizeMake(horizontal ? spacing * (subviewCount - 1) : 0.f,
-                                         horizontal ? 0.f : spacing * (subviewCount - 1));
+    CGSize totalSpacingSize = CGSizeMake(horizontal ? totalSpacing : 0.f,
+                                         horizontal ? 0.f : totalSpacing);
     CGSize maxTotalSubviewsSize = CGSizeSubtract(contentBounds.size,
                                                  totalSpacingSize);
 
@@ -561,7 +602,12 @@
                   FormatCGSize(subviewSize));
         }
 
-        axisIndex = (horizontal ? subview.right : subview.bottom) + spacing;
+        axisIndex = (horizontal ? subview.right : subview.bottom);
+        if (i < [spacings count])
+        {
+            NSNumber *spacing = spacings[i];
+            axisIndex += [spacing intValue];
+        }
     }
 }
 

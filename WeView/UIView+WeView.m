@@ -18,7 +18,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 @interface WeViewViewInfo : NSObject
 
-/* CODEGEN MARKER: View Info Start */
+/* CODEGEN MARKER: View Info H Start */
 
 // The minimum desired width of this view. Trumps the maxWidth.
 @property (nonatomic) CGFloat minWidth;
@@ -46,6 +46,16 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 // Subviews with larger relative stretch weights will be stretched more.
 @property (nonatomic) CGFloat vStretchWeight;
 
+// This adjustment can be used to manipulate the spacing immediately before this view.
+//
+// Only applies to the horizontal, vertical and flow layouts.
+@property (nonatomic) int previousSpacingAdjustment;
+
+// This adjustment can be used to manipulate the spacing immediately after this view.
+//
+// Only applies to the horizontal, vertical and flow layouts.
+@property (nonatomic) int nextSpacingAdjustment;
+
 // This adjustment can be used to manipulate the desired width of a view.
 @property (nonatomic) CGFloat desiredWidthAdjustment;
 
@@ -71,7 +81,31 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 @property (nonatomic) NSString *debugName;
 
-/* CODEGEN MARKER: View Info End */
+// Convenience accessor(s) for the minWidth and minHeight properties.
+- (CGSize)minSize;
+- (void)setMinSize:(CGSize)value;
+
+// Convenience accessor(s) for the maxWidth and maxHeight properties.
+- (CGSize)maxSize;
+- (void)setMaxSize:(CGSize)value;
+
+// Convenience accessor(s) for the desiredWidthAdjustment and desiredHeightAdjustment properties.
+- (CGSize)desiredSizeAdjustment;
+- (void)setDesiredSizeAdjustment:(CGSize)value;
+
+// Convenience accessor(s) for the minWidth and maxWidth properties.
+- (void)setFixedWidth:(CGFloat)value;
+
+// Convenience accessor(s) for the minHeight and maxHeight properties.
+- (void)setFixedHeight:(CGFloat)value;
+
+// Convenience accessor(s) for the minWidth, minHeight, maxWidth and maxHeight properties.
+- (void)setFixedSize:(CGSize)value;
+
+// Convenience accessor(s) for the vStretchWeight and hStretchWeight properties.
+- (void)setStretchWeight:(CGFloat)value;
+
+/* CODEGEN MARKER: View Info H End */
 
 @end
 
@@ -90,7 +124,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     return self;
 }
 
-/* CODEGEN MARKER: View Info Start */
+/* CODEGEN MARKER: View Info M Start */
 
 - (void)setCellHAlign:(HAlign)value
 {
@@ -163,7 +197,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     [self setHStretchWeight:value];
 }
 
-/* CODEGEN MARKER: View Info End */
+/* CODEGEN MARKER: View Info M End */
 
 - (NSString *)formatLayoutDescriptionItem:(NSString *)key
                                     value:(id)value
@@ -175,7 +209,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 {
     NSMutableString *result = [@"" mutableCopy];
 
-    /* CODEGEN MARKER: Debug Start */
+    /* CODEGEN MARKER: View Info Debug Start */
 
     [result appendString:[self formatLayoutDescriptionItem:@"minWidth" value:@(self.minWidth)]];
     [result appendString:[self formatLayoutDescriptionItem:@"maxWidth" value:@(self.maxWidth)]];
@@ -183,6 +217,8 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     [result appendString:[self formatLayoutDescriptionItem:@"maxHeight" value:@(self.maxHeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"hStretchWeight" value:@(self.hStretchWeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"vStretchWeight" value:@(self.vStretchWeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"previousSpacingAdjustment" value:@(self.previousSpacingAdjustment)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"nextSpacingAdjustment" value:@(self.nextSpacingAdjustment)]];
     [result appendString:[self formatLayoutDescriptionItem:@"desiredWidthAdjustment" value:@(self.desiredWidthAdjustment)]];
     [result appendString:[self formatLayoutDescriptionItem:@"desiredHeightAdjustment" value:@(self.desiredHeightAdjustment)]];
     [result appendString:[self formatLayoutDescriptionItem:@"ignoreDesiredSize" value:@(self.ignoreDesiredSize)]];
@@ -192,7 +228,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     [result appendString:[self formatLayoutDescriptionItem:@"hasCellVAlign" value:@(self.hasCellVAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"debugName" value:self.debugName]];
 
-    /* CODEGEN MARKER: Debug End */
+/* CODEGEN MARKER: View Info Debug End */
 
     return result;
 }
@@ -286,6 +322,28 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setVStretchWeight:(CGFloat)value
 {
     [self.viewInfo setVStretchWeight:value];
+    return self;
+}
+
+- (int)previousSpacingAdjustment
+{
+    return [self.viewInfo previousSpacingAdjustment];
+}
+
+- (UIView *)setPreviousSpacingAdjustment:(int)value
+{
+    [self.viewInfo setPreviousSpacingAdjustment:value];
+    return self;
+}
+
+- (int)nextSpacingAdjustment
+{
+    return [self.viewInfo nextSpacingAdjustment];
+}
+
+- (UIView *)setNextSpacingAdjustment:(int)value
+{
+    [self.viewInfo setNextSpacingAdjustment:value];
     return self;
 }
 

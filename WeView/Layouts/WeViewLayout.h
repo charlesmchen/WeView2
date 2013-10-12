@@ -60,12 +60,12 @@
 - (WeViewLayout *)setBottomMargin:(CGFloat)value;
 
 // The vertical spacing between subviews of this view.
-- (CGFloat)vSpacing;
-- (WeViewLayout *)setVSpacing:(CGFloat)value;
+- (int)vSpacing;
+- (WeViewLayout *)setVSpacing:(int)value;
 
 // The horizontal spacing between subviews of this view.
-- (CGFloat)hSpacing;
-- (WeViewLayout *)setHSpacing:(CGFloat)value;
+- (int)hSpacing;
+- (WeViewLayout *)setHSpacing:(int)value;
 
 // The horizontal alignment of this layout.
 - (HAlign)hAlign;
@@ -118,7 +118,7 @@
 - (WeViewLayout *)setMargin:(CGFloat)value;
 
 // Convenience accessor(s) for the hSpacing and vSpacing properties.
-- (WeViewLayout *)setSpacing:(CGFloat)value;
+- (WeViewLayout *)setSpacing:(int)value;
 
 /* CODEGEN MARKER: End */
 
