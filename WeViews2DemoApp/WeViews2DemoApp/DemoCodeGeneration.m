@@ -445,7 +445,7 @@ haveAnyOfPrefixes:(NSArray *)prefixes
         layout.hSpacing == layout.vSpacing)
     {
         lines = [self removeLines:lines withPrefixes:@[@"setHSpacing:", @"setVSpacing:"]];
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setSpacing", FormatBoolean(layout.hSpacing)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setSpacing", FormatInt(layout.hSpacing)]];
     }
 
     if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setLeftMargin:", @"setRightMargin:", @"setTopMargin:", @"setBottomMargin:"]] &&
@@ -614,7 +614,6 @@ haveAnyOfPrefixes:(NSArray *)prefixes
             result = [NSString stringWithFormat:@"[%@ %@]", viewName, line];
         }
     }
-    //    result = [NSString stringWithFormat:@"%@;\n", result];
 
     return result;
 }
@@ -624,35 +623,7 @@ haveAnyOfPrefixes:(NSArray *)prefixes
 {
     NSMutableString *result = [@"" mutableCopy];
 
-//    if ([self isKindOfClasses:view
-//                      classes:@[
-//         [UILabel class],
-//         [UIButton class],
-//         ]] ||
-//        [view isMemberOfClass:[UIView class]])
-//    {
-//        [result appendFormat:@"%@ *%@ = [[%@ alloc] init];\n",
-//         NSStringFromClass([view class]),
-//         viewName,
-//         NSStringFromClass([view class])];
-//
-//        if ([view isKindOfClass:[UILabel class]])
-//        {
-//            UILabel *label = (UILabel *)view;
-//            if (label.text)
-//            {
-//                [result appendFormat:@"%@.text = @\"%@\";\n",
-//                 viewName,
-//                 label.text];
-//            }
-//
-//            [result appendFormat:@"//%@.text = @\"%@\";\n",
-//             viewName,
-//             label.text];
-//        }
-//    }
-//    else
-        if ([view isKindOfClass:[WeView class]])
+    if ([view isKindOfClass:[WeView class]])
     {
         [result appendFormat:@"%@ *%@ = [[%@ alloc] init];\n",
          NSStringFromClass([view class]),
@@ -696,15 +667,6 @@ haveAnyOfPrefixes:(NSArray *)prefixes
             [result appendString:layoutStatement];
         }
     }
-//    else if ([view isKindOfClass:[UIImageView class]])
-//    {
-//        NSString *imageName = [self nameForInstanceOfClass:[UIImage class]];
-//        [result appendFormat:@"UIImage *%@ = [UIImage alloc] imageNamed:...];\n",
-//         imageName];
-//        [result appendFormat:@"UIImageView *%@ = [[UIImageView alloc] initWithImage:%@];\n",
-//         viewName,
-//         imageName];
-//    }
     else
     {
         [result appendFormat:@"%@ *%@ = ...;\n",

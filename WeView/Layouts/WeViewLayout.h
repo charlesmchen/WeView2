@@ -87,8 +87,9 @@
 // space.
 //
 // The spacings will not be cropped if the layout cannot fit its subviews within their superview,
-// even if this property is
-// YES.
+// even if this property is YES.Only applies to the horizontal, vertical and flow layouts.  In a
+// flow layout where spacingStretches is YES, the subviews are
+// justified.
 - (BOOL)spacingStretches;
 - (WeViewLayout *)setSpacingStretches:(BOOL)value;
 

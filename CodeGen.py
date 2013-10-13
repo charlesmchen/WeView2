@@ -214,6 +214,7 @@ layout_propertyGroups = (
                            'Extra space will be distributed evenly between the spacings.',
                            'Layouts will prefer to stretch subviews if possible.  Spacings will only be stretched if there are no stretching subviews to receive the extra space.',
                            'The spacings will not be cropped if the layout cannot fit its subviews within their superview, even if this property is YES.'
+                           'Only applies to the horizontal, vertical and flow layouts.  In a flow layout where spacingStretches is YES, the subviews are justified.',
                            ),
                        layoutProperty=True, ),
                    ),
@@ -846,19 +847,19 @@ replaceBlock(WeViewLayout_mFilePath, 'Copy Configuration Start', 'Copy Configura
 def formatMethodNameForType(typeName):
     if typeName == 'CGFloat':
         return 'FormatFloat'
-    elif property.typeName == 'int':
+    elif typeName == 'int':
         return 'FormatInt'
-    elif property.typeName == 'BOOL':
+    elif typeName == 'BOOL':
         return 'FormatBoolean'
-    elif property.typeName == 'HAlign':
+    elif typeName == 'HAlign':
         return 'ReprHAlign'
-    elif property.typeName == 'VAlign':
+    elif typeName == 'VAlign':
         return 'ReprVAlign'
-    elif property.typeName == 'CellPositioningMode':
+    elif typeName == 'CellPositioningMode':
         return 'ReprCellPositioningMode'
     # elif property.typeName == 'CellPositioningMode':
     else:
-        print 'Unknown typeName:', property.typeName, property.name
+        print 'Unknown typeName:', typeName
 
 
 lines = []

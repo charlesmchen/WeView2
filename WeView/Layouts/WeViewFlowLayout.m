@@ -173,31 +173,65 @@
         return CGSizeMake(totalBodyWidth, totalBodyHeight);
     }
 
-    // Apply alignment to row.
+    const int rowCount = row + 1;
 
     int extraVSpace = MAX(0, contentBounds.size.height - totalBodyHeight);
     int vAdjustment = 0;
-    switch (self.vAlign)
+    if (self.spacingStretches && extraVSpace > 0 && rowCount > 1)
     {
-        case V_ALIGN_TOP:
-            vAdjustment = 0;
-            break;
-        case V_ALIGN_CENTER:
-            vAdjustment = roundf(extraVSpace / 2);
-            break;
-        case V_ALIGN_BOTTOM:
-            vAdjustment = extraVSpace;
-            break;
-        default:
-            WeViewAssert(0);
-            break;
+        // Stretch v-spacing between rows if possible.
+        for (row=0; row < rowCount; row++)
+        {
+            int firstCellInRow = subviewCount;
+            int lastCellInRow = -1;
+
+            // Find cells in row.
+            for (int i=0; i < subviewCount; i++)
+            {
+                if (cellRows[i] == row)
+                {
+                    firstCellInRow = MIN(firstCellInRow, i);
+                    lastCellInRow = MAX(lastCellInRow, i);
+                }
+            }
+
+            WeViewAssert(firstCellInRow < subviewCount);
+            WeViewAssert(lastCellInRow >= 0);
+            WeViewAssert(firstCellInRow <= lastCellInRow);
+
+            int spacingStretchOffset = extraVSpace * row / (rowCount - 1);
+            for (int i=firstCellInRow; i <= lastCellInRow; i++)
+            {
+                CGRect cell = cellBounds[i];
+                cell.origin.y += spacingStretchOffset;
+                cellBounds[i] = cell;
+            }
+        }
+    }
+    else
+    {
+        // Align rows vertically.
+        switch (self.vAlign)
+        {
+            case V_ALIGN_TOP:
+                vAdjustment = 0;
+                break;
+            case V_ALIGN_CENTER:
+                vAdjustment = roundf(extraVSpace / 2);
+                break;
+            case V_ALIGN_BOTTOM:
+                vAdjustment = extraVSpace;
+                break;
+            default:
+                WeViewAssert(0);
+                break;
+        }
     }
 
     CGFloat borderWidth = view.layer.borderWidth;
     int left = ceilf([self leftMargin] + borderWidth);
     int top = ceilf([self topMargin] + borderWidth);
 
-    int rowCount = row + 1;
     for (row=0; row < rowCount; row++)
     {
         int firstCellInRow = subviewCount;
@@ -227,20 +261,40 @@
         WeViewAssert(rowWidth <= contentBounds.size.width);
         int extraRowSpace = contentBounds.size.width - rowWidth;
         int hAdjustment = 0;
-        switch (self.hAlign)
+        if (self.spacingStretches && extraRowSpace > 0)
         {
-            case H_ALIGN_LEFT:
-                hAdjustment = 0;
-                break;
-            case H_ALIGN_CENTER:
-                hAdjustment = roundf(extraRowSpace / 2);
-                break;
-            case H_ALIGN_RIGHT:
-                hAdjustment = extraRowSpace;
-                break;
-            default:
-                WeViewAssert(0);
-                break;
+            // Stretch h-spacing between cells in row if possible.
+            for (int i=firstCellInRow; i <= lastCellInRow; i++)
+            {
+                int cellRowIndex = i - firstCellInRow;
+                int rowViewCount = (lastCellInRow - firstCellInRow) + 1;
+                if (rowViewCount > 1)
+                {
+                    int spacingStretchOffset = extraRowSpace * cellRowIndex / (rowViewCount - 1);
+                    CGRect cell = cellBounds[i];
+                    cell.origin.x += spacingStretchOffset;
+                    cellBounds[i] = cell;
+                }
+            }
+        }
+        else
+        {
+            // Align row horizontally.
+            switch (self.hAlign)
+            {
+                case H_ALIGN_LEFT:
+                    hAdjustment = 0;
+                    break;
+                case H_ALIGN_CENTER:
+                    hAdjustment = roundf(extraRowSpace / 2);
+                    break;
+                case H_ALIGN_RIGHT:
+                    hAdjustment = extraRowSpace;
+                    break;
+                default:
+                    WeViewAssert(0);
+                    break;
+            }
         }
 
         for (int i=firstCellInRow; i <= lastCellInRow; i++)

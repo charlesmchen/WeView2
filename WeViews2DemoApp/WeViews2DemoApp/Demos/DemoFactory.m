@@ -33,7 +33,7 @@ UIColor *UIColorRGB(unsigned int rgb)
     return @[
              [self stackDemo1],
              [self stackDemo2],
-             [self stackDemo3],
+             [self flowDemo3],
              [self horizontalDemo1],
              [self horizontalDemo2],
              [self horizontalDemo3],
@@ -41,6 +41,7 @@ UIColor *UIColorRGB(unsigned int rgb)
              [self verticalDemo2],
              [self flowDemo1],
              [self flowDemo2],
+             [self flowDemo3],
              [self iphoneDemo1],
              [self iphoneDemo2],
              [self randomImageDemo1],
@@ -53,7 +54,7 @@ UIColor *UIColorRGB(unsigned int rgb)
 
 + (Demo *)defaultDemo
 {
-    return [self iphoneDemo2];
+    return [self flowDemo3];
 }
 
 + (Demo *)randomImageDemo1
@@ -529,6 +530,42 @@ UIColor *UIColorRGB(unsigned int rgb)
            [DemoFactory createLabel:@"Before" fontSize:16.f],
            [self imageViewWithImageName:@"Images/finder_64.png"],
            [DemoFactory createLabel:@"After" fontSize:16.f],
+           ]]
+          setMargin:10]
+         setSpacing:10];
+
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)flowDemo3
+{
+    NSString *demoName = @"Flow Demo 3";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        [demoModel.rootView useFlowDefaultLayout];
+        [[[demoModel.rootView addSubviewsToDefaultLayout:@[
+           [DemoFactory createLabel:@"A UILabel"
+                           fontSize:16.f],
+           [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]],
+           [DemoFactory createLabel:@"=^)"
+                           fontSize:24.f],
+           [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/ok_button_up.png"]],
+           [DemoFactory createLabel:@"=^)"
+                           fontSize:24.f],
+           [DemoViewFactory createFlatUIButton:@"A UIButton"
+                                     textColor:[UIColor whiteColor]
+                                   buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+                                        target:nil
+                                      selector:nil],
+           [self createWrappingLabel],
            ]]
           setMargin:10]
          setSpacing:10];
