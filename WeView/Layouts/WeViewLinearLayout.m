@@ -115,6 +115,7 @@
         return [self insetSizeOfView:view];
     }
 
+    guideSize = CGSizeMax(guideSize, CGSizeZero);
     BOOL debugMinSize = [self debugMinSize];
     int indent = 0;
     if (debugMinSize)
@@ -325,6 +326,7 @@
     BOOL debugLayout = [self debugLayout];
     int indent = 0;
     CGSize guideSize = view.size;
+    guideSize = CGSizeMax(guideSize, CGSizeZero);
     if (debugLayout)
     {
         indent = [self viewHierarchyDistanceToWindow:view];
@@ -420,7 +422,6 @@
               cellStretchWeights);
     }
 
-    if (YES)
     {
         // Crop or Stretch if necessary.
 
