@@ -46,19 +46,33 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 // Subviews with larger relative stretch weights will be stretched more.
 @property (nonatomic) CGFloat vStretchWeight;
 
-// This adjustment can be used to manipulate the spacing immediately before this view.
+// An adjustment to the spacing to the left of this view, if any.
 //
 // This value can be positive or negative.
 //
 // Only applies to the horizontal, vertical and flow layouts.
-@property (nonatomic) int previousSpacingAdjustment;
+@property (nonatomic) int leftSpacingAdjustment;
 
-// This adjustment can be used to manipulate the spacing immediately after this view.
+// An adjustment to the spacing above this view, if any.
+//
+// This value can be positive or negative.
+//
+// Only applies to the horizontal and vertical layouts.
+@property (nonatomic) int topSpacingAdjustment;
+
+// An adjustment to the spacing to the right of this view, if any.
 //
 // This value can be positive or negative.
 //
 // Only applies to the horizontal, vertical and flow layouts.
-@property (nonatomic) int nextSpacingAdjustment;
+@property (nonatomic) int rightSpacingAdjustment;
+
+// An adjustment to the spacing below this view, if any.
+//
+// This value can be positive or negative.
+//
+// Only applies to the horizontal and vertical layouts.
+@property (nonatomic) int bottomSpacingAdjustment;
 
 // This adjustment can be used to manipulate the desired width of a view.
 @property (nonatomic) CGFloat desiredWidthAdjustment;
@@ -221,8 +235,10 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     [result appendString:[self formatLayoutDescriptionItem:@"maxHeight" value:@(self.maxHeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"hStretchWeight" value:@(self.hStretchWeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"vStretchWeight" value:@(self.vStretchWeight)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"previousSpacingAdjustment" value:@(self.previousSpacingAdjustment)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"nextSpacingAdjustment" value:@(self.nextSpacingAdjustment)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"leftSpacingAdjustment" value:@(self.leftSpacingAdjustment)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"topSpacingAdjustment" value:@(self.topSpacingAdjustment)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"rightSpacingAdjustment" value:@(self.rightSpacingAdjustment)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"bottomSpacingAdjustment" value:@(self.bottomSpacingAdjustment)]];
     [result appendString:[self formatLayoutDescriptionItem:@"desiredWidthAdjustment" value:@(self.desiredWidthAdjustment)]];
     [result appendString:[self formatLayoutDescriptionItem:@"desiredHeightAdjustment" value:@(self.desiredHeightAdjustment)]];
     [result appendString:[self formatLayoutDescriptionItem:@"ignoreDesiredSize" value:@(self.ignoreDesiredSize)]];
@@ -335,26 +351,50 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     return self;
 }
 
-- (int)previousSpacingAdjustment
+- (int)leftSpacingAdjustment
 {
-    return [self.viewInfo previousSpacingAdjustment];
+    return [self.viewInfo leftSpacingAdjustment];
 }
 
-- (UIView *)setPreviousSpacingAdjustment:(int)value
+- (UIView *)setLeftSpacingAdjustment:(int)value
 {
-    [self.viewInfo setPreviousSpacingAdjustment:value];
+    [self.viewInfo setLeftSpacingAdjustment:value];
     [self.superview setNeedsLayout];
     return self;
 }
 
-- (int)nextSpacingAdjustment
+- (int)topSpacingAdjustment
 {
-    return [self.viewInfo nextSpacingAdjustment];
+    return [self.viewInfo topSpacingAdjustment];
 }
 
-- (UIView *)setNextSpacingAdjustment:(int)value
+- (UIView *)setTopSpacingAdjustment:(int)value
 {
-    [self.viewInfo setNextSpacingAdjustment:value];
+    [self.viewInfo setTopSpacingAdjustment:value];
+    [self.superview setNeedsLayout];
+    return self;
+}
+
+- (int)rightSpacingAdjustment
+{
+    return [self.viewInfo rightSpacingAdjustment];
+}
+
+- (UIView *)setRightSpacingAdjustment:(int)value
+{
+    [self.viewInfo setRightSpacingAdjustment:value];
+    [self.superview setNeedsLayout];
+    return self;
+}
+
+- (int)bottomSpacingAdjustment
+{
+    return [self.viewInfo bottomSpacingAdjustment];
+}
+
+- (UIView *)setBottomSpacingAdjustment:(int)value
+{
+    [self.viewInfo setBottomSpacingAdjustment:value];
     [self.superview setNeedsLayout];
     return self;
 }

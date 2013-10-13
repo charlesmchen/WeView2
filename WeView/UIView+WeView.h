@@ -51,21 +51,37 @@
 - (CGFloat)vStretchWeight;
 - (UIView *)setVStretchWeight:(CGFloat)value;
 
-// This adjustment can be used to manipulate the spacing immediately before this view.
+// An adjustment to the spacing to the left of this view, if any.
 //
 // This value can be positive or negative.
 //
 // Only applies to the horizontal, vertical and flow layouts.
-- (int)previousSpacingAdjustment;
-- (UIView *)setPreviousSpacingAdjustment:(int)value;
+- (int)leftSpacingAdjustment;
+- (UIView *)setLeftSpacingAdjustment:(int)value;
 
-// This adjustment can be used to manipulate the spacing immediately after this view.
+// An adjustment to the spacing above this view, if any.
+//
+// This value can be positive or negative.
+//
+// Only applies to the horizontal and vertical layouts.
+- (int)topSpacingAdjustment;
+- (UIView *)setTopSpacingAdjustment:(int)value;
+
+// An adjustment to the spacing to the right of this view, if any.
 //
 // This value can be positive or negative.
 //
 // Only applies to the horizontal, vertical and flow layouts.
-- (int)nextSpacingAdjustment;
-- (UIView *)setNextSpacingAdjustment:(int)value;
+- (int)rightSpacingAdjustment;
+- (UIView *)setRightSpacingAdjustment:(int)value;
+
+// An adjustment to the spacing below this view, if any.
+//
+// This value can be positive or negative.
+//
+// Only applies to the horizontal and vertical layouts.
+- (int)bottomSpacingAdjustment;
+- (UIView *)setBottomSpacingAdjustment:(int)value;
 
 // This adjustment can be used to manipulate the desired width of a view.
 - (CGFloat)desiredWidthAdjustment;

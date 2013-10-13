@@ -512,14 +512,24 @@ haveAnyOfPrefixes:(NSArray *)prefixes
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setVStretchWeight", FormatFloat(view.vStretchWeight)]];
     }
 
-    if (view.previousSpacingAdjustment != virginView.previousSpacingAdjustment)
+    if (view.leftSpacingAdjustment != virginView.leftSpacingAdjustment)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setPreviousSpacingAdjustment", FormatInt(view.previousSpacingAdjustment)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setLeftSpacingAdjustment", FormatInt(view.leftSpacingAdjustment)]];
     }
 
-    if (view.nextSpacingAdjustment != virginView.nextSpacingAdjustment)
+    if (view.topSpacingAdjustment != virginView.topSpacingAdjustment)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setNextSpacingAdjustment", FormatInt(view.nextSpacingAdjustment)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setTopSpacingAdjustment", FormatInt(view.topSpacingAdjustment)]];
+    }
+
+    if (view.rightSpacingAdjustment != virginView.rightSpacingAdjustment)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setRightSpacingAdjustment", FormatInt(view.rightSpacingAdjustment)]];
+    }
+
+    if (view.bottomSpacingAdjustment != virginView.bottomSpacingAdjustment)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setBottomSpacingAdjustment", FormatInt(view.bottomSpacingAdjustment)]];
     }
 
     if (view.desiredWidthAdjustment != virginView.desiredWidthAdjustment)

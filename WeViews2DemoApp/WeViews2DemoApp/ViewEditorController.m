@@ -536,9 +536,13 @@ typedef void (^SetterBlock)(id item);
 
                                 [ViewParameterSimple floatProperty:@"vStretchWeight"],
 
-                                [ViewParameterSimple intProperty:@"previousSpacingAdjustment" doubleHeight:YES],
+                                [ViewParameterSimple intProperty:@"leftSpacingAdjustment" doubleHeight:YES],
 
-                                [ViewParameterSimple intProperty:@"nextSpacingAdjustment" doubleHeight:YES],
+                                [ViewParameterSimple intProperty:@"topSpacingAdjustment" doubleHeight:YES],
+
+                                [ViewParameterSimple intProperty:@"rightSpacingAdjustment" doubleHeight:YES],
+
+                                [ViewParameterSimple intProperty:@"bottomSpacingAdjustment" doubleHeight:YES],
 
                                 [ViewParameterSimple floatProperty:@"desiredWidthAdjustment" doubleHeight:YES],
 

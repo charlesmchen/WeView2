@@ -132,6 +132,12 @@
     UIView *lastSubview = nil;
     for (int i=0; i < subviewCount; i++)
     {
+        UIView *subview = subviews[i];
+        if (lastSubview)
+        {
+            x += subview.leftSpacingAdjustment;
+        }
+
         int proposedRowWidth = x + subviewDesiredSizes[i].width;
         if (itemsInRow > 0 &&
             proposedRowWidth > contentBounds.size.width)
@@ -153,15 +159,10 @@
         cellBounds[i] = cell;
         cellRows[i] = row;
 
-        UIView *subview = subviews[i];
-
         rowWidth = x + subviewDesiredSizes[i].width;
         rowHeight = MAX(rowHeight, subviewDesiredSizes[i].height);
         x += subviewDesiredSizes[i].width + hSpacing;
-        if (lastSubview)
-        {
-            x += lastSubview.nextSpacingAdjustment + subview.previousSpacingAdjustment;
-        }
+        x += subview.rightSpacingAdjustment;
 
         itemsInRow++;
         totalBodyWidth = MAX(totalBodyWidth, rowWidth);

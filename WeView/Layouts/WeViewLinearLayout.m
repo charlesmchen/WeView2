@@ -95,8 +95,8 @@
             if (lastSubview)
             {
                 int spacing = roundf(baseSpacing +
-                                     lastSubview.nextSpacingAdjustment +
-                                     subview.previousSpacingAdjustment);
+                                     (horizontal ? lastSubview.rightSpacingAdjustment : lastSubview.bottomSpacingAdjustment) +
+                                     (horizontal ? subview.leftSpacingAdjustment : subview.topSpacingAdjustment));
                 totalSpacing += spacing;
                 [spacings addObject:@(spacing)];
             }
