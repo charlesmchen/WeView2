@@ -215,7 +215,7 @@
     CGFloat maxTotalAxisSize = horizontal ? maxTotalSubviewsSize.width : maxTotalSubviewsSize.height;
 
     CGFloat extraAxisSpace = maxTotalAxisSize - rawTotalAxisSize;
-    BOOL hasNonEmptyGuideSize = guideSize.width * guideSize.height > 0;
+    BOOL hasNonEmptyGuideSize = !CGSizeEqualToSize(guideSize, CGSizeZero);
     if (hasNonEmptyGuideSize)
     {
         if (extraAxisSpace < 0)
