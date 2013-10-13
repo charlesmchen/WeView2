@@ -208,6 +208,16 @@ layout_propertyGroups = (
                         layoutProperty=True, ),
                    ),
                   (
+                   Property('spacingStretches', 'BOOL',
+                       comments=(
+                           'If YES, the spacings between subviews will be stretched if there is any extra space.',
+                           'Extra space will be distributed evenly between the spacings.',
+                           'Layouts will prefer to stretch subviews if possible.  Spacings will only be stretched if there are no stretching subviews to receive the extra space.',
+                           'The spacings will not be cropped if the layout cannot fit its subviews within their superview, even if this property is YES.'
+                           ),
+                       layoutProperty=True, ),
+                   ),
+                  (
                    Property('cropSubviewOverflow', 'BOOL',
                        comments=(
                            'By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView overflows its bounds, subviews are cropped to fit inside the available space.',

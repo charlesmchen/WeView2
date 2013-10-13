@@ -223,8 +223,9 @@ typedef void (^SetterBlock)(id item);
          setSpacing:4];
 
         [container useVerticalDefaultLayout];
-        [[[[container addSubviewsToDefaultLayout:@[[topPanel setStretches],
-            [bottomPanel setStretches], ]]
+        [[[[container addSubviewsToDefaultLayout:@[
+                                                   [topPanel setHStretches],
+            [bottomPanel setHStretches], ]]
            setHMargin:10]
           setVMargin:2]
          setSpacing:4];
@@ -693,6 +694,8 @@ typedef void (^SetterBlock)(id item);
                                  ]
                                  doubleHeight:YES],
 
+                                [ViewParameterSimple booleanProperty:@"spacingStretches"],
+
                                 [ViewParameterSimple booleanProperty:@"cropSubviewOverflow"],
 
                                 [ViewParameterSimple create:@"cellPositioning"
@@ -831,7 +834,7 @@ typedef void (^SetterBlock)(id item);
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
+    return [self tableView:tableView cellForRowAtIndexPath:indexPath].height;
 }
 
 #pragma mark -

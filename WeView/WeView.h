@@ -127,4 +127,7 @@
 
 - (void)removeAllSubviews;
 
+- (void)setDebugLayoutOfAllLayouts:(BOOL)value;
+- (void)setDebugMinSizeOfAllLayouts:(BOOL)value;
+
 @end

@@ -476,4 +476,20 @@
                                                          stretchPolicy:GRID_STRETCH_POLICY_STRETCH_SPACING]];
 }
 
+- (void)setDebugLayoutOfAllLayouts:(BOOL)value
+{
+    for (WeViewLayout *layout in [self allLayouts])
+    {
+        layout.debugLayout = value;
+    }
+}
+
+- (void)setDebugMinSizeOfAllLayouts:(BOOL)value
+{
+    for (WeViewLayout *layout in [self allLayouts])
+    {
+        layout.debugMinSize = value;
+    }
+}
+
 @end

@@ -23,10 +23,13 @@
 // [minSizeOfContentsView: subviews: thatFitsSize:].
 //
 // This method returns the minimum size for _view_ such that it can lay out the given list of
-// _subviews_ given the suggested _size_.
+// _subviews_ given the suggested _guideSize_.
+//
+// If the guideSize is equal to CGSizeZero, this method should return the "ideal" desired size,
+// ie. without any wrapping, etc.
 - (CGSize)minSizeOfContentsView:(UIView *)view
                        subviews:(NSArray *)subviews
-                   thatFitsSize:(CGSize)size;
+                   thatFitsSize:(CGSize)guideSize;
 
 // Subclasses only need to implement two methods, [layoutContentsOfView: subviews:] and
 // [minSizeOfContentsView: subviews: thatFitsSize:].
@@ -74,6 +77,20 @@
 // The vertical alignment of this layout.
 - (VAlign)vAlign;
 - (WeViewLayout *)setVAlign:(VAlign)value;
+
+// If YES, the spacings between subviews will be stretched if there is any extra space.
+//
+// Extra space will be distributed evenly between the spacings.
+//
+// Layouts will prefer to stretch subviews if possible.  Spacings will only be stretched if there
+// are no stretching subviews to receive the extra
+// space.
+//
+// The spacings will not be cropped if the layout cannot fit its subviews within their superview,
+// even if this property is
+// YES.
+- (BOOL)spacingStretches;
+- (WeViewLayout *)setSpacingStretches:(BOOL)value;
 
 // By default, if the content size (ie. the total subview size plus margins and spacing) of a
 // WeView overflows its bounds, subviews are cropped to fit inside the available

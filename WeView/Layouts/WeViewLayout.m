@@ -75,6 +75,8 @@ int _hSpacing;
 HAlign _hAlign;
 VAlign _vAlign;
 
+BOOL _spacingStretches;
+
 BOOL _cropSubviewOverflow;
 CellPositioningMode _cellPositioning;
 
@@ -219,6 +221,18 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setVAlign:(VAlign)value
 {
     _vAlign = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (BOOL)spacingStretches
+{
+    return _spacingStretches;
+}
+
+- (WeViewLayout *)setSpacingStretches:(BOOL)value
+{
+    _spacingStretches = value;
     [self._superview setNeedsLayout];
     return self;
 }
@@ -622,6 +636,7 @@ BOOL _debugMinSize;
     self.hSpacing = layout.hSpacing;
     self.hAlign = layout.hAlign;
     self.vAlign = layout.vAlign;
+    self.spacingStretches = layout.spacingStretches;
     self.cropSubviewOverflow = layout.cropSubviewOverflow;
     self.cellPositioning = layout.cellPositioning;
     self.debugLayout = layout.debugLayout;

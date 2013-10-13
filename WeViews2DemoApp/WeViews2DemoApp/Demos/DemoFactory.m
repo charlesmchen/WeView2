@@ -33,6 +33,7 @@ UIColor *UIColorRGB(unsigned int rgb)
     return @[
              [self stackDemo1],
              [self stackDemo2],
+             [self stackDemo3],
              [self horizontalDemo1],
              [self horizontalDemo2],
              [self horizontalDemo3],
@@ -119,6 +120,32 @@ UIColor *UIColorRGB(unsigned int rgb)
 
         [demoModel.rootView addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]]];
         [[[[demoModel.rootView useStackDefaultLayout]
+           setVMargin:10]
+          setHMargin:20]
+         setSpacing:5];
+
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        //    result.debugLayout = YES;
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)stackDemo3
+{
+    NSString *demoName = @"Stack Demo 3";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        [[[[demoModel.rootView addSubviewsWithStackLayout:@[
+                                                         [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]],
+         [DemoFactory createLabel:@"A UILabel"
+                         fontSize:16.f],
+         ]]
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
