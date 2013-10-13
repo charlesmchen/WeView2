@@ -106,6 +106,36 @@
     return spacings;
 }
 
+- (void)updateSizingOfSubviews:(NSArray *)subviews
+                 cellAxisSizes:(NSMutableArray *)cellAxisSizes
+                cellCrossSizes:(NSMutableArray *)cellCrossSizes
+                    horizontal:(BOOL)horizontal
+                  maxCrossSize:(CGFloat)maxCrossSize
+{
+    WeViewAssert([cellAxisSizes count] == [subviews count]);
+    WeViewAssert([cellCrossSizes count] == [subviews count]);
+    int subviewCount = [subviews count];
+    BOOL cropSubviewOverflow = [self cropSubviewOverflow];
+
+    for (int i=0; i < subviewCount; i++)
+    {
+        UIView* subview = subviews[i];
+        CGSize maxCellSize = CGSizeMake(horizontal ? [cellAxisSizes[i] floatValue] : maxCrossSize,
+                                        horizontal ? maxCrossSize : [cellAxisSizes[i] floatValue]);
+        CGSize subviewSize = [self desiredItemSize:subview
+                                           maxSize:maxCellSize];
+        subviewSize = CGSizeMax(CGSizeZero,
+                                CGSizeCeil(subviewSize));
+        if (cropSubviewOverflow)
+        {
+            subviewSize = CGSizeMin(maxCellSize, subviewSize);
+        }
+
+        // We only update the cross size.
+        cellCrossSizes[i] = @(horizontal ? subviewSize.height : subviewSize.width);
+    }
+}
+
 - (CGSize)minSizeOfContentsView:(UIView *)view
                        subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize
@@ -155,7 +185,8 @@
     NSMutableArray *cellAxisSizes = [NSMutableArray array];
     NSMutableArray *cellCrossSizes = [NSMutableArray array];
     NSMutableArray *cellStretchWeights = [NSMutableArray array];
-    BOOL hasCellWithStretch = NO;
+    BOOL hasCellWithAxisStretch = NO;
+    BOOL hasCellWithCrossStretch = NO;
     for (int i=0; i < subviewCount; i++)
     {
         UIView* subview = subviews[i];
@@ -168,11 +199,15 @@
          ? subviewSize.height
                                 : subviewSize.width)];
 
-        CGFloat cellStretchWeight = MAX(0, (horizontal
-                                            ? subview.hStretchWeight
-                                            : subview.vStretchWeight));
-        [cellStretchWeights addObject:@(cellStretchWeight)];
-        hasCellWithStretch |= cellStretchWeight > 0.f;
+        CGFloat cellAxisStretchWeight = MAX(0, (horizontal
+                                                ? subview.hStretchWeight
+                                                : subview.vStretchWeight));
+        CGFloat cellCrossStretchWeight = MAX(0, (horizontal
+                                                 ? subview.vStretchWeight
+                                                 : subview.hStretchWeight));
+        [cellStretchWeights addObject:@(cellAxisStretchWeight)];
+        hasCellWithAxisStretch |= cellAxisStretchWeight > 0.f;
+        hasCellWithCrossStretch |= cellCrossStretchWeight > 0.f;
     }
 
     CGFloat maxCrossSize = horizontal ? maxTotalSubviewsSize.height : maxTotalSubviewsSize.width;
@@ -184,34 +219,45 @@
     BOOL hasNonEmptyGuideSize = guideSize.width * guideSize.height > 0;
     if (extraAxisSpace < 0)
     {
-        // TODO: crop from subviews with axis stretch first.  Then crop other subviews only if
-        // necessary.
-        BOOL cropSubviewOverflow = [self cropSubviewOverflow];
-        if (cropSubviewOverflow && hasNonEmptyGuideSize)
+        // Crop from subviews with axis stretch first.
+        if (hasCellWithAxisStretch && hasNonEmptyGuideSize && horizontal)
         {
+            [self distributeAdjustment:-extraAxisSpace
+                          acrossValues:cellAxisSizes
+                           withWeights:cellStretchWeights
+                              withSign:-1.f
+                           withMaxZero:YES];
+
+            [self updateSizingOfSubviews:subviews
+                           cellAxisSizes:cellAxisSizes
+                          cellCrossSizes:cellCrossSizes
+                              horizontal:horizontal
+                            maxCrossSize:maxCrossSize];
+
+            rawTotalAxisSize = [self sumFloats:cellAxisSizes];
+            extraAxisSpace = maxTotalAxisSize - rawTotalAxisSize;
+        }
+
+        BOOL cropSubviewOverflow = [self cropSubviewOverflow];
+        if (extraAxisSpace < 0 && cropSubviewOverflow && hasNonEmptyGuideSize)
+        {
+            // If we still have underflow, crop all subviews.
             [self distributeAdjustment:-extraAxisSpace
                           acrossValues:cellAxisSizes
                            withWeights:cellAxisSizes
                               withSign:-1.f
                            withMaxZero:YES];
 
-            for (int i=0; i < subviewCount; i++)
-            {
-                UIView* subview = subviews[i];
-                CGSize maxCellSize = CGSizeMake(horizontal ? [cellAxisSizes[i] floatValue] : maxCrossSize,
-                                                horizontal ? maxCrossSize : [cellAxisSizes[i] floatValue]);
-                CGSize subviewSize = [self desiredItemSize:subview
-                                                   maxSize:maxCellSize];
-                subviewSize = CGSizeMax(CGSizeZero,
-                                        CGSizeCeil(subviewSize));
-                cellAxisSizes[i] = @(horizontal ? subviewSize.width : subviewSize.height);
-                cellCrossSizes[i] = @(horizontal ? subviewSize.height : subviewSize.width);
-            }
+            [self updateSizingOfSubviews:subviews
+                           cellAxisSizes:cellAxisSizes
+                          cellCrossSizes:cellCrossSizes
+                              horizontal:horizontal
+                            maxCrossSize:maxCrossSize];
         }
     }
     else if (extraAxisSpace > 0)
     {
-        if (hasCellWithStretch && hasNonEmptyGuideSize && horizontal)
+        if (hasCellWithAxisStretch && hasNonEmptyGuideSize && horizontal)
         {
             [self distributeAdjustment:extraAxisSpace
                           acrossValues:cellAxisSizes
@@ -219,18 +265,11 @@
                               withSign:+1.f
                            withMaxZero:YES];
 
-            for (int i=0; i < subviewCount; i++)
-            {
-                UIView* subview = subviews[i];
-                CGSize maxCellSize = CGSizeMake(horizontal ? [cellAxisSizes[i] floatValue] : maxCrossSize,
-                                                horizontal ? maxCrossSize : [cellAxisSizes[i] floatValue]);
-                CGSize subviewSize = [self desiredItemSize:subview
-                                                   maxSize:maxCellSize];
-                subviewSize = CGSizeMax(CGSizeZero,
-                                        CGSizeCeil(subviewSize));
-                cellAxisSizes[i] = @(horizontal ? subviewSize.width : subviewSize.height);
-                cellCrossSizes[i] = @(horizontal ? subviewSize.height : subviewSize.width);
-            }
+            [self updateSizingOfSubviews:subviews
+                           cellAxisSizes:cellAxisSizes
+                          cellCrossSizes:cellCrossSizes
+                              horizontal:horizontal
+                            maxCrossSize:maxCrossSize];
         }
     }
 
@@ -430,26 +469,40 @@
         BOOL hasNonEmptyGuideSize = guideSize.width * guideSize.height > 0;
         if (extraAxisSpace < 0)
         {
-            if (cropSubviewOverflow && hasNonEmptyGuideSize)
+            // Crop from subviews with axis stretch first.
+            if (hasCellWithAxisStretch && hasNonEmptyGuideSize && horizontal)
             {
+                [self distributeAdjustment:-extraAxisSpace
+                              acrossValues:cellAxisSizes
+                               withWeights:cellStretchWeights
+                                  withSign:-1.f
+                               withMaxZero:YES];
+
+                [self updateSizingOfSubviews:subviews
+                               cellAxisSizes:cellAxisSizes
+                              cellCrossSizes:cellCrossSizes
+                                  horizontal:horizontal
+                                maxCrossSize:maxCrossSize];
+
+                rawTotalAxisSize = [self sumFloats:cellAxisSizes];
+                extraAxisSpace = maxTotalAxisSize - rawTotalAxisSize;
+            }
+
+            BOOL cropSubviewOverflow = [self cropSubviewOverflow];
+            if (extraAxisSpace < 0 && cropSubviewOverflow && hasNonEmptyGuideSize)
+            {
+                // If we still have underflow, crop all subviews.
                 [self distributeAdjustment:-extraAxisSpace
                               acrossValues:cellAxisSizes
                                withWeights:cellAxisSizes
                                   withSign:-1.f
                                withMaxZero:YES];
 
-                for (int i=0; i < subviewCount; i++)
-                {
-                    UIView* subview = subviews[i];
-                    CGSize maxCellSize = CGSizeMake(horizontal ? [cellAxisSizes[i] floatValue] : maxCrossSize,
-                                                    horizontal ? maxCrossSize : [cellAxisSizes[i] floatValue]);
-                    CGSize subviewSize = [self desiredItemSize:subview
-                                                       maxSize:maxCellSize];
-                    subviewSize = CGSizeMax(CGSizeZero,
-                                            CGSizeMin(maxCellSize,
-                                                      CGSizeCeil(subviewSize)));
-                    cellCrossSizes[i] = @(horizontal ? subviewSize.height : subviewSize.width);
-                }
+                [self updateSizingOfSubviews:subviews
+                               cellAxisSizes:cellAxisSizes
+                              cellCrossSizes:cellCrossSizes
+                                  horizontal:horizontal
+                                maxCrossSize:maxCrossSize];
             }
         }
         else if (extraAxisSpace > 0)
@@ -462,18 +515,11 @@
                                   withSign:+1.f
                                withMaxZero:YES];
 
-                for (int i=0; i < subviewCount; i++)
-                {
-                    UIView* subview = subviews[i];
-                    CGSize maxCellSize = CGSizeMake(horizontal ? [cellAxisSizes[i] floatValue] : maxCrossSize,
-                                                    horizontal ? maxCrossSize : [cellAxisSizes[i] floatValue]);
-                    CGSize subviewSize = [self desiredItemSize:subview
-                                                       maxSize:maxCellSize];
-                    subviewSize = CGSizeMax(CGSizeZero,
-                                            CGSizeCeil(subviewSize));
-
-                    cellCrossSizes[i] = @(horizontal ? subviewSize.height : subviewSize.width);
-                }
+                [self updateSizingOfSubviews:subviews
+                               cellAxisSizes:cellAxisSizes
+                              cellCrossSizes:cellCrossSizes
+                                  horizontal:horizontal
+                                maxCrossSize:maxCrossSize];
             }
         }
 
