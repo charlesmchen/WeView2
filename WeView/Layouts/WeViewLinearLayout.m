@@ -215,61 +215,63 @@
     CGFloat maxTotalAxisSize = horizontal ? maxTotalSubviewsSize.width : maxTotalSubviewsSize.height;
 
     CGFloat extraAxisSpace = maxTotalAxisSize - rawTotalAxisSize;
-    // TODO: Use hasNonEmptyGuideSize in other layouts as well.
     BOOL hasNonEmptyGuideSize = guideSize.width * guideSize.height > 0;
-    if (extraAxisSpace < 0)
+    if (hasNonEmptyGuideSize)
     {
-        // Crop from subviews with axis stretch first.
-        if (hasCellWithAxisStretch && hasNonEmptyGuideSize && horizontal)
+        if (extraAxisSpace < 0)
         {
-            [self distributeAdjustment:-extraAxisSpace
-                          acrossValues:cellAxisSizes
-                           withWeights:cellStretchWeights
-                              withSign:-1.f
-                           withMaxZero:YES];
+            // Crop from subviews with axis stretch first.
+            if (hasCellWithAxisStretch && horizontal)
+            {
+                [self distributeAdjustment:-extraAxisSpace
+                              acrossValues:cellAxisSizes
+                               withWeights:cellStretchWeights
+                                  withSign:-1.f
+                               withMaxZero:YES];
 
-            [self updateSizingOfSubviews:subviews
-                           cellAxisSizes:cellAxisSizes
-                          cellCrossSizes:cellCrossSizes
-                              horizontal:horizontal
-                            maxCrossSize:maxCrossSize];
+                [self updateSizingOfSubviews:subviews
+                               cellAxisSizes:cellAxisSizes
+                              cellCrossSizes:cellCrossSizes
+                                  horizontal:horizontal
+                                maxCrossSize:maxCrossSize];
 
-            rawTotalAxisSize = [self sumFloats:cellAxisSizes];
-            extraAxisSpace = maxTotalAxisSize - rawTotalAxisSize;
+                rawTotalAxisSize = [self sumFloats:cellAxisSizes];
+                extraAxisSpace = maxTotalAxisSize - rawTotalAxisSize;
+            }
+
+            BOOL cropSubviewOverflow = [self cropSubviewOverflow];
+            if (extraAxisSpace < 0 && cropSubviewOverflow)
+            {
+                // If we still have underflow, crop all subviews.
+                [self distributeAdjustment:-extraAxisSpace
+                              acrossValues:cellAxisSizes
+                               withWeights:cellAxisSizes
+                                  withSign:-1.f
+                               withMaxZero:YES];
+
+                [self updateSizingOfSubviews:subviews
+                               cellAxisSizes:cellAxisSizes
+                              cellCrossSizes:cellCrossSizes
+                                  horizontal:horizontal
+                                maxCrossSize:maxCrossSize];
+            }
         }
-
-        BOOL cropSubviewOverflow = [self cropSubviewOverflow];
-        if (extraAxisSpace < 0 && cropSubviewOverflow && hasNonEmptyGuideSize)
+        else if (extraAxisSpace > 0)
         {
-            // If we still have underflow, crop all subviews.
-            [self distributeAdjustment:-extraAxisSpace
-                          acrossValues:cellAxisSizes
-                           withWeights:cellAxisSizes
-                              withSign:-1.f
-                           withMaxZero:YES];
+            if (hasCellWithAxisStretch && horizontal)
+            {
+                [self distributeAdjustment:extraAxisSpace
+                              acrossValues:cellAxisSizes
+                               withWeights:cellStretchWeights
+                                  withSign:+1.f
+                               withMaxZero:YES];
 
-            [self updateSizingOfSubviews:subviews
-                           cellAxisSizes:cellAxisSizes
-                          cellCrossSizes:cellCrossSizes
-                              horizontal:horizontal
-                            maxCrossSize:maxCrossSize];
-        }
-    }
-    else if (extraAxisSpace > 0)
-    {
-        if (hasCellWithAxisStretch && hasNonEmptyGuideSize && horizontal)
-        {
-            [self distributeAdjustment:extraAxisSpace
-                          acrossValues:cellAxisSizes
-                           withWeights:cellStretchWeights
-                              withSign:+1.f
-                           withMaxZero:YES];
-
-            [self updateSizingOfSubviews:subviews
-                           cellAxisSizes:cellAxisSizes
-                          cellCrossSizes:cellCrossSizes
-                              horizontal:horizontal
-                            maxCrossSize:maxCrossSize];
+                [self updateSizingOfSubviews:subviews
+                               cellAxisSizes:cellAxisSizes
+                              cellCrossSizes:cellCrossSizes
+                                  horizontal:horizontal
+                                maxCrossSize:maxCrossSize];
+            }
         }
     }
 
@@ -466,11 +468,10 @@
 
         BOOL cropSubviewOverflow = [self cropSubviewOverflow];
         CGFloat extraAxisSpace = maxTotalAxisSize - rawTotalAxisSize;
-        BOOL hasNonEmptyGuideSize = guideSize.width * guideSize.height > 0;
         if (extraAxisSpace < 0)
         {
             // Crop from subviews with axis stretch first.
-            if (hasCellWithAxisStretch && hasNonEmptyGuideSize && horizontal)
+            if (hasCellWithAxisStretch && horizontal)
             {
                 [self distributeAdjustment:-extraAxisSpace
                               acrossValues:cellAxisSizes
@@ -489,7 +490,7 @@
             }
 
             BOOL cropSubviewOverflow = [self cropSubviewOverflow];
-            if (extraAxisSpace < 0 && cropSubviewOverflow && hasNonEmptyGuideSize)
+            if (extraAxisSpace < 0 && cropSubviewOverflow)
             {
                 // If we still have underflow, crop all subviews.
                 [self distributeAdjustment:-extraAxisSpace
@@ -507,7 +508,7 @@
         }
         else if (extraAxisSpace > 0)
         {
-            if (hasCellWithAxisStretch && hasNonEmptyGuideSize)
+            if (hasCellWithAxisStretch)
             {
                 [self distributeAdjustment:extraAxisSpace
                               acrossValues:cellAxisSizes

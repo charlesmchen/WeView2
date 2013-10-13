@@ -314,6 +314,9 @@ typedef struct
     }
 
     guideSize = CGSizeMax(guideSize, CGSizeZero);
+    // TODO: Apply hasNonEmptyGuideSize in grid layout to ensure proper handling of the zero
+    // case.
+//    BOOL hasNonEmptyGuideSize = guideSize.width * guideSize.height > 0;
     BOOL debugMinSize = [self debugMinSize];
     int indent = 0;
     if (debugMinSize)
