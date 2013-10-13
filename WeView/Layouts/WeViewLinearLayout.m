@@ -490,7 +490,7 @@
         UIView* subview = subviews[i];
         BOOL hasCrossStretch = (horizontal
                                 ? subview.vStretchWeight
-                                : subview.hStretchWeight);
+                                : subview.hStretchWeight) > 0;
         if (hasCrossStretch)
         {
             cellCrossSizes[i] = @(maxCrossSize);

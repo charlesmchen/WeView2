@@ -177,7 +177,8 @@
 
     int extraVSpace = MAX(0, contentBounds.size.height - totalBodyHeight);
     int vAdjustment = 0;
-    switch (self.vAlign) {
+    switch (self.vAlign)
+    {
         case V_ALIGN_TOP:
             vAdjustment = 0;
             break;
@@ -226,7 +227,8 @@
         WeViewAssert(rowWidth <= contentBounds.size.width);
         int extraRowSpace = contentBounds.size.width - rowWidth;
         int hAdjustment = 0;
-        switch (self.hAlign) {
+        switch (self.hAlign)
+        {
             case H_ALIGN_LEFT:
                 hAdjustment = 0;
                 break;

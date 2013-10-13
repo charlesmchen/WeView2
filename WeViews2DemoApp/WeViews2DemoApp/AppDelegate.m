@@ -42,6 +42,8 @@
 
     self.window.rootViewController = self.splitViewController;
 
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+
     [self.window makeKeyAndVisible];
     return YES;
 }

@@ -184,8 +184,12 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 - (NSString *)generateCodeForView:(UIView *)view
 {
     NSString *viewName = [self nameForView:view];
-    return [self generateCodeForView:view
-                            viewName:viewName];
+
+    NSMutableString *result = [@"" mutableCopy];
+    [result appendString:@"#import \"WeView.h\"\n\n"];
+    [result appendString:[self generateCodeForView:view
+                                          viewName:viewName]];
+    return result;
 }
 
 - (BOOL)layoutHasSingleForm:(WeViewLayout *)layout
@@ -198,8 +202,8 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
                  firstSubviewClause:(NSString *)firstSubviewClause
                layoutSubviewsClause:(NSString *)layoutSubviewsClause
 {
+    // TODO:
     //#import "WeViewGridLayout.h"
-    //#import "WeViewBlockLayout.h"
 
     if ([layout isKindOfClass:[WeViewLinearLayout class]])
     {
@@ -605,19 +609,35 @@ haveAnyOfPrefixes:(NSArray *)prefixes
 {
     NSMutableString *result = [@"" mutableCopy];
 
-    if ([self isKindOfClasses:view
-                      classes:@[
-         [UILabel class],
-         [UIButton class],
-         ]] ||
-        [view isMemberOfClass:[UIView class]])
-    {
-        [result appendFormat:@"%@ *%@ = [[%@ alloc] init];\n",
-         NSStringFromClass([view class]),
-         viewName,
-         NSStringFromClass([view class])];
-    }
-    else if ([view isKindOfClass:[WeView class]])
+//    if ([self isKindOfClasses:view
+//                      classes:@[
+//         [UILabel class],
+//         [UIButton class],
+//         ]] ||
+//        [view isMemberOfClass:[UIView class]])
+//    {
+//        [result appendFormat:@"%@ *%@ = [[%@ alloc] init];\n",
+//         NSStringFromClass([view class]),
+//         viewName,
+//         NSStringFromClass([view class])];
+//
+//        if ([view isKindOfClass:[UILabel class]])
+//        {
+//            UILabel *label = (UILabel *)view;
+//            if (label.text)
+//            {
+//                [result appendFormat:@"%@.text = @\"%@\";\n",
+//                 viewName,
+//                 label.text];
+//            }
+//
+//            [result appendFormat:@"//%@.text = @\"%@\";\n",
+//             viewName,
+//             label.text];
+//        }
+//    }
+//    else
+        if ([view isKindOfClass:[WeView class]])
     {
         [result appendFormat:@"%@ *%@ = [[%@ alloc] init];\n",
          NSStringFromClass([view class]),
@@ -661,15 +681,15 @@ haveAnyOfPrefixes:(NSArray *)prefixes
             [result appendString:layoutStatement];
         }
     }
-    else if ([view isKindOfClass:[UIImageView class]])
-    {
-        NSString *imageName = [self nameForInstanceOfClass:[UIImage class]];
-        [result appendFormat:@"UIImage *%@ = [UIImage alloc] imageNamed:...];\n",
-         imageName];
-        [result appendFormat:@"UIImageView *%@ = [[UIImageView alloc] initWithImage:%@];\n",
-         viewName,
-         imageName];
-    }
+//    else if ([view isKindOfClass:[UIImageView class]])
+//    {
+//        NSString *imageName = [self nameForInstanceOfClass:[UIImage class]];
+//        [result appendFormat:@"UIImage *%@ = [UIImage alloc] imageNamed:...];\n",
+//         imageName];
+//        [result appendFormat:@"UIImageView *%@ = [[UIImageView alloc] initWithImage:%@];\n",
+//         viewName,
+//         imageName];
+//    }
     else
     {
         [result appendFormat:@"%@ *%@ = ...;\n",

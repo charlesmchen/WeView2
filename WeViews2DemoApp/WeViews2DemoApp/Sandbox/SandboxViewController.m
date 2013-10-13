@@ -17,7 +17,7 @@
 #import <ImageIO/ImageIO.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "DemoCodeGeneration.h"
-
+#import "DemoViewFactory.h"
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -87,8 +87,10 @@
 
 @property (nonatomic) WeView *rootView;
 @property (nonatomic) SandboxView *sandboxView;
+@property (nonatomic) WeView *sandboxPanel;
 
 @property (nonatomic) UITextView *generatedCodeView;
+@property (nonatomic) WeView *generatedCodePanel;
 
 @property (nonatomic) DemoModel *demoModel;
 
@@ -129,6 +131,10 @@
 {
     self.sandboxView = [[DefaultSandboxView alloc] init];
     self.sandboxView.debugName = @"sandboxView";
+    self.sandboxView.clipsToBounds = YES;
+
+    self.sandboxPanel = [[WeView alloc] init];
+    [self.sandboxPanel addSubviewWithFillLayout:[[self.sandboxView setStretches] setIgnoreDesiredSize]];
 
     self.generatedCodeView = [[UITextView alloc] init];
     self.generatedCodeView.backgroundColor = [UIColor whiteColor];
@@ -140,14 +146,30 @@
                                                   size:13.f];
     self.generatedCodeView.editable = NO;
 
+    UIButton *logGeneratedCodeButton = [DemoViewFactory createFlatUIButton:@"Log Generated Code"
+                                                                 textColor:[UIColor whiteColor]
+                                                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+                                                                    target:self
+                                                                  selector:@selector(logGeneratedCode:)];
+
+    self.generatedCodePanel = [[WeView alloc] init];
+    [self.generatedCodePanel addSubviewWithFillLayout:[[self.generatedCodeView setStretches] setIgnoreDesiredSize]];
+    [[[[self.generatedCodePanel addSubviewWithCustomLayout:logGeneratedCodeButton]
+       setHAlign:H_ALIGN_RIGHT]
+      setVAlign:V_ALIGN_BOTTOM]
+     setMargin:10];
+
     self.rootView = [[WeView alloc] init];
-    self.rootView.backgroundColor = [UIColor blackColor];
+    self.rootView.backgroundColor = [UIColor colorWithWhite:0.5f alpha:1.f];
     self.rootView.opaque = YES;
-    [[self.rootView addSubviewsWithVerticalLayout:@[
-     [self.sandboxView setStretchWeight:4.f],
-     [self.generatedCodeView setStretchWeight:1.f],
+    [[[self.rootView addSubviewsWithVerticalLayout:@[
+     [[self.sandboxPanel setStretchWeight:4.f]
+       setIgnoreDesiredSize],
+     [[self.generatedCodePanel setStretchWeight:1.f]
+       setIgnoreDesiredSize],
      ]]
-     setSpacing:5];
+     setSpacing:2]
+     setDebugLayout:YES];
 
     self.view = self.rootView;
 }
@@ -163,16 +185,23 @@
 
 #ifdef TUTORIAL
     self.navigationItem.leftBarButtonItems = @[
+#if TARGET_IPHONE_SIMULATOR
                                                [[UIBarButtonItem alloc] initWithTitle:@"Snapshot"
                                                                                 style:UIBarButtonItemStyleBordered
                                                                                target:self
                                                                                action:@selector(addSnapshot:)],
+#endif
                                                [[UIBarButtonItem alloc] initWithTitle:@"Transform"
                                                                                 style:UIBarButtonItemStyleBordered
                                                                                target:self
                                                                                action:@selector(transformDemoModel:)],
+                                               [[UIBarButtonItem alloc] initWithTitle:@"Source"
+                                                                                style:UIBarButtonItemStyleBordered
+                                                                               target:self
+                                                                               action:@selector(toggleGeneratedCodeView:)],
                                                ];
     self.navigationItem.rightBarButtonItems = @[
+#if TARGET_IPHONE_SIMULATOR
                                                 [[UIBarButtonItem alloc] initWithTitle:@"Record"
                                                                                  style:UIBarButtonItemStyleBordered
                                                                                 target:self
@@ -185,8 +214,26 @@
                                                                                  style:UIBarButtonItemStyleBordered
                                                                                 target:self
                                                                                 action:@selector(stopVideo:)],
+#endif
                                                 ];
 #endif
+}
+
+- (void)logGeneratedCode:(id)sender
+{
+    NSLog(@"\n\n%@\n\n", [[[DemoCodeGeneration alloc] init] generateCodeForView:self.demoModel.rootView]);
+}
+
+- (void)toggleGeneratedCodeView:(id)sender
+{
+    if (self.generatedCodePanel.vStretchWeight > 0)
+    {
+        [self.generatedCodePanel setStretchWeight:0.f];
+    }
+    else
+    {
+        [self.generatedCodePanel setStretchWeight:1.f];
+    }
 }
 
 - (void)transformDemoModel:(id)sender
@@ -618,7 +665,7 @@
 {
 //    NSLog(@"takeSnapshot: %d", fullscreen);
 
-    UIView *snapshotView = self.sandboxView;
+    UIView *snapshotView = self.sandboxPanel;
     if (fullscreen)
     {
         snapshotView = [self lastViewControllerInResponderChain].view;
