@@ -16,6 +16,8 @@ The demo app uses a few icons from the [Glyphish Icon Set](http://www.glyphish.c
 
 The demo app uses a number of images in the public domain.
 
+The demo app uses the [Inconsolata](https://www.google.com/fonts/specimen/Inconsolata) monospaced font to display its generated code.
+
 GitHub Pages theme by [orderedlist](https://github.com/orderedlist).
 
 <!-- TEMPLATE END -->
