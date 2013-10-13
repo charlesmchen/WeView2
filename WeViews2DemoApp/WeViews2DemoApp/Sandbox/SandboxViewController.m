@@ -162,14 +162,13 @@
     self.rootView = [[WeView alloc] init];
     self.rootView.backgroundColor = [UIColor colorWithWhite:0.5f alpha:1.f];
     self.rootView.opaque = YES;
-    [[[self.rootView addSubviewsWithVerticalLayout:@[
-     [[self.sandboxPanel setStretchWeight:4.f]
+    [[self.rootView addSubviewsWithVerticalLayout:@[
+      [[self.sandboxPanel setStretchWeight:4.f]
        setIgnoreDesiredSize],
-     [[self.generatedCodePanel setStretchWeight:1.f]
+      [[self.generatedCodePanel setStretchWeight:1.f]
        setIgnoreDesiredSize],
-     ]]
-     setSpacing:2]
-     setDebugLayout:YES];
+      ]]
+     setSpacing:2];
 
     self.view = self.rootView;
 }
