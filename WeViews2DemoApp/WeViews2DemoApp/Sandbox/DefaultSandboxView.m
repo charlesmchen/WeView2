@@ -28,6 +28,7 @@ typedef enum
 @property (nonatomic) DemoModel *demoModel;
 @property (nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic) WeView *phoneContainer;
+@property (nonatomic) WeView *modePanel;
 
 @end
 
@@ -92,9 +93,9 @@ typedef enum
         self.panGestureRecognizer.enabled = NO;
     }
 
-    WeView *modePanel = [[WeView alloc] init];
+    self.modePanel = [[WeView alloc] init];
 
-    [[[modePanel addSubviewsWithVerticalLayout:@[
+    [[[self.modePanel addSubviewsWithVerticalLayout:@[
        [DemoViewFactory createFlatUIButton:@"Snap to desired size"
                                  textColor:[UIColor colorWithWhite:1.f alpha:1.f]
                                buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
@@ -124,7 +125,7 @@ typedef enum
       setSpacing:10]
      setHAlign:H_ALIGN_LEFT];
 
-    [[[[self addSubviewWithCustomLayout:modePanel]
+    [[[[self addSubviewWithCustomLayout:self.modePanel]
        setMargin:20]
       setHAlign:H_ALIGN_LEFT]
      setVAlign:V_ALIGN_BOTTOM];
@@ -172,8 +173,8 @@ typedef enum
         CGPoint distance = CGPointAbs(CGPointSubtract(rootViewCenter, gesturePoint));
 
         // Do not layout the phoneContainer.
-        [self.phoneContainer removeFromSuperview];
-        [self addSubview:self.phoneContainer];
+        [self.demoModel.rootView removeFromSuperview];
+        [self addSubview:self.demoModel.rootView];
 
         self.demoModel.rootView.size = CGSizeRound(CGSizeMake(distance.x * 2.f,
                                                               distance.y * 2.f));
