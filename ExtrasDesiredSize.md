@@ -3,8 +3,6 @@ permalink: ExtrasDesiredSize.html
 layout: default
 ---
 
-Next\: [Design Philosophy](designPhilosophy.html)
-
 Extras 1: Desired Size
 ==
 

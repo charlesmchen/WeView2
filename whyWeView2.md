@@ -3,8 +3,6 @@ permalink: whyWeView2.html
 layout: default
 ---
 
-Next\: [Tutorial 1: Simple Demo](Tutorial1.html)
-
 Why use WeView 2?
 ==
 

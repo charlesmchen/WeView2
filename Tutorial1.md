@@ -3,8 +3,6 @@ permalink: Tutorial1.html
 layout: default
 ---
 
-Next\: [Tutorial 2: iPhone Demo](Tutorial2.html)
-
 Tutorial 1: Simple Demo
 ==
 

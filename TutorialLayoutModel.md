@@ -3,8 +3,6 @@ permalink: TutorialLayoutModel.html
 layout: default
 ---
 
-Next\: [Tutorial 7: Desired Size](TutorialDesiredSize.html)
-
 Tutorial 6: Layout Model
 ==
 

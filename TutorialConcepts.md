@@ -3,8 +3,6 @@ permalink: TutorialConcepts.html
 layout: default
 ---
 
-Next\: [Tutorial 5: The Layouts](TutorialLayouts.html)
-
 Tutorial 4: Concepts
 ==
 
@@ -17,9 +15,8 @@ When a WeView layouts out it's subviews, there are three kinds of actors in play
 * The __layouts__ (which are a subclass of _WeViewLayout_). 
 
 * A given WeView can have __multiple layouts__.  It might use one layout to center a "title" UILabel at the top of its bounds and another layout to position a "share" UIButton in the bottom-right corner.
-* Every WeView has one __default layout__.  It applies to any subviews not associated with a __custom layout__.
-* Subviews are usually associated with a __custom layout__ when they are added to the WeView.
-* Most WeViews will only use a single layout.  It doesn't matter whether this is a custom or default layout.
+* Subviews are associated with a __layout__ when they are added to the WeView.
+* Most WeViews will only use a single layout.  
 
 As usual when working with UIKit:
 
@@ -33,6 +30,7 @@ As usual when working with UIKit:
 ### Mechanics
 
 * WeView uses UIKit's built-in mechanisms for coordinating layout: _\[UIView setNeedsLayout\]_ and _\[UIView layoutSubviews\]_.
+* Layout is automatically triggered when a UIView's size is changed.
 
 
 <!-- TEMPLATE END -->

@@ -3,8 +3,6 @@ permalink: Acknowledgments.html
 layout: default
 ---
 
-
-
 Acknowledgments
 ==
 

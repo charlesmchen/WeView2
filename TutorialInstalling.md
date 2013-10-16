@@ -3,8 +3,6 @@ permalink: TutorialInstalling.html
 layout: default
 ---
 
-Next\: [Tutorial 4: Concepts](TutorialConcepts.html)
-
 Tutorial 3: Installing
 ==
 

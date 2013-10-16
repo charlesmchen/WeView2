@@ -3,8 +3,6 @@ permalink: TutorialDesiredSize.html
 layout: default
 ---
 
-Next\: [Tutorial 8: Stretch](TutorialStretch.html)
-
 Tutorial 7: Desired Size
 ==
 

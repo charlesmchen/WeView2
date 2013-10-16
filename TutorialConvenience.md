@@ -3,8 +3,6 @@ permalink: TutorialConvenience.html
 layout: default
 ---
 
-Next\: [FAQ](FAQ.html)
-
 Tutorial 9: Conveniences
 ==
 

@@ -3,8 +3,6 @@ permalink: Issues.html
 layout: default
 ---
 
-Next\: [Extras 1: Desired Size](ExtrasDesiredSize.html)
-
 Bugs & Feature Requests
 ==
 

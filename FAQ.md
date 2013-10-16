@@ -3,8 +3,6 @@ permalink: FAQ.html
 layout: default
 ---
 
-Next\: [Bugs & Feature Requests](Issues.html)
-
 FAQ
 ==
 

@@ -3,8 +3,6 @@ permalink: License.html
 layout: default
 ---
 
-Next\: [Change Log](CHANGELOG.html)
-
 License
 ==
 

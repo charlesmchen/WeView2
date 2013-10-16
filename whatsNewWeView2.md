@@ -3,8 +3,6 @@ permalink: whatsNewWeView2.html
 layout: default
 ---
 
-Next\: [License](License.html)
-
 What's New in WeView 2
 ==
 

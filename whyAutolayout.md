@@ -3,8 +3,6 @@ permalink: whyAutolayout.html
 layout: default
 ---
 
-Next\: [Why use WeView 2?](whyWeView2.html)
-
 Why use Auto Layout?
 ==
 

@@ -3,8 +3,6 @@ permalink: CHANGELOG.html
 layout: default
 ---
 
-Next\: [Acknowledgments](Acknowledgments.html)
-
 Change Log
 ==
 

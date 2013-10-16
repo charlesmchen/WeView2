@@ -3,8 +3,6 @@ permalink: TutorialStretch.html
 layout: default
 ---
 
-Next\: [Tutorial 9: Conveniences](TutorialConvenience.html)
-
 Tutorial 8: Stretch
 ==
 

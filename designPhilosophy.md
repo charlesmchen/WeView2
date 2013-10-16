@@ -3,8 +3,6 @@ permalink: designPhilosophy.html
 layout: default
 ---
 
-Next\: [What's New in WeView 2](whatsNewWeView2.html)
-
 Design Philosophy
 ==
 

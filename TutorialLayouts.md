@@ -3,8 +3,6 @@ permalink: TutorialLayouts.html
 layout: default
 ---
 
-Next\: [Tutorial 6: Layout Model](TutorialLayoutModel.html)
-
 Tutorial 5: The Layouts
 ==
 

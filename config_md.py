@@ -79,11 +79,9 @@ layout: default
 ---
 
 %s
-
-%s
 ==
 
-''' % (link.dstFilename, linkery, link.pageTitle, )
+''' % (link.dstFilename, link.pageTitle, )
 
     newText += text[startIndex:endIndex + len(endMarker)] + '\n\n' + linkery
 

@@ -3,8 +3,6 @@ permalink: Tutorial2.html
 layout: default
 ---
 
-Next\: [Tutorial 3: Installing](TutorialInstalling.html)
-
 Tutorial 2: iPhone Demo
 ==
 
@@ -27,7 +25,7 @@ Here's another example that demonstrates a layout that is _responsive_ to change
 * The _rootView_ is configured with __\[UIView setStretches\]__ which indicates to the layout that it 
 should be stretched to receive any extra space in the layout.
 * The _rootView_ is also configured with __\[UIView setIgnoreDesiredSize\]__ which indicates to the layout that the __desired size__ of this view should be ignored.
-* A background image is added to the _rootView_ with a custom layout that exactly fills the _rootView_'s bounds while retaining its aspect ratio.
+* A background image is added to the _rootView_ with a layout that exactly fills the _rootView_'s bounds while retaining its aspect ratio.
 * The _headerView_ is populated with a "title" UILabel and a "tag" button. This UILabel and button __use separate layouts__.
 * A group of three "pillbox" buttons is added to the _rootView_ using a horizontal layout.  This layout has __bottom alignment__ and a 25pt __bottom margin__.
 * An activity indicator is added to the _rootView_ with its own layout.  That layout doesn't need to be configured, since the default behavior is to center subviews within their superview.
