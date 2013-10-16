@@ -53,8 +53,6 @@
 - (void)loadView
 {
     self.rootView = [[WeView alloc] init];
-    [[self.rootView useVerticalDefaultLayout] setVAlign:V_ALIGN_TOP];
-    //    self.rootView.debugLayout = YES;
     self.rootView.opaque = YES;
     self.rootView.backgroundColor = [UIColor whiteColor];
     self.view = self.rootView;
@@ -67,7 +65,8 @@
     [self.rootView removeAllSubviews];
     self.viewHierarchyTree = [ViewHierarchyTree create:demoModel];
     [self.viewHierarchyTree setStretchesIgnoringDesiredSize];
-    [self.rootView addSubview:self.viewHierarchyTree];
+    [[self.rootView addSubviewWithCustomLayout:self.viewHierarchyTree]
+     setVAlign:V_ALIGN_TOP];
 }
 
 - (void)viewDidLoad

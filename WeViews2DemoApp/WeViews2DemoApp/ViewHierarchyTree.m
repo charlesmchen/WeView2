@@ -16,7 +16,7 @@
 
 @interface WeView (Private)
 
-- (NSArray *)activeLayouts;
+- (NSArray *)layouts;
 
 - (NSArray *)subviewsForLayout:(WeViewLayout *)layout;
 
@@ -118,8 +118,7 @@
     label.userInteractionEnabled = YES;
 
     const int INDENT_PIXELS = 8;
-    [self useHorizontalDefaultLayout];
-    [[[[[self addSubviewsToDefaultLayout:@[expandLabel, label,]]
+    [[[[[self addSubviewsWithHorizontalLayout:@[expandLabel, label,]]
         setHMargin:10 + self.indentLevel * INDENT_PIXELS]
        setVMargin:3]
       setSpacing:5]
@@ -196,8 +195,7 @@
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self.table setStretchesIgnoringDesiredSize];
-    [self useVerticalDefaultLayout];
-    [[self addSubviewsToDefaultLayout:@[self.table,]]
+    [[self addSubviewWithCustomLayout:self.table]
      setVAlign:V_ALIGN_TOP];
 
     self.table.delegate = self;
@@ -252,7 +250,7 @@
         {
             WeView *weView = (WeView *) pseudoView;
 
-            for (WeViewLayout *layout in weView.activeLayouts)
+            for (WeViewLayout *layout in weView.layouts)
             {
                 NSArray *layoutSubviews = [weView subviewsForLayout:layout];
                 self.layoutSubviewMap[layout] = layoutSubviews;

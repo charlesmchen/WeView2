@@ -75,8 +75,8 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 @interface WeView (DemoCodeGeneration)
 
 // We need private access to this class' internals to generate the code.
-- (NSArray *)activeLayouts;
-- (NSArray *)allLayouts;
+- (NSArray *)layouts;
+- (NSArray *)layouts;
 - (NSArray *)subviewsForLayout:(WeViewLayout *)layout;
 
 @end
@@ -631,7 +631,7 @@ haveAnyOfPrefixes:(NSArray *)prefixes
          NSStringFromClass([view class])];
 
         WeView *weView = (WeView *)view;
-        for (WeViewLayout *layout in [weView activeLayouts])
+        for (WeViewLayout *layout in [weView layouts])
         {
             NSArray *layoutSubviews = [weView subviewsForLayout:layout];
             NSMutableString *layoutSubviewsClause = [@"" mutableCopy];

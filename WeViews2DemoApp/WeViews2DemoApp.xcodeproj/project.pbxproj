@@ -58,7 +58,6 @@
 		34C19CCA17DD1D4C0025914F /* WeViewGridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CB717DD1D4B0025914F /* WeViewGridLayout.m */; };
 		34C19CCB17DD1D4C0025914F /* WeViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CB917DD1D4B0025914F /* WeViewLayout.m */; };
 		34C19CCC17DD1D4C0025914F /* WeViewLinearLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CBB17DD1D4B0025914F /* WeViewLinearLayout.m */; };
-		34C19CCD17DD1D4C0025914F /* WeViewNoopLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CBD17DD1D4B0025914F /* WeViewNoopLayout.m */; };
 		34C19CCE17DD1D4C0025914F /* WeViewStackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CBF17DD1D4B0025914F /* WeViewStackLayout.m */; };
 		34C19CCF17DD1D4C0025914F /* UIView+WeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CC117DD1D4B0025914F /* UIView+WeView.m */; };
 		34C19CD017DD1D4C0025914F /* WeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19CC317DD1D4B0025914F /* WeView.m */; };
@@ -158,8 +157,6 @@
 		34C19CB917DD1D4B0025914F /* WeViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewLayout.m; sourceTree = "<group>"; };
 		34C19CBA17DD1D4B0025914F /* WeViewLinearLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewLinearLayout.h; sourceTree = "<group>"; };
 		34C19CBB17DD1D4B0025914F /* WeViewLinearLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewLinearLayout.m; sourceTree = "<group>"; };
-		34C19CBC17DD1D4B0025914F /* WeViewNoopLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewNoopLayout.h; sourceTree = "<group>"; };
-		34C19CBD17DD1D4B0025914F /* WeViewNoopLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewNoopLayout.m; sourceTree = "<group>"; };
 		34C19CBE17DD1D4B0025914F /* WeViewStackLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewStackLayout.h; sourceTree = "<group>"; };
 		34C19CBF17DD1D4B0025914F /* WeViewStackLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewStackLayout.m; sourceTree = "<group>"; };
 		34C19CC017DD1D4B0025914F /* UIView+WeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WeView.h"; sourceTree = "<group>"; };
@@ -405,8 +402,6 @@
 				34C19CB917DD1D4B0025914F /* WeViewLayout.m */,
 				34C19CBA17DD1D4B0025914F /* WeViewLinearLayout.h */,
 				34C19CBB17DD1D4B0025914F /* WeViewLinearLayout.m */,
-				34C19CBC17DD1D4B0025914F /* WeViewNoopLayout.h */,
-				34C19CBD17DD1D4B0025914F /* WeViewNoopLayout.m */,
 				34C19CBE17DD1D4B0025914F /* WeViewStackLayout.h */,
 				34C19CBF17DD1D4B0025914F /* WeViewStackLayout.m */,
 			);
@@ -558,7 +553,6 @@
 				34C19CCA17DD1D4C0025914F /* WeViewGridLayout.m in Sources */,
 				34C19CCB17DD1D4C0025914F /* WeViewLayout.m in Sources */,
 				34C19CCC17DD1D4C0025914F /* WeViewLinearLayout.m in Sources */,
-				34C19CCD17DD1D4C0025914F /* WeViewNoopLayout.m in Sources */,
 				34C19CCE17DD1D4C0025914F /* WeViewStackLayout.m in Sources */,
 				34C19CCF17DD1D4C0025914F /* UIView+WeView.m in Sources */,
 				34C19CD017DD1D4C0025914F /* WeView.m in Sources */,

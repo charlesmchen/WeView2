@@ -20,38 +20,6 @@
 
 @interface WeView : UIView
 
-#pragma mark - Default Layout
-
-// Set the default layout for subviews of this view.
-
-// By default, lay out subviews horiztonally, left-to-right.
-- (WeViewLayout *)useHorizontalDefaultLayout;
-
-// By default, lay out subviews vertically, top-to-bottom.
-- (WeViewLayout *)useVerticalDefaultLayout;
-
-// By default, lay out subviews on top of each other.
-- (WeViewLayout *)useStackDefaultLayout;
-
-// By default, lay out subviews in a "flow" layout that wraps subviews like text, left-to-right,
-// top-to-bottom.
-- (WeViewLayout *)useFlowDefaultLayout;
-
-// By default, layout views using a "layout" block that positions and sizes the subviews.  This
-// layout will not affect the desired size of this WeView.
-- (WeViewLayout *)useBlockDefaultLayout:(WeView2LayoutBlock)layoutBlock;
-
-// By default, layout views using a "layout" block that positions and sizes the subviews and a
-// "desired size" block that determines the desired size of the subviews of this WeView.
-- (WeViewLayout *)useBlockDefaultLayout:(WeView2LayoutBlock)layoutBlock
-                       desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock;
-
-// By default, _DO NOT_ lay out subviews.
-- (WeViewLayout *)useNoDefaultLayout;
-
-// Use a specific layout as the default layout.
-- (WeView *)setDefaultLayout:(WeViewLayout *)defaultLayout;
-
 #pragma mark - Custom Layouts
 
 // Add subviews with a custom layout which will only apply for these subviews.
@@ -95,8 +63,8 @@
 
 // Add subviews with a block-based layout that applies to just these subviews.
 //
-// The "layout" block positions and sizes these subviews and the "desired size" block determines
-// the desired size of these subviews.
+// The "layout" block positions and sizes these subviews and the "desired size" block
+// determines the desired size of these subviews.
 - (WeViewLayout *)addSubviews:(NSArray *)subviews
               withLayoutBlock:(WeView2LayoutBlock)layoutBlock
              desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock;
@@ -110,24 +78,16 @@
 
 // Add a subview with a block-based layout that applies to just that subview.
 //
-// The "layout" block positions and sizes this subview and the "desired size" block determines the
-// desired size of this subview.
+// The "layout" block positions and sizes this subview and the "desired size" block determines
+// the desired size of this subview.
 - (WeViewLayout *)addSubview:(UIView *)subview
              withLayoutBlock:(WeView2LayoutBlock)layoutBlock;
 
 #pragma mark -
 
-// Add subview to default layout.
-//
-// Functionally equivalent to [UIView addSubview], but can be chained.
-- (WeViewLayout *)addSubviewToDefaultLayout:(UIView *)subview;
-
-// Add subviews to default layout.
-- (WeViewLayout *)addSubviewsToDefaultLayout:(NSArray *)subviews;
-
 - (void)removeAllSubviews;
 
-- (void)setDebugLayoutOfAllLayouts:(BOOL)value;
-- (void)setDebugMinSizeOfAllLayouts:(BOOL)value;
+- (void)setDebugLayoutOflayouts:(BOOL)value;
+- (void)setDebugMinSizeOflayouts:(BOOL)value;
 
 @end

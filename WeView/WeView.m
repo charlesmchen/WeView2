@@ -15,7 +15,6 @@
 #import "WeViewLayout.h"
 #import "WeViewLinearLayout.h"
 #import "WeViewMacros.h"
-#import "WeViewNoopLayout.h"
 #import "WeViewMacros.h"
 #import "WeViewStackLayout.h"
 #import "WeViewGridLayout.h"
@@ -35,9 +34,6 @@
 
 @interface WeView ()
 
-// The default layout for subviews not associated with a specific layout.
-@property (nonatomic) WeViewLayout *_defaultLayout;
-
 // A map of subview-to-layout of subviews associated with specific layouts.
 @property (nonatomic) NSMutableDictionary *subviewLayoutMap;
 
@@ -50,8 +46,6 @@
 - (void)commonInit
 {
     self.subviewLayoutMap = [NSMutableDictionary dictionary];
-    // Default to using a horizontal layout.
-    [self useHorizontalDefaultLayout];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -78,77 +72,11 @@
 {
 }
 
-#pragma mark - Default Layout
-
-- (WeViewLayout *)useHorizontalDefaultLayout
-{
-    self.defaultLayout = [WeViewLinearLayout horizontalLayout];
-    return self.defaultLayout;
-}
-
-- (WeViewLayout *)useVerticalDefaultLayout
-{
-    self.defaultLayout = [WeViewLinearLayout verticalLayout];
-    return self.defaultLayout;
-}
-
-- (WeViewLayout *)useNoDefaultLayout
-{
-    self.defaultLayout = [WeViewNoopLayout noopLayout];
-    return self.defaultLayout;
-}
-
-- (WeViewLayout *)useStackDefaultLayout
-{
-    self.defaultLayout = [WeViewStackLayout stackLayout];
-    return self.defaultLayout;
-}
-
-- (WeViewLayout *)useFlowDefaultLayout
-{
-    self.defaultLayout = [WeViewFlowLayout flowLayout];
-    return self.defaultLayout;
-}
-
-- (WeViewLayout *)useBlockDefaultLayout:(WeView2LayoutBlock)layoutBlock
-{
-    self.defaultLayout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock];
-    return self.defaultLayout;
-}
-
-- (WeViewLayout *)useBlockDefaultLayout:(WeView2LayoutBlock)layoutBlock
-                       desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock
-{
-    self.defaultLayout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock
-                                                desiredSizeBlock:desiredSizeBlock];
-    return self.defaultLayout;
-}
-
-- (WeView *)setDefaultLayout:(WeViewLayout *)defaultLayout
-{
-    self._defaultLayout = defaultLayout;
-    [self._defaultLayout bindToSuperview:self];
-    [self setNeedsLayout];
-    return self;
-}
-
-- (WeViewLayout *)defaultLayout
-{
-    return self._defaultLayout;
-}
-
 #pragma mark -
 
-- (NSArray *)getLayouts:(BOOL)activeOnly
+- (NSArray *)layouts
 {
     NSMutableArray *result = [NSMutableArray array];
-
-    // First, add the default layout if necessary.
-    if (!activeOnly ||
-        [[self subviewsForLayout:self._defaultLayout] count] > 0)
-    {
-        [result addObject:self._defaultLayout];
-    }
 
     // Second, add the custom layouts _in subview order_.
     for (UIView *subview in self.subviews)
@@ -164,25 +92,10 @@
     return result;
 }
 
-- (NSArray *)activeLayouts
-{
-    return [self getLayouts:YES];
-}
-
-- (NSArray *)allLayouts
-{
-    return [self getLayouts:NO];
-}
-
 - (NSArray *)subviewsForLayout:(WeViewLayout *)layout
 {
     // Returns the subviews for a given layout _in layout order_.
 
-    if (layout == self._defaultLayout)
-    {
-        // Use "nil" to find the subviews for the default layout.
-        layout = nil;
-    }
     NSMutableArray *result = [NSMutableArray array];
     for (UIView *subview in self.subviews)
     {
@@ -197,7 +110,6 @@
 
 - (void)layoutSubviews
 {
-    WeViewAssert(self.defaultLayout);
     NSSet *layouts = [NSSet setWithArray:[self.subviewLayoutMap allValues]];
     for (WeViewLayout *layout in layouts)
     {
@@ -207,13 +119,10 @@
         [layout layoutContentsOfView:self
                             subviews:layoutSubviews];
     }
-    [self.defaultLayout layoutContentsOfView:self
-                                    subviews:[self subviewsForLayout:nil]];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    WeViewAssert(self.defaultLayout);
     CGSize result = CGSizeZero;
     NSSet *layouts = [NSSet setWithArray:[self.subviewLayoutMap allValues]];
     for (WeViewLayout *layout in layouts)
@@ -226,10 +135,6 @@
                                                 subviews:layoutSubviews
                                             thatFitsSize:size]);
     }
-    result = CGSizeMax(result,
-                       [self.defaultLayout minSizeOfContentsView:self
-                                                        subviews:[self subviewsForLayout:nil]
-                                                    thatFitsSize:size]);
     return result;
 }
 
@@ -259,20 +164,6 @@
     }
     [self setNeedsLayout];
     return self;
-}
-
-- (WeViewLayout *)addSubviewToDefaultLayout:(UIView *)subview
-{
-    [self addSubviews:@[subview,]
-           withLayout:nil];
-    return self._defaultLayout;
-}
-
-- (WeViewLayout *)addSubviewsToDefaultLayout:(NSArray *)subviews
-{
-    [self addSubviews:subviews
-           withLayout:nil];
-    return self._defaultLayout;
 }
 
 #pragma mark - Custom Layouts
@@ -317,6 +208,7 @@
     return layout;
 }
 
+// TODO: Remove this method.
 - (WeViewLayout *)addSubviewWithFillLayout:(UIView *)subview
 {
     // Fit and Fill layouts default to ignoring the superview's margins.
@@ -328,6 +220,7 @@
     return layout;
 }
 
+// TODO: Remove this method.
 - (WeViewLayout *)addSubviewWithFillLayoutWAspectRatio:(UIView *)subview
 {
     // Fit and Fill layouts default to ignoring the superview's margins.
@@ -339,6 +232,7 @@
     return layout;
 }
 
+// TODO: Remove this method.
 - (WeViewLayout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview
 {
     // Fit and Fill layouts default to ignoring the superview's margins.
@@ -423,11 +317,6 @@
 
     [newLayout copyConfigurationOfLayout:oldLayout];
 
-    if (self._defaultLayout == oldLayout)
-    {
-        [self setDefaultLayout:newLayout];
-    }
-
     for (id key in self.subviewLayoutMap)
     {
         if (self.subviewLayoutMap[key] == oldLayout)
@@ -476,17 +365,17 @@
                                                          stretchPolicy:GRID_STRETCH_POLICY_STRETCH_SPACING]];
 }
 
-- (void)setDebugLayoutOfAllLayouts:(BOOL)value
+- (void)setDebugLayoutOflayouts:(BOOL)value
 {
-    for (WeViewLayout *layout in [self allLayouts])
+    for (WeViewLayout *layout in [self layouts])
     {
         layout.debugLayout = value;
     }
 }
 
-- (void)setDebugMinSizeOfAllLayouts:(BOOL)value
+- (void)setDebugMinSizeOflayouts:(BOOL)value
 {
-    for (WeViewLayout *layout in [self allLayouts])
+    for (WeViewLayout *layout in [self layouts])
     {
         layout.debugMinSize = value;
     }

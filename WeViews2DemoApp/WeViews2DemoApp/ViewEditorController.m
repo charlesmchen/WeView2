@@ -209,21 +209,18 @@ typedef void (^SetterBlock)(id item);
         WeView *topPanel = [[WeView alloc] init];
         topPanel.backgroundColor = [UIColor clearColor];
         topPanel.opaque = NO;
-        [topPanel useHorizontalDefaultLayout];
-        [[[topPanel addSubviewsToDefaultLayout:subviews]
+        [[[topPanel addSubviewsWithHorizontalLayout:subviews]
           setHAlign:H_ALIGN_LEFT]
          setSpacing:4];
 
         WeView *bottomPanel = [[WeView alloc] init];
         bottomPanel.backgroundColor = [UIColor clearColor];
         bottomPanel.opaque = NO;
-        [bottomPanel useHorizontalDefaultLayout];
-        [[[bottomPanel addSubviewsToDefaultLayout:setterViews]
+        [[[bottomPanel addSubviewsWithHorizontalLayout:setterViews]
           setHAlign:H_ALIGN_RIGHT]
          setSpacing:4];
 
-        [container useVerticalDefaultLayout];
-        [[[[container addSubviewsToDefaultLayout:@[
+        [[[[container addSubviewsWithVerticalLayout:@[
                                                    [topPanel setHStretches],
             [bottomPanel setHStretches], ]]
            setHMargin:10]
@@ -234,8 +231,7 @@ typedef void (^SetterBlock)(id item);
     {
         [subviews addObject: [[[UIView alloc] init] setStretchesIgnoringDesiredSize]];
         [subviews addObjectsFromArray:setterViews];
-        [container useHorizontalDefaultLayout];
-        [[[[[container addSubviewsToDefaultLayout:subviews]
+        [[[[[container addSubviewsWithHorizontalLayout:subviews]
             setHAlign:H_ALIGN_LEFT]
            setHMargin:10]
           setVMargin:2]
