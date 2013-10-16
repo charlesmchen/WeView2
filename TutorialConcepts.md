@@ -18,7 +18,12 @@ When a WeView layouts out it's subviews, there are three kinds of actors in play
 * Subviews are associated with a __layout__ when they are added to the WeView.
 * Most WeViews will only use a single layout.  
 
-As usual when working with UIKit:
+### Mechanics
+
+* WeView uses UIKit's built-in mechanisms for coordinating layout: _\[UIView setNeedsLayout\]_ and _\[UIView layoutSubviews\]_.
+* Layout is automatically triggered when a UIView's size is changed.
+
+### UIKit Fundamentals
 
 * A UIView has separate __frame__ and __bounds__ properties.  
 * The __frame__ represents the UIView's position (frame.origin) and size (frame.size) of the view within its superview's coordinate system.
@@ -26,11 +31,6 @@ As usual when working with UIKit:
 * Changes to the __frame__ effect the __bounds__ and vice versa.
 * WeView layout generally uses the __frame__ property.
 * __frame__ values are expressed in _points_, not _pixels_.  On a Retina device, a _point_ is 2 _pixels_.
-
-### Mechanics
-
-* WeView uses UIKit's built-in mechanisms for coordinating layout: _\[UIView setNeedsLayout\]_ and _\[UIView layoutSubviews\]_.
-* Layout is automatically triggered when a UIView's size is changed.
 
 
 <!-- TEMPLATE END -->
