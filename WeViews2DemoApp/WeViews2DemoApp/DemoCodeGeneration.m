@@ -1,6 +1,6 @@
 //
 //  DemoCodeGeneration.m
-//  WeView 2
+//  WeView v2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -95,7 +95,7 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 @interface WeViewBlockLayout ()
 
 // We need private access to this class' internals to generate the code.
-- (WeView2DesiredSizeBlock)desiredSizeBlock;
+- (WeViewDesiredSizeBlock)desiredSizeBlock;
 
 @end
 
@@ -286,29 +286,29 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 //
 // The "layout" block positions and sizes these subviews.
 //- (WeViewLayout *)addSubviews:(NSArray *)subviews
-//              withLayoutBlock:(WeView2LayoutBlock)layoutBlock;
+//              withLayoutBlock:(WeViewLayoutBlock)layoutBlock;
 //
 // Add subviews with a block-based layout that applies to just these subviews.
 //
 // The "layout" block positions and sizes these subviews and the "desired size" block determines
 // the desired size of these subviews.
 //- (WeViewLayout *)addSubviews:(NSArray *)subviews
-//              withLayoutBlock:(WeView2LayoutBlock)layoutBlock
-//             desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock;
+//              withLayoutBlock:(WeViewLayoutBlock)layoutBlock
+//             desiredSizeBlock:(WeViewDesiredSizeBlock)desiredSizeBlock;
 //
 // Add a subview with a block-based layout that applies to just that subview.
 //
 // The "layout" block positions and sizes this subview.
 //- (WeViewLayout *)addSubview:(UIView *)subview
-//             withLayoutBlock:(WeView2LayoutBlock)layoutBlock
-//            desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock;
+//             withLayoutBlock:(WeViewLayoutBlock)layoutBlock
+//            desiredSizeBlock:(WeViewDesiredSizeBlock)desiredSizeBlock;
 //
 // Add a subview with a block-based layout that applies to just that subview.
 //
 // The "layout" block positions and sizes this subview and the "desired size" block determines the
 // desired size of this subview.
 //- (WeViewLayout *)addSubview:(UIView *)subview
-//             withLayoutBlock:(WeView2LayoutBlock)layoutBlock;
+//             withLayoutBlock:(WeViewLayoutBlock)layoutBlock;
 //
 
 - (BOOL)doDecorations:(NSArray *)lines

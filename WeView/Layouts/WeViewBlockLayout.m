@@ -1,6 +1,6 @@
 //
 //  WeViewBlockLayout.m
-//  WeView 2
+//  WeView v2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -16,8 +16,8 @@
 
 @interface WeViewBlockLayout ()
 
-@property (copy, nonatomic) WeView2LayoutBlock layoutBlock;
-@property (copy, nonatomic) WeView2DesiredSizeBlock desiredSizeBlock;
+@property (copy, nonatomic) WeViewLayoutBlock layoutBlock;
+@property (copy, nonatomic) WeViewDesiredSizeBlock desiredSizeBlock;
 
 @end
 
@@ -25,8 +25,8 @@
 
 @implementation WeViewBlockLayout
 
-+ (WeViewBlockLayout *)blockLayoutWithBlock:(WeView2LayoutBlock)layoutBlock
-                           desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock
++ (WeViewBlockLayout *)blockLayoutWithBlock:(WeViewLayoutBlock)layoutBlock
+                           desiredSizeBlock:(WeViewDesiredSizeBlock)desiredSizeBlock
 {
     WeViewAssert(layoutBlock);
     WeViewAssert(desiredSizeBlock);
@@ -36,7 +36,7 @@
     return layout;
 }
 
-+ (WeViewBlockLayout *)blockLayoutWithBlock:(WeView2LayoutBlock)layoutBlock
++ (WeViewBlockLayout *)blockLayoutWithBlock:(WeViewLayoutBlock)layoutBlock
 {
     WeViewAssert(layoutBlock);
     WeViewBlockLayout *layout = [[WeViewBlockLayout alloc] init];

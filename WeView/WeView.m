@@ -1,6 +1,6 @@
 //
 //  WeView.m
-//  WeView 2
+//  WeView v2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
@@ -245,7 +245,7 @@
 }
 
 - (WeViewLayout *)addSubviews:(NSArray *)subviews
-              withLayoutBlock:(WeView2LayoutBlock)layoutBlock
+              withLayoutBlock:(WeViewLayoutBlock)layoutBlock
 {
     WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock];
     [self addSubviews:subviews
@@ -254,8 +254,8 @@
 }
 
 - (WeViewLayout *)addSubviews:(NSArray *)subviews
-              withLayoutBlock:(WeView2LayoutBlock)layoutBlock
-             desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock
+              withLayoutBlock:(WeViewLayoutBlock)layoutBlock
+             desiredSizeBlock:(WeViewDesiredSizeBlock)desiredSizeBlock
 {
     WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock
                                                        desiredSizeBlock:desiredSizeBlock];
@@ -265,7 +265,7 @@
 }
 
 - (WeViewLayout *)addSubview:(UIView *)subview
-             withLayoutBlock:(WeView2LayoutBlock)layoutBlock
+             withLayoutBlock:(WeViewLayoutBlock)layoutBlock
 {
     WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock];
     [self addSubviews:@[subview,]
@@ -274,8 +274,8 @@
 }
 
 - (WeViewLayout *)addSubview:(UIView *)subview
-             withLayoutBlock:(WeView2LayoutBlock)layoutBlock
-            desiredSizeBlock:(WeView2DesiredSizeBlock)desiredSizeBlock
+             withLayoutBlock:(WeViewLayoutBlock)layoutBlock
+            desiredSizeBlock:(WeViewDesiredSizeBlock)desiredSizeBlock
 {
     WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock
                                                        desiredSizeBlock:desiredSizeBlock];

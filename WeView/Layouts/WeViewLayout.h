@@ -1,6 +1,6 @@
 //
 //  WeViewLayout.h
-//  WeView 2
+//  WeView v2
 //
 //  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
 //
