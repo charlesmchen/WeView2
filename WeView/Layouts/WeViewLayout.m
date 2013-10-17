@@ -476,12 +476,10 @@ BOOL _debugMinSize;
 - (CGRect)contentBoundsOfView:(UIView *)view
                       forSize:(CGSize)size
 {
-    CGFloat borderWidth = view.layer.borderWidth;
-
-    int left = ceilf([self leftMargin] + borderWidth);
-    int top = ceilf([self topMargin] + borderWidth);
-    int right = floorf(size.width - ceilf([self rightMargin] + borderWidth));
-    int bottom = floorf(size.height - ceilf([self bottomMargin] + borderWidth));
+    int left = ceilf([self leftMargin]);
+    int top = ceilf([self topMargin]);
+    int right = floorf(size.width - ceilf([self rightMargin]));
+    int bottom = floorf(size.height - ceilf([self bottomMargin]));
 
     return CGRectMake(left,
                       top,
@@ -491,12 +489,10 @@ BOOL _debugMinSize;
 
 - (CGSize)insetSizeOfView:(UIView *)view
 {
-    CGFloat borderWidth = view.layer.borderWidth;
-
-    int left = ceilf([self leftMargin] + borderWidth);
-    int top = ceilf([self topMargin] + borderWidth);
-    int right = ceilf([self rightMargin] + borderWidth);
-    int bottom = ceilf([self bottomMargin] + borderWidth);
+    int left = ceilf([self leftMargin]);
+    int top = ceilf([self topMargin]);
+    int right = ceilf([self rightMargin]);
+    int bottom = ceilf([self bottomMargin]);
 
     return CGSizeMake(left + right, top + bottom);
 }

@@ -228,9 +228,8 @@
         }
     }
 
-    CGFloat borderWidth = view.layer.borderWidth;
-    int left = ceilf([self leftMargin] + borderWidth);
-    int top = ceilf([self topMargin] + borderWidth);
+    int left = contentBounds.origin.x;
+    int top = contentBounds.origin.y;
 
     for (row=0; row < rowCount; row++)
     {
