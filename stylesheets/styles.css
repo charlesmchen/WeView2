@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,600);
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic);
 
 body {
   padding:50px;
@@ -32,9 +33,21 @@ p, ul, ol, table, pre, dl {
 
 h1, h2, h3 {
 	font-family: 'Open Sans', sans-serif;
-	font-weight: bold;
+	font-weight: 600;
 	text-rendering: optimizelegibility;
 }
+
+/*
+body {
+	font-family: 'Droid Serif', serif;
+	font-size: 14px;
+}
+
+section {
+	font-family: 'Droid Serif', serif;
+	font-size: 14px;
+}
+*/
 
 h1, h2, h3 {
   line-height:1.1;
@@ -134,7 +147,7 @@ header {
 }
 
 header ul.linkage li {
-    font:16px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font:15px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: bold;
 }
 

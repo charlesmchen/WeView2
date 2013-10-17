@@ -8,7 +8,7 @@ License
 
 <!-- TEMPLATE START -->
 
-WeView 2 is distributed under the [Apache License Version 2.0](LICENSE)
+WeView v2 is distributed under the [Apache License Version 2.0](LICENSE)
 
 {% gist 6504689 %}
 

@@ -20,11 +20,11 @@ Here's the equivalent logic using a _WeView_:
 
 {% gist 6504519 %}
 
-_WeView 2 is designed to yield concise, expressive and maintainable code_	.  The benefits of the syntax only become more clear as layouts become more complex.
+_WeView v2 is designed to yield concise, expressive and maintainable code_	.  The benefits of the syntax only become more clear as layouts become more complex.
 
 * iOS Auto Layout is constraint-based.  _Constraints are a powerful but awkward way to describe layouts_. Constraints are (and must be) specified on a per-view basis. Some conceptually simple layouts are difficult to describe with constraints. This doesn't work well when UIViews need to be layed out in groups.
-* With iOS Auto Layout you need to worry about complications such as constraint priority, constraint sufficiency, constraint conflicts, ambiguous layout, common ancestors, etc. None of those problems apply to WeView 2.
-* iOS Auto Layout has the advantage of being integrated into Interface Builder.  _WeView 2 can only be used programmatically_.
+* With iOS Auto Layout you need to worry about complications such as constraint priority, constraint sufficiency, constraint conflicts, ambiguous layout, common ancestors, etc. None of those problems apply to WeView v2.
+* iOS Auto Layout has the advantage of being integrated into Interface Builder.  _WeView v2 can only be used programmatically_.
 
 <!-- TEMPLATE END -->
 
