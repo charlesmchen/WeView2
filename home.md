@@ -3,7 +3,7 @@ permalink: home.html
 layout: default
 ---
 
-WeView 2
+WeView v2
 ==
 
 <!-- TEMPLATE START -->

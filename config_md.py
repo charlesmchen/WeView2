@@ -26,9 +26,9 @@ layout: default
 ---
 ''' 
 links = ( 
-  Link('home.md', 'Home', indent=0, sidebarFilename='index.html', pageTitle='WeView 2'),
+  Link('home.md', 'Home', indent=0, sidebarFilename='index.html', pageTitle='WeView v2'),
   Link('whyAutolayout.md', 'Why use Auto Layout?'),
-  Link('whyWeView2.md', 'Why use WeView 2?'),
+  Link('whyWeView2.md', 'Why use WeView v2?'),
   Link('Tutorial1.md', 'Tutorial 1: Simple Demo'),
   Link('Tutorial2.md', 'Tutorial 2: iPhone Demo'),
   Link('TutorialInstalling.md', 'Tutorial 3: Installing'),
@@ -42,7 +42,7 @@ links = (
   Link('Issues.md', 'Bugs & Feature Requests'),
   Link('ExtrasDesiredSize.md', 'Extras 1: Desired Size'),
   Link('designPhilosophy.md', 'Design Philosophy'),
-  Link('whatsNewWeView2.md', 'What\'s New in WeView 2'),
+  Link('whatsNewWeView2.md', 'What\'s New in WeView v2'),
   Link('License.md', 'License'),
   Link('CHANGELOG.md', 'Change Log'),
   Link('Acknowledgments.md', 'Acknowledgments'),

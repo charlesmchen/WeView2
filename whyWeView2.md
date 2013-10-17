@@ -3,7 +3,7 @@ permalink: whyWeView2.html
 layout: default
 ---
 
-Why use WeView 2?
+Why use WeView v2?
 ==
 
 <!-- TEMPLATE START -->

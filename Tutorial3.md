@@ -27,7 +27,7 @@ Here's the code:
 
 * The three subviews use a __horizontal layout__.  
 * The layout has 5pt __margins__ and 5pt __spacing__.  These properties are like their HTML/CSS equivalents.
-* The configuration methods _\[setMargin:\]_ and _\[setSpacing:\]_ are __chained__.  WeView2 configuration methods return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance. Chaining reduces the need for boilerplate code. Chaining is optional. 
+* The configuration methods _\[setMargin:\]_ and _\[setSpacing:\]_ are __chained__.  WeView configuration methods return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance. Chaining reduces the need for boilerplate code. Chaining is optional. 
 * The subviews are layed out at their __desired size__, ie. the size returned by _\[UIView sizeThatFits:\]_.
 * __The key idea__: Although the WeView needs to be layed out as usual, it takes care of laying out its subviews.  It is not necessary to ever set the size or position of any of the subviews - in fact, their existing size and position are ignored by the WeView layout.
 

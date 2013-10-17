@@ -17,4 +17,4 @@ Design Philosophy
 
 <!-- TEMPLATE END -->
 
-Next\: [What's New in WeView 2](whatsNewWeView2.html)
+Next\: [What's New in WeView v2](whatsNewWeView2.html)

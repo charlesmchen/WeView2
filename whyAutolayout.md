@@ -20,4 +20,4 @@ This becomes even more important with _iOS 7_, which allows users to adjust text
 
 <!-- TEMPLATE END -->
 
-Next\: [Why use WeView 2?](whyWeView2.html)
+Next\: [Why use WeView v2?](whyWeView2.html)
