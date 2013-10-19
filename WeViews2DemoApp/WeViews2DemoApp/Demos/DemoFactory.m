@@ -54,7 +54,7 @@ UIColor *UIColorRGB(unsigned int rgb)
 
 + (Demo *)defaultDemo
 {
-    return [self flowDemo3];
+    return [self horizontalDemo1];
 }
 
 + (Demo *)randomImageDemo1

@@ -636,6 +636,70 @@ typedef void (^SetterBlock)(id item);
                              ]
                                            doubleHeight:YES],
 
+                            [ViewParameterSimple create:@"margin"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return @"";
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"0"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 [layout setMargin:0];
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 [layout setMargin:+5];
+                                             }],
+                             [ViewParameterSetter create:@"+10"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 [layout setMargin:+10];
+                                             }],
+                             [ViewParameterSetter create:@"+15"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 [layout setMargin:+15];
+                                             }],
+                             [ViewParameterSetter create:@"+20"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 [layout setMargin:+20];
+                                             }],
+                             ]],
+
+                            [ViewParameterSimple create:@"spacing"
+                                            getterBlock:^NSString *(UIView *view) {
+                                                return @"";
+                                            }
+                                                setters:@[
+                             [ViewParameterSetter create:@"0"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 [layout setSpacing:0];
+                                             }],
+                             [ViewParameterSetter create:@"+5"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 [layout setSpacing:+5];
+                                             }],
+                             [ViewParameterSetter create:@"+10"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 [layout setSpacing:+10];
+                                             }],
+                             [ViewParameterSetter create:@"+15"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 [layout setSpacing:+15];
+                                             }],
+                             [ViewParameterSetter create:@"+20"
+                                             setterBlock:^(id item) {
+                                                 WeViewLayout *layout = item;
+                                                 [layout setSpacing:+20];
+                                             }],
+                             ]],
+
                             /* CODEGEN MARKER: Layout Parameters Start */
 
                                 [ViewParameterSimple floatProperty:@"leftMargin"],

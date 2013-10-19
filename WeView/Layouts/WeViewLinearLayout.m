@@ -504,14 +504,6 @@
             CGSize subviewSize = [self desiredItemSize:subview
                                                maxSize:maxTotalSubviewsSize];
 
-            if (debugLayout)
-            {
-                NSLog(@"%@ subviewSize[%d]: %@",
-                      [self indentPrefix:indent + 1],
-                      i,
-                      FormatCGSize(subviewSize));
-            }
-
             [cellAxisSizes addObject:@(horizontal
              ? subviewSize.width
                                     : subviewSize.height)];
@@ -528,6 +520,17 @@
             [cellStretchWeights addObject:@(cellAxisStretchWeight)];
             hasCellWithAxisStretch |= cellAxisStretchWeight > 0.f;
             hasCellWithCrossStretch |= cellCrossStretchWeight > 0.f;
+
+            if (debugLayout)
+            {
+                NSLog(@"%@ subviewSize[%d]: %@ = %@ axisStretchWeight: %f, crossStretchWeight: %f",
+                      [self indentPrefix:indent + 1],
+                      i,
+                      [subview class],
+                      FormatCGSize(subviewSize),
+                      cellAxisStretchWeight,
+                      cellCrossStretchWeight);
+            }
         }
 
         if (debugLayout)

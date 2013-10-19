@@ -8,6 +8,9 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
+#import <CoreText/CoreText.h>
+#import <QuartzCore/QuartzCore.h>
+
 #import "WeView.h"
 #import "SandboxViewController.h"
 #import "WeViewMacros.h"
@@ -21,9 +24,60 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 
+typedef enum {
+    SANDBOX_VIDEO_MODE_SANDBOX,
+//    SANDBOX_VIDEO_MODE_CODE,
+    SANDBOX_VIDEO_MODE_SANDBOX_AND_CODE,
+    SANDBOX_VIDEO_MODE_APP,
+} SandboxVideoMode;
+
+@interface SandboxSnapshotTextLine : NSObject
+
+@property (assign, nonatomic) CTLineRef ctLine;
+
+@end
+
+#pragma mark -
+
+@implementation SandboxSnapshotTextLine
+
+- (void)dealloc
+{
+    if (self.ctLine)
+    {
+        CFRelease(self.ctLine);
+        self.ctLine = nil;
+    }
+}
+
++ (SandboxSnapshotTextLine *)createLineWithText:(NSString *)text
+                                         ctFont:(CTFontRef)ctFont
+                                      textColor:(UIColor *)textColor
+{
+    SandboxSnapshotTextLine *result = [[SandboxSnapshotTextLine alloc] init];
+
+    NSDictionary *attrs = @{
+                            (__bridge NSString *) kCTFontAttributeName:(__bridge id) ctFont,
+                            (__bridge NSString *) kCTForegroundColorAttributeName:(__bridge id) textColor.CGColor,
+                            };
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:text
+                                                                           attributes:attrs];
+    result.ctLine = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef) attributedString);
+    return result;
+}
+
+- (CGRect)lineBounds
+{
+    return CTLineGetBoundsWithOptions(self.ctLine, 0);
+}
+
+@end
+
+#pragma mark -
+
 @interface SandboxSnapshot : NSObject
 
-@property (nonatomic) CGSize rootViewSize;
+@property (nonatomic) CGSize contentSize;
 @property (nonatomic) NSString *filePath;
 
 @end
@@ -95,11 +149,12 @@
 @property (nonatomic) DemoModel *demoModel;
 
 @property (nonatomic) NSMutableArray *snapshots;
+@property (nonatomic) NSMutableArray *codeSnapshots;
 @property (nonatomic) NSString *snapshotsFolderPath;
 
 @property (nonatomic) CADisplayLink *displayLink;
 @property (nonatomic) int transformBlockCounter;
-@property (nonatomic) BOOL recordFullScreenVideo;
+@property (nonatomic) SandboxVideoMode videoMode;
 
 @end
 
@@ -118,6 +173,7 @@
                                                      name:NOTIFICATION_SELECTION_ALTERED
                                                    object:nil];
         self.snapshots = [NSMutableArray array];
+        self.codeSnapshots = [NSMutableArray array];
     }
     return self;
 }
@@ -201,11 +257,15 @@
                                                ];
     self.navigationItem.rightBarButtonItems = @[
 #if TARGET_IPHONE_SIMULATOR
-                                                [[UIBarButtonItem alloc] initWithTitle:@"Record"
+                                                [[UIBarButtonItem alloc] initWithTitle:@"V Sandbox"
                                                                                  style:UIBarButtonItemStyleBordered
                                                                                 target:self
                                                                                 action:@selector(startSandboxVideo:)],
-                                                [[UIBarButtonItem alloc] initWithTitle:@"Record (All)"
+                                                [[UIBarButtonItem alloc] initWithTitle:@"V Code"
+                                                                                 style:UIBarButtonItemStyleBordered
+                                                                                target:self
+                                                                                action:@selector(startSandboxAndCodeVideo:)],
+                                                [[UIBarButtonItem alloc] initWithTitle:@"V App"
                                                                                  style:UIBarButtonItemStyleBordered
                                                                                 target:self
                                                                                 action:@selector(startFullscreenVideo:)],
@@ -248,13 +308,19 @@
 
 - (void)startSandboxVideo:(id)sender
 {
-    self.recordFullScreenVideo = NO;
+    self.videoMode = SANDBOX_VIDEO_MODE_SANDBOX;
+    [self startVideo];
+}
+
+- (void)startSandboxAndCodeVideo:(id)sender
+{
+    self.videoMode = SANDBOX_VIDEO_MODE_SANDBOX_AND_CODE;
     [self startVideo];
 }
 
 - (void)startFullscreenVideo:(id)sender
 {
-    self.recordFullScreenVideo = YES;
+    self.videoMode = SANDBOX_VIDEO_MODE_APP;
     [self startVideo];
 }
 
@@ -321,10 +387,40 @@
 
 - (void)grabVideoFrame
 {
-    SandboxSnapshot *snapshot = [[SandboxSnapshot alloc] init];
-    snapshot.image = [self takeSnapshot:self.recordFullScreenVideo];
-    snapshot.rootViewSize = [self.sandboxView rootViewSize];
-    [self.snapshots addObject:snapshot];
+    if (self.videoMode == SANDBOX_VIDEO_MODE_SANDBOX_AND_CODE)
+    {
+        [self.snapshots addObject:[self createSnapshot:SANDBOX_VIDEO_MODE_SANDBOX]];
+        [self.codeSnapshots addObject:[self renderGeneratedCodeSnapshot]];
+    }
+    else
+    {
+        [self.snapshots addObject:[self createSnapshot:self.videoMode]];
+    }
+}
+
+- (UIImage *)compositeScrenshotImage:(UIImage *)screenshotImage
+                       withCodeImage:(UIImage *)codeImage
+                          outputSize:(CGSize)outputSize
+{
+    UIGraphicsBeginImageContext(outputSize);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    WeViewAssert(context);
+
+    CGRect outputRect = CGRectZero;
+    outputRect.size = outputSize;
+    [[UIColor whiteColor] setFill];
+    CGContextFillRect(context, outputRect);
+
+    [screenshotImage drawAtPoint:CGPointZero];
+    [codeImage drawAtPoint:CGPointMake(0, screenshotImage.size.height)];
+
+    [self.sandboxView setControlsHidden:NO];
+
+    UIImage* compositeImage = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+
+    return compositeImage;
 }
 
 - (void)endVideoSession
@@ -334,34 +430,60 @@
         return;
     }
 
-    CGSize maxSnapshotSize = CGSizeZero;
-//    NSArray *snapshots = self.snapshots;
-    int frameCount = [self.snapshots count];
-    for (NSUInteger i = 0; i < frameCount; i++)
+    CGSize maxSnapshotImageSize = CGSizeZero;
+    CGSize maxSnapshotContentSize = CGSizeZero;
+    for (SandboxSnapshot *snapshot in self.snapshots)
     {
-        SandboxSnapshot *snapshot = self.snapshots[i];
-        if (self.recordFullScreenVideo)
+        if (self.videoMode == SANDBOX_VIDEO_MODE_APP)
         {
-            maxSnapshotSize = snapshot.image.size;
+            maxSnapshotImageSize = maxSnapshotContentSize = snapshot.image.size;
             break;
         }
-        else
+        if (self.videoMode == SANDBOX_VIDEO_MODE_SANDBOX_AND_CODE)
         {
-            maxSnapshotSize = CGSizeMax(maxSnapshotSize, snapshot.rootViewSize);
+            maxSnapshotImageSize = CGSizeMax(maxSnapshotImageSize, snapshot.image.size);
         }
+        maxSnapshotContentSize = CGSizeMax(maxSnapshotContentSize, snapshot.contentSize);
     }
-    DebugCGSize(@"maxSnapshotSize", maxSnapshotSize);
-    CGSize frameSize = CGSizeFloor(maxSnapshotSize);
-    if (!self.recordFullScreenVideo)
+
+//    DebugCGSize(@"maxSnapshotContentSize", maxSnapshotContentSize);
+//    DebugCGSize(@"maxSnapshotImageSize", maxSnapshotImageSize);
+
+    CGSize outputSize = maxSnapshotContentSize;
+    outputSize = CGSizeFloor(outputSize);
+    if (self.videoMode != SANDBOX_VIDEO_MODE_APP)
     {
-        frameSize = CGSizeAdd(frameSize, CGSizeMake(20, 20));
-        frameSize = CGSizeMin(frameSize,
-                              [self.sandboxView maxViewSize]);
+        outputSize = CGSizeAdd(outputSize, CGSizeMake(20, 20));
+        outputSize = CGSizeMin(outputSize, maxSnapshotImageSize);
     }
+    CGSize screenshotSize = outputSize;
+
+    if (self.videoMode == SANDBOX_VIDEO_MODE_SANDBOX_AND_CODE)
+    {
+        WeViewAssert([self.snapshots count] == [self.codeSnapshots count]);
+
+        CGSize maxCodeSnapshotSize = CGSizeZero;
+        for (SandboxSnapshot *codeSnapshot in self.codeSnapshots)
+        {
+            maxCodeSnapshotSize = CGSizeMax(maxCodeSnapshotSize, codeSnapshot.contentSize);
+        }
+        maxCodeSnapshotSize = CGSizeFloor(maxCodeSnapshotSize);
+//        DebugCGSize(@"maxCodeSnapshotSize", maxCodeSnapshotSize);
+        outputSize.width = MIN(maxSnapshotImageSize.width,
+                               MAX(outputSize.width,
+                                   maxCodeSnapshotSize.width));
+        outputSize.height += maxCodeSnapshotSize.height;
+    }
+
+//    DebugCGSize(@"maxSnapshotSize", maxSnapshotSize);
+//    DebugCGSize(@"outputSize", outputSize);
+
     // Handbrake doesn't handle odd frame sizes well, so ensure that the width and height are even
     // multiples of 4.
-    frameSize = CGSizeScale(CGSizeFloor(CGSizeScale(frameSize, 1 / 4.f)), 4.f);
-    DebugCGSize(@"frameSize", frameSize);
+    outputSize = CGSizeRound(CGSizeScale(CGSizeFloor(CGSizeScale(outputSize, 1 / 4.f)), 4.f));
+    screenshotSize = CGSizeRound(CGSizeScale(CGSizeFloor(CGSizeScale(screenshotSize, 1 / 4.f)), 4.f));
+//    DebugCGSize(@"outputSize", outputSize);
+//    DebugCGSize(@"screenshotSize", screenshotSize);
 
     [self ensureSnapshotsFolderPath];
 
@@ -382,8 +504,8 @@
 
     NSDictionary *outputSettings = @{
                                     AVVideoCodecKey: AVVideoCodecH264,
-                                    AVVideoWidthKey: @(frameSize.width),
-                                    AVVideoHeightKey: @(frameSize.height),
+                                    AVVideoWidthKey: @(outputSize.width),
+                                    AVVideoHeightKey: @(outputSize.height),
 //                                    AVVideoCompressionPropertiesKey: @{
 //                                            AVVideoAverageBitRateKey: @(4*(1024.0*1024.0)),
 //                                            },
@@ -409,7 +531,6 @@
 
     int videoFrameCount = 0;
     while ([self.snapshots count] > 0)
-//    for (NSUInteger i = 0; i < frameCount; i++)
     {
         {
             NSDate *maxDate = [NSDate dateWithTimeIntervalSinceNow:0.01];
@@ -421,11 +542,24 @@
             SandboxSnapshot *snapshot = self.snapshots[0];
             [self.snapshots removeObjectAtIndex:0];
 
-            UIImage *image = [snapshot cropSnapshotWithSize:frameSize];
-            NSParameterAssert(image);
-            WeViewAssert(image);
+            UIImage *screenshotImage = [snapshot cropSnapshotWithSize:screenshotSize];
+            NSParameterAssert(screenshotImage);
+            WeViewAssert(screenshotImage);
 
-            CVPixelBufferRef pixelBuffer = [self pixelBufferFromCGImage:image.CGImage];
+            UIImage *frameImage = screenshotImage;
+
+            if (self.videoMode == SANDBOX_VIDEO_MODE_SANDBOX_AND_CODE)
+            {
+                SandboxSnapshot *codeSnapshot = self.codeSnapshots[0];
+                [self.codeSnapshots removeObjectAtIndex:0];
+                WeViewAssert([self.snapshots count] == [self.codeSnapshots count]);
+
+                frameImage = [self compositeScrenshotImage:screenshotImage
+                                             withCodeImage:codeSnapshot.image
+                                                outputSize:outputSize];
+            }
+
+            CVPixelBufferRef pixelBuffer = [self pixelBufferFromCGImage:frameImage.CGImage];
             NSParameterAssert(pixelBuffer);
 
             CMTime frameTime = CMTimeMake(videoFrameCount, 30);
@@ -660,28 +794,53 @@
     return pxbuffer;
 }
 
-- (UIImage *)takeSnapshot:(BOOL)fullscreen
+- (SandboxSnapshot *)createSnapshot:(SandboxVideoMode)videoMode
 {
-//    NSLog(@"takeSnapshot: %d", fullscreen);
-
-    UIView *snapshotView = self.sandboxPanel;
-    if (fullscreen)
-    {
-        snapshotView = [self lastViewControllerInResponderChain].view;
+    UIView *snapshotView;
+    CGSize imageSize;
+    CGSize contentSize;
+    BOOL fullscreen = NO;
+    switch (videoMode) {
+        case SANDBOX_VIDEO_MODE_SANDBOX:
+        {
+            snapshotView = self.sandboxPanel;
+            imageSize = snapshotView.size;
+            contentSize = [self.sandboxView rootViewSize];
+            break;
+        }
+        case SANDBOX_VIDEO_MODE_APP:
+        {
+            snapshotView = [self lastViewControllerInResponderChain].view;
+            imageSize = CGSizeMake(snapshotView.size.height, snapshotView.size.width);
+            contentSize = imageSize;
+            fullscreen = YES;
+            break;
+        }
+        default:
+            WeViewAssert(0);
+            break;
     }
 
-    CGSize imageSize = snapshotView.size;
-    if (fullscreen)
-    {
-        imageSize = CGSizeMake(snapshotView.size.height, snapshotView.size.width);
-    }
     if (imageSize.width * imageSize.height == 0)
     {
         return nil;
     }
 
+    SandboxSnapshot *snapshot = [[SandboxSnapshot alloc] init];
+    snapshot.image = [self takeSnapshotOfView:snapshotView
+                                    imageSize:imageSize
+                                   fullscreen:fullscreen];
+    snapshot.contentSize = contentSize;
+    return snapshot;
+}
+
+- (UIImage *)takeSnapshotOfView:(UIView *)snapshotView
+                      imageSize:(CGSize)imageSize
+                     fullscreen:(BOOL)fullscreen
+{
     UIGraphicsBeginImageContext(imageSize);
     CGContextRef context = UIGraphicsGetCurrentContext();
+    WeViewAssert(context);
 
     CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
     CGContextSetShouldAntialias(context, YES);
@@ -716,9 +875,18 @@
                           -[snapshotView bounds].size.height * [[snapshotView layer] anchorPoint].y);
 
     // Render the layer hierarchy to the current context
-    //
-    // IMPORTANT: use presentation layer to reflect Core Animations.
-    [[snapshotView layer].presentationLayer renderInContext:context];
+    if (fullscreen)
+    {
+        // IMPORTANT: I don't know why, but trying to render the presentationLayer of the
+        // root UIViewController's view when the "UITextView *generatedCodeView" is present
+        // causes a EXC_BAD_ACCESS.
+        [[snapshotView layer] renderInContext:context];
+    }
+    else
+    {
+        // IMPORTANT: use presentation layer to reflect Core Animations.
+        [[snapshotView layer].presentationLayer renderInContext:context];
+    }
 
     // Restore the context
     CGContextRestoreGState(context);
@@ -732,13 +900,79 @@
     return viewImage;
 }
 
+- (SandboxSnapshot *)renderGeneratedCodeSnapshot
+{
+    const int hMargin = 5;
+    const int vMargin = 5;
+
+    CTFontRef ctFont = CTFontCreateWithName((__bridge CFStringRef) self.generatedCodeView.font.fontName,
+                                            self.generatedCodeView.font.pointSize,
+                                            NULL);
+
+    NSString *code = self.generatedCodeView.text;
+    code = [code stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSArray *codeLines = [code componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSMutableArray *ctLines = [NSMutableArray array];
+    CGFloat maxLineWidth = 0;
+    for (NSString *codeLine in codeLines)
+    {
+        SandboxSnapshotTextLine *ctLine = [SandboxSnapshotTextLine createLineWithText:codeLine
+                                                                               ctFont:ctFont
+                                                                            textColor:self.generatedCodeView.textColor];
+        maxLineWidth = MAX(maxLineWidth, [ctLine lineBounds].size.width);
+        [ctLines addObject:ctLine];
+    }
+
+    CGFloat lineSpacing = (CTFontGetAscent(ctFont) + CTFontGetDescent(ctFont) + CTFontGetLeading(ctFont));
+    CGSize imageSize = CGSizeMake(ceilf(maxLineWidth) + 2 * hMargin,
+                                  ceilf(lineSpacing * [ctLines count]) + 2 * vMargin);
+
+    UIGraphicsBeginImageContext(imageSize);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    WeViewAssert(context);
+
+    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+    CGContextSetShouldAntialias(context, YES);
+    CGContextSetAllowsAntialiasing(context, YES);
+    CGContextSetShouldSmoothFonts(context, YES);
+    CGContextSetAllowsFontSmoothing(context, YES);
+
+    CGContextSaveGState(context);
+
+    [[UIColor whiteColor] setFill];
+    CGContextFillRect(context, CGRectMake(0, 0, imageSize.width, imageSize.height));
+
+    CGContextSetTextMatrix(context, CGAffineTransformMakeScale(1.0, -1.0));
+
+    CGFloat renderOffset = CTFontGetAscent(ctFont) + CTFontGetLeading(ctFont) * 0.5f + 1;
+
+    CGFloat y = vMargin;
+    for (SandboxSnapshotTextLine *ctLine in ctLines)
+    {
+        CGContextSetTextPosition(context, hMargin,
+                                 y + renderOffset);
+        CTLineDraw(ctLine.ctLine, context);
+        y += lineSpacing;
+    }
+
+    CGContextRestoreGState(context);
+
+    UIImage* viewImage = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+
+    SandboxSnapshot *snapshot = [[SandboxSnapshot alloc] init];
+    snapshot.image = viewImage;
+    snapshot.contentSize = imageSize;
+    return snapshot;
+}
+
 - (void)addSnapshot:(id)sender
 {
     @autoreleasepool {
-        SandboxSnapshot *snapshot = [[SandboxSnapshot alloc] init];
-        snapshot.image = [self takeSnapshot:NO];
-
-        CGSize rootViewSize = [self.sandboxView rootViewSize];
+        SandboxSnapshot *snapshot = [self createSnapshot:SANDBOX_VIDEO_MODE_SANDBOX];
+//        SandboxSnapshot *snapshot = [self renderGeneratedCodeSnapshot];
+        CGSize rootViewSize = snapshot.contentSize;
 
         [self ensureSnapshotsFolderPath];
 

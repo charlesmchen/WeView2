@@ -62,11 +62,15 @@
     NSMutableArray *subviews = [NSMutableArray array];
     for (UIViewController *childViewController in self.childViewControllers)
     {
-        [subviews addObject:[childViewController.view setStretchesIgnoringDesiredSize]];
+        [childViewController.view setStretchesIgnoringDesiredSize];
+        [subviews addObject:childViewController.view];
     }
 
+    UIViewController *viewEditorWrapper = [self.childViewControllers lastObject];
+    [viewEditorWrapper.view setStretchWeight:2.f];
+
     [self.rootView addSubviewsWithVerticalLayout:subviews];
-//    self.rootView.debugLayout = YES;
+//    [self.rootView setDebugLayoutOflayouts:YES];
 }
 
 - (void)didReceiveMemoryWarning
