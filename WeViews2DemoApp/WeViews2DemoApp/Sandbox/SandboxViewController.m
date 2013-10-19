@@ -231,7 +231,8 @@ typedef enum {
 
 - (void)updateGeneratedCode
 {
-    self.generatedCodeView.text = [[[DemoCodeGeneration alloc] init] generateCodeForView:self.demoModel.rootView];
+    self.generatedCodeView.text = [[[[DemoCodeGeneration alloc] init] generateCodeForView:self.demoModel.rootView]
+                                   stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 - (void)viewDidLoad
@@ -414,8 +415,6 @@ typedef enum {
     [screenshotImage drawAtPoint:CGPointZero];
     [codeImage drawAtPoint:CGPointMake(0, screenshotImage.size.height)];
 
-    [self.sandboxView setControlsHidden:NO];
-
     UIImage* compositeImage = UIGraphicsGetImageFromCurrentImageContext();
 
     UIGraphicsEndImageContext();
@@ -590,96 +589,10 @@ typedef enum {
     });
 }
 
-//- (void)startVideoSession
-//{
-//    [self ensureSnapshotsFolderPath];
-//
-//    UIViewController *rootViewController = [self lastViewControllerInResponderChain];
-//
-//    NSString *videoUuid = [[NSProcessInfo processInfo] globallyUniqueString];
-//    NSString *filePath = [self.snapshotsFolderPath stringByAppendingPathComponent:[NSString stringWithFormat:@"video-%@.mov",
-//                                                                                   videoUuid]];
-//    NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:filePath
-//                                            isDirectory:NO];
-//
-//    NSError *error = nil;
-//    self.videoWriter = [[AVAssetWriter alloc] initWithURL:fileURL
-//                                                 fileType:AVFileTypeQuickTimeMovie
-//                                                    error:&error];
-//    WeViewAssert(self.videoWriter);
-//    WeViewAssert(!error);
-//    NSParameterAssert(self.videoWriter);
-//
-//    NSDictionary *videoSettings = @{
-//                                    AVVideoCodecKey: AVVideoCodecH264,
-//                                    AVVideoWidthKey: @(rootViewController.view.width),
-//                                    AVVideoHeightKey: @(rootViewController.view.height),
-//                                    };
-//    [NSDictionary dictionaryWithObjectsAndKeys:
-//                                   AVVideoCodecH264, AVVideoCodecKey,
-//                                   [NSNumber numberWithInt:703], AVVideoWidthKey,
-//                                   [NSNumber numberWithInt:704], AVVideoHeightKey,
-//                                   nil];
-//    self.writerInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeVideo
-//                                                          outputSettings:videoSettings];
-//    WeViewAssert(self.writerInput);
-//
-//    NSDictionary *sourcePixelBufferAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                                 [NSNumber numberWithInt:kCVPixelFormatType_32ARGB], kCVPixelBufferPixelFormatTypeKey, nil];
-//    self.adaptor = [AVAssetWriterInputPixelBufferAdaptor assetWriterInputPixelBufferAdaptorWithAssetWriterInput:self.writerInput
-//                                                                                    sourcePixelBufferAttributes:sourcePixelBufferAttributes];
-//    WeViewAssert(self.adaptor);
-//
-//
-//    NSParameterAssert(self.writerInput);
-//    NSParameterAssert([self.videoWriter canAddInput:self.writerInput]);
-//    [self.videoWriter addInput:self.writerInput];
-//
-//    [self.videoWriter startWriting];
-//    [self.videoWriter startSessionAtSourceTime:kCMTimeZero];
-//    self.videoStartDate = [NSDate date];
-//    self.videoFrameCount = 0;
-//}
-//
-//- (void)grabVideoFrame
-//{
-//    WeViewAssert(self.videoWriter);
-//    WeViewAssert(self.writerInput);
-//    WeViewAssert(self.adaptor);
-//
-//    CVPixelBufferRef pixelBuffer = [self grabPixelBuffer];
-//
-//    CMTime frameTime = CMTimeMake(self.videoFrameCount, 30);
-//
-//    [self.adaptor appendPixelBuffer:pixelBuffer
-//               withPresentationTime:frameTime];
-//    CVPixelBufferRelease(pixelBuffer);
-//
-//    self.videoFrameCount++;
-//}
-//
-//- (void)endVideoSession
-//{
-//    [self.writerInput markAsFinished];
-//    CMTime frameTime = CMTimeMake(self.videoFrameCount, 30);
-//    [self.videoWriter endSessionAtSourceTime:frameTime];
-//
-//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-//    dispatch_async(queue, ^{
-//        [self.videoWriter finishWriting];
-//
-//        self.writerInput = nil;
-//        self.videoWriter = nil;
-//        self.adaptor = nil;
-//    });
-//}
-
 - (CVPixelBufferRef)pixelBufferFromCGImage:(CGImageRef)image
 {
     CGSize frameSize = CGSizeMake(CGImageGetWidth(image),
                                   CGImageGetHeight(image));
-
-    //    NSLog(@"frameSize: %@", NSStringFromCGSize(frameSize));
 
     NSDictionary *options = @{
                               (NSString *)kCVPixelBufferCGImageCompatibilityKey: @YES,
@@ -719,73 +632,6 @@ typedef enum {
                                            CGImageGetWidth(image),
                                            CGImageGetHeight(image)),
                        image);
-    CGColorSpaceRelease(rgbColorSpace);
-    CGContextRelease(context);
-
-    CVPixelBufferUnlockBaseAddress(pxbuffer, 0);
-
-    return pxbuffer;
-}
-
-- (CVPixelBufferRef)grabPixelBuffer
-{
-    UIViewController *rootViewController = [self lastViewControllerInResponderChain];
-    CGSize frameSize = rootViewController.view.size;
-//    CGSize frameSize = CGSizeMake(CGImageGetWidth(image),
-//                                  CGImageGetHeight(image));
-
-//    frameSize.width = 700;
-//    frameSize.height = 700;
-//    NSLog(@"frameSize: %@", NSStringFromCGSize(frameSize));
-
-    NSDictionary *options = @{
-//                              (NSString *)kCVPixelBufferCGImageCompatibilityKey: @YES,
-                              (NSString *)kCVPixelBufferCGBitmapContextCompatibilityKey: @YES,
-                              };
-    CVPixelBufferRef pxbuffer = NULL;
-//    CVPixelBufferPoolCreatePixelBuffer()
-    CVReturn status = CVPixelBufferCreate(kCFAllocatorDefault,
-                                          frameSize.width,
-                                          frameSize.height,
-                                          kCVPixelFormatType_32ARGB,
-                                          (__bridge CFDictionaryRef) options,
-                                          &pxbuffer);
-    NSParameterAssert(status == kCVReturnSuccess && pxbuffer != NULL);
-
-    CVPixelBufferLockBaseAddress(pxbuffer, 0);
-    void *pxdata = CVPixelBufferGetBaseAddress(pxbuffer);
-    NSParameterAssert(pxdata != NULL);
-
-//    CGAffineTransform frameTransform = CGAffineTransformIdentity;
-    CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(pxdata,
-                                                 frameSize.width,
-                                                 frameSize.height,
-                                                 8,
-//                                                 0,
-                                                 CVPixelBufferGetBytesPerRow(pxbuffer),
-//                                                 (int) (4 * roundf(frameSize.width)),
-                                                 rgbColorSpace,
-                                                 kCGImageAlphaNoneSkipFirst);
-    NSParameterAssert(context);
-
-    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
-    CGContextSetShouldAntialias(context, YES);
-    CGContextSetAllowsAntialiasing(context, YES);
-    CGContextSetShouldSmoothFonts(context, YES);
-    CGContextSetAllowsFontSmoothing(context, YES);
-
-//    CGContextConcatCTM(context, frameTransform);
-
-    // Flip the y-axis
-    CGContextTranslateCTM(context, 0, CGBitmapContextGetHeight(context));
-    CGContextScaleCTM(context, 1.0, -1.0);
-
-    [self.sandboxView setControlsHidden:YES];
-    [rootViewController.view.layer renderInContext:context];
-//    [self.sandboxView.layer renderInContext:context];
-    [self.sandboxView setControlsHidden:NO];
-
     CGColorSpaceRelease(rgbColorSpace);
     CGContextRelease(context);
 
@@ -1038,9 +884,6 @@ typedef enum {
     [self.sandboxView displayDemoModel:self.demoModel];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        //        NSLog(@"displayDemo: %@ %d",
-        //              [self.demoModel.rootView debugName],
-        //              [self.demoModel.rootView.subviews count]);
 
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DEMO_CHANGED
                                                             object:self.demoModel];
@@ -1056,9 +899,6 @@ typedef enum {
 - (void)viewDidLayoutSubviews
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        //        NSLog(@"viewDidLayoutSubviews: %@ %d",
-        //              [self.demoModel.rootView debugName],
-        //              [self.demoModel.rootView.subviews count]);
 
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SELECTION_CHANGED
                                                             object:self.demoModel.selection];

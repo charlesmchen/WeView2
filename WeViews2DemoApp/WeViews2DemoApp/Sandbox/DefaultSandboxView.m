@@ -8,6 +8,8 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "WeView.h"
 #import "DefaultSandboxView.h"
 #import "WeViewMacros.h"
@@ -52,8 +54,7 @@ typedef enum
 
 - (CGSize)rootViewSize
 {
-    CGSize rootViewSize = ((UIView *) self.subviews[0]).size;
-    return CGSizeMin(self.size, rootViewSize);
+    return CGSizeMin(self.size, self.demoModel.rootView.size);
 }
 
 - (CGSize)maxViewSize
@@ -63,10 +64,16 @@ typedef enum
 
 - (void)setControlsHidden:(BOOL)value
 {
-    for (int i=0; i < [self.subviews count]; i++)
+    if (value)
     {
-        UIView *subview = self.subviews[i];
-        subview.hidden = i > 0 && value;
+        [self.modePanel removeFromSuperview];
+    }
+    else if (![self.subviews containsObject:self.modePanel])
+    {
+        [[[[self addSubviewWithCustomLayout:self.modePanel]
+           setMargin:20]
+          setHAlign:H_ALIGN_LEFT]
+         setVAlign:V_ALIGN_BOTTOM];
     }
 }
 

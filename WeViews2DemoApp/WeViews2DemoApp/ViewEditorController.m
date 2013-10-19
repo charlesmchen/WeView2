@@ -447,7 +447,14 @@ typedef void (^SetterBlock)(id item);
                                             getterBlock:^NSString *(UIView *view) {
                                                 return FormatCGSize([view sizeThatFits:CGSizeZero]);
                                             }
-                                                setters:@[]],
+                                                setters:@[
+                             [ViewParameterSetter create:@"Set"
+                                             setterBlock:^(UIView *view) {
+                                                 CGPoint center = view.center;
+                                                 view.size = [view sizeThatFits:CGSizeZero];
+                                                 view.center = center;
+                                             }],
+                             ]],
 
                             [ViewParameterSimple create:@"background"
                                             getterBlock:^NSString *(UIView *view) {
