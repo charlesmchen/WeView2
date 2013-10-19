@@ -10,8 +10,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "WeViewBlockLayout.h"
 #import "UIView+WeView.h"
+#import "WeViewBlockLayout.h"
 #import "WeViewMacros.h"
 
 @interface WeViewBlockLayout ()

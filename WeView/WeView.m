@@ -12,13 +12,12 @@
 
 #import "UIView+WeView.h"
 #import "WeView.h"
+#import "WeViewFlowLayout.h"
+#import "WeViewGridLayout.h"
 #import "WeViewLayout.h"
 #import "WeViewLinearLayout.h"
 #import "WeViewMacros.h"
-#import "WeViewMacros.h"
 #import "WeViewStackLayout.h"
-#import "WeViewGridLayout.h"
-#import "WeViewFlowLayout.h"
 
 @interface WeViewLayout (WeView)
 

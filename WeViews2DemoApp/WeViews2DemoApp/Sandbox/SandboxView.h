@@ -12,9 +12,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import "WeView.h"
-
 #import "Demo.h"
+#import "WeView.h"
 
 @interface SandboxView : WeView
 

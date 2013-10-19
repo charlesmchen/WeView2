@@ -13,8 +13,8 @@
 #import <UIKit/UIKit.h>
 
 #import "SelectDemoViewController.h"
-#import "ViewTreeViewController.h"
 #import "ViewEditorController.h"
+#import "ViewTreeViewController.h"
 
 @interface SidebarViewController : UIViewController
 

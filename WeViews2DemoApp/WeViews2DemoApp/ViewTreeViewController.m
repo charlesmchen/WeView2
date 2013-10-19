@@ -9,8 +9,8 @@
 //
 
 #import "UIView+WeView.h"
-#import "ViewTreeViewController.h"
 #import "ViewHierarchyTree.h"
+#import "ViewTreeViewController.h"
 #import "WeViewDemoConstants.h"
 
 @interface ViewTreeViewController ()

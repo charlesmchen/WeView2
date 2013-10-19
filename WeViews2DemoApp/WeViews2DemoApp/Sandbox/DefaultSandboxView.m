@@ -10,11 +10,11 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "WeView.h"
 #import "DefaultSandboxView.h"
-#import "WeViewMacros.h"
-#import "WeViewDemoConstants.h"
 #import "DemoViewFactory.h"
+#import "WeView.h"
+#import "WeViewDemoConstants.h"
+#import "WeViewMacros.h"
 
 typedef enum
 {

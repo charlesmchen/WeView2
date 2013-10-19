@@ -8,9 +8,8 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-#import "SelectDemoViewController.h"
-
 #import "DemoFactory.h"
+#import "SelectDemoViewController.h"
 
 @interface SelectDemoViewController ()
 

@@ -10,9 +10,9 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "WeView.h"
 #import "DemoFactory.h"
 #import "DemoViewFactory.h"
+#import "WeView.h"
 
 UIColor *UIColorRGB(unsigned int rgb)
 {

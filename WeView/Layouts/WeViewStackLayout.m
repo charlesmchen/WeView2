@@ -10,9 +10,9 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "WeViewStackLayout.h"
 #import "UIView+WeView.h"
 #import "WeViewMacros.h"
+#import "WeViewStackLayout.h"
 
 @implementation WeViewStackLayout
 

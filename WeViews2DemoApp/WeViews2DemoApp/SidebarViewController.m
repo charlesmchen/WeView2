@@ -8,9 +8,9 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
+#import "SidebarViewController.h"
 #import "UIView+WeView.h"
 #import "WeView.h"
-#import "SidebarViewController.h"
 
 @interface SidebarViewController ()
 

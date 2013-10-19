@@ -10,13 +10,13 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "DemoFactory.h"
+#import "DemoMacros.h"
 #import "UIView+WeView.h"
 #import "ViewEditorController.h"
+#import "ViewHierarchyTree.h"
 #import "WeViewDemoConstants.h"
 #import "WeViewMacros.h"
-#import "DemoFactory.h"
-#import "ViewHierarchyTree.h"
-#import "DemoMacros.h"
 
 @interface WeView (ViewEditorController)
 

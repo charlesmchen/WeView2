@@ -8,21 +8,19 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import <CoreText/CoreText.h>
-#import <QuartzCore/QuartzCore.h>
-
-#import "WeView.h"
-#import "SandboxViewController.h"
-#import "WeViewMacros.h"
-#import "WeViewDemoConstants.h"
-#import "DefaultSandboxView.h"
-#import <QuartzCore/QuartzCore.h>
 #import <ImageIO/ImageIO.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <QuartzCore/QuartzCore.h>
+
+#import "DefaultSandboxView.h"
 #import "DemoCodeGeneration.h"
 #import "DemoViewFactory.h"
-#import <AVFoundation/AVFoundation.h>
-#import <QuartzCore/QuartzCore.h>
+#import "SandboxViewController.h"
+#import "WeView.h"
+#import "WeViewDemoConstants.h"
+#import "WeViewMacros.h"
 
 typedef enum {
     SANDBOX_VIDEO_MODE_SANDBOX,
