@@ -76,7 +76,6 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 
 // We need private access to this class' internals to generate the code.
 - (NSArray *)layouts;
-- (NSArray *)layouts;
 - (NSArray *)subviewsForLayout:(WeViewLayout *)layout;
 
 @end

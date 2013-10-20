@@ -31,6 +31,7 @@ typedef enum
 @property (nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic) WeView *phoneContainer;
 @property (nonatomic) WeView *modePanel;
+@property (nonatomic) WeView *iPhoneModePanel;
 
 @end
 
@@ -108,26 +109,6 @@ typedef enum
                                buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
                                     target:self
                                   selector:@selector(snapToDesiredSize:)],
-       [DemoViewFactory createFlatUIButton:@"iPhone 4 (Portrait)"
-                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-                                    target:self
-                                  selector:@selector(snapToIPhone4Portrait:)],
-       [DemoViewFactory createFlatUIButton:@"iPhone 4 (Landscape)"
-                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-                                    target:self
-                                  selector:@selector(snapToIPhone4Landscape:)],
-       [DemoViewFactory createFlatUIButton:@"iPhone 5 (Portrait)"
-                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-                                    target:self
-                                  selector:@selector(snapToIPhone5Portrait:)],
-       [DemoViewFactory createFlatUIButton:@"iPhone 5 (Landscape)"
-                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-                                    target:self
-                                  selector:@selector(snapToIPhone5Landscape:)],
        ]]
       setSpacing:10]
      setHAlign:H_ALIGN_LEFT];
@@ -136,12 +117,64 @@ typedef enum
        setMargin:20]
       setHAlign:H_ALIGN_LEFT]
      setVAlign:V_ALIGN_BOTTOM];
+
+    self.iPhoneModePanel = [[WeView alloc] init];
+
+    [[[self.iPhoneModePanel addSubviewsWithVerticalLayout:@[
+       [DemoViewFactory createFlatUIButton:@"i"
+                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
+                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+                                    target:self
+                                  selector:@selector(toggleIPhoneMode:)],
+//       [DemoViewFactory createFlatUIButton:@"iPhone 4 (Portrait)"
+//                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
+//                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+//                                    target:self
+//                                  selector:@selector(snapToIPhone4Portrait:)],
+//       [DemoViewFactory createFlatUIButton:@"iPhone 4 (Landscape)"
+//                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
+//                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+//                                    target:self
+//                                  selector:@selector(snapToIPhone4Landscape:)],
+//       [DemoViewFactory createFlatUIButton:@"iPhone 5 (Portrait)"
+//                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
+//                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+//                                    target:self
+//                                  selector:@selector(snapToIPhone5Portrait:)],
+//       [DemoViewFactory createFlatUIButton:@"iPhone 5 (Landscape)"
+//                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
+//                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+//                                    target:self
+//                                  selector:@selector(snapToIPhone5Landscape:)],
+       ]]
+      setSpacing:10]
+     setHAlign:H_ALIGN_LEFT];
+
+    [[[[self addSubviewWithCustomLayout:self.iPhoneModePanel]
+       setMargin:20]
+      setHAlign:H_ALIGN_RIGHT]
+     setVAlign:V_ALIGN_BOTTOM];
 }
 
 - (void)snapToDesiredSize:(id)sender
 {
     [self displayDemoModel:self.demoModel
                       mode:SANDBOX_MODE_DEFAULT];
+}
+
+- (void)toggleIPhoneMode:(id)sender
+{
+    NSArray *options = @[
+                         @(SANDBOX_MODE_IPHONE_4_PORTRAIT),
+                         @(SANDBOX_MODE_IPHONE_4_LANDSCAPE),
+                         @(SANDBOX_MODE_IPHONE_5_PORTRAIT),
+                         @(SANDBOX_MODE_IPHONE_5_LANDSCAPE),
+                         ];
+    static int optionCounter = 0;
+    optionCounter = (optionCounter + 1) % [options count];
+
+    [self displayDemoModel:self.demoModel
+                      mode:[options[optionCounter] intValue]];
 }
 
 - (void)snapToIPhone4Portrait:(id)sender
@@ -223,11 +256,14 @@ typedef enum
                }]
      setCropSubviewOverflow:NO];
 
-    //    phoneContainer.debugLayout = YES;
+//    [self.phoneContainer setDebugLayoutOflayouts:YES];
+//    self.phoneContainer.layer.borderColor = [UIColor yellowColor].CGColor;
+//    self.phoneContainer.layer.borderWidth = 1.f;
 
     [phoneScreen addSubviewWithCustomLayout:self.demoModel.rootView];
 
-    [self addSubviewWithCustomLayout:self.phoneContainer];
+    [[self addSubviewWithCustomLayout:self.phoneContainer]
+     setCropSubviewOverflow:NO];
 }
 
 - (void)displayDemoModel:(DemoModel *)demoModel

@@ -49,12 +49,14 @@ UIColor *UIColorRGB(unsigned int rgb)
              [self stretchDemo1],
              [self wrappingUILabelDemo1],
              [self smallUIImageViewDemo1],
+             [self miscDemo1],
              ];
 }
 
 + (Demo *)defaultDemo
 {
-    return [self horizontalDemo1];
+//    return [self iphoneDemo2_transformDesign];
+    return [self iphoneDemo2_transforml10n];
 }
 
 + (Demo *)randomImageDemo1
@@ -140,13 +142,35 @@ UIColor *UIColorRGB(unsigned int rgb)
         DemoModel *demoModel = [DemoModel create];
 
         [[[[demoModel.rootView addSubviewsWithStackLayout:@[
-                                                         [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]],
-         [DemoFactory createLabel:@"A UILabel"
-                         fontSize:16.f],
-         ]]
+            [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]],
+            [DemoFactory createLabel:@"A UILabel"
+                            fontSize:16.f],
+            ]]
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
+
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        //    result.debugLayout = YES;
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)miscDemo1
+{
+    NSString *demoName = @"Misc Demo 1";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        [[[demoModel.rootView addSubviewWithCustomLayout:
+          [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/ok_button_up.png"]]]
+         setBottomMargin:20]
+         setVAlign:V_ALIGN_BOTTOM];
 
         [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         //    result.debugLayout = YES;
@@ -562,6 +586,25 @@ UIColor *UIColorRGB(unsigned int rgb)
 
 + (Demo *)iphoneDemo2
 {
+    return [self iphoneDemo2:NO
+               transforml10n:NO];
+}
+
++ (Demo *)iphoneDemo2_transformDesign
+{
+    return [self iphoneDemo2:NO
+               transforml10n:YES];
+}
+
++ (Demo *)iphoneDemo2_transforml10n
+{
+    return [self iphoneDemo2:NO
+               transforml10n:YES];
+}
+
++ (Demo *)iphoneDemo2:(BOOL)transformDesign
+        transforml10n:(BOOL)transforml10n
+{
     NSString *demoName = @"iPhone Demo 2";
     Demo *demo = [[Demo alloc] init];
     demo.name = demoName;
@@ -583,8 +626,9 @@ UIColor *UIColorRGB(unsigned int rgb)
         headerView.backgroundColor = [UIColor colorWithWhite:0.5f alpha:0.5f];
         headerView.opaque = NO;
         // Add "title" UILabel to header.
-        [[headerView addSubviewWithCustomLayout:[DemoFactory createLabel:@"Ferdinand Hodler"
-                                                                fontSize:20.f]]
+        UILabel *headerLabel = [DemoFactory createLabel:@"Ferdinand Hodler"
+                                               fontSize:20.f];
+        [[headerView addSubviewWithCustomLayout:headerLabel]
          setMargin:5];
         // Add "tag" button to header.
         [[[[headerView addSubviewWithCustomLayout:[DemoFactory buttonWithImageName:@"Glyphish_Icons/14-tag.png"]]
@@ -599,14 +643,15 @@ UIColor *UIColorRGB(unsigned int rgb)
         // Add pillbox buttons to bottom of screen.
         //
         // No need to set horizontal alignment; centering is the default.
-        [[[demoModel.rootView addSubviewsWithHorizontalLayout:@[
-           [self createFlatUIPillboxButton:@"Prev"
-                                     shape:H_ALIGN_LEFT],
-           [self createFlatUIPillboxButton:@"Details"
-                                     shape:H_ALIGN_CENTER],
-           [self createFlatUIPillboxButton:@"Next"
-                                     shape:H_ALIGN_RIGHT],
-           ]]
+        __block NSArray *pillboxButtons = @[
+                                    [self createFlatUIPillboxButton:@"Prev"
+                                                              shape:H_ALIGN_LEFT],
+                                    [self createFlatUIPillboxButton:@"Details"
+                                                              shape:H_ALIGN_CENTER],
+                                    [self createFlatUIPillboxButton:@"Next"
+                                                              shape:H_ALIGN_RIGHT],
+                                    ];
+        [[[demoModel.rootView addSubviewsWithHorizontalLayout:pillboxButtons]
           setBottomMargin:25]
          setVAlign:V_ALIGN_BOTTOM];
 
@@ -620,6 +665,52 @@ UIColor *UIColorRGB(unsigned int rgb)
 //        demoModel.rootView.debugName = demoName;
         demoModel.rootView.debugName = @"rootView";
         headerView.debugName = @"headerView";
+
+        if (transformDesign)
+        {
+            demoModel.transformBlocks = @[
+                                          ^{
+                                              static int counter = 0;
+                                              counter = (counter + 1) % 2;
+                                              headerLabel.font = [headerLabel.font fontWithSize:((counter == 0) ? 20.f : 24.f)];
+                                              for (UIButton *pillboxButton in pillboxButtons)
+                                              {
+//                                                  headerLabel.font = [headerLabel.font fontWithSize:((counter == 0) ? 20.f : 24.f)];
+//                                                  pillboxButton.backgroundColor = ((counter == 0)
+//                                                                                   ? [UIColor colorWithWhite:0.65f alpha:1.f]
+//                                                                                   : [UIColor colorWithWhite:0.5f alpha:1.f]);
+                                              }
+                                              [demoModel.rootView setNeedsLayout];
+                                          },
+                                          ];
+        }
+        else if (transforml10n)
+        {
+            demoModel.transformBlocks = @[
+                                          ^{
+                                              static int counter = 0;
+                                              counter = (counter + 1) % 2;
+//                                              headerLabel.text = [headerLabel.font fontWithSize:((counter == 0) ? 20.f : 24.f)];
+                                              for (UIButton *pillboxButton in pillboxButtons)
+                                              {
+                                                  [pillboxButton removeFromSuperview];
+                                              }
+                                              pillboxButtons = @[
+                                                                          [self createFlatUIPillboxButton:(counter == 0) ? @"Prev" : @"Anterior"
+                                                                                                    shape:H_ALIGN_LEFT],
+                                                                          [self createFlatUIPillboxButton:(counter == 0) ? @"Details" : @"Detalles"
+                                                                                                    shape:H_ALIGN_CENTER],
+                                                                          [self createFlatUIPillboxButton:(counter == 0) ? @"Next" : @"Proximo"
+                                                                                                    shape:H_ALIGN_RIGHT],
+                                                                          ];
+                                              [[[demoModel.rootView addSubviewsWithHorizontalLayout:pillboxButtons]
+                                                setBottomMargin:25]
+                                               setVAlign:V_ALIGN_BOTTOM];
+                                              [demoModel.rootView setNeedsLayout];
+                                          },
+                                           ];
+        }
+
         return demoModel;
     };
     return demo;
@@ -935,14 +1026,6 @@ UIColor *UIColorRGB(unsigned int rgb)
 //            [UIColor clearColor],
 //            nil];
 //}
-//
-//+ (NSArray*) foregroundColors {
-//    return [self allColors];
-//}
-//
-//+ (NSArray*) backgroundColors {
-//    return [self allColors];
-//}
 
 + (NSArray *)foregroundColors
 {
@@ -959,22 +1042,6 @@ UIColor *UIColorRGB(unsigned int rgb)
             [UIColor yellowColor],
             nil];
 }
-//
-//+ (NSArray*) backgroundColors {
-//    return [NSArray arrayWithObjects:
-//            [UIColor whiteColor],
-//            [UIColor colorWithWhite:0.25f alpha:1.0f],
-//            [UIColor blackColor],
-//            [UIColor clearColor],
-//            nil];
-//}
-//
-//+ (NSArray*) allColors {
-//    NSMutableArray* result = [NSMutableArray array];
-//    [result addObjectsFromArray:[self foregroundColors]];
-//    [result addObjectsFromArray:[self backgroundColors]];
-//    return result;
-//}
 
 + (UIColor *)randomForegroundColor
 {

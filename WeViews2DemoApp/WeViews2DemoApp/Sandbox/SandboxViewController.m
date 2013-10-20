@@ -253,6 +253,10 @@ typedef enum {
                                                                                 style:UIBarButtonItemStyleBordered
                                                                                target:self
                                                                                action:@selector(toggleGeneratedCodeView:)],
+//                                               [[UIBarButtonItem alloc] initWithTitle:@"i"
+//                                                                                style:UIBarButtonItemStyleBordered
+//                                                                               target:self
+//                                                                               action:@selector(selectIPhoneMode:)],
                                                ];
     self.navigationItem.rightBarButtonItems = @[
 #if TARGET_IPHONE_SIMULATOR
@@ -293,6 +297,10 @@ typedef enum {
         [self.generatedCodePanel setStretchWeight:1.f];
     }
 }
+
+//- (void)selectIPhoneMode:(id)sender
+//{
+//}
 
 - (void)transformDemoModel:(id)sender
 {
@@ -436,10 +444,7 @@ typedef enum {
             maxSnapshotImageSize = maxSnapshotContentSize = snapshot.image.size;
             break;
         }
-        if (self.videoMode == SANDBOX_VIDEO_MODE_SANDBOX_AND_CODE)
-        {
-            maxSnapshotImageSize = CGSizeMax(maxSnapshotImageSize, snapshot.image.size);
-        }
+        maxSnapshotImageSize = CGSizeMax(maxSnapshotImageSize, snapshot.image.size);
         maxSnapshotContentSize = CGSizeMax(maxSnapshotContentSize, snapshot.contentSize);
     }
 
@@ -485,8 +490,9 @@ typedef enum {
     [self ensureSnapshotsFolderPath];
 
     NSString *videoUuid = [[NSProcessInfo processInfo] globallyUniqueString];
-    NSString *filePath = [self.snapshotsFolderPath stringByAppendingPathComponent:[NSString stringWithFormat:@"video-%@.mov",
-                                                                                   videoUuid]];
+    NSString *filenameWOExt = [NSString stringWithFormat:@"video-%@", videoUuid];
+    NSString *filename = [NSString stringWithFormat:@"video-%@.mov", videoUuid];
+    NSString *filePath = [self.snapshotsFolderPath stringByAppendingPathComponent:filename];
     NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:filePath
                                             isDirectory:NO];
 
@@ -585,6 +591,16 @@ typedef enum {
     dispatch_async(queue, ^{
         [videoWriter finishWriting];
     });
+
+    NSLog(@"\n \
+    <video WIDTH=\"%d\" HEIGHT=\"%d\" AUTOPLAY=\"true\" controls=\"true\" LOOP=\"true\" class=\"embedded_video\" >\n \
+    <source src=\"videos/%@.mp4\" type=\"video/mp4\" />\n \
+    <source src=\"videos/%@.webm\" type=\"video/webm\" />\n \
+    </video>",
+          (int) roundf(outputSize.width),
+          (int) roundf(outputSize.height),
+          filenameWOExt,
+          filenameWOExt);
 }
 
 - (CVPixelBufferRef)pixelBufferFromCGImage:(CGImageRef)image
