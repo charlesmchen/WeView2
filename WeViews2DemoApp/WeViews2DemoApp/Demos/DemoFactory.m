@@ -55,8 +55,9 @@ UIColor *UIColorRGB(unsigned int rgb)
 
 + (Demo *)defaultDemo
 {
-//    return [self iphoneDemo2_transformDesign];
-    return [self iphoneDemo2_transforml10n];
+    //    return [self iphoneDemo2_transformDesign];
+//    return [self iphoneDemo2_transforml10n];
+    return [self iphoneDemo2_dynamicContent];
 }
 
 + (Demo *)randomImageDemo1
@@ -587,23 +588,34 @@ UIColor *UIColorRGB(unsigned int rgb)
 + (Demo *)iphoneDemo2
 {
     return [self iphoneDemo2:NO
-               transforml10n:NO];
+               transforml10n:NO
+              dynamicContent:NO];
 }
 
 + (Demo *)iphoneDemo2_transformDesign
 {
-    return [self iphoneDemo2:NO
-               transforml10n:YES];
+    return [self iphoneDemo2:YES
+               transforml10n:NO
+              dynamicContent:NO];
 }
 
 + (Demo *)iphoneDemo2_transforml10n
 {
     return [self iphoneDemo2:NO
-               transforml10n:YES];
+               transforml10n:YES
+              dynamicContent:NO];
+}
+
++ (Demo *)iphoneDemo2_dynamicContent
+{
+    return [self iphoneDemo2:NO
+               transforml10n:NO
+              dynamicContent:YES];
 }
 
 + (Demo *)iphoneDemo2:(BOOL)transformDesign
         transforml10n:(BOOL)transforml10n
+       dynamicContent:(BOOL)dynamicContent
 {
     NSString *demoName = @"iPhone Demo 2";
     Demo *demo = [[Demo alloc] init];
@@ -616,7 +628,9 @@ UIColor *UIColorRGB(unsigned int rgb)
 
         // Add image that exactly fills the background of the body panel while retaining its aspect ratio.
         UIImage *image = [UIImage imageNamed:@"Images/thun-stockhornkette-1904 1600.jpg"];
-        [[[demoModel.rootView addSubviewWithCustomLayout:[[UIImageView alloc] initWithImage:image]]
+        UIImageView *background = [[UIImageView alloc] initWithImage:image];
+        [[[demoModel.rootView addSubviewWithCustomLayout:[[background setStretches]
+                                                          setIgnoreDesiredSize]]
           setCellPositioning:CELL_POSITION_FILL_W_ASPECT_RATIO]
          setVAlign:V_ALIGN_TOP];
         // The background will exceed the rootView's bounds, so we need to clip.
@@ -643,17 +657,21 @@ UIColor *UIColorRGB(unsigned int rgb)
         // Add pillbox buttons to bottom of screen.
         //
         // No need to set horizontal alignment; centering is the default.
-        __block NSArray *pillboxButtons = @[
-                                    [self createFlatUIPillboxButton:@"Prev"
-                                                              shape:H_ALIGN_LEFT],
-                                    [self createFlatUIPillboxButton:@"Details"
-                                                              shape:H_ALIGN_CENTER],
-                                    [self createFlatUIPillboxButton:@"Next"
-                                                              shape:H_ALIGN_RIGHT],
-                                    ];
-        [[[demoModel.rootView addSubviewsWithHorizontalLayout:pillboxButtons]
+        WeView *pillboxButtonsView = [[WeView alloc] init];
+        pillboxButtonsView.layer.cornerRadius = 5.f;
+        pillboxButtonsView.clipsToBounds = YES;
+        [[[demoModel.rootView addSubviewWithCustomLayout:pillboxButtonsView]
           setBottomMargin:25]
          setVAlign:V_ALIGN_BOTTOM];
+        [pillboxButtonsView addSubviewsWithHorizontalLayout:@[
+         [self createFlatUIPillboxButton:@"Prev"],
+         [self createFlatUIPillboxSpacer],
+         [self createFlatUIPillboxButton:@"Details"],
+         [self createFlatUIPillboxSpacer],
+         [self createFlatUIPillboxButton:@"Next"],
+         ]];
+//        pillboxButtonsView.layer.borderWidth = 1.f;
+//        pillboxButtonsView.layer.borderColor = [UIColor yellowColor].CGColor;
 
         // Add activity indicator, centered on screen.
         UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -673,12 +691,14 @@ UIColor *UIColorRGB(unsigned int rgb)
                                               static int counter = 0;
                                               counter = (counter + 1) % 2;
                                               headerLabel.font = [headerLabel.font fontWithSize:((counter == 0) ? 20.f : 24.f)];
-                                              for (UIButton *pillboxButton in pillboxButtons)
+                                              for (UIView *subview in pillboxButtonsView.subviews)
                                               {
-//                                                  headerLabel.font = [headerLabel.font fontWithSize:((counter == 0) ? 20.f : 24.f)];
-//                                                  pillboxButton.backgroundColor = ((counter == 0)
-//                                                                                   ? [UIColor colorWithWhite:0.65f alpha:1.f]
-//                                                                                   : [UIColor colorWithWhite:0.5f alpha:1.f]);
+                                                  if (![subview isKindOfClass:[UIButton class]])
+                                                  {
+                                                      continue;
+                                                  }
+                                                  UIButton *pillboxButton = (UIButton *)subview;
+                                                  pillboxButton.titleLabel.font = [headerLabel.font fontWithSize:((counter == 0) ? 16.f : 18.f)];
                                               }
                                               [demoModel.rootView setNeedsLayout];
                                           },
@@ -690,22 +710,30 @@ UIColor *UIColorRGB(unsigned int rgb)
                                           ^{
                                               static int counter = 0;
                                               counter = (counter + 1) % 2;
-//                                              headerLabel.text = [headerLabel.font fontWithSize:((counter == 0) ? 20.f : 24.f)];
-                                              for (UIButton *pillboxButton in pillboxButtons)
-                                              {
-                                                  [pillboxButton removeFromSuperview];
-                                              }
-                                              pillboxButtons = @[
-                                                                          [self createFlatUIPillboxButton:(counter == 0) ? @"Prev" : @"Anterior"
-                                                                                                    shape:H_ALIGN_LEFT],
-                                                                          [self createFlatUIPillboxButton:(counter == 0) ? @"Details" : @"Detalles"
-                                                                                                    shape:H_ALIGN_CENTER],
-                                                                          [self createFlatUIPillboxButton:(counter == 0) ? @"Next" : @"Proximo"
-                                                                                                    shape:H_ALIGN_RIGHT],
-                                                                          ];
-                                              [[[demoModel.rootView addSubviewsWithHorizontalLayout:pillboxButtons]
-                                                setBottomMargin:25]
-                                               setVAlign:V_ALIGN_BOTTOM];
+
+                                              [pillboxButtonsView removeAllSubviews];
+                                              [pillboxButtonsView addSubviewsWithHorizontalLayout:@[
+                                               [self createFlatUIPillboxButton:(counter == 0) ? @"Prev" : @"Anterior"],
+                                               [self createFlatUIPillboxSpacer],
+                                               [self createFlatUIPillboxButton:(counter == 0) ? @"Details" : @"Detalles"],
+                                               [self createFlatUIPillboxSpacer],
+                                               [self createFlatUIPillboxButton:(counter == 0) ? @"Next" : @"Proximo"],
+                                               ]];
+                                              [demoModel.rootView setNeedsLayout];
+                                          },
+                                           ];
+        }
+        else if (dynamicContent)
+        {
+            demoModel.transformBlocks = @[
+                                          ^{
+                                              static int counter = 0;
+                                              counter = (counter + 1) % 2;
+
+                                              background.image = [UIImage imageNamed:((counter == 0)
+                                                                                      ? @"Images/thun-stockhornkette-1904 1600.jpg"
+                                                                                      : @"Images/ferdinand hodler - rhythmic landscape on lake geneva (1908) 1600px.jpg")];
+
                                               [demoModel.rootView setNeedsLayout];
                                           },
                                            ];
@@ -716,19 +744,27 @@ UIColor *UIColorRGB(unsigned int rgb)
     return demo;
 }
 
++ (UIView *)createFlatUIPillboxSpacer
+{
+    UIView *spacer = [[UIView alloc] init];
+    spacer.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.f];
+    spacer.opaque = YES;
+    [spacer setIgnoreDesiredSize];
+    [spacer setVStretches];
+    [spacer setMinWidth:1];
+    return spacer;
+}
+
 + (UIButton *)createFlatUIPillboxButton:(NSString *)label
-                                  shape:(HAlign)shape
 {
     return [self createFlatUIPillboxButton:label
                                  textColor:[UIColor whiteColor]
-                               buttonColor:[UIColor colorWithWhite:0.65f alpha:1.f]
-                                     shape:shape];
+                               buttonColor:[UIColor colorWithWhite:0.65f alpha:1.f]];
 }
 
 + (UIButton *)createFlatUIPillboxButton:(NSString *)label
                               textColor:(UIColor *)textColor
                             buttonColor:(UIColor *)buttonColor
-                                  shape:(HAlign)shape
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.opaque = NO;
@@ -743,42 +779,6 @@ UIColor *UIColorRGB(unsigned int rgb)
     button.titleLabel.backgroundColor = [UIColor clearColor];
     button.titleLabel.opaque = NO;
     [button sizeToFit];
-
-    const int kPillboxRounding = 8;
-    if (shape == H_ALIGN_LEFT)
-    {
-        CGRect clipRect = button.bounds;
-        clipRect.size.width += kPillboxRounding;
-        CAShapeLayer *maskLayer = [CAShapeLayer layer];
-        maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:clipRect
-                                                    cornerRadius:kPillboxRounding].CGPath;
-        button.layer.mask = maskLayer;
-    }
-    else
-    {
-//        CALayer *sublayer = [CALayer layer];
-//        sublayer.backgroundColor = [UIColor colorWithWhite:1.f alpha:0.5f].CGColor;
-//        sublayer.frame = CGRectMake(0, 0, 1.f, button.height);
-//        [button.layer addSublayer:sublayer];
-    }
-
-    if (shape == H_ALIGN_RIGHT)
-    {
-        CGRect clipRect = button.bounds;
-        clipRect.origin.x -= kPillboxRounding;
-        clipRect.size.width += kPillboxRounding;
-        CAShapeLayer *maskLayer = [CAShapeLayer layer];
-        maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:clipRect
-                                                    cornerRadius:kPillboxRounding].CGPath;
-        button.layer.mask = maskLayer;
-    }
-    else
-    {
-        CALayer *sublayer = [CALayer layer];
-        sublayer.backgroundColor = [UIColor colorWithWhite:1.f alpha:0.5f].CGColor;
-        sublayer.frame = CGRectMake(button.width - 1.f, 0, 1.f, button.height);
-        [button.layer addSublayer:sublayer];
-    }
 
     return button;
 }

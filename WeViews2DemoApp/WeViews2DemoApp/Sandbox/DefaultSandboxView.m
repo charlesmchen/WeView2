@@ -31,7 +31,6 @@ typedef enum
 @property (nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic) WeView *phoneContainer;
 @property (nonatomic) WeView *modePanel;
-@property (nonatomic) WeView *iPhoneModePanel;
 
 @end
 
@@ -53,9 +52,20 @@ typedef enum
     return self;
 }
 
+- (UIView *)findOuterDemoView
+{
+    // Traverse view hierarchy from demo view to find subview of the sandbox view.
+    UIView *view = self.demoModel.rootView;
+    while (view && view.superview != self)
+    {
+        view = view.superview;
+    }
+    return view;
+}
+
 - (CGSize)rootViewSize
 {
-    return CGSizeMin(self.size, self.demoModel.rootView.size);
+    return CGSizeMin(self.size, [self findOuterDemoView].size);
 }
 
 - (CGSize)maxViewSize
@@ -85,15 +95,11 @@ typedef enum
         UILabel *resizeInstructionsLabel = [DemoViewFactory createLabel:@"Drag in this window to resize"
                                                                fontSize:14.f
                                                               textColor:[DemoViewFactory colorWithRGBHex:0x888888]];
-        [self addSubview:resizeInstructionsLabel
-         withLayoutBlock:^(UIView *superview, UIView *subview) {
-             WeViewAssert(subview);
-             WeViewAssert(subview.superview);
-             const int kHMargin = 20 + 5;
-             const int kVMargin = 20 + 5;
-             subview.right = subview.superview.width - kHMargin;
-             subview.bottom = subview.superview.height - kVMargin;
-         }];
+
+        [[[[self addSubviewWithCustomLayout:resizeInstructionsLabel]
+           setMargin:20]
+          setHAlign:H_ALIGN_RIGHT]
+         setVAlign:V_ALIGN_TOP];
         self.panGestureRecognizer.enabled = YES;
     }
     else
@@ -118,39 +124,12 @@ typedef enum
       setHAlign:H_ALIGN_LEFT]
      setVAlign:V_ALIGN_BOTTOM];
 
-    self.iPhoneModePanel = [[WeView alloc] init];
-
-    [[[self.iPhoneModePanel addSubviewsWithVerticalLayout:@[
+    [[[[self addSubviewWithCustomLayout:
        [DemoViewFactory createFlatUIButton:@"i"
                                  textColor:[UIColor colorWithWhite:1.f alpha:1.f]
                                buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
                                     target:self
-                                  selector:@selector(toggleIPhoneMode:)],
-//       [DemoViewFactory createFlatUIButton:@"iPhone 4 (Portrait)"
-//                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-//                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-//                                    target:self
-//                                  selector:@selector(snapToIPhone4Portrait:)],
-//       [DemoViewFactory createFlatUIButton:@"iPhone 4 (Landscape)"
-//                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-//                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-//                                    target:self
-//                                  selector:@selector(snapToIPhone4Landscape:)],
-//       [DemoViewFactory createFlatUIButton:@"iPhone 5 (Portrait)"
-//                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-//                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-//                                    target:self
-//                                  selector:@selector(snapToIPhone5Portrait:)],
-//       [DemoViewFactory createFlatUIButton:@"iPhone 5 (Landscape)"
-//                                 textColor:[UIColor colorWithWhite:1.f alpha:1.f]
-//                               buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
-//                                    target:self
-//                                  selector:@selector(snapToIPhone5Landscape:)],
-       ]]
-      setSpacing:10]
-     setHAlign:H_ALIGN_LEFT];
-
-    [[[[self addSubviewWithCustomLayout:self.iPhoneModePanel]
+                                  selector:@selector(toggleIPhoneMode:)]]
        setMargin:20]
       setHAlign:H_ALIGN_RIGHT]
      setVAlign:V_ALIGN_BOTTOM];
@@ -165,6 +144,10 @@ typedef enum
 - (void)toggleIPhoneMode:(id)sender
 {
     NSArray *options = @[
+                         @(SANDBOX_MODE_IPHONE_4_PORTRAIT),
+                         @(SANDBOX_MODE_IPHONE_5_PORTRAIT),
+                         @(SANDBOX_MODE_IPHONE_4_LANDSCAPE),
+                         @(SANDBOX_MODE_IPHONE_5_LANDSCAPE),
                          @(SANDBOX_MODE_IPHONE_4_PORTRAIT),
                          @(SANDBOX_MODE_IPHONE_4_LANDSCAPE),
                          @(SANDBOX_MODE_IPHONE_5_PORTRAIT),
