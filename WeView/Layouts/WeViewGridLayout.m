@@ -163,6 +163,7 @@ typedef struct
 
 - (GridLayoutInfo *)getGridLayoutInfo:(UIView *)view
                              subviews:(NSArray *)subviews
+                    useEmptyGuideSize:(BOOL)useEmptyGuideSize
                                 debug:(BOOL)debug
 {
     GridLayoutInfo *result = [[GridLayoutInfo alloc] init];
@@ -231,7 +232,7 @@ typedef struct
             index++;
 
             CGSize subviewSize = [self desiredItemSize:subview
-                                               maxSize:maxSubviewSize];
+                                               maxSize:useEmptyGuideSize ? CGSizeZero : maxSubviewSize];
 
             columnWidths[column] = MAX(columnWidths[column], subviewSize.width);
             result.maxColumnWidth = MAX(result.maxColumnWidth, subviewSize.width);
@@ -316,7 +317,7 @@ typedef struct
     guideSize = CGSizeMax(guideSize, CGSizeZero);
     // TODO: Apply hasNonEmptyGuideSize in grid layout to ensure proper handling of the zero
     // case.
-    // BOOL hasNonEmptyGuideSize = !CGSizeEqualToSize(guideSize, CGSizeZero);
+    BOOL hasNonEmptyGuideSize = !CGSizeEqualToSize(guideSize, CGSizeZero);
     BOOL debugMinSize = [self debugMinSize];
     int indent = 0;
     if (debugMinSize)
@@ -332,6 +333,7 @@ typedef struct
 
     GridLayoutInfo *gridLayoutInfo = [self getGridLayoutInfo:view
                                                     subviews:subviews
+                                           useEmptyGuideSize:!hasNonEmptyGuideSize
                                                        debug:debugMinSize];
 
     CGSize totalSize = [gridLayoutInfo totalSize:view
@@ -370,6 +372,7 @@ typedef struct
 
     GridLayoutInfo *gridLayoutInfo = [self getGridLayoutInfo:view
                                                     subviews:subviews
+                                           useEmptyGuideSize:NO
                                                        debug:debugLayout];
     int columnCount = gridLayoutInfo.columnCount;
     CGRect contentBounds = [self contentBoundsOfView:view

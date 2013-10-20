@@ -32,6 +32,7 @@
     }
 
     guideSize = CGSizeMax(guideSize, CGSizeZero);
+    BOOL hasNonEmptyGuideSize = (MAX(0, guideSize.width) * MAX(guideSize.height, 0)) > 0;
     BOOL debugMinSize = [self debugMinSize];
     int indent = 0;
     if (debugMinSize)
@@ -63,7 +64,7 @@
         UIView* subview = subviews[i];
 
         CGSize subviewSize = [self desiredItemSize:subview
-                                           maxSize:contentBounds.size];
+                                           maxSize:hasNonEmptyGuideSize ? contentBounds.size : CGSizeZero];
         maxSubviewSize = CGSizeMax(maxSubviewSize, subviewSize);
     }
 

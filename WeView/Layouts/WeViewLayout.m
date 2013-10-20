@@ -502,7 +502,7 @@ BOOL _debugMinSize;
 {
     if (subview.ignoreDesiredSize)
     {
-        return CGSizeZero;
+        return subview.minSize;
     }
 
     CGSize desiredSize = CGSizeAdd([subview sizeThatFits:maxSize],

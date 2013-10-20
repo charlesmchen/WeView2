@@ -64,7 +64,8 @@
     CGSize subviewDesiredSizes[subviewCount];
     [self findDesiredSizes:&(subviewDesiredSizes[0])
                 ofSubviews:subviews
-             contentBounds:contentBounds
+          subviewGuideSize:hasNonEmptyGuideSize ? contentBounds.size : CGSizeZero
+            maxSubviewSize:contentBounds.size
                   cropSize:hasNonEmptyGuideSize];
 
     CGRect cellBounds[subviewCount];
@@ -90,7 +91,8 @@
 
 - (void)findDesiredSizes:(CGSize *)subviewDesiredSizes
               ofSubviews:(NSArray *)subviews
-           contentBounds:(CGRect)contentBounds
+        subviewGuideSize:(CGSize)subviewGuideSize
+          maxSubviewSize:(CGSize)maxSubviewSize
                 cropSize:(BOOL)cropSize
 {
     int subviewCount = [subviews count];
@@ -99,11 +101,11 @@
     {
         UIView* subview = subviews[i];
         CGSize subviewSize = [self desiredItemSize:subview
-                                           maxSize:contentBounds.size];
+                                           maxSize:subviewGuideSize];
 
         if (cropSubviewOverflow && cropSize)
         {
-            subviewSize = CGSizeMin(subviewSize, contentBounds.size);
+            subviewSize = CGSizeMin(subviewSize, maxSubviewSize);
         }
         subviewDesiredSizes[i] = subviewSize;
     }
@@ -351,7 +353,8 @@
     CGSize subviewDesiredSizes[subviewCount];
     [self findDesiredSizes:&(subviewDesiredSizes[0])
                 ofSubviews:subviews
-             contentBounds:contentBounds
+          subviewGuideSize:contentBounds.size
+            maxSubviewSize:contentBounds.size
                   cropSize:YES];
 
     CGRect cellBounds[subviewCount];
