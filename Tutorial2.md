@@ -10,9 +10,9 @@ Tutorial 2: iPhone Demo
 
 Here's another example that demonstrates a layout that is _responsive_ to changes of orientation and device:
 
-<video WIDTH="720" HEIGHT="720" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
-    <source src="videos/video-86091C1C-394D-4590-A423-FE76B3F0FA69-42205-0006D4F97F73EB9E.mp4" type="video/mp4" />
-    <source src="videos/video-86091C1C-394D-4590-A423-FE76B3F0FA69-42205-0006D4F97F73EB9E.webm" type="video/webm" />
+<video WIDTH="700" HEIGHT="720" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
+<source src="videos/video-B2B0C11D-E1A1-4CAE-B4B4-D043D5989B4E-40400-0001287E815CD5CB.mp4" type="video/mp4" />
+<source src="videos/video-B2B0C11D-E1A1-4CAE-B4B4-D043D5989B4E-40400-0001287E815CD5CB.webm" type="video/webm" />
 </video>
 
 ### Code 
@@ -21,11 +21,12 @@ Here's another example that demonstrates a layout that is _responsive_ to change
 
 ### Discussion
 
+* Using WeView is a lot like using HTML to layout a webpage.  You decompose the design (typically using a _box model_) into rectangular subregions which you construct out of WeViews.  In this sense, _WeViews are like HTML divs_.
 * There are two WeViews in this layout: the _rootView_ and the _headerView_.  
-* The _rootView_ is configured with __\[UIView setStretches\]__ which indicates to the layout that it 
-should be stretched to receive any extra space in the layout.
-* The _rootView_ is also configured with __\[UIView setIgnoreDesiredSize\]__ which indicates to the layout that the __desired size__ of this view should be ignored.
-* A background image is added to the _rootView_ with a layout that exactly fills the _rootView_'s bounds while retaining its aspect ratio.
+* A background image is added to the _rootView_.  
+* The background image is configured with __\[UIView setStretches\]__ which indicates to the layout that it should be stretched to fill the layout.
+* The background image is also configured with __\[UIView setIgnoreDesiredSize\]__ which indicates to the layout that the __desired size__ of this view should be ignored.
+* Lastly, the background image's layout is configured with a special _cellPositioning_ that indicates the background view's aspect ratio should be preserved.  Otherwise, stretching the image would distort it.
 * The _headerView_ is populated with a "title" UILabel and a "tag" button. This UILabel and button __use separate layouts__.
 * A group of three "pillbox" buttons is added to the _rootView_ using a horizontal layout.  This layout has __bottom alignment__ and a 25pt __bottom margin__.
 * An activity indicator is added to the _rootView_ with its own layout.  That layout doesn't need to be configured, since the default behavior is to center subviews within their superview.

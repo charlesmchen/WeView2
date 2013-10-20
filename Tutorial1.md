@@ -29,10 +29,9 @@ Here's the code:
 
 ### Margins and Spacing
 
-
-<video WIDTH="288" HEIGHT="112" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
-    <source src="videos/video-E5A4D704-7DA1-4BF8-A049-F5458EDF8B4E-76443-0005E3631CEDDA90.mp4" type="video/mp4" />
-    <source src="videos/video-E5A4D704-7DA1-4BF8-A049-F5458EDF8B4E-76443-0005E3631CEDDA90.webm" type="video/webm" />
+<video WIDTH="360" HEIGHT="324" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
+<source src="videos/video-F38F546F-397C-4F0C-9756-94114D3FA777-34104-000125DB30986218.mp4" type="video/mp4" />
+<source src="videos/video-F38F546F-397C-4F0C-9756-94114D3FA777-34104-000125DB30986218.webm" type="video/webm" />
 </video>
 
 * A WeView's __desired size__ is the sum of it's subview's desired sizes plus margins, spacing, etc.
@@ -43,10 +42,9 @@ Here's the code:
 
 ### Alignment 
 
-
-<video WIDTH="380" HEIGHT="176" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
-    <source src="videos/video-408A68F3-4E9A-4617-BF0B-138C8DC3C9C7-76443-0005E3B3D9B61AEF.mp4" type="video/mp4" />
-    <source src="videos/video-408A68F3-4E9A-4617-BF0B-138C8DC3C9C7-76443-0005E3B3D9B61AEF.webm" type="video/webm" />
+<video WIDTH="368" HEIGHT="384" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
+<source src="videos/video-C0E146FB-9E8D-4D94-9801-930842817EE7-34104-0001266CBF84E648.mp4" type="video/mp4" />
+<source src="videos/video-C0E146FB-9E8D-4D94-9801-930842817EE7-34104-0001266CBF84E648.webm" type="video/webm" />
 </video>
 
 * If a WeView is resized, its contents are automatically re-layed out.  If any of its subviews are themeselves WeViews, they are also layed out.
@@ -54,26 +52,20 @@ Here's the code:
 * A WeView layout has separate __hAlign__ (left, center, right) and __vAlign__ (top, center, bottom) properties.
 * You can set alignment with _\[WeViewLayout setHAlign:\]_ or _\[WeViewLayout setVAlign:\]_ or you can set multiple margins at once with methods like _\[UIView setMargin:\]_.
 
-{% gist 6573942 %}
-
-
 ### Stretch
 
-
-<video WIDTH="432" HEIGHT="256" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
-    <source src="videos/videovideo-E96286B9-A865-4D1A-A76F-3CCD927011F2-76443-0005E3BFD3FAA3EE.mp4" type="video/mp4" />
-    <source src="videos/video-E96286B9-A865-4D1A-A76F-3CCD927011F2-76443-0005E3BFD3FAA3EE.webm" type="video/webm" />
+<video WIDTH="452" HEIGHT="380" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
+<source src="videos/video-9FC06858-E988-4214-8998-44F639BCA133-34104-000126A323C1EB39.mp4" type="video/mp4" />
+<source src="videos/video-9FC06858-E988-4214-8998-44F639BCA133-34104-000126A323C1EB39.webm" type="video/webm" />
 </video>
 
 * The _UIView+WeView category_ adds a number of properties to all UIViews that allow us to control the layout process.  
 * For example, we can specify that one of the views __stretches__, ie. that it should receive any extra space in the layout.  Stretching is controlled by __hStretchWeight__ and __vStretchWeight__ properties.  
 * A stretch weight of zero (the default value) indicates that the subview should not stretch.
 * You can set stretch with _\[UIView setHStretchWeight:\]_ or _\[UIView setVStretchWeight:\]_ or simply _\[UIView setStretches\]_.
+* Additionally, you can use _\[WeViewLayout setSpacingStretches:\]_ to indicate that the spacing should stretch to fill any available space.  That spacing will only stretch if no subview can stretch.
 
-{% gist 6573957 %}
-
-
-### Overflow and cropping
+### Cropping
 
 
 <video WIDTH="268" HEIGHT="124" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
