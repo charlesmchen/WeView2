@@ -27,9 +27,9 @@ layout: default
 ''' 
 links = ( 
   Link('home.md', 'Home', indent=0, sidebarFilename='index.html', pageTitle='WeView v2'),
-  Link('whyAutolayout.md', 'Why use Auto Layout?'),
+  Link('whyAutolayout.md', 'Why use Dynamic Layout?'),
   Link('whyWeView2.md', 'Why use WeView v2?'),
-  Link('Tutorial1.md', 'Tutorial 1: Simple Demo'),
+  Link('Tutorial1.md', 'Tutorial 1: Overview'),
   Link('Tutorial2.md', 'Tutorial 2: iPhone Demo'),
   Link('TutorialInstalling.md', 'Tutorial 3: Installing'),
   Link('TutorialConcepts.md', 'Tutorial 4: Concepts'),
@@ -38,6 +38,7 @@ links = (
   Link('TutorialDesiredSize.md', 'Tutorial 7: Desired Size'),
   Link('TutorialStretch.md', 'Tutorial 8: Stretch'),
   Link('TutorialConvenience.md', 'Tutorial 9: Conveniences'),
+  Link('DemoApp.md', 'Demo App'),
   Link('FAQ.md', 'FAQ'),
   Link('Issues.md', 'Bugs & Feature Requests'),
   Link('ExtrasDesiredSize.md', 'Extras 1: Desired Size'),

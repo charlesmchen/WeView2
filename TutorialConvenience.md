@@ -72,4 +72,4 @@ The _hCenter_ and _vCenter_ properties let you horizontally center-align two vie
 
 <!-- TEMPLATE END -->
 
-Next\: [FAQ](FAQ.html)
+Next\: [Demo App](DemoApp.html)

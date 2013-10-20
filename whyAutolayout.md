@@ -3,12 +3,14 @@ permalink: whyAutolayout.html
 layout: default
 ---
 
-Why use Auto Layout?
+Why use Dynamic Layout?
 ==
 
 <!-- TEMPLATE START -->
 
-Auto layout allows a UI to...
+Many iOS developers are accustomed to doing static layouts either in Interface Builder or programmatically.  There are many reasons to use dynamic layout, regardless of whether you use iOS Auto Layout or WeView.
+
+Dynamic layout allows a UI to...
 
 <video WIDTH="700" HEIGHT="400" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
 <source src="videos/video-48A0A583-2C1A-4C07-A0C5-8C2C6AEC9816-40534-000128EF852348D4.mp4" type="video/mp4" />
