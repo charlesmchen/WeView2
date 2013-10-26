@@ -8,7 +8,7 @@ Why use Dynamic Layout?
 
 <!-- TEMPLATE START -->
 
-Many iOS developers are accustomed to doing static layouts either in Interface Builder or programmatically.  There are many reasons to use dynamic layout, regardless of whether you use iOS Auto Layout or WeView.
+There are many reasons to use dynamic layout, regardless of whether you use iOS Auto Layout or WeView.
 
 Dynamic layout allows a UI to...
 

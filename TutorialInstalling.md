@@ -12,7 +12,7 @@ To install WeView v2, add the WeView folder to your XCode project.
 
 ![Layout Snapshot](images/WeViewFolderHierarchy.png)
 
-The only dependencies of WeView v2 are the default iOS Frameworks: Foundation, UIKit and Quartz Core.
+The only dependencies of WeView v2 are the following iOS Frameworks: Foundation, UIKit and Quartz Core.
 
 WeView v2 requires iOS 5 or later.
 

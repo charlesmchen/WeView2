@@ -24,6 +24,8 @@ WeView supports the following layouts:
 
 The Horizontal layout (shown here with top, center and bottom vertical alignment) lays out its subviews horizontally, left-to-right.
 
+You can build 95% of most UIs using just the horizontal and vertical layouts.
+
 {% gist 6576309 %}
 
 ### The Vertical Layout

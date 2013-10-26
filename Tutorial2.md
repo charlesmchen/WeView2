@@ -8,7 +8,7 @@ Tutorial 2: iPhone Demo
 
 <!-- TEMPLATE START -->
 
-Here's another example that demonstrates a layout that is _responsive_ to changes of orientation and device:
+Here's an example whose layout is _responsive_ to changes of orientation and device:
 
 <video WIDTH="700" HEIGHT="720" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
 <source src="videos/video-B2B0C11D-E1A1-4CAE-B4B4-D043D5989B4E-40400-0001287E815CD5CB.mp4" type="video/mp4" />

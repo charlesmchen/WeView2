@@ -24,7 +24,7 @@ Here's the code:
 * The configuration methods _\[setMargin:\]_ and _\[setSpacing:\]_ are __chained__.  WeView configuration methods return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance. Chaining reduces the need for boilerplate code. Chaining is optional. 
 * The subviews are layed out at their __desired size__, ie. the size returned by _\[UIView sizeThatFits:\]_.
 * __Order matters__.  The subviews are layed out in the order in which they were added to their superview.
-* __The bottom line__: The WeView takes care of laying out its subviews.  It is not necessary to ever resize or position of any of the subviews - in fact, their existing size and position are ignored by the WeView layout.
+* __The bottom line__: The WeView takes care of laying out its subviews.  It is not necessary to ever resize or position of any of the subviews. In fact, their existing size and position are ignored by the WeView layout.
 
 
 ### Margins and Spacing
@@ -47,7 +47,7 @@ Here's the code:
 <source src="videos/video-C0E146FB-9E8D-4D94-9801-930842817EE7-34104-0001266CBF84E648.webm" type="video/webm" />
 </video>
 
-* If a WeView is resized, its contents are automatically re-layed out.  If any of its subviews are themeselves WeViews, they are also layed out.
+* If a WeView is resized, its contents are automatically re-layed out.  If any of its subviews are themselves WeViews, they are also layed out. 
 * If a WeView's layout has extra space, its contents are positioned based on __alignment__.  By default, a horizontal layout has center alignment.
 * A WeView layout has separate __hAlign__ (left, center, right) and __vAlign__ (top, center, bottom) properties.
 * You can set alignment with _\[WeViewLayout setHAlign:\]_ or _\[WeViewLayout setVAlign:\]_ or you can set multiple margins at once with methods like _\[UIView setMargin:\]_.

@@ -29,7 +29,7 @@ And here we see the layout's cells.
 * The WeView is shown at its _desired size_, ie. just large enough to exactly fit its subviews. 
 * The layout's _hAlign_ and _vAlign_ properties default to _center alignment_, so the subviews are centered within their cells.
 
-We reveal the subview's layout cells by setting the layout's _cellPositioning_ property to _CELL\_POSITION\_FILL_, which indicates that subviews should always fill the entirety of their layout cell's bounds, regardless of their desired size.
+We reveal the subview's layout cells by setting the layout's _cellPositioning_ property to _CELL\_POSITIONING\_FILL_, which indicates that subviews should always fill the entirety of their layout cell's bounds, regardless of their desired size.
 
 {% gist 6652112 %}
 
