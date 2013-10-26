@@ -15,6 +15,7 @@
 
 #import "UIView+WeView.h"
 #import "WeViewBlockLayout.h"
+#import "WeViewGridLayout.h"
 
 @class WeViewLayout;
 
@@ -82,6 +83,33 @@
 // the desired size of this subview.
 - (WeViewLayout *)addSubview:(UIView *)subview
              withLayoutBlock:(WeViewLayoutBlock)layoutBlock;
+
+// Use this factory method if the size of the cells should be based on their contents.
+//
+// columnCount: The number of columns in the grid.
+// isGridUniform: If true, the layout guarantees that the cell sizes will all be nearly equal.
+//                Each column will be as wide as the widest column.
+//                Each row will be as tall as the tallest row.
+// stretchPolicy: See the GridStretchPolicy enum.
+- (WeViewLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
+                                columnCount:(int)columnCount
+                              isGridUniform:(BOOL)isGridUniform
+                              stretchPolicy:(GridStretchPolicy)stretchPolicy;
+
+// Use this factory method if you want to specify a cellSizeHint.
+//
+// columnCount: The number of columns in the grid.
+// isGridUniform: If true, the layout guarantees that the cell sizes will all be nearly equal.
+//                Each column will be as wide as the widest column.
+//                Each row will be as tall as the tallest row.
+// stretchPolicy: See the GridStretchPolicy enum.
+// cellSizeHint: The base cell size to use. The cell sizes will not reflect the desired sizes of
+//                their contents.
+- (WeViewLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
+                                columnCount:(int)columnCount
+                              isGridUniform:(BOOL)isGridUniform
+                              stretchPolicy:(GridStretchPolicy)stretchPolicy
+                               cellSizeHint:(CGSize)cellSizeHint;
 
 #pragma mark -
 

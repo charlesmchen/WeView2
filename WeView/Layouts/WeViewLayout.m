@@ -409,7 +409,7 @@ BOOL _debugMinSize;
 {
     switch (cellPositioning)
     {
-        case CELL_POSITION_NORMAL:
+        case CELL_POSITIONING_NORMAL:
         {
             if (subview.hStretchWeight > 0)
             {
@@ -429,7 +429,7 @@ BOOL _debugMinSize;
                                                             subview:subview]];
             break;
         }
-        case CELL_POSITION_FILL:
+        case CELL_POSITIONING_FILL:
         {
             CGRect subviewFrame = cellBounds;
             subviewFrame.origin = CGPointRound(subviewFrame.origin);
@@ -437,8 +437,8 @@ BOOL _debugMinSize;
             subview.frame = subviewFrame;
             break;
         }
-        case CELL_POSITION_FILL_W_ASPECT_RATIO:
-        case CELL_POSITION_FIT_W_ASPECT_RATIO:
+        case CELL_POSITIONING_FILL_W_ASPECT_RATIO:
+        case CELL_POSITIONING_FIT_W_ASPECT_RATIO:
         {
             CGSize desiredSize = [subview sizeThatFits:CGSizeZero];
             BOOL isValid = (desiredSize.width > 0 &&
@@ -451,7 +451,7 @@ BOOL _debugMinSize;
             }
             else
             {
-                if (cellPositioning == CELL_POSITION_FILL_W_ASPECT_RATIO)
+                if (cellPositioning == CELL_POSITIONING_FILL_W_ASPECT_RATIO)
                 {
                     subviewSize = FillRectWithSize(cellBounds, desiredSize).size;
                 }

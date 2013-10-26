@@ -72,18 +72,18 @@ NSString* FormatVAlign(VAlign value)
 typedef enum
 {
     // Subviews are positioned within their layout cell using stretch, alignment, etc.
-    CELL_POSITION_NORMAL,
+    CELL_POSITIONING_NORMAL,
 
     // Subviews occupy the entirety of their layout cell.
-    CELL_POSITION_FILL,
+    CELL_POSITIONING_FILL,
 
     // Subviews are scaled to fill the bounds of their layout cell, but perserving their desired
     // aspect ratio.
-    CELL_POSITION_FILL_W_ASPECT_RATIO,
+    CELL_POSITIONING_FILL_W_ASPECT_RATIO,
 
     // Subviews are scaled to exactly fit inside the bounds of their layout cell, but perserving
     // their desired aspect ratio.
-    CELL_POSITION_FIT_W_ASPECT_RATIO,
+    CELL_POSITIONING_FIT_W_ASPECT_RATIO,
 } CellPositioningMode;
 
 CG_INLINE
@@ -91,13 +91,13 @@ NSString* FormatCellPositioningMode(CellPositioningMode value)
 {
     switch (value)
     {
-        case CELL_POSITION_NORMAL:
+        case CELL_POSITIONING_NORMAL:
             return @"Normal";
-        case CELL_POSITION_FILL:
+        case CELL_POSITIONING_FILL:
             return @"Fill";
-        case CELL_POSITION_FILL_W_ASPECT_RATIO:
+        case CELL_POSITIONING_FILL_W_ASPECT_RATIO:
             return @"Fill (AR)";
-        case CELL_POSITION_FIT_W_ASPECT_RATIO:
+        case CELL_POSITIONING_FIT_W_ASPECT_RATIO:
             return @"Fit (AR)";
         default:
             WeViewAssert(0);

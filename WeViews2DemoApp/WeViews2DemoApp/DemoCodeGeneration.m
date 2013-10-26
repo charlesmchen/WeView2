@@ -56,14 +56,31 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 {
     switch (value)
     {
-        case CELL_POSITION_NORMAL:
-            return @"CELL_POSITION_NORMAL";
-        case CELL_POSITION_FILL:
-            return @"CELL_POSITION_FILL";
-        case CELL_POSITION_FILL_W_ASPECT_RATIO:
-            return @"CELL_POSITION_FILL_W_ASPECT_RATIO";
-        case CELL_POSITION_FIT_W_ASPECT_RATIO:
-            return @"CELL_POSITION_FIT_W_ASPECT_RATIO";
+        case CELL_POSITIONING_NORMAL:
+            return @"CELL_POSITIONING_NORMAL";
+        case CELL_POSITIONING_FILL:
+            return @"CELL_POSITIONING_FILL";
+        case CELL_POSITIONING_FILL_W_ASPECT_RATIO:
+            return @"CELL_POSITIONING_FILL_W_ASPECT_RATIO";
+        case CELL_POSITIONING_FIT_W_ASPECT_RATIO:
+            return @"CELL_POSITIONING_FIT_W_ASPECT_RATIO";
+        default:
+            WeViewAssert(0);
+            return nil;
+    }
+}
+
+CG_INLINE
+NSString* ReprGridStretchPolicy(GridStretchPolicy value)
+{
+    switch (value)
+    {
+        case GRID_STRETCH_POLICY_STRETCH_CELLS:
+            return @"GRID_STRETCH_POLICY_STRETCH_CELLS";
+        case GRID_STRETCH_POLICY_STRETCH_SPACING:
+            return @"GRID_STRETCH_POLICY_STRETCH_SPACING";
+        case GRID_STRETCH_POLICY_NO_STRETCH:
+            return @"GRID_STRETCH_POLICY_NO_STRETCH";
         default:
             WeViewAssert(0);
             return nil;
@@ -82,7 +99,7 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 
 #pragma mark -
 
-@interface WeViewLinearLayout ()
+@interface WeViewLinearLayout (DemoCodeGeneration)
 
 // We need private access to this class' internals to generate the code.
 - (BOOL)isHorizontal;
@@ -91,10 +108,23 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 
 #pragma mark -
 
-@interface WeViewBlockLayout ()
+@interface WeViewBlockLayout (DemoCodeGeneration)
 
 // We need private access to this class' internals to generate the code.
 - (WeViewDesiredSizeBlock)desiredSizeBlock;
+
+@end
+
+#pragma mark -
+
+@interface WeViewGridLayout (DemoCodeGeneration)
+
+- (int)columnCount;
+- (BOOL)isGridUniform;
+- (GridStretchPolicy)stretchPolicy;
+
+- (BOOL)hasCellSizeHint;
+- (CGSize)cellSizeHint;
 
 @end
 
@@ -256,6 +286,29 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
                     layoutSubviewsClause];
         }
     }
+    else if ([layout isKindOfClass:[WeViewGridLayout class]])
+    {
+        WeViewGridLayout *gridLayout = (WeViewGridLayout *)layout;
+        if (gridLayout.hasCellSizeHint)
+        {
+            return [NSString stringWithFormat:@"[%@ addSubviewsWithGridLayout:%@ columnCount:%d isGridUniform:%d stretchPolicy:%@]",
+                    viewName,
+                    layoutSubviewsClause,
+                    gridLayout.columnCount,
+                    gridLayout.isGridUniform,
+                    ReprGridStretchPolicy(gridLayout.stretchPolicy)];
+        }
+        else
+        {
+            return [NSString stringWithFormat:@"[%@ addSubviewsWithGridLayout:%@ columnCount:%d isGridUniform:%d stretchPolicy:%@ cellSizeHint:%@]",
+                    viewName,
+                    layoutSubviewsClause,
+                    gridLayout.columnCount,
+                    gridLayout.isGridUniform,
+                    ReprGridStretchPolicy(gridLayout.stretchPolicy),
+                    [NSString stringWithFormat:@"CGSizeMake(%f, %f)", gridLayout.cellSizeHint.width, gridLayout.cellSizeHint.height]];
+        }
+    }
     else
     {
         NSLog(@"%@", [layout class]);
@@ -263,52 +316,6 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
         return nil;
     }
 }
-
-// Add a subview with a custom layout that applies to just that subview.
-//- (WeViewLayout *)addSubviewWithCustomLayout:(UIView *)subview;
-//
-// Add subviews with a stack layout that applies to just these subviews.
-//- (WeViewLayout *)addSubviewsWithStackLayout:(NSArray *)subviews;
-//
-// Add a subview with a layout that stretches the subview to fill this view's bounds.
-//- (WeViewLayout *)addSubviewWithFillLayout:(UIView *)subview;
-//
-// Add a subview with a layout that stretches the subview to fill this view's bounds, while
-// preserving its aspect ratio.
-//- (WeViewLayout *)addSubviewWithFillLayoutWAspectRatio:(UIView *)subview;
-//
-// Add a subview with a layout that stretches the subview to fill this view's bounds, while
-// preserving its aspect ratio.
-//- (WeViewLayout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview;
-//
-// Add subviews with a block-based layout that applies to just these subviews.
-//
-// The "layout" block positions and sizes these subviews.
-//- (WeViewLayout *)addSubviews:(NSArray *)subviews
-//              withLayoutBlock:(WeViewLayoutBlock)layoutBlock;
-//
-// Add subviews with a block-based layout that applies to just these subviews.
-//
-// The "layout" block positions and sizes these subviews and the "desired size" block determines
-// the desired size of these subviews.
-//- (WeViewLayout *)addSubviews:(NSArray *)subviews
-//              withLayoutBlock:(WeViewLayoutBlock)layoutBlock
-//             desiredSizeBlock:(WeViewDesiredSizeBlock)desiredSizeBlock;
-//
-// Add a subview with a block-based layout that applies to just that subview.
-//
-// The "layout" block positions and sizes this subview.
-//- (WeViewLayout *)addSubview:(UIView *)subview
-//             withLayoutBlock:(WeViewLayoutBlock)layoutBlock
-//            desiredSizeBlock:(WeViewDesiredSizeBlock)desiredSizeBlock;
-//
-// Add a subview with a block-based layout that applies to just that subview.
-//
-// The "layout" block positions and sizes this subview and the "desired size" block determines the
-// desired size of this subview.
-//- (WeViewLayout *)addSubview:(UIView *)subview
-//             withLayoutBlock:(WeViewLayoutBlock)layoutBlock;
-//
 
 - (BOOL)doDecorations:(NSArray *)lines
    haveLineWithPrefix:(NSString *)prefix

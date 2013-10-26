@@ -213,7 +213,7 @@
     // Fit and Fill layouts default to ignoring the superview's margins.
     WeViewLayout *layout = [[[WeViewStackLayout stackLayout]
                              setMargin:0]
-                            setCellPositioning:CELL_POSITION_FILL];
+                            setCellPositioning:CELL_POSITIONING_FILL];
     [self addSubviews:@[subview,]
            withLayout:layout];
     return layout;
@@ -225,7 +225,7 @@
     // Fit and Fill layouts default to ignoring the superview's margins.
     WeViewLayout *layout = [[[WeViewStackLayout stackLayout]
                               setMargin:0]
-                             setCellPositioning:CELL_POSITION_FILL_W_ASPECT_RATIO];
+                             setCellPositioning:CELL_POSITIONING_FILL_W_ASPECT_RATIO];
     [self addSubviews:@[subview,]
            withLayout:layout];
     return layout;
@@ -237,7 +237,7 @@
     // Fit and Fill layouts default to ignoring the superview's margins.
     WeViewLayout *layout = [[[WeViewStackLayout stackLayout]
                               setMargin:0]
-                             setCellPositioning:CELL_POSITION_FIT_W_ASPECT_RATIO];
+                             setCellPositioning:CELL_POSITIONING_FIT_W_ASPECT_RATIO];
     [self addSubviews:@[subview,]
            withLayout:layout];
     return layout;
@@ -279,6 +279,34 @@
     WeViewBlockLayout *layout = [WeViewBlockLayout blockLayoutWithBlock:layoutBlock
                                                        desiredSizeBlock:desiredSizeBlock];
     [self addSubviews:@[subview,]
+           withLayout:layout];
+    return layout;
+}
+
+- (WeViewLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
+                                columnCount:(int)columnCount
+                              isGridUniform:(BOOL)isGridUniform
+                              stretchPolicy:(GridStretchPolicy)stretchPolicy
+{
+    WeViewGridLayout *layout = [WeViewGridLayout gridLayoutWithColumns:columnCount
+                                                         isGridUniform:isGridUniform
+                                                         stretchPolicy:stretchPolicy];
+    [self addSubviews:subviews
+           withLayout:layout];
+    return layout;
+}
+
+- (WeViewLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
+                                columnCount:(int)columnCount
+                              isGridUniform:(BOOL)isGridUniform
+                              stretchPolicy:(GridStretchPolicy)stretchPolicy
+                               cellSizeHint:(CGSize)cellSizeHint
+{
+    WeViewGridLayout *layout = [WeViewGridLayout gridLayoutWithColumns:columnCount
+                                                         isGridUniform:isGridUniform
+                                                         stretchPolicy:stretchPolicy
+                                                          cellSizeHint:cellSizeHint];
+    [self addSubviews:subviews
            withLayout:layout];
     return layout;
 }

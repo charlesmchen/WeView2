@@ -770,21 +770,21 @@ typedef void (^SetterBlock)(id item);
                                                     return FormatCellPositioningMode(((WeViewLayout *) item).cellPositioning);
                                                 }
                                                     setters:@[
-                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_NORMAL)
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_NORMAL)
                                                  setterBlock:^(id item) {
-                                                     ((WeViewLayout *) item).cellPositioning = CELL_POSITION_NORMAL;
+                                                     ((WeViewLayout *) item).cellPositioning = CELL_POSITIONING_NORMAL;
                                                  }],
-                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL)
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FILL)
                                                  setterBlock:^(id item) {
-                                                     ((WeViewLayout *) item).cellPositioning = CELL_POSITION_FILL;
+                                                     ((WeViewLayout *) item).cellPositioning = CELL_POSITIONING_FILL;
                                                  }],
-                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL_W_ASPECT_RATIO)
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FILL_W_ASPECT_RATIO)
                                                  setterBlock:^(id item) {
-                                                     ((WeViewLayout *) item).cellPositioning = CELL_POSITION_FILL_W_ASPECT_RATIO;
+                                                     ((WeViewLayout *) item).cellPositioning = CELL_POSITIONING_FILL_W_ASPECT_RATIO;
                                                  }],
-                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FIT_W_ASPECT_RATIO)
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FIT_W_ASPECT_RATIO)
                                                  setterBlock:^(id item) {
-                                                     ((WeViewLayout *) item).cellPositioning = CELL_POSITION_FIT_W_ASPECT_RATIO;
+                                                     ((WeViewLayout *) item).cellPositioning = CELL_POSITIONING_FIT_W_ASPECT_RATIO;
                                                  }],
                                  ]
                                  doubleHeight:YES],

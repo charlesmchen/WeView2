@@ -56,7 +56,7 @@ typedef struct
     }
     for (NSNumber *rowSpacing in self.rowSpacings)
     {
-        result.width += [rowSpacing floatValue];
+        result.height += [rowSpacing floatValue];
     }
     return result;
 }
@@ -85,6 +85,15 @@ typedef struct
                                        layout:layout],
                                    [self totalSpacingSize:superview
                                                    layout:layout]);
+
+//    {
+//        NSLog(@"totalSize totalCellSize: %@", FormatCGSize([self totalCellSize:superview
+//                                                                        layout:layout]));
+//        NSLog(@"totalSize totalSpacingSize: %@", FormatCGSize([self totalSpacingSize:superview
+//                                                                        layout:layout]));
+//        NSLog(@"totalSize contentSize: %@", FormatCGSize(contentSize));
+//    }
+
     return CGSizeMax(CGSizeZero,
                      CGSizeCeil(CGSizeAdd(contentSize,
                                           [layout insetSizeOfView:superview])));
@@ -165,6 +174,7 @@ typedef struct
                              subviews:(NSArray *)subviews
                     useEmptyGuideSize:(BOOL)useEmptyGuideSize
                                 debug:(BOOL)debug
+                          debugIndent:(int)indent
 {
     GridLayoutInfo *result = [[GridLayoutInfo alloc] init];
 
@@ -279,6 +289,14 @@ typedef struct
         [result.rowSpacings addObject:@(vSpacing)];
     }
 
+    if (debug)
+    {
+        NSLog(@"%@ columnWidths: %@", [self indentPrefix:indent + 1], result.columnWidths);
+        NSLog(@"%@ rowHeights: %@", [self indentPrefix:indent + 1], result.rowHeights);
+        NSLog(@"%@ columnSpacings: %@", [self indentPrefix:indent + 1], result.columnSpacings);
+        NSLog(@"%@ rowSpacings: %@", [self indentPrefix:indent + 1], result.rowSpacings);
+    }
+
     //    if (layer.debugLayout) {
     //        NSLog(@"result.columnCount: %d",
     //              columnCount);
@@ -334,12 +352,13 @@ typedef struct
     GridLayoutInfo *gridLayoutInfo = [self getGridLayoutInfo:view
                                                     subviews:subviews
                                            useEmptyGuideSize:!hasNonEmptyGuideSize
-                                                       debug:debugMinSize];
+                                                       debug:debugMinSize
+                                                 debugIndent:indent];
 
     CGSize totalSize = [gridLayoutInfo totalSize:view
                                           layout:self];
 
-    if (self.debugLayout)
+    if (debugMinSize)
     {
         NSLog(@"%@ result: %@",
               [self indentPrefix:indent + 1],
@@ -373,7 +392,8 @@ typedef struct
     GridLayoutInfo *gridLayoutInfo = [self getGridLayoutInfo:view
                                                     subviews:subviews
                                            useEmptyGuideSize:NO
-                                                       debug:debugLayout];
+                                                       debug:debugLayout
+                                                 debugIndent:indent];
     int columnCount = gridLayoutInfo.columnCount;
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:guideSize];

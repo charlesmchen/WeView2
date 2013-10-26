@@ -57,7 +57,8 @@ UIColor *UIColorRGB(unsigned int rgb)
 {
     //    return [self iphoneDemo2_transformDesign];
 //    return [self iphoneDemo2_transforml10n];
-    return [self iphoneDemo2_dynamicContent];
+//    return [self iphoneDemo2_dynamicContent];
+    return [self verticalDemo3];
 }
 
 + (Demo *)randomImageDemo1
@@ -585,6 +586,89 @@ UIColor *UIColorRGB(unsigned int rgb)
     return demo;
 }
 
++ (NSArray *)createVerticalDemo3RowViewsWithLabel:(NSString *)label
+                                            value:(NSString *)value
+{
+    return @[
+             [[DemoFactory createLabel:label
+                              fontSize:14.f
+                             textColor:[UIColor colorWithWhite:0.25f
+                                                         alpha:0.5f]]
+              setCellHAlign:H_ALIGN_RIGHT],
+             [[DemoFactory createLabel:value
+                              fontSize:14.f
+                             textColor:[UIColor colorWithWhite:0.1f
+                                                         alpha:0.5f]]
+              setCellHAlign:H_ALIGN_LEFT],
+             ];
+}
+
++ (Demo *)verticalDemo3
+{
+    NSString *demoName = @"Vertical Demo 3";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        demoModel.useIPhoneSandboxByDefault = YES;
+        demoModel.rootView.backgroundColor = [UIColor whiteColor];
+        demoModel.rootView.opaque = YES;
+        [demoModel.rootView setStretches];
+
+        WeView *headerView = [[WeView alloc] init];
+        headerView.debugName = @"headerView";
+        [[headerView addSubviewWithCustomLayout:[DemoFactory createLabel:@"Thunersee mit Stockhornkette"
+                                                                fontSize:16.f
+                                                               textColor:[UIColor colorWithWhite:0.1f
+                                                                                           alpha:0.5f]]]
+         setMargin:15];
+
+        // Add image that exactly fills the background of the body panel while retaining its aspect ratio.
+        UIImage *image = [UIImage imageNamed:@"Images/thun-stockhornkette-1904 1600.jpg"];
+        UIImageView *background = [[UIImageView alloc] initWithImage:image];
+        WeView *imageView = [[WeView alloc] init];
+        imageView.debugName = @"imageView";
+        [[[imageView addSubviewWithCustomLayout:[[background setStretches]
+                                                 setIgnoreDesiredSize]]
+          setCellPositioning:CELL_POSITIONING_FILL_W_ASPECT_RATIO]
+         setVAlign:V_ALIGN_TOP];
+        // The background will exceed the imageView's bounds, so we need to clip.
+        imageView.clipsToBounds = YES;
+
+        NSMutableArray *infoViews = [NSMutableArray array];
+        [infoViews addObjectsFromArray:[self createVerticalDemo3RowViewsWithLabel:@"Artist"
+                                                                            value:@"Ferdinand Hodler"]];
+        [infoViews addObjectsFromArray:[self createVerticalDemo3RowViewsWithLabel:@"Date"
+                                                                            value:@"1904"]];
+        [infoViews addObjectsFromArray:[self createVerticalDemo3RowViewsWithLabel:@"Genre"
+                                                                            value:@"Landscape"]];
+        [infoViews addObjectsFromArray:[self createVerticalDemo3RowViewsWithLabel:@"Materials"
+                                                                            value:@"Oil on Canvas"]];
+        [infoViews addObjectsFromArray:[self createVerticalDemo3RowViewsWithLabel:@"Dimensions"
+                                                                            value:@"71 x 105 cm"]];
+        WeView *infoView = [[WeView alloc] init];
+        infoView.debugName = @"infoView";
+        [[[infoView addSubviewsWithGridLayout:infoViews
+                                  columnCount:2
+                                isGridUniform:NO
+                                stretchPolicy:GRID_STRETCH_POLICY_NO_STRETCH]
+          setSpacing:10]
+         setMargin:20];
+
+        [demoModel.rootView addSubviewsWithVerticalLayout:@[
+         headerView,
+         [imageView setStretches],
+         infoView,
+         ]];
+
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
 + (Demo *)iphoneDemo2
 {
     return [self iphoneDemo2:NO
@@ -631,7 +715,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         UIImageView *background = [[UIImageView alloc] initWithImage:image];
         [[[demoModel.rootView addSubviewWithCustomLayout:[[background setStretches]
                                                           setIgnoreDesiredSize]]
-          setCellPositioning:CELL_POSITION_FILL_W_ASPECT_RATIO]
+          setCellPositioning:CELL_POSITIONING_FILL_W_ASPECT_RATIO]
          setVAlign:V_ALIGN_TOP];
         // The background will exceed the rootView's bounds, so we need to clip.
         demoModel.rootView.clipsToBounds = YES;

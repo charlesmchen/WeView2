@@ -22,7 +22,8 @@
 #import "WeViewDemoConstants.h"
 #import "WeViewMacros.h"
 
-typedef enum {
+typedef enum
+{
     SANDBOX_VIDEO_MODE_SANDBOX,
 //    SANDBOX_VIDEO_MODE_CODE,
     SANDBOX_VIDEO_MODE_SANDBOX_AND_CODE,
@@ -660,7 +661,8 @@ typedef enum {
     CGSize imageSize;
     CGSize contentSize;
     BOOL fullscreen = NO;
-    switch (videoMode) {
+    switch (videoMode)
+    {
         case SANDBOX_VIDEO_MODE_SANDBOX:
         {
             snapshotView = self.sandboxPanel;

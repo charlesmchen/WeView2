@@ -31,7 +31,7 @@
 		3434438B1809DEEB00079136 /* Inconsolata.zip in Resources */ = {isa = PBXBuildFile; fileRef = 343443861809DEEB00079136 /* Inconsolata.zip */; };
 		3434438C1809DEEB00079136 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 343443871809DEEB00079136 /* OFL.txt */; };
 		3434439C180A01E200079136 /* Inconsolata_README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3434439B180A01E200079136 /* Inconsolata_README.md */; };
-		343449041812F4AC00079136 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 343449031812F4AC00079136 /* CoreText.framework */; };
+		3434490618138A4A00079136 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3434490518138A4A00079136 /* CoreText.framework */; };
 		344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */; };
 		344435C917CACFEB00EFF341 /* ViewHierarchyTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C717CACFEB00EFF341 /* ViewHierarchyTree.m */; };
 		344435CF17CAD20F00EFF341 /* DemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435CE17CAD20F00EFF341 /* DemoModel.m */; };
@@ -117,7 +117,7 @@
 		343443871809DEEB00079136 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		343443981809EE4600079136 /* DemoMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoMacros.h; sourceTree = "<group>"; };
 		3434439B180A01E200079136 /* Inconsolata_README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Inconsolata_README.md; sourceTree = "<group>"; };
-		343449031812F4AC00079136 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		3434490518138A4A00079136 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		344435C417CACFEA00EFF341 /* ViewDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDescriptionViewController.h; sourceTree = "<group>"; };
 		344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDescriptionViewController.m; sourceTree = "<group>"; };
 		344435C617CACFEA00EFF341 /* ViewHierarchyTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewHierarchyTree.h; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				343449041812F4AC00079136 /* CoreText.framework in Frameworks */,
+				3434490618138A4A00079136 /* CoreText.framework in Frameworks */,
 				34C19D3617EEB6150025914F /* QuartzCore.framework in Frameworks */,
 				34C19CF117E1729F0025914F /* CoreMedia.framework in Frameworks */,
 				34C19CEF17E172960025914F /* CoreVideo.framework in Frameworks */,
@@ -215,7 +215,6 @@
 		34195F7017CA80A90036F8DC = {
 			isa = PBXGroup;
 			children = (
-				343449031812F4AC00079136 /* CoreText.framework */,
 				3434437E1809D45C00079136 /* CHANGELOG.md */,
 				34195F7B17CA80A90036F8DC /* Frameworks */,
 				3444368C17D3F9E200EFF341 /* LICENSE */,
@@ -243,6 +242,7 @@
 				34C19CEC17E172880025914F /* AVFoundation.framework */,
 				34195F8017CA80A90036F8DC /* CoreGraphics.framework */,
 				34C19CF017E1729F0025914F /* CoreMedia.framework */,
+				3434490518138A4A00079136 /* CoreText.framework */,
 				34C19CEE17E172960025914F /* CoreVideo.framework */,
 				34195F7E17CA80A90036F8DC /* Foundation.framework */,
 				34C19C7917DCF2160025914F /* ImageIO.framework */,
