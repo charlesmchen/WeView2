@@ -98,10 +98,7 @@ BOOL _debugMinSize;
 {
     if (self = [super init])
     {
-        _hAlign = H_ALIGN_CENTER;
-        _vAlign = V_ALIGN_CENTER;
-
-        _cropSubviewOverflow = YES;
+        [self resetAllProperties];
     }
 
     return self;
@@ -320,6 +317,29 @@ BOOL _debugMinSize;
 }
 
 /* CODEGEN MARKER: Accessors End */
+
+- (void)resetAllProperties
+{
+    /* CODEGEN MARKER: Reset Start */
+
+    self.leftMargin = 0.f;
+    self.rightMargin = 0.f;
+    self.topMargin = 0.f;
+    self.bottomMargin = 0.f;
+    self.vSpacing = 0;
+    self.hSpacing = 0;
+    self.hAlign = H_ALIGN_CENTER;
+    self.vAlign = V_ALIGN_CENTER;
+    self.spacingStretches = NO;
+    self.cropSubviewOverflow = NO;
+    self.cellPositioning = CELL_POSITIONING_NORMAL;
+    self.debugLayout = NO;
+    self.debugMinSize = NO;
+
+/* CODEGEN MARKER: Reset End */
+
+    _cropSubviewOverflow = YES;
+}
 
 #pragma mark - Utility Methods
 

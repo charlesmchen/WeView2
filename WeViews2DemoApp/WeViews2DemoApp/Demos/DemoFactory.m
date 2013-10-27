@@ -13,6 +13,7 @@
 #import "DemoFactory.h"
 #import "DemoViewFactory.h"
 #import "WeView.h"
+#import "WeViewSpacer.h"
 
 UIColor *UIColorRGB(unsigned int rgb)
 {
@@ -50,6 +51,7 @@ UIColor *UIColorRGB(unsigned int rgb)
              [self wrappingUILabelDemo1],
              [self smallUIImageViewDemo1],
              [self miscDemo1],
+             [self multiDemo1],
              ];
 }
 
@@ -57,8 +59,10 @@ UIColor *UIColorRGB(unsigned int rgb)
 {
     //    return [self iphoneDemo2_transformDesign];
 //    return [self iphoneDemo2_transforml10n];
-//    return [self iphoneDemo2_dynamicContent];
-    return [self verticalDemo3];
+    //    return [self iphoneDemo2_dynamicContent];
+    return [self multiDemo1];
+//    return [self flowDemo4];
+//    return [self verticalDemo3];
 }
 
 + (Demo *)randomImageDemo1
@@ -579,7 +583,47 @@ UIColor *UIColorRGB(unsigned int rgb)
           setMargin:10]
          setSpacing:10];
 
-        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        [demoModel.rootView setBackgroundColor:[UIColor colorWithWhite:0.75f alpha:1.f]];
+        demoModel.rootView.layer.borderColor = [UIColor yellowColor].CGColor;
+        demoModel.rootView.layer.borderWidth = 1.f;
+
+        //        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)flowDemo4
+{
+    NSString *demoName = @"Flow Demo 4";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        [[[demoModel.rootView addSubviewsWithFlowLayout:@[
+           [DemoFactory createLabel:@"A UILabel"
+                           fontSize:16.f],
+           [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]],
+           [DemoFactory createLabel:@"=^)"
+                           fontSize:24.f],
+           [DemoViewFactory createFlatUIButton:@"A UIButton"
+                                     textColor:[UIColor whiteColor]
+                                   buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+                                        target:nil
+                                      selector:nil],
+           [self createWrappingLabel],
+           ]]
+          setMargin:10]
+         setSpacing:10];
+
+        [demoModel.rootView setBackgroundColor:[UIColor colorWithWhite:0.75f alpha:1.f]];
+        demoModel.rootView.layer.borderColor = [UIColor yellowColor].CGColor;
+        demoModel.rootView.layer.borderWidth = 1.f;
+
+        //        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         demoModel.rootView.debugName = demoName;
         return demoModel;
     };
@@ -744,9 +788,6 @@ UIColor *UIColorRGB(unsigned int rgb)
         WeView *pillboxButtonsView = [[WeView alloc] init];
         pillboxButtonsView.layer.cornerRadius = 5.f;
         pillboxButtonsView.clipsToBounds = YES;
-        [[[demoModel.rootView addSubviewWithCustomLayout:pillboxButtonsView]
-          setBottomMargin:25]
-         setVAlign:V_ALIGN_BOTTOM];
         [pillboxButtonsView addSubviewsWithHorizontalLayout:@[
          [self createFlatUIPillboxButton:@"Prev"],
          [self createFlatUIPillboxSpacer],
@@ -754,8 +795,11 @@ UIColor *UIColorRGB(unsigned int rgb)
          [self createFlatUIPillboxSpacer],
          [self createFlatUIPillboxButton:@"Next"],
          ]];
-//        pillboxButtonsView.layer.borderWidth = 1.f;
-//        pillboxButtonsView.layer.borderColor = [UIColor yellowColor].CGColor;
+        [[[demoModel.rootView addSubviewWithCustomLayout:pillboxButtonsView]
+          setBottomMargin:25]
+         setVAlign:V_ALIGN_BOTTOM];
+        //        pillboxButtonsView.layer.borderWidth = 1.f;
+        //        pillboxButtonsView.layer.borderColor = [UIColor yellowColor].CGColor;
 
         // Add activity indicator, centered on screen.
         UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -764,7 +808,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         [demoModel.rootView addSubviewWithCustomLayout:activityIndicatorView];
 
         [demoModel.rootView setStretchesIgnoringDesiredSize];
-//        demoModel.rootView.debugName = demoName;
+        //        demoModel.rootView.debugName = demoName;
         demoModel.rootView.debugName = @"rootView";
         headerView.debugName = @"headerView";
 
@@ -786,7 +830,7 @@ UIColor *UIColorRGB(unsigned int rgb)
                                               }
                                               [demoModel.rootView setNeedsLayout];
                                           },
-                                          ];
+                                           ];
         }
         else if (transforml10n)
         {
@@ -822,6 +866,130 @@ UIColor *UIColorRGB(unsigned int rgb)
                                           },
                                            ];
         }
+
+        return demoModel;
+    };
+    return demo;
+}
+
++ (UIView *)multiDemo1_subpanelWithTitle:(NSString *)title
+                            descriptions:(NSArray *)descriptions
+{
+    UILabel *titleLabel = [DemoFactory createLabel:title
+                                          fontSize:20.f
+                                         textColor:[UIColor whiteColor]];
+    titleLabel.font = [UIFont fontWithName:@"AvenirNext-Bold"
+                                      size:17.f];
+    [titleLabel setBottomSpacingAdjustment:5];
+    NSMutableArray *subviews = [NSMutableArray arrayWithObject:titleLabel];
+    for (NSString *description in descriptions)
+    {
+        UILabel *descriptionLabel = [DemoFactory createLabel:description
+                                                    fontSize:14.f
+                                                   textColor:[UIColor whiteColor]];
+        descriptionLabel.numberOfLines = 0;
+        descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        [subviews addObject:descriptionLabel];
+    }
+    WeView *subpanel = [[WeView alloc] init];
+    [[[subpanel addSubviewsWithVerticalLayout:subviews]
+      setSpacing:-5]
+     setHAlign:H_ALIGN_LEFT];
+    [subpanel setHStretches];
+
+//    subpanel.layer.borderWidth = 1.f;
+//    subpanel.layer.borderColor = [UIColor yellowColor].CGColor;
+
+    subpanel.debugName = @"imageTitlesPanel";
+
+    return subpanel;
+}
+
++ (UIView *)multiDemo1_subpanelWithImage:(NSString *)imagePath
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imagePath]];
+    WeView *subpanel = [[WeView alloc] init];
+    [[[subpanel addSubviewWithCustomLayout:[[imageView setStretches]
+                                              setIgnoreDesiredSize]]
+      setCellPositioning:CELL_POSITIONING_FILL_W_ASPECT_RATIO]
+     setVAlign:V_ALIGN_TOP];
+    [subpanel setFixedSize:CGSizeMake(120, 120)];
+    subpanel.clipsToBounds = YES;
+
+    subpanel.layer.borderWidth = 1.f;
+    subpanel.layer.borderColor = [UIColor colorWithWhite:0.85f alpha:0.55f].CGColor;
+    subpanel.layer.cornerRadius = 5.f;
+
+    subpanel.debugName = @"imagePanel";
+
+//    subpanel.layer.borderWidth = 1.f;
+//    subpanel.layer.borderColor = [UIColor yellowColor].CGColor;
+
+    return subpanel;
+}
+
++ (Demo *)multiDemo1
+{
+    NSString *demoName = @"Multi Demo 1";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        demoModel.rootView.backgroundColor = [UIColor colorWithRed:0.65f
+                                                             green:0.85f
+                                                              blue:0.95f
+                                                             alpha:1.f];
+        demoModel.rootView.layer.cornerRadius = 5.f;
+
+//        imagePanel1.layer.borderWidth = 1.f;
+        //        imagePanel1.layer.borderColor = [UIColor yellowColor].CGColor;
+
+        UILabel *titleLabel = [DemoFactory createLabel:@"Ferdinand Hodler"
+                                              fontSize:30.f
+                                             textColor:[UIColor whiteColor]];
+        titleLabel.font = [UIFont fontWithName:@"AvenirNext-Bold"
+                                          size:30.f];
+        UILabel *subtitleLabel = [DemoFactory createLabel:@"Swiss, March 14, 1853 – May 19, 1918"
+                                                    fontSize:14.f
+                                                   textColor:[UIColor colorWithWhite:1.f alpha:0.9f]];
+        WeViewSpacer *titleSpacer = [[WeViewSpacer alloc] init];
+        titleSpacer.backgroundColor = [UIColor whiteColor];
+        WeView *titlesPanel = [[WeView alloc] init];
+        [[titlesPanel addSubviewsWithVerticalLayout:@[
+          titleLabel,
+          [[[titleSpacer setHStretches]
+            setMinHeight:1.f]
+           setTopSpacingAdjustment:-5.f],
+          subtitleLabel,
+            ]]
+           setVSpacing:3.f];
+
+        WeView *gridPanel = [[WeView alloc] init];
+        [[[gridPanel addSubviewsWithGridLayout:@[
+            [self multiDemo1_subpanelWithImage:@"Images/thun-stockhornkette-1904 1600.jpg"],
+            [self multiDemo1_subpanelWithTitle:@"Thunersee mit Stockhornkette"
+                                   descriptions:@[@"Materials: Oil on Canvas.", @"Date: 1904.", @"Dimensions: 71 x 105 cm."]],
+            [self multiDemo1_subpanelWithImage:@"Images/ferdinand hodler - rhythmic landscape on lake geneva (1908) 1600px.jpg"],
+            [self multiDemo1_subpanelWithTitle:@"Rhythmic Landscape on Lake Geneva"
+                                   descriptions:@[@"Materials: Oil on Canvas.", @"Date: 1908.", @"Dimensions: 67 x 91 cm."]],
+            ]
+                                    columnCount:2
+                                  isGridUniform:NO
+                                  stretchPolicy:GRID_STRETCH_POLICY_NO_STRETCH]
+           setHSpacing:25]
+          setVSpacing:30];
+
+        [[[demoModel.rootView addSubviewsWithVerticalLayout:@[
+           titlesPanel,
+           gridPanel,
+           ]]
+         setSpacing:30]
+          setMargin:30];
+        demoModel.rootView.debugName = demoName;
+        gridPanel.debugName = @"gridPanel";
+        titlesPanel.debugName = @"titlesPanel";
 
         return demoModel;
     };

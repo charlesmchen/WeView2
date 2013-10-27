@@ -227,10 +227,10 @@ layout_propertyGroups = (
                        layoutProperty=True, ),
                    Property('cellPositioning', 'CellPositioningMode',
                        comments=(
-                           'By default, cellPositioning has a value of CELL_POSITION_NORMAL and cell size is based on their desired size and they are aligned within their layout cell.',
-                           'If cellPositioning is set to CELL_POSITION_FILL, subviews fill the entire bounds of their layout cell, regardless of their desired size.',
-                           'If cellPositioning is set to CELL_POSITION_FILL_W_ASPECT_RATIO, subviews fill the entire bounds of their layout cell but retain the aspect ratio of their desired size.',
-                           'If cellPositioning is set to CELL_POSITION_FIT_W_ASPECT_RATIO, subviews are "fit" inside the bounds of their layout cell and retain the aspect ratio of their desired size.',
+                           'By default, cellPositioning has a value of CELL_POSITIONING_NORMAL and cell size is based on their desired size and they are aligned within their layout cell.',
+                           'If cellPositioning is set to CELL_POSITIONING_FILL, subviews fill the entire bounds of their layout cell, regardless of their desired size.',
+                           'If cellPositioning is set to CELL_POSITIONING_FILL_W_ASPECT_RATIO, subviews fill the entire bounds of their layout cell but retain the aspect ratio of their desired size.',
+                           'If cellPositioning is set to CELL_POSITIONING_FIT_W_ASPECT_RATIO, subviews are "fit" inside the bounds of their layout cell and retain the aspect ratio of their desired size.',
                            ),
                        layoutProperty=True, ),
                    ),
@@ -667,21 +667,21 @@ def createViewEditorControllerParameters(propertyGroups, blockStartKey, blockEnd
                                                     return FormatCellPositioningMode(%s.%s);
                                                 }
                                                     setters:@[
-                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_NORMAL)
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_NORMAL)
                                                  setterBlock:^(id item) {
-                                                     %s.%s = CELL_POSITION_NORMAL;
+                                                     %s.%s = CELL_POSITIONING_NORMAL;
                                                  }],
-                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL)
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FILL)
                                                  setterBlock:^(id item) {
-                                                     %s.%s = CELL_POSITION_FILL;
+                                                     %s.%s = CELL_POSITIONING_FILL;
                                                  }],
-                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FILL_W_ASPECT_RATIO)
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FILL_W_ASPECT_RATIO)
                                                  setterBlock:^(id item) {
-                                                     %s.%s = CELL_POSITION_FILL_W_ASPECT_RATIO;
+                                                     %s.%s = CELL_POSITIONING_FILL_W_ASPECT_RATIO;
                                                  }],
-                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITION_FIT_W_ASPECT_RATIO)
+                                 [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FIT_W_ASPECT_RATIO)
                                                  setterBlock:^(id item) {
-                                                     %s.%s = CELL_POSITION_FIT_W_ASPECT_RATIO;
+                                                     %s.%s = CELL_POSITIONING_FIT_W_ASPECT_RATIO;
                                                  }],
                                  ]
                                  doubleHeight:YES],
@@ -840,6 +840,37 @@ lines.append('')
 block = '\n'.join(lines)
 
 replaceBlock(WeViewLayout_mFilePath, 'Copy Configuration Start', 'Copy Configuration End', block)
+
+# --------
+
+lines = []
+lines.append('')
+lines.append('')
+for propertyGroup in layout_propertyGroups:
+    for property in propertyGroup:
+        defaultValue = ''
+        if property.typeName == 'CGFloat':
+            defaultValue = '0.f'
+        elif property.typeName == 'int':
+            defaultValue = '0'
+        elif property.typeName == 'BOOL':
+            defaultValue = 'NO'
+        elif property.typeName == 'HAlign':
+            defaultValue = 'H_ALIGN_CENTER'
+        elif property.typeName == 'VAlign':
+            defaultValue = 'V_ALIGN_CENTER'
+        elif property.typeName == 'CellPositioningMode':
+            defaultValue = 'CELL_POSITIONING_NORMAL'
+        elif property.typeName == 'NSString *':
+            continue
+        else:
+            print 'Reset layout, Unknown typeName:', property.typeName, property.name
+        lines.append('    self.%s = %s;' % (property.name, defaultValue, ))
+lines.append('')
+lines.append('')
+block = '\n'.join(lines)
+
+replaceBlock(WeViewLayout_mFilePath, 'Reset Start', 'Reset End', block)
 
 # --------
 

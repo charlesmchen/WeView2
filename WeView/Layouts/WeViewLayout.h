@@ -114,8 +114,8 @@
 // bounds of their layout cell but retain the aspect ratio of their desired
 // size.
 //
-// If cellPositioning is set to CELL_POSITIONING_FIT_W_ASPECT_RATIO, subviews are "fit" inside the
-// bounds of their layout cell and retain the aspect ratio of their desired
+// If cellPositioning is set to CELL_POSITIONING_FIT_W_ASPECT_RATIO, subviews are "fit" inside
+// the bounds of their layout cell and retain the aspect ratio of their desired
 // size.
 - (CellPositioningMode)cellPositioning;
 - (WeViewLayout *)setCellPositioning:(CellPositioningMode)value;
@@ -139,6 +139,8 @@
 - (WeViewLayout *)setSpacing:(int)value;
 
 /* CODEGEN MARKER: End */
+
+- (void)resetAllProperties;
 
 #pragma mark - Utility Methods
 

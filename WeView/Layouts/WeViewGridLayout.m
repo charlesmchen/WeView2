@@ -143,6 +143,16 @@ typedef struct
     return layout;
 }
 
+- (void)resetAllProperties
+{
+    self.columnCount = 1;
+    self.isGridUniform = NO;
+    self.stretchPolicy = GRID_STRETCH_POLICY_NO_STRETCH;
+    self.hasCellSizeHint = NO;
+
+    [super resetAllProperties];
+}
+
 - (GridRowAndColumnCount)rowAndColumnCount:(NSArray *)subviews
 {
     GridRowAndColumnCount result;

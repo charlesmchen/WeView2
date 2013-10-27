@@ -32,6 +32,13 @@
 		3434438C1809DEEB00079136 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 343443871809DEEB00079136 /* OFL.txt */; };
 		3434439C180A01E200079136 /* Inconsolata_README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3434439B180A01E200079136 /* Inconsolata_README.md */; };
 		3434490618138A4A00079136 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3434490518138A4A00079136 /* CoreText.framework */; };
+		34344945181C833100079136 /* WeViewSpacer.m in Sources */ = {isa = PBXBuildFile; fileRef = 34344943181C833100079136 /* WeViewSpacer.m */; };
+		34344948181D4D1700079136 /* WeViewStackLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34344947181D4D1700079136 /* WeViewStackLayoutTests.m */; };
+		3434494B181D4DBC00079136 /* WeViewTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3434494A181D4DBB00079136 /* WeViewTestView.m */; };
+		3434494C181D4F6800079136 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34195F8017CA80A90036F8DC /* CoreGraphics.framework */; };
+		34344953181D59DC00079136 /* WeViewBaseLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3434494E181D59DA00079136 /* WeViewBaseLayoutTests.m */; };
+		34344954181D59DC00079136 /* WeViewHorizontalLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34344950181D59DB00079136 /* WeViewHorizontalLayoutTests.m */; };
+		34344955181D59DC00079136 /* WeViewVerticalLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34344952181D59DB00079136 /* WeViewVerticalLayoutTests.m */; };
 		344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */; };
 		344435C917CACFEB00EFF341 /* ViewHierarchyTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435C717CACFEB00EFF341 /* ViewHierarchyTree.m */; };
 		344435CF17CAD20F00EFF341 /* DemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 344435CE17CAD20F00EFF341 /* DemoModel.m */; };
@@ -118,6 +125,18 @@
 		343443981809EE4600079136 /* DemoMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoMacros.h; sourceTree = "<group>"; };
 		3434439B180A01E200079136 /* Inconsolata_README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Inconsolata_README.md; sourceTree = "<group>"; };
 		3434490518138A4A00079136 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		34344943181C833100079136 /* WeViewSpacer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewSpacer.m; sourceTree = "<group>"; };
+		34344944181C833100079136 /* WeViewSpacer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewSpacer.h; sourceTree = "<group>"; };
+		34344946181D4D1600079136 /* WeViewStackLayoutTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewStackLayoutTests.h; sourceTree = "<group>"; };
+		34344947181D4D1700079136 /* WeViewStackLayoutTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewStackLayoutTests.m; sourceTree = "<group>"; };
+		34344949181D4DBB00079136 /* WeViewTestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewTestView.h; sourceTree = "<group>"; };
+		3434494A181D4DBB00079136 /* WeViewTestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewTestView.m; sourceTree = "<group>"; };
+		3434494D181D59DA00079136 /* WeViewBaseLayoutTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewBaseLayoutTests.h; sourceTree = "<group>"; };
+		3434494E181D59DA00079136 /* WeViewBaseLayoutTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewBaseLayoutTests.m; sourceTree = "<group>"; };
+		3434494F181D59DB00079136 /* WeViewHorizontalLayoutTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewHorizontalLayoutTests.h; sourceTree = "<group>"; };
+		34344950181D59DB00079136 /* WeViewHorizontalLayoutTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewHorizontalLayoutTests.m; sourceTree = "<group>"; };
+		34344951181D59DB00079136 /* WeViewVerticalLayoutTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewVerticalLayoutTests.h; sourceTree = "<group>"; };
+		34344952181D59DB00079136 /* WeViewVerticalLayoutTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewVerticalLayoutTests.m; sourceTree = "<group>"; };
 		344435C417CACFEA00EFF341 /* ViewDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDescriptionViewController.h; sourceTree = "<group>"; };
 		344435C517CACFEA00EFF341 /* ViewDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDescriptionViewController.m; sourceTree = "<group>"; };
 		344435C617CACFEA00EFF341 /* ViewHierarchyTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewHierarchyTree.h; sourceTree = "<group>"; };
@@ -203,6 +222,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3434494C181D4F6800079136 /* CoreGraphics.framework in Frameworks */,
 				34195FAD17CA80A90036F8DC /* SenTestingKit.framework in Frameworks */,
 				34195FAE17CA80A90036F8DC /* UIKit.framework in Frameworks */,
 				34195FAF17CA80A90036F8DC /* Foundation.framework in Frameworks */,
@@ -305,9 +325,19 @@
 		34195FB217CA80A90036F8DC /* WeViews2DemoAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				34195FB317CA80A90036F8DC /* Supporting Files */,
+				3434494D181D59DA00079136 /* WeViewBaseLayoutTests.h */,
+				3434494E181D59DA00079136 /* WeViewBaseLayoutTests.m */,
+				3434494F181D59DB00079136 /* WeViewHorizontalLayoutTests.h */,
+				34344950181D59DB00079136 /* WeViewHorizontalLayoutTests.m */,
 				34195FB817CA80A90036F8DC /* WeViews2DemoAppTests.h */,
 				34195FB917CA80A90036F8DC /* WeViews2DemoAppTests.m */,
-				34195FB317CA80A90036F8DC /* Supporting Files */,
+				34344946181D4D1600079136 /* WeViewStackLayoutTests.h */,
+				34344947181D4D1700079136 /* WeViewStackLayoutTests.m */,
+				34344949181D4DBB00079136 /* WeViewTestView.h */,
+				3434494A181D4DBB00079136 /* WeViewTestView.m */,
+				34344951181D59DB00079136 /* WeViewVerticalLayoutTests.h */,
+				34344952181D59DB00079136 /* WeViewVerticalLayoutTests.m */,
 			);
 			path = WeViews2DemoAppTests;
 			sourceTree = "<group>";
@@ -388,6 +418,8 @@
 				34C19CC317DD1D4B0025914F /* WeView.m */,
 				34C19D3217EEA0A90025914F /* WeViewEnums.h */,
 				34C19CC617DD1D4B0025914F /* WeViewMacros.h */,
+				34344944181C833100079136 /* WeViewSpacer.h */,
+				34344943181C833100079136 /* WeViewSpacer.m */,
 			);
 			name = WeView;
 			path = ../WeView;
@@ -564,6 +596,7 @@
 				34C19D2517E64CCA0025914F /* TutorialCode.m in Sources */,
 				34C19D2817E7E0780025914F /* WeViewFlowLayout.m in Sources */,
 				343443821809DAFC00079136 /* DemoCodeGeneration.m in Sources */,
+				34344945181C833100079136 /* WeViewSpacer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,6 +605,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				34195FBA17CA80A90036F8DC /* WeViews2DemoAppTests.m in Sources */,
+				34344948181D4D1700079136 /* WeViewStackLayoutTests.m in Sources */,
+				3434494B181D4DBC00079136 /* WeViewTestView.m in Sources */,
+				34344953181D59DC00079136 /* WeViewBaseLayoutTests.m in Sources */,
+				34344954181D59DC00079136 /* WeViewHorizontalLayoutTests.m in Sources */,
+				34344955181D59DC00079136 /* WeViewVerticalLayoutTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

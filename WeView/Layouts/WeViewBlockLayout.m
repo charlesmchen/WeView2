@@ -44,6 +44,14 @@
     return layout;
 }
 
+- (void)resetAllProperties
+{
+    self.layoutBlock = nil;
+    self.desiredSizeBlock = nil;
+
+    [super resetAllProperties];
+}
+
 - (CGSize)minSizeOfContentsView:(UIView *)view
                        subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize

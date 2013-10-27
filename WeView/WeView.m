@@ -344,7 +344,7 @@
 
     [newLayout copyConfigurationOfLayout:oldLayout];
 
-    for (id key in self.subviewLayoutMap)
+    for (id key in [self.subviewLayoutMap allKeys])
     {
         if (self.subviewLayoutMap[key] == oldLayout)
         {

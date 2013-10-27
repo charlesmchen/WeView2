@@ -152,16 +152,10 @@ NSString* ReprGridStretchPolicy(GridStretchPolicy value)
     return self;
 }
 
-- (NSString *)nameForInstanceOfClass:(Class)class
+- (NSString *)nameForInstanceWithBasename:(NSString *)basename
+               skipSuffixForFirstInstance:(BOOL)skipSuffixForFirstInstance
 {
-    NSString *result = NSStringFromClass(class);
-    if ([result hasPrefix:@"UI"])
-    {
-        result = [result substringFromIndex:2];
-    }
-    result = [NSString stringWithFormat:@"%@%@",
-              [[result substringToIndex:1] lowercaseString],
-              [result substringFromIndex:1]];
+    NSString *result = basename;
 
     int instanceCount = 0;
     if (self.instanceNameMap[result])
@@ -171,11 +165,30 @@ NSString* ReprGridStretchPolicy(GridStretchPolicy value)
     instanceCount++;
     self.instanceNameMap[result] = @(instanceCount);
 
+    if (instanceCount == 1 && skipSuffixForFirstInstance)
+    {
+        return result;
+    }
     result = [NSString stringWithFormat:@"%@%d",
               result,
               instanceCount];
 
     return result;
+}
+
+- (NSString *)nameForInstanceOfClass:(Class)class
+{
+    NSString *classBasedName = NSStringFromClass(class);
+    if ([classBasedName hasPrefix:@"UI"])
+    {
+        classBasedName = [classBasedName substringFromIndex:2];
+    }
+    classBasedName = [NSString stringWithFormat:@"%@%@",
+                      [[classBasedName substringToIndex:1] lowercaseString],
+                      [classBasedName substringFromIndex:1]];
+
+    return [self nameForInstanceWithBasename:classBasedName
+                  skipSuffixForFirstInstance:NO];
 }
 
 - (BOOL)isKindOfClasses:(UIView *)view
@@ -193,12 +206,13 @@ NSString* ReprGridStretchPolicy(GridStretchPolicy value)
 
 - (NSString *)formatDebugName:(NSString *)debugName
 {
-    NSString *result = debugName;
-    result = [result stringByReplacingOccurrencesOfString:@" " withString:@""];
-    result = [NSString stringWithFormat:@"%@%@",
-              [[result substringToIndex:1] lowercaseString],
-              [result substringFromIndex:1]];
-    return result;
+    NSString *basename = debugName;
+    basename = [basename stringByReplacingOccurrencesOfString:@" " withString:@""];
+    basename = [NSString stringWithFormat:@"%@%@",
+              [[basename substringToIndex:1] lowercaseString],
+              [basename substringFromIndex:1]];
+    return [self nameForInstanceWithBasename:basename
+                  skipSuffixForFirstInstance:YES];
 }
 
 - (NSString *)nameForView:(UIView *)view

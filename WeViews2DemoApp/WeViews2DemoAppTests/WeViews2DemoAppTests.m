@@ -8,7 +8,7 @@
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-#import "WeView/WeViews2DemoApp/WeViews2DemoAppTests/WeViews2DemoAppTests.h"
+#import "WeViews2DemoAppTests.h"
 
 @implementation WeViews2DemoAppTests
 
@@ -26,9 +26,9 @@
     [super tearDown];
 }
 
-- (void)testExample
-{
-    STFail(@"Unit tests are not implemented yet in WeViews2DemoAppTests");
-}
+//- (void)testExample
+//{
+//    STFail(@"Unit tests are not implemented yet in WeViews2DemoAppTests");
+//}
 
 @end
