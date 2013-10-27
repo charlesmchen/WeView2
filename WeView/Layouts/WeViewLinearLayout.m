@@ -85,7 +85,7 @@
                      horizontal:(BOOL)horizontal
 {
     // Determine the spacing.
-    int baseSpacing = MAX(0, ceilf(horizontal ? [self hSpacing] : [self vSpacing]));
+    int baseSpacing = ceilf(horizontal ? [self hSpacing] : [self vSpacing]);
     int totalSpacing = baseSpacing;
     NSMutableArray *spacings = [NSMutableArray array];
     {
@@ -590,6 +590,9 @@
         NSLog(@"%@ cellStretchWeights: %@",
               [self indentPrefix:indent + 1],
               cellStretchWeights);
+        NSLog(@"%@ spacings: %@",
+              [self indentPrefix:indent + 1],
+              spacings);
     }
 
     CGFloat bodyCrossSize = [self maxFloats:cellCrossSizes];

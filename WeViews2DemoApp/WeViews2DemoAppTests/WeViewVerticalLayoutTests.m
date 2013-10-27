@@ -60,4 +60,46 @@
     [super baseTestBasicRounding];
 }
 
+- (void)baseTestBasicSizing
+{
+    WeView *weView = [[WeView alloc] init];
+    CGSize subviewSize = CGSizeMake(100, 100);
+    WeViewTestView *subview0 = [[WeViewTestView alloc] initWithDesiredSize:subviewSize];
+    WeViewTestView *subview1 = [[WeViewTestView alloc] initWithDesiredSize:subviewSize];
+    WeViewTestView *subview2 = [[WeViewTestView alloc] initWithDesiredSize:subviewSize];
+    WeViewLayout *layout = [self addSubviews:@[subview0, subview1, subview2]
+                                    toWeView:weView];
+
+    STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeZero], CGSizeMake(100, 300)), @"Unexpected value");
+
+    STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeMake(1, 1)], CGSizeMake(100, 300)), @"Unexpected value");
+
+    for (UIView *subview in weView.subviews)
+    {
+        [subview resetAllLayoutProperties];
+    }
+    [layout resetAllProperties];
+    layout.topMargin = 10;
+
+    STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeZero], CGSizeMake(100, 310)), @"Unexpected value");
+
+    for (UIView *subview in weView.subviews)
+    {
+        [subview resetAllLayoutProperties];
+    }
+    [layout resetAllProperties];
+    layout.vSpacing = 10;
+
+    STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeZero], CGSizeMake(100, 320)), @"Unexpected value");
+
+    for (UIView *subview in weView.subviews)
+    {
+        [subview resetAllLayoutProperties];
+    }
+    [layout resetAllProperties];
+    layout.vSpacing = -10;
+
+    STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeZero], CGSizeMake(100, 280)), @"Unexpected value");
+}
+
 @end

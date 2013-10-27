@@ -893,8 +893,8 @@ UIColor *UIColorRGB(unsigned int rgb)
     }
     WeView *subpanel = [[WeView alloc] init];
     [[[subpanel addSubviewsWithVerticalLayout:subviews]
-      setSpacing:-5]
-     setHAlign:H_ALIGN_LEFT];
+      setSpacing:-3]
+      setHAlign:H_ALIGN_LEFT];
     [subpanel setHStretches];
 
 //    subpanel.layer.borderWidth = 1.f;
@@ -998,10 +998,9 @@ UIColor *UIColorRGB(unsigned int rgb)
 
 + (UIView *)createFlatUIPillboxSpacer
 {
-    UIView *spacer = [[UIView alloc] init];
+    WeViewSpacer *spacer = [[WeViewSpacer alloc] init];
     spacer.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.f];
     spacer.opaque = YES;
-    [spacer setIgnoreDesiredSize];
     [spacer setVStretches];
     [spacer setMinWidth:1];
     return spacer;
