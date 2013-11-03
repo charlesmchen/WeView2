@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,600);
 @import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic);
+@import url(http://fonts.googleapis.com/css?family=Crimson+Text);
 
 body {
   padding:50px;
@@ -31,12 +32,22 @@ p, ul, ol, table, pre, dl {
   margin:0 0 20px;
 }
 
+header h1 {
+    margin:0;
+}
+/*
 h1, h2, h3 {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 600;
 	text-rendering: optimizelegibility;
-}
+}*/
 
+h1, h2, h3 {
+	font-family: 'Calendas Plus', 'Crimson Text', 'Hoefler Text', Georgia, serif;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+}
 /*
 body {
 	font-family: 'Droid Serif', serif;
@@ -54,7 +65,8 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size:28px;
+/*    font-size:28px;*/
+    font-size:32px;
 }
 
 h2 {

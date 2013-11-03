@@ -12,19 +12,18 @@ The core class of this library is the __WeView__.  WeView is a subclass of UIVie
 
 Let's plunge right in with an example.  Here is a WeView that has three subviews: a UILabel, a UIImageView and a UIButton.
 
-![Layout Snapshot](images/snapshot-C8C60F9D-AE44-4405-B077-A3EAC0636E31-90246-0004232B38E3D685-2.png)
-
-Here's the code:
-
-{% gist 6573950 %}
-
+<video WIDTH="352" HEIGHT="280" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
+ <source src="videos/video-1AC1BE13-D72E-45F5-95A3-80A8E925C210-24401-00023AED9C1B3FE7.mp4" type="video/mp4" />
+ <source src="videos/video-1AC1BE13-D72E-45F5-95A3-80A8E925C210-24401-00023AED9C1B3FE7.webm" type="video/webm" />
+ </video>
 
 * These three subviews use a __horizontal layout__.  
 * The layout has 5pt __margins__ and 5pt __spacing__.  These properties are like their HTML/CSS equivalents.
 * The configuration methods _\[setMargin:\]_ and _\[setSpacing:\]_ are __chained__.  WeView configuration methods return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance. Chaining reduces the need for boilerplate code. Chaining is optional. 
 * The subviews are layed out at their __desired size__, ie. the size returned by _\[UIView sizeThatFits:\]_.
 * __Order matters__.  The subviews are layed out in the order in which they were added to their superview.
-* __The bottom line__: The WeView takes care of laying out its subviews.  It is not necessary to ever resize or position of any of the subviews. In fact, their existing size and position are ignored by the WeView layout.
+* __It's automated__: The WeView takes care of laying out its subviews.  It is not necessary to ever resize or position of any of the subviews. In fact, their existing size and position are ignored by the WeView layout.
+* Like any other UIView, layout is triggered whenever _\[UIView setNeedsLayout\]_ is called on the WeView.  This happens automically when the layout is created and resized, so this usually takes care of itself.
 
 
 ### Margins and Spacing
@@ -47,11 +46,11 @@ Here's the code:
 <source src="videos/video-C0E146FB-9E8D-4D94-9801-930842817EE7-34104-0001266CBF84E648.webm" type="video/webm" />
 </video>
 
-* If a WeView is resized, its contents are automatically re-layed out.  If any of its subviews are themselves WeViews, they are also layed out. 
 * If a WeView's layout has extra space, its contents are positioned based on __alignment__.  By default, a horizontal layout has center alignment.
 * A WeView layout has separate __hAlign__ (left, center, right) and __vAlign__ (top, center, bottom) properties.
 * You can set alignment with _\[WeViewLayout setHAlign:\]_ or _\[WeViewLayout setVAlign:\]_ or you can set multiple margins at once with methods like _\[UIView setMargin:\]_.
 
+* 
 ### Stretch
 
 <video WIDTH="452" HEIGHT="380" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
@@ -64,6 +63,7 @@ Here's the code:
 * A stretch weight of zero (the default value) indicates that the subview should not stretch.
 * You can set stretch with _\[UIView setHStretchWeight:\]_ or _\[UIView setVStretchWeight:\]_ or simply _\[UIView setStretches\]_.
 * Additionally, you can use _\[WeViewLayout setSpacingStretches:\]_ to indicate that the spacing should stretch to fill any available space.  That spacing will only stretch if no subview can stretch.
+
 
 ### Cropping
 

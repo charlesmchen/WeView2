@@ -31,6 +31,7 @@ When a WeView lays out out its subviews, there are three kinds of actors in play
 * Changes to the __frame__ effect the __bounds__ and vice versa.
 * WeView layout generally uses the __frame__ property.
 * __frame__ values are expressed in _points_, not _pixels_.  On a Retina device, a _point_ is 2 _pixels_.
+* The z-order Subviews reflects the order in which they were added to their superview.  That is, if two subviews overlap, the subview added first will be rendered behind the subview added second.
 
 
 <!-- TEMPLATE END -->
