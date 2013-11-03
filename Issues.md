@@ -15,4 +15,4 @@ Have a question?  [Contact me](mailto:charlesmchen@gmail.com).
 
 <!-- TEMPLATE END -->
 
-Next\: [Extras 1: Desired Size](ExtrasDesiredSize.html)
+<p class="nextLink">Next:  <a href="ExtrasDesiredSize.html">Extras 1: Desired Size</a></p>

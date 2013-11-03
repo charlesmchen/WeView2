@@ -37,4 +37,4 @@ Here's an example whose layout is _responsive_ to changes of orientation and dev
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 3: Installing](TutorialInstalling.html)
+<p class="nextLink">Next:  <a href="TutorialInstalling.html">Tutorial 3: Installing</a></p>

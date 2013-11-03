@@ -25,4 +25,4 @@ The WeView library is a tool for auto layout of iOS UIs.
 
 <!-- TEMPLATE END -->
 
-Next\: [Why use Dynamic Layout?](whyAutolayout.html)
+<p class="nextLink">Next:  <a href="whyAutolayout.html">Why use Dynamic Layout?</a></p>

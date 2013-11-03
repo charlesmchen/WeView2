@@ -19,4 +19,4 @@ The Demo App includes all of the demos from this documentation.
 
 <!-- TEMPLATE END -->
 
-Next\: [FAQ](FAQ.html)
+<p class="nextLink">Next:  <a href="FAQ.html">FAQ</a></p>

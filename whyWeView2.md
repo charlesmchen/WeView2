@@ -36,4 +36,4 @@ _WeView v2 can only be used programmatically, and is designed to yield concise, 
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 1: Overview](Tutorial1.html)
+<p class="nextLink">Next:  <a href="Tutorial1.html">Tutorial 1: Overview</a></p>

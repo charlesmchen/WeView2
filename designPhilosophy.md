@@ -33,4 +33,4 @@ API Design References
 
 <!-- TEMPLATE END -->
 
-Next\: [What's New in WeView v2](whatsNewWeView2.html)
+<p class="nextLink">Next:  <a href="whatsNewWeView2.html">What's New in WeView v2</a></p>

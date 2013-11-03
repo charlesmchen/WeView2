@@ -14,4 +14,4 @@ WeView v2 is distributed under the [Apache License Version 2.0](LICENSE)
 
 <!-- TEMPLATE END -->
 
-Next\: [Change Log](CHANGELOG.html)
+<p class="nextLink">Next:  <a href="CHANGELOG.html">Change Log</a></p>

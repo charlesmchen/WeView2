@@ -30,4 +30,4 @@ For example, UIButtons have a useful _contentEdgeInsets_ property that functions
 
 <!-- TEMPLATE END -->
 
-Next\: [Design Philosophy](designPhilosophy.html)
+<p class="nextLink">Next:  <a href="designPhilosophy.html">Design Philosophy</a></p>

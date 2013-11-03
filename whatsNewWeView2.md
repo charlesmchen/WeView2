@@ -28,4 +28,4 @@ What's New in WeView v2
 
 <!-- TEMPLATE END -->
 
-Next\: [License](License.html)
+<p class="nextLink">Next:  <a href="License.html">License</a></p>

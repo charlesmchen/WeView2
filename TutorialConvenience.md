@@ -72,4 +72,4 @@ The _hCenter_ and _vCenter_ properties let you horizontally center-align two vie
 
 <!-- TEMPLATE END -->
 
-Next\: [Demo App](DemoApp.html)
+<p class="nextLink">Next:  <a href="DemoApp.html">Demo App</a></p>

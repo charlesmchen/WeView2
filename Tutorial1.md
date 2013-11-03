@@ -77,4 +77,4 @@ Let's plunge right in with an example.  Here is a WeView that has three subviews
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 2: iPhone Demo](Tutorial2.html)
+<p class="nextLink">Next:  <a href="Tutorial2.html">Tutorial 2: iPhone Demo</a></p>

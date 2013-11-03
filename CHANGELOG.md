@@ -30,4 +30,4 @@ declarative layout, operating at a higher level than sizing and positioning.
 
 <!-- TEMPLATE END -->
 
-Next\: [Acknowledgments](Acknowledgments.html)
+<p class="nextLink">Next:  <a href="Acknowledgments.html">Acknowledgments</a></p>

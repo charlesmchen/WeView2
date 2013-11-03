@@ -65,4 +65,4 @@ Here we use _center vertical cell alignment_.
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 7: Desired Size](TutorialDesiredSize.html)
+<p class="nextLink">Next:  <a href="TutorialDesiredSize.html">Tutorial 7: Desired Size</a></p>

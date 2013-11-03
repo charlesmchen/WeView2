@@ -2,6 +2,7 @@
 
 import os
 import sys
+import cgi
 
 class Link:
     def __init__(self, filename, name, indent=1, dstFilename=None, sidebarFilename=None, pageTitle=None):
@@ -59,7 +60,8 @@ for index, link in enumerate(links):
     #     linkery.append('Prev\: [%s](%s)' % (prevLink.name, prevLink.sidebarFilename,) )
     if index + 1 < len(links):
         nextLink = links[index + 1]
-        linkery.append('Next\: [%s](%s)' % (nextLink.name, nextLink.sidebarFilename,) )
+        linkery.append('<p class="nextLink">%s <a href="%s">%s</a></p>' % ('Next: ', nextLink.sidebarFilename, cgi.escape(nextLink.name), ))
+        # linkery.append('Next\: [%s](%s)' % (nextLink.name, nextLink.sidebarFilename,) )
 
     linkery = '\n\n'.join(linkery)
     

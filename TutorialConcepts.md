@@ -36,4 +36,4 @@ When a WeView lays out out its subviews, there are three kinds of actors in play
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 5: The Layouts](TutorialLayouts.html)
+<p class="nextLink">Next:  <a href="TutorialLayouts.html">Tutorial 5: The Layouts</a></p>

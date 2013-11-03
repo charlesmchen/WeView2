@@ -75,4 +75,4 @@ The Block-based layout can be used for unusual layouts.
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 6: Layout Model](TutorialLayoutModel.html)
+<p class="nextLink">Next:  <a href="TutorialLayoutModel.html">Tutorial 6: Layout Model</a></p>

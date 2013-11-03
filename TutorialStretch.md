@@ -89,4 +89,4 @@ It this example, we have a UILabel and a UIScrollView in a vertical layout.  The
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 9: Conveniences](TutorialConvenience.html)
+<p class="nextLink">Next:  <a href="TutorialConvenience.html">Tutorial 9: Conveniences</a></p>

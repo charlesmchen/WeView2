@@ -19,4 +19,4 @@ __No.__  Many UIViews (ie. UILabels) don't render properly if they are not pixel
 
 <!-- TEMPLATE END -->
 
-Next\: [Bugs & Feature Requests](Issues.html)
+<p class="nextLink">Next:  <a href="Issues.html">Bugs &amp; Feature Requests</a></p>

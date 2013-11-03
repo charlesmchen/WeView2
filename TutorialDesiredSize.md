@@ -92,4 +92,4 @@ If this property is set, the WeView layouts will treat the _desired size_ of thi
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 8: Stretch](TutorialStretch.html)
+<p class="nextLink">Next:  <a href="TutorialStretch.html">Tutorial 8: Stretch</a></p>

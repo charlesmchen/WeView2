@@ -18,4 +18,4 @@ WeView v2 requires iOS 5 or later.
 
 <!-- TEMPLATE END -->
 
-Next\: [Tutorial 4: Concepts](TutorialConcepts.html)
+<p class="nextLink">Next:  <a href="TutorialConcepts.html">Tutorial 4: Concepts</a></p>

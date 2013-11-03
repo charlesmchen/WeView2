@@ -249,6 +249,11 @@ embed.embedded_video {
 	border: 1px solid #ddd;
 }
 
+p.nextLink {
+	padding: 20px 0;
+	font-size: 1.4em;
+}
+
 @media print, screen and (max-width: 960px) {
   
   div.wrapper {
