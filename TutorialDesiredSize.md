@@ -58,25 +58,25 @@ However, if _\[UIView sizeThatFits:(CGSize)size\]_ is called with a non-zero siz
 
 WeViews offer a variety of ways to manipulate the _desired size_ of a subview.
 
-	- (UIView *)setMinWidth:(CGFloat)value;
-	- (UIView *)setMaxWidth:(CGFloat)value;
-	- (UIView *)setMinHeight:(CGFloat)value;
-	- (UIView *)setMaxHeight:(CGFloat)value;
+	- (UIView *)setMinDesiredWidth:(CGFloat)value;
+	- (UIView *)setMaxDesiredWidth:(CGFloat)value;
+	- (UIView *)setMinDesiredHeight:(CGFloat)value;
+	- (UIView *)setMaxDesiredHeight:(CGFloat)value;
 
 These methods let you set a maximum or minimum desired width or height.
 
-	// Sets both the minWidth and maxWidth properties.
-	- (UIView *)setFixedWidth:(CGFloat)value;
+	// Sets both the minDesiredWidth and maxDesiredWidth properties.
+	- (UIView *)setFixedDesiredWidth:(CGFloat)value;
 	
-	// Sets both the minHeight and maxHeight properties.
-	- (UIView *)setFixedHeight:(CGFloat)value;
+	// Sets both the minDesiredHeight and maxDesiredHeight properties.
+	- (UIView *)setFixedDesiredHeight:(CGFloat)value;
 	
-	// Sets all of the minWidth, minHeight, maxWidth and maxHeight properties.
-	- (UIView *)setFixedSize:(CGSize)value;
+	// Sets all of the minDesiredWidth, minDesiredHeight, maxDesiredWidth and maxDesiredHeight properties.
+	- (UIView *)setFixedDesiredSize:(CGSize)value;
 
 These methods let you set more than one property at a time.  
 
-You can assign a UIView a _fixed_ desired width by setting its minWidth and maxWidth properties to the same value.
+You can assign a UIView a _fixed_ desired width by setting its minDesiredWidth and maxDesiredWidth properties to the same value.
 
 
 ### Ignoring Desired Sizes
