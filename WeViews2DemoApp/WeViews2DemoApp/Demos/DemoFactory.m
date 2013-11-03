@@ -757,12 +757,12 @@ UIColor *UIColorRGB(unsigned int rgb)
         // Add image that exactly fills the background of the body panel while retaining its aspect ratio.
         UIImage *image = [UIImage imageNamed:@"Images/thun-stockhornkette-1904 1600.jpg"];
         UIImageView *background = [[UIImageView alloc] initWithImage:image];
-        [[[demoModel.rootView addSubviewWithCustomLayout:[[background setStretches]
-                                                          setIgnoreDesiredSize]]
-          setCellPositioning:CELL_POSITIONING_FILL_W_ASPECT_RATIO]
+        WeView *backgroundWrapper = [[WeView alloc] init];
+        [[backgroundWrapper addSubviewWithFillLayoutWAspectRatio:background]
          setVAlign:V_ALIGN_TOP];
-        // The background will exceed the rootView's bounds, so we need to clip.
-        demoModel.rootView.clipsToBounds = YES;
+        // The background will exceed the backgroundWrapper's bounds, so we need to clip.
+        backgroundWrapper.clipsToBounds = YES;
+        [demoModel.rootView addSubviewWithCustomLayout:[backgroundWrapper setStretches]];
 
         WeView *headerView = [[WeView alloc] init];
         headerView.backgroundColor = [UIColor colorWithWhite:0.5f alpha:0.5f];
@@ -811,6 +811,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         //        demoModel.rootView.debugName = demoName;
         demoModel.rootView.debugName = @"rootView";
         headerView.debugName = @"headerView";
+        backgroundWrapper.debugName = @"backgroundWrapper";
 
         if (transformDesign)
         {

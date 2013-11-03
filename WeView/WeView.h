@@ -45,17 +45,6 @@
 // Add subviews with a flow layout that applies to just these subviews.
 - (WeViewLayout *)addSubviewsWithFlowLayout:(NSArray *)subviews;
 
-// Add a subview with a layout that stretches the subview to fill this view's bounds.
-- (WeViewLayout *)addSubviewWithFillLayout:(UIView *)subview;
-
-// Add a subview with a layout that stretches the subview to fill this view's bounds, while
-// preserving its aspect ratio.
-- (WeViewLayout *)addSubviewWithFillLayoutWAspectRatio:(UIView *)subview;
-
-// Add a subview with a layout that stretches the subview to fill this view's bounds, while
-// preserving its aspect ratio.
-- (WeViewLayout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview;
-
 // Add subviews with a block-based layout that applies to just these subviews.
 //
 // The "layout" block positions and sizes these subviews.
@@ -110,6 +99,23 @@
                               isGridUniform:(BOOL)isGridUniform
                               stretchPolicy:(GridStretchPolicy)stretchPolicy
                                cellSizeHint:(CGSize)cellSizeHint;
+
+#pragma mark - Fill & Fit Layouts
+
+// Add a subview with a layout that stretches the subview to fill this view's bounds,
+// regardless of its desired size.
+- (WeViewLayout *)addSubviewWithFillLayout:(UIView *)subview;
+
+// Add a subview with a layout that stretches the subview to fill this view's bounds, while
+// preserving its aspect ratio.
+- (WeViewLayout *)addSubviewWithFillLayoutWAspectRatio:(UIView *)subview;
+
+// Add a subview with a layout that stretches the subview to "fit" this view's bounds, while
+// preserving its aspect ratio.
+//
+// In a "fit" layout, the subview will have the largest possible size that exactly fits in its
+// superview's bounds.
+- (WeViewLayout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview;
 
 #pragma mark -
 

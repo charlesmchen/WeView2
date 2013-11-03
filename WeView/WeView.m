@@ -212,41 +212,39 @@
     return layout;
 }
 
-// TODO: Remove this method.
+#pragma mark - Fill & Fit Layouts
+
 - (WeViewLayout *)addSubviewWithFillLayout:(UIView *)subview
 {
-    // Fit and Fill layouts default to ignoring the superview's margins.
-    WeViewLayout *layout = [[[WeViewStackLayout stackLayout]
-                             setMargin:0]
+    WeViewLayout *layout = [[WeViewStackLayout stackLayout]
                             setCellPositioning:CELL_POSITIONING_FILL];
-    [self addSubviews:@[subview,]
+    [self addSubviews:@[[[subview setStretches]
+                         setIgnoreDesiredSize],]
            withLayout:layout];
     return layout;
 }
 
-// TODO: Remove this method.
 - (WeViewLayout *)addSubviewWithFillLayoutWAspectRatio:(UIView *)subview
 {
-    // Fit and Fill layouts default to ignoring the superview's margins.
-    WeViewLayout *layout = [[[WeViewStackLayout stackLayout]
-                              setMargin:0]
+    WeViewLayout *layout = [[WeViewStackLayout stackLayout]
                              setCellPositioning:CELL_POSITIONING_FILL_W_ASPECT_RATIO];
-    [self addSubviews:@[subview,]
+    [self addSubviews:@[[[subview setStretches]
+                         setIgnoreDesiredSize],]
            withLayout:layout];
     return layout;
 }
 
-// TODO: Remove this method.
 - (WeViewLayout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview
 {
-    // Fit and Fill layouts default to ignoring the superview's margins.
-    WeViewLayout *layout = [[[WeViewStackLayout stackLayout]
-                              setMargin:0]
-                             setCellPositioning:CELL_POSITIONING_FIT_W_ASPECT_RATIO];
-    [self addSubviews:@[subview,]
+    WeViewLayout *layout = [[WeViewStackLayout stackLayout]
+                            setCellPositioning:CELL_POSITIONING_FIT_W_ASPECT_RATIO];
+    [self addSubviews:@[[[subview setStretches]
+                         setIgnoreDesiredSize],]
            withLayout:layout];
     return layout;
 }
+
+#pragma mark -
 
 - (WeViewLayout *)addSubviews:(NSArray *)subviews
               withLayoutBlock:(WeViewLayoutBlock)layoutBlock
