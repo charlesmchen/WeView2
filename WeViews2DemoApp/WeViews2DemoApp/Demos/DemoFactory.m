@@ -278,7 +278,7 @@ UIColor *UIColorRGB(unsigned int rgb)
             [DemoFactory createLabel:@"WeView" fontSize:32.f],
             ]]
            setVMargin:10]
-          setHMargin:20]
+          setHMargin:10]
          setSpacing:5];
 
         [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
@@ -913,7 +913,7 @@ UIColor *UIColorRGB(unsigned int rgb)
                                               setIgnoreDesiredSize]]
       setCellPositioning:CELL_POSITIONING_FILL_W_ASPECT_RATIO]
      setVAlign:V_ALIGN_TOP];
-    [subpanel setFixedSize:CGSizeMake(120, 120)];
+    [subpanel setFixedDesiredSize:CGSizeMake(120, 120)];
     subpanel.clipsToBounds = YES;
 
     subpanel.layer.borderWidth = 1.f;
@@ -960,7 +960,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         [[titlesPanel addSubviewsWithVerticalLayout:@[
           titleLabel,
           [[[titleSpacer setHStretches]
-            setMinHeight:1.f]
+            setMinDesiredHeight:1.f]
            setTopSpacingAdjustment:-5.f],
           subtitleLabel,
             ]]
@@ -1002,7 +1002,7 @@ UIColor *UIColorRGB(unsigned int rgb)
     spacer.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.f];
     spacer.opaque = YES;
     [spacer setVStretches];
-    [spacer setMinWidth:1];
+    [spacer setMinDesiredWidth:1];
     return spacer;
 }
 

@@ -77,16 +77,16 @@ class Property:
 
 view_propertyGroups = (
                   (
-                   Property('minWidth', 'CGFloat',
+                   Property('minDesiredWidth', 'CGFloat',
                        comments='The minimum desired width of this view. Trumps the maxWidth.',
                        asserts='%s >= 0', ),
-                   Property('maxWidth', 'CGFloat',
+                   Property('maxDesiredWidth', 'CGFloat',
                        comments='The maximum desired width of this view. Trumped by the minWidth.',
                        defaultValue="CGFLOAT_MAX", asserts='%s >= 0',  ),
-                   Property('minHeight', 'CGFloat',
+                   Property('minDesiredHeight', 'CGFloat',
                        comments='The minimum desired height of this view. Trumps the maxHeight.',
                        asserts='%s >= 0', ),
-                   Property('maxHeight', 'CGFloat',
+                   Property('maxDesiredHeight', 'CGFloat',
                        comments='The maximum desired height of this view. Trumped by the minHeight.',
                        defaultValue="CGFLOAT_MAX", asserts='%s >= 0', ),
                    ),
@@ -140,12 +140,20 @@ view_propertyGroups = (
                    ),
                   (
                    Property('desiredWidthAdjustment', 'CGFloat',
-                       comments='This adjustment can be used to manipulate the desired width of a view.',
+                       comments=(
+                           'This adjustment can be used to manipulate the desired width of a view.',
+                           'It is added to the desired width reported by the subview.',
+                           'This value can be negative.',
+                           ),
                        asserts='%s >= 0',
                        doubleHeight=True,
                         ),
                    Property('desiredHeightAdjustment', 'CGFloat',
-                       comments='This adjustment can be used to manipulate the desired height of a view.',
+                       comments=(
+                           'This adjustment can be used to manipulate the desired height of a view.',
+                           'It is added to the desired width reported by the subview.',
+                           'This value can be negative.',
+                           ),
                        asserts='%s >= 0',
                        doubleHeight=True,
                         ),
@@ -317,16 +325,16 @@ class CustomAccessor:
 
 
 view_customAccessors = (
-                    CustomAccessor('minSize', 'CGSize', ('minWidth', 'minHeight',), ('.width', '.height',), getterValue='CGSizeMake(self.minWidth, self.minHeight)'),
-                    CustomAccessor('maxSize', 'CGSize', ('maxWidth', 'maxHeight',), ('.width', '.height',), getterValue='CGSizeMake(self.maxWidth, self.maxHeight)'),
+                    CustomAccessor('minDesiredSize', 'CGSize', ('minDesiredWidth', 'minDesiredHeight',), ('.width', '.height',), getterValue='CGSizeMake(self.minDesiredWidth, self.minDesiredHeight)'),
+                    CustomAccessor('maxDesiredSize', 'CGSize', ('maxDesiredWidth', 'maxDesiredHeight',), ('.width', '.height',), getterValue='CGSizeMake(self.maxDesiredWidth, self.maxDesiredHeight)'),
                     CustomAccessor('desiredSizeAdjustment', 'CGSize',
                         ('desiredWidthAdjustment', 'desiredHeightAdjustment',),
                          ('.width', '.height',),
                          getterValue='CGSizeMake(self.desiredWidthAdjustment, self.desiredHeightAdjustment)'),
 
-                    CustomAccessor('fixedWidth', 'CGFloat', ('minWidth', 'maxWidth',)),
-                    CustomAccessor('fixedHeight', 'CGFloat', ('minHeight', 'maxHeight',)),
-                    CustomAccessor('fixedSize', 'CGSize', ('minWidth', 'minHeight', 'maxWidth', 'maxHeight',), ('.width', '.height', '.width', '.height',)),
+                    CustomAccessor('fixedDesiredWidth', 'CGFloat', ('minDesiredWidth', 'maxDesiredWidth',)),
+                    CustomAccessor('fixedDesiredHeight', 'CGFloat', ('minDesiredHeight', 'maxDesiredHeight',)),
+                    CustomAccessor('fixedDesiredSize', 'CGSize', ('minDesiredWidth', 'minDesiredHeight', 'maxDesiredWidth', 'maxDesiredHeight',), ('.width', '.height', '.width', '.height',)),
 
                     CustomAccessor('stretchWeight', 'CGFloat', ('vStretchWeight', 'hStretchWeight',)),
                     )
@@ -514,73 +522,6 @@ replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
 
 # --------
 
-# lines = []
-# lines.append('')
-# for propertyGroup in propertyGroups:
-#     for property in propertyGroup:
-#         asserts = ''
-#         if property.asserts:
-#             if type(property.asserts) == types.StringType:
-#                 asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
-#                 pass
-#             else:
-#                 raise Exception('Unknown asserts: %s' % str(property.asserts))
-#         if property.typeName == 'CGFloat':
-#             getterName = 'associatedFloat'
-#             setterName = 'setAssociatedFloat'
-#         elif property.typeName == 'BOOL':
-#             getterName = 'associatedBoolean'
-#             setterName = 'setAssociatedBoolean'
-#         elif property.typeName == 'NSString *':
-#             getterName = 'associatedString'
-#             setterName = 'setAssociatedString'
-#         else:
-#             raise Exception('Unknown typeName: %s' % str(property.typeName))
-#         defaultValue = ''
-#         if property.defaultValue:
-#             defaultValue = ' defaultValue:%s' % property.defaultValue
-#         lines.append('''
-# - (%s)%s
-# {
-#     return [self.viewInfo %s];
-# }
-#
-# - (id)set%s:(%s)value
-# {%s
-#     [self %s:value key:kWeViewKey_%s];
-#     return self;
-# }''' % (property.typeName, property.name, property.name, property.UpperName(), property.typeName, asserts, setterName, property.UpperName(), ))
-#
-# for customAccessor in customAccessors:
-#     asserts = ''
-#     #     if pseudoProperty.asserts:
-#     #         if type(pseudoProperty.asserts) == types.StringType:
-#     #             asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
-#     #             pass
-#     #         else:
-#     #             raise Exception('Unknown asserts: %s' % str(property.asserts))
-#     subsetters = []
-#     for index, propertyName in enumerate(customAccessor.propertyNames()):
-#         valueName = 'value'
-#         if customAccessor.setterValues:
-#             valueName += customAccessor.setterValues[index]
-#         subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
-#
-#     lines.append('''
-# - (id)set%s:(%s)value
-# {
-# %s
-#     return self;
-# }''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
-#
-# lines.append('')
-# lines.append('')
-# block = '\n'.join(lines)
-#
-# replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
-
-# --------
-
 lines = []
 lines.append('')
 lines.append('')
@@ -687,7 +628,7 @@ def createViewEditorControllerParameters(propertyGroups, blockStartKey, blockEnd
                                  doubleHeight:YES],
                                  ''' % (property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, ) )
             else:
-                print 'Unknown typeName:', property.typeName, property.name
+                print 'Unknown typeName(1):', property.typeName, property.name
 
             # value = '@(self.%s)' % property.name
             # if property.typeName.endswith(' *'):
@@ -864,7 +805,7 @@ for propertyGroup in layout_propertyGroups:
         elif property.typeName == 'NSString *':
             continue
         else:
-            print 'Reset layout, Unknown typeName:', property.typeName, property.name
+            print 'Reset layout, Unknown typeName(2):', property.typeName, property.name
         lines.append('    self.%s = %s;' % (property.name, defaultValue, ))
 lines.append('')
 lines.append('')
@@ -890,7 +831,7 @@ def formatMethodNameForType(typeName):
         return 'ReprCellPositioningMode'
     # elif property.typeName == 'CellPositioningMode':
     else:
-        print 'Unknown typeName:', typeName
+        print 'Unknown typeName(3):', typeName
 
 
 lines = []

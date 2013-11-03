@@ -507,24 +507,24 @@ haveAnyOfPrefixes:(NSArray *)prefixes
 
     /* CODEGEN MARKER: Code Generation View Properties Start */
 
-    if (view.minWidth != virginView.minWidth)
+    if (view.minDesiredWidth != virginView.minDesiredWidth)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMinWidth", FormatFloat(view.minWidth)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMinDesiredWidth", FormatFloat(view.minDesiredWidth)]];
     }
 
-    if (view.maxWidth != virginView.maxWidth)
+    if (view.maxDesiredWidth != virginView.maxDesiredWidth)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMaxWidth", FormatFloat(view.maxWidth)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMaxDesiredWidth", FormatFloat(view.maxDesiredWidth)]];
     }
 
-    if (view.minHeight != virginView.minHeight)
+    if (view.minDesiredHeight != virginView.minDesiredHeight)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMinHeight", FormatFloat(view.minHeight)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMinDesiredHeight", FormatFloat(view.minDesiredHeight)]];
     }
 
-    if (view.maxHeight != virginView.maxHeight)
+    if (view.maxDesiredHeight != virginView.maxDesiredHeight)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMaxHeight", FormatFloat(view.maxHeight)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setMaxDesiredHeight", FormatFloat(view.maxDesiredHeight)]];
     }
 
     if (view.hStretchWeight != virginView.hStretchWeight)
@@ -601,21 +601,51 @@ haveAnyOfPrefixes:(NSArray *)prefixes
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setStretchWeight", FormatFloat(view.vStretchWeight)]];
     }
 
-    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setMinHeight:", @"setMaxHeight:"]] &&
-        view.minHeight == view.maxHeight)
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setMinDesiredHeight:", @"setMaxDesiredHeight:"]] &&
+        view.minDesiredHeight == view.maxDesiredHeight)
     {
-        lines = [self removeLines:lines withPrefixes:@[@"setMinHeight:", @"setMaxHeight:"]];
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setFixedHeight", FormatFloat(view.minHeight)]];
+        lines = [self removeLines:lines withPrefixes:@[@"setMinDesiredHeight:", @"setMaxDesiredHeight:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setFixedDesiredHeight", FormatFloat(view.minDesiredHeight)]];
     }
 
-    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setMinWidth:", @"setMaxWidth:"]] &&
-        view.minWidth == view.maxWidth)
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setMinDesiredWidth:", @"setMaxDesiredWidth:"]] &&
+        view.minDesiredWidth == view.maxDesiredWidth)
     {
-        lines = [self removeLines:lines withPrefixes:@[@"setMinWidth:", @"setMaxWidth:"]];
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setFixedWidth", FormatFloat(view.minWidth)]];
+        lines = [self removeLines:lines withPrefixes:@[@"setMinDesiredWidth:", @"setMaxDesiredWidth:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setFixedDesiredWidth", FormatFloat(view.minDesiredWidth)]];
     }
 
 /* CODEGEN MARKER: Code Generation View Properties End */
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setStretchWeight:"]] &&
+        view.vStretchWeight == 1.f &&
+        view.hStretchWeight == 1.f)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setStretchWeight:"]];
+        [lines addObject:@"setStretches"];
+    }
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setVStretchWeight:", @"setHStretchWeight:"]] &&
+        view.vStretchWeight == 1.f &&
+        view.hStretchWeight == 1.f)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setVStretchWeight:", @"setHStretchWeight:"]];
+        [lines addObject:@"setStretches"];
+    }
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setVStretchWeight:"]] &&
+        view.vStretchWeight == 1.f)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setVStretchWeight:"]];
+        [lines addObject:@"setVStretches"];
+    }
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setHStretchWeight:"]] &&
+        view.hStretchWeight == 1.f)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setHStretchWeight:"]];
+        [lines addObject:@"setHStretches"];
+    }
 
     if ([lines count] < 1)
     {

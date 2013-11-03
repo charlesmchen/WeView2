@@ -229,7 +229,7 @@ typedef enum
     self.phoneContainer = [[WeView alloc] init];
     [[self.phoneContainer addSubviewWithCustomLayout:phoneImageView]
      setCropSubviewOverflow:NO];
-    self.phoneContainer.fixedSize = phoneImageView.image.size;
+    self.phoneContainer.fixedDesiredSize = phoneImageView.image.size;
     [[self.phoneContainer addSubview:phoneScreen
                withLayoutBlock:^(UIView *superview, UIView *subview) {
                    WeViewAssert(subview);

@@ -331,7 +331,7 @@
 - (void)didAddSubview:(UIView *)subview
 {
     WeViewAssert(subview);
-    [self setNeedsLayout];    
+    [self setNeedsLayout];
 }
 
 - (void)willRemoveSubview:(UIView *)subview

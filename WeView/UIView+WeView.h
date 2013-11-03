@@ -20,20 +20,20 @@
 /* CODEGEN MARKER: Start */
 
 // The minimum desired width of this view. Trumps the maxWidth.
-- (CGFloat)minWidth;
-- (UIView *)setMinWidth:(CGFloat)value;
+- (CGFloat)minDesiredWidth;
+- (UIView *)setMinDesiredWidth:(CGFloat)value;
 
 // The maximum desired width of this view. Trumped by the minWidth.
-- (CGFloat)maxWidth;
-- (UIView *)setMaxWidth:(CGFloat)value;
+- (CGFloat)maxDesiredWidth;
+- (UIView *)setMaxDesiredWidth:(CGFloat)value;
 
 // The minimum desired height of this view. Trumps the maxHeight.
-- (CGFloat)minHeight;
-- (UIView *)setMinHeight:(CGFloat)value;
+- (CGFloat)minDesiredHeight;
+- (UIView *)setMinDesiredHeight:(CGFloat)value;
 
 // The maximum desired height of this view. Trumped by the minHeight.
-- (CGFloat)maxHeight;
-- (UIView *)setMaxHeight:(CGFloat)value;
+- (CGFloat)maxDesiredHeight;
+- (UIView *)setMaxDesiredHeight:(CGFloat)value;
 
 // The horizontal stretch weight of this view. If non-zero, the view is willing to take available
 // space or be cropped if
@@ -84,10 +84,18 @@
 - (UIView *)setBottomSpacingAdjustment:(int)value;
 
 // This adjustment can be used to manipulate the desired width of a view.
+//
+// It is added to the desired width reported by the subview.
+//
+// This value can be negative.
 - (CGFloat)desiredWidthAdjustment;
 - (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
 
 // This adjustment can be used to manipulate the desired height of a view.
+//
+// It is added to the desired width reported by the subview.
+//
+// This value can be negative.
 - (CGFloat)desiredHeightAdjustment;
 - (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
 - (BOOL)ignoreDesiredSize;
@@ -116,26 +124,28 @@
 - (NSString *)debugName;
 - (UIView *)setDebugName:(NSString *)value;
 
-// Convenience accessor(s) for the minWidth and minHeight properties.
-- (CGSize)minSize;
-- (UIView *)setMinSize:(CGSize)value;
+// Convenience accessor(s) for the minDesiredWidth and minDesiredHeight properties.
+- (CGSize)minDesiredSize;
+- (UIView *)setMinDesiredSize:(CGSize)value;
 
-// Convenience accessor(s) for the maxWidth and maxHeight properties.
-- (CGSize)maxSize;
-- (UIView *)setMaxSize:(CGSize)value;
+// Convenience accessor(s) for the maxDesiredWidth and maxDesiredHeight properties.
+- (CGSize)maxDesiredSize;
+- (UIView *)setMaxDesiredSize:(CGSize)value;
 
 // Convenience accessor(s) for the desiredWidthAdjustment and desiredHeightAdjustment properties.
 - (CGSize)desiredSizeAdjustment;
 - (UIView *)setDesiredSizeAdjustment:(CGSize)value;
 
-// Convenience accessor(s) for the minWidth and maxWidth properties.
-- (UIView *)setFixedWidth:(CGFloat)value;
+// Convenience accessor(s) for the minDesiredWidth and maxDesiredWidth properties.
+- (UIView *)setFixedDesiredWidth:(CGFloat)value;
 
-// Convenience accessor(s) for the minHeight and maxHeight properties.
-- (UIView *)setFixedHeight:(CGFloat)value;
+// Convenience accessor(s) for the minDesiredHeight and maxDesiredHeight properties.
+- (UIView *)setFixedDesiredHeight:(CGFloat)value;
 
-// Convenience accessor(s) for the minWidth, minHeight, maxWidth and maxHeight properties.
-- (UIView *)setFixedSize:(CGSize)value;
+// Convenience accessor(s) for the minDesiredWidth, minDesiredHeight, maxDesiredWidth and
+// maxDesiredHeight
+// properties.
+- (UIView *)setFixedDesiredSize:(CGSize)value;
 
 // Convenience accessor(s) for the vStretchWeight and hStretchWeight properties.
 - (UIView *)setStretchWeight:(CGFloat)value;

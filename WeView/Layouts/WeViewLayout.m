@@ -522,15 +522,15 @@ BOOL _debugMinSize;
 {
     if (subview.ignoreDesiredSize)
     {
-        return subview.minSize;
+        return CGSizeZero;
     }
 
     CGSize desiredSize = CGSizeAdd([subview sizeThatFits:maxSize],
                                    [subview desiredSizeAdjustment]);
 
     return CGSizeCeil(CGSizeMax(CGSizeMax(CGSizeZero,
-                                          subview.minSize),
-                                CGSizeMin(subview.maxSize,
+                                          subview.minDesiredSize),
+                                CGSizeMin(subview.maxDesiredSize,
                                           desiredSize)));
 }
 

@@ -528,13 +528,13 @@ typedef void (^SetterBlock)(id item);
 
                             /* CODEGEN MARKER: View Parameters Start */
 
-                                [ViewParameterSimple floatProperty:@"minWidth"],
+                                [ViewParameterSimple floatProperty:@"minDesiredWidth"],
 
-                                [ViewParameterSimple floatProperty:@"maxWidth"],
+                                [ViewParameterSimple floatProperty:@"maxDesiredWidth"],
 
-                                [ViewParameterSimple floatProperty:@"minHeight"],
+                                [ViewParameterSimple floatProperty:@"minDesiredHeight"],
 
-                                [ViewParameterSimple floatProperty:@"maxHeight"],
+                                [ViewParameterSimple floatProperty:@"maxDesiredHeight"],
 
                                 [ViewParameterSimple floatProperty:@"hStretchWeight"],
 

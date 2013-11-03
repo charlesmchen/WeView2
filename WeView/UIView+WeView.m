@@ -21,16 +21,16 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 /* CODEGEN MARKER: View Info H Start */
 
 // The minimum desired width of this view. Trumps the maxWidth.
-@property (nonatomic) CGFloat minWidth;
+@property (nonatomic) CGFloat minDesiredWidth;
 
 // The maximum desired width of this view. Trumped by the minWidth.
-@property (nonatomic) CGFloat maxWidth;
+@property (nonatomic) CGFloat maxDesiredWidth;
 
 // The minimum desired height of this view. Trumps the maxHeight.
-@property (nonatomic) CGFloat minHeight;
+@property (nonatomic) CGFloat minDesiredHeight;
 
 // The maximum desired height of this view. Trumped by the minHeight.
-@property (nonatomic) CGFloat maxHeight;
+@property (nonatomic) CGFloat maxDesiredHeight;
 
 // The horizontal stretch weight of this view. If non-zero, the view is willing to take available
 // space or be cropped if
@@ -75,9 +75,17 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 @property (nonatomic) int bottomSpacingAdjustment;
 
 // This adjustment can be used to manipulate the desired width of a view.
+//
+// It is added to the desired width reported by the subview.
+//
+// This value can be negative.
 @property (nonatomic) CGFloat desiredWidthAdjustment;
 
 // This adjustment can be used to manipulate the desired height of a view.
+//
+// It is added to the desired width reported by the subview.
+//
+// This value can be negative.
 @property (nonatomic) CGFloat desiredHeightAdjustment;
 @property (nonatomic) BOOL ignoreDesiredSize;
 
@@ -99,26 +107,28 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 @property (nonatomic) NSString *debugName;
 
-// Convenience accessor(s) for the minWidth and minHeight properties.
-- (CGSize)minSize;
-- (void)setMinSize:(CGSize)value;
+// Convenience accessor(s) for the minDesiredWidth and minDesiredHeight properties.
+- (CGSize)minDesiredSize;
+- (void)setMinDesiredSize:(CGSize)value;
 
-// Convenience accessor(s) for the maxWidth and maxHeight properties.
-- (CGSize)maxSize;
-- (void)setMaxSize:(CGSize)value;
+// Convenience accessor(s) for the maxDesiredWidth and maxDesiredHeight properties.
+- (CGSize)maxDesiredSize;
+- (void)setMaxDesiredSize:(CGSize)value;
 
 // Convenience accessor(s) for the desiredWidthAdjustment and desiredHeightAdjustment properties.
 - (CGSize)desiredSizeAdjustment;
 - (void)setDesiredSizeAdjustment:(CGSize)value;
 
-// Convenience accessor(s) for the minWidth and maxWidth properties.
-- (void)setFixedWidth:(CGFloat)value;
+// Convenience accessor(s) for the minDesiredWidth and maxDesiredWidth properties.
+- (void)setFixedDesiredWidth:(CGFloat)value;
 
-// Convenience accessor(s) for the minHeight and maxHeight properties.
-- (void)setFixedHeight:(CGFloat)value;
+// Convenience accessor(s) for the minDesiredHeight and maxDesiredHeight properties.
+- (void)setFixedDesiredHeight:(CGFloat)value;
 
-// Convenience accessor(s) for the minWidth, minHeight, maxWidth and maxHeight properties.
-- (void)setFixedSize:(CGSize)value;
+// Convenience accessor(s) for the minDesiredWidth, minDesiredHeight, maxDesiredWidth and
+// maxDesiredHeight
+// properties.
+- (void)setFixedDesiredSize:(CGSize)value;
 
 // Convenience accessor(s) for the vStretchWeight and hStretchWeight properties.
 - (void)setStretchWeight:(CGFloat)value;
@@ -135,8 +145,8 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 {
     if (self = [super init])
     {
-        self.maxWidth = CGFLOAT_MAX;
-        self.maxHeight = CGFLOAT_MAX;
+        self.maxDesiredWidth = CGFLOAT_MAX;
+        self.maxDesiredHeight = CGFLOAT_MAX;
     }
 
     return self;
@@ -156,26 +166,26 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     self.hasCellVAlign = YES;
 }
 
-- (CGSize)minSize
+- (CGSize)minDesiredSize
 {
-    return CGSizeMake(self.minWidth, self.minHeight);
+    return CGSizeMake(self.minDesiredWidth, self.minDesiredHeight);
 }
 
-- (void)setMinSize:(CGSize)value
+- (void)setMinDesiredSize:(CGSize)value
 {
-    [self setMinWidth:value.width];
-    [self setMinHeight:value.height];
+    [self setMinDesiredWidth:value.width];
+    [self setMinDesiredHeight:value.height];
 }
 
-- (CGSize)maxSize
+- (CGSize)maxDesiredSize
 {
-    return CGSizeMake(self.maxWidth, self.maxHeight);
+    return CGSizeMake(self.maxDesiredWidth, self.maxDesiredHeight);
 }
 
-- (void)setMaxSize:(CGSize)value
+- (void)setMaxDesiredSize:(CGSize)value
 {
-    [self setMaxWidth:value.width];
-    [self setMaxHeight:value.height];
+    [self setMaxDesiredWidth:value.width];
+    [self setMaxDesiredHeight:value.height];
 }
 
 - (CGSize)desiredSizeAdjustment
@@ -189,24 +199,24 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     [self setDesiredHeightAdjustment:value.height];
 }
 
-- (void)setFixedWidth:(CGFloat)value
+- (void)setFixedDesiredWidth:(CGFloat)value
 {
-    [self setMinWidth:value];
-    [self setMaxWidth:value];
+    [self setMinDesiredWidth:value];
+    [self setMaxDesiredWidth:value];
 }
 
-- (void)setFixedHeight:(CGFloat)value
+- (void)setFixedDesiredHeight:(CGFloat)value
 {
-    [self setMinHeight:value];
-    [self setMaxHeight:value];
+    [self setMinDesiredHeight:value];
+    [self setMaxDesiredHeight:value];
 }
 
-- (void)setFixedSize:(CGSize)value
+- (void)setFixedDesiredSize:(CGSize)value
 {
-    [self setMinWidth:value.width];
-    [self setMinHeight:value.height];
-    [self setMaxWidth:value.width];
-    [self setMaxHeight:value.height];
+    [self setMinDesiredWidth:value.width];
+    [self setMinDesiredHeight:value.height];
+    [self setMaxDesiredWidth:value.width];
+    [self setMaxDesiredHeight:value.height];
 }
 
 - (void)setStretchWeight:(CGFloat)value
@@ -229,10 +239,10 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
     /* CODEGEN MARKER: View Info Debug Start */
 
-    [result appendString:[self formatLayoutDescriptionItem:@"minWidth" value:@(self.minWidth)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"maxWidth" value:@(self.maxWidth)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"minHeight" value:@(self.minHeight)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"maxHeight" value:@(self.maxHeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"minDesiredWidth" value:@(self.minDesiredWidth)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"maxDesiredWidth" value:@(self.maxDesiredWidth)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"minDesiredHeight" value:@(self.minDesiredHeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"maxDesiredHeight" value:@(self.maxDesiredHeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"hStretchWeight" value:@(self.hStretchWeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"vStretchWeight" value:@(self.vStretchWeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"leftSpacingAdjustment" value:@(self.leftSpacingAdjustment)]];
@@ -279,50 +289,50 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 /* CODEGEN MARKER: Accessors Start */
 
-- (CGFloat)minWidth
+- (CGFloat)minDesiredWidth
 {
-    return [self.viewInfo minWidth];
+    return [self.viewInfo minDesiredWidth];
 }
 
-- (UIView *)setMinWidth:(CGFloat)value
+- (UIView *)setMinDesiredWidth:(CGFloat)value
 {
-    [self.viewInfo setMinWidth:value];
+    [self.viewInfo setMinDesiredWidth:value];
     [self.superview setNeedsLayout];
     return self;
 }
 
-- (CGFloat)maxWidth
+- (CGFloat)maxDesiredWidth
 {
-    return [self.viewInfo maxWidth];
+    return [self.viewInfo maxDesiredWidth];
 }
 
-- (UIView *)setMaxWidth:(CGFloat)value
+- (UIView *)setMaxDesiredWidth:(CGFloat)value
 {
-    [self.viewInfo setMaxWidth:value];
+    [self.viewInfo setMaxDesiredWidth:value];
     [self.superview setNeedsLayout];
     return self;
 }
 
-- (CGFloat)minHeight
+- (CGFloat)minDesiredHeight
 {
-    return [self.viewInfo minHeight];
+    return [self.viewInfo minDesiredHeight];
 }
 
-- (UIView *)setMinHeight:(CGFloat)value
+- (UIView *)setMinDesiredHeight:(CGFloat)value
 {
-    [self.viewInfo setMinHeight:value];
+    [self.viewInfo setMinDesiredHeight:value];
     [self.superview setNeedsLayout];
     return self;
 }
 
-- (CGFloat)maxHeight
+- (CGFloat)maxDesiredHeight
 {
-    return [self.viewInfo maxHeight];
+    return [self.viewInfo maxDesiredHeight];
 }
 
-- (UIView *)setMaxHeight:(CGFloat)value
+- (UIView *)setMaxDesiredHeight:(CGFloat)value
 {
-    [self.viewInfo setMaxHeight:value];
+    [self.viewInfo setMaxDesiredHeight:value];
     [self.superview setNeedsLayout];
     return self;
 }
@@ -495,28 +505,28 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     return self;
 }
 
-- (CGSize)minSize
+- (CGSize)minDesiredSize
 {
-    return [self.viewInfo minSize];
+    return [self.viewInfo minDesiredSize];
 }
 
-- (UIView *)setMinSize:(CGSize)value
+- (UIView *)setMinDesiredSize:(CGSize)value
 {
-    [self setMinWidth:value.width];
-    [self setMinHeight:value.height];
+    [self setMinDesiredWidth:value.width];
+    [self setMinDesiredHeight:value.height];
     [self.superview setNeedsLayout];
     return self;
 }
 
-- (CGSize)maxSize
+- (CGSize)maxDesiredSize
 {
-    return [self.viewInfo maxSize];
+    return [self.viewInfo maxDesiredSize];
 }
 
-- (UIView *)setMaxSize:(CGSize)value
+- (UIView *)setMaxDesiredSize:(CGSize)value
 {
-    [self setMaxWidth:value.width];
-    [self setMaxHeight:value.height];
+    [self setMaxDesiredWidth:value.width];
+    [self setMaxDesiredHeight:value.height];
     [self.superview setNeedsLayout];
     return self;
 }
@@ -534,28 +544,28 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     return self;
 }
 
-- (UIView *)setFixedWidth:(CGFloat)value
+- (UIView *)setFixedDesiredWidth:(CGFloat)value
 {
-    [self setMinWidth:value];
-    [self setMaxWidth:value];
+    [self setMinDesiredWidth:value];
+    [self setMaxDesiredWidth:value];
     [self.superview setNeedsLayout];
     return self;
 }
 
-- (UIView *)setFixedHeight:(CGFloat)value
+- (UIView *)setFixedDesiredHeight:(CGFloat)value
 {
-    [self setMinHeight:value];
-    [self setMaxHeight:value];
+    [self setMinDesiredHeight:value];
+    [self setMaxDesiredHeight:value];
     [self.superview setNeedsLayout];
     return self;
 }
 
-- (UIView *)setFixedSize:(CGSize)value
+- (UIView *)setFixedDesiredSize:(CGSize)value
 {
-    [self setMinWidth:value.width];
-    [self setMinHeight:value.height];
-    [self setMaxWidth:value.width];
-    [self setMaxHeight:value.height];
+    [self setMinDesiredWidth:value.width];
+    [self setMinDesiredHeight:value.height];
+    [self setMaxDesiredWidth:value.width];
+    [self setMaxDesiredHeight:value.height];
     [self.superview setNeedsLayout];
     return self;
 }
