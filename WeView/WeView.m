@@ -120,6 +120,11 @@
     }
 }
 
+- (void)sizeToFit
+{
+    self.size = [self sizeThatFits:CGSizeZero];
+}
+
 - (CGSize)sizeThatFits:(CGSize)size
 {
     CGSize result = CGSizeZero;
@@ -326,6 +331,7 @@
 - (void)didAddSubview:(UIView *)subview
 {
     WeViewAssert(subview);
+    [self setNeedsLayout];    
 }
 
 - (void)willRemoveSubview:(UIView *)subview
@@ -335,6 +341,7 @@
     {
         [self.subviewLayoutMap removeObjectForKey:subview];
     }
+    [self setNeedsLayout];
 }
 
 - (WeViewLayout *)replaceLayout:(WeViewLayout *)oldLayout
@@ -351,7 +358,7 @@
             self.subviewLayoutMap[key] = newLayout;
         }
     }
-    [self setNeedsDisplay];
+    [self setNeedsLayout];
     return newLayout;
 }
 

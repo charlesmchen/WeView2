@@ -41,8 +41,8 @@ NSString* ReprVAlign(VAlign value)
     {
         case V_ALIGN_TOP:
             return @"V_ALIGN_TOP";
-        case H_ALIGN_CENTER:
-            return @"H_ALIGN_CENTER";
+        case V_ALIGN_CENTER:
+            return @"V_ALIGN_CENTER";
         case V_ALIGN_BOTTOM:
             return @"V_ALIGN_BOTTOM";
         default:

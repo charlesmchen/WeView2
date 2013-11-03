@@ -60,7 +60,7 @@ UIColor *UIColorRGB(unsigned int rgb)
     //    return [self iphoneDemo2_transformDesign];
 //    return [self iphoneDemo2_transforml10n];
     //    return [self iphoneDemo2_dynamicContent];
-    return [self multiDemo1];
+    return [self horizontalDemo1];
 //    return [self flowDemo4];
 //    return [self verticalDemo3];
 }
