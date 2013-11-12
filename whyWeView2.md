@@ -8,7 +8,7 @@ Why use WeView v2?
 
 <!-- TEMPLATE START -->
 
-* When using iOS Auto Layout you need to manage considerations such as _constraint priority, constraint sufficiency, constraint conflicts (ie. over-constrained layouts), ambiguous layout, nearest common ancestors_, etc.  It is easy to run afoul of these issues and they greatly complicate refactoring and redesign.  None of those problems apply to WeView v2.
+* When using iOS Auto Layout you need to manage considerations such as _constraint priority, constraint sufficiency, constraint conflicts (ie. over-constrained layouts), ambiguous layout, nearest common ancestors_, etc.  These issues also complicate refactoring and redesign.  
 * _Here's a simple code comparison_, based on Apple's sample code that centers a button at the bottom of it's superview bounds with 20pt spacing.
 
 ![Layout Snapshot](images/snapshot-5B46EB1B-30D4-4FAE-8BC7-D76FA3BBE6CA-34104-00011AA1BCCB403A.png)
@@ -32,7 +32,7 @@ _WeView v2 can only be used programmatically, and is designed to yield concise, 
 ### Other Alternatives:
 
 * [ReactiveCocoaLayout](https://github.com/ReactiveCocoa/ReactiveCocoaLayout) is another alternative to iOS Auto Layout built on [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa).  
-
+* [FLKAutoLayout](https://github.com/dkduck/FLKAutoLayout).  This popular project offers a UIView category that provides a variety of convenience methods for creating common constraints.
 
 <!-- TEMPLATE END -->
 
