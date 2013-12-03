@@ -70,7 +70,7 @@
     [viewEditorWrapper.view setStretchWeight:2.f];
 
     [self.rootView addSubviewsWithVerticalLayout:subviews];
-    [self.rootView setDebugLayoutOflayouts:YES];
+//    [self.rootView setDebugLayoutOflayouts:YES];
 }
 
 - (void)didReceiveMemoryWarning
