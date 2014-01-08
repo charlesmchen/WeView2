@@ -2,7 +2,7 @@
 //  WeViewLayout.h
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -14,6 +14,7 @@
 #import <UIKit/UIKit.h>
 
 #import "WeViewEnums.h"
+#import "WeViewSpacingInfo.h"
 
 @class WeView;
 
@@ -69,6 +70,14 @@
 // The horizontal spacing between subviews of this view.
 - (int)hSpacing;
 - (WeViewLayout *)setHSpacing:(int)value;
+
+// The default vertical spacing between subviews of this view.
+- (WeViewSpacingInfo *)defaultVSpacingInfo;
+- (WeViewLayout *)setDefaultVSpacingInfo:(WeViewSpacingInfo *)value;
+
+// The default horizontal spacing between subviews of this view.
+- (WeViewSpacingInfo *)defaultHSpacingInfo;
+- (WeViewLayout *)setDefaultHSpacingInfo:(WeViewSpacingInfo *)value;
 
 // The horizontal alignment of this layout.
 - (HAlign)hAlign;
@@ -137,6 +146,9 @@
 
 // Convenience accessor(s) for the hSpacing and vSpacing properties.
 - (WeViewLayout *)setSpacing:(int)value;
+
+// Convenience accessor(s) for the defaultHSpacingInfo and defaultVSpacingInfo properties.
+- (WeViewLayout *)setDefaultSpacingInfo:(WeViewSpacingInfo *)value;
 
 /* CODEGEN MARKER: End */
 

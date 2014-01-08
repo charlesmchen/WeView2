@@ -2,7 +2,7 @@
 //  DemoCodeGeneration.m
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -84,6 +84,31 @@ NSString* ReprGridStretchPolicy(GridStretchPolicy value)
         default:
             WeViewAssert(0);
             return nil;
+    }
+}
+
+CG_INLINE
+NSString* ReprWeViewSpacingInfo(WeViewSpacingInfo *value)
+{
+    if (value && value.fixedSize && value.stretchWeight)
+    {
+        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithFixedSize:%@ stretchWeight:%@]",
+                value.fixedSize,
+                value.stretchWeight];
+    }
+    else if (value && value.fixedSize)
+    {
+        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithFixedSize:%@]",
+                value.fixedSize];
+    }
+    else if (value && value.stretchWeight)
+    {
+        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithStretchWeight:%@]",
+                value.stretchWeight];
+    }
+    else
+    {
+        return @"nil";
     }
 }
 
@@ -424,6 +449,16 @@ haveAnyOfPrefixes:(NSArray *)prefixes
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setHSpacing", FormatInt(layout.hSpacing)]];
     }
 
+    if (layout.defaultVSpacingInfo != virginLayout.defaultVSpacingInfo)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDefaultVSpacingInfo", ReprWeViewSpacingInfo(layout.defaultVSpacingInfo)]];
+    }
+
+    if (layout.defaultHSpacingInfo != virginLayout.defaultHSpacingInfo)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDefaultHSpacingInfo", ReprWeViewSpacingInfo(layout.defaultHSpacingInfo)]];
+    }
+
     if (layout.hAlign != virginLayout.hAlign)
     {
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setHAlign", ReprHAlign(layout.hAlign)]];
@@ -460,6 +495,13 @@ haveAnyOfPrefixes:(NSArray *)prefixes
     }
 
     // Custom Accessors
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setDefaultHSpacingInfo:", @"setDefaultVSpacingInfo:"]] &&
+        layout.defaultHSpacingInfo == layout.defaultVSpacingInfo)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setDefaultHSpacingInfo:", @"setDefaultVSpacingInfo:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDefaultSpacingInfo", ReprWeViewSpacingInfo(layout.defaultHSpacingInfo)]];
+    }
 
     if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setHSpacing:", @"setVSpacing:"]] &&
         layout.hSpacing == layout.vSpacing)

@@ -208,6 +208,14 @@ layout_propertyGroups = (
                         layoutProperty=True, ),
                    ),
                   (
+                   Property('defaultVSpacingInfo', 'WeViewSpacingInfo *',
+                       comments='The default vertical spacing between subviews of this view.',
+                       layoutProperty=True, ),
+                   Property('defaultHSpacingInfo', 'WeViewSpacingInfo *',
+                       comments='The default horizontal spacing between subviews of this view.',
+                       layoutProperty=True, ),
+                   ),
+                  (
                    Property('hAlign', 'HAlign',
                        comments='The horizontal alignment of this layout.',
                        layoutProperty=True, ),
@@ -345,6 +353,7 @@ layout_customAccessors = (
                     CustomAccessor('margin', 'CGFloat', ('leftMargin', 'rightMargin', 'topMargin', 'bottomMargin',), layoutProperty=True, ),
 
                     CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',), layoutProperty=True, ),
+                    CustomAccessor('defaultSpacingInfo', 'WeViewSpacingInfo *', ('defaultHSpacingInfo', 'defaultVSpacingInfo',), layoutProperty=True, ),
                     )
 
 # --------
@@ -802,8 +811,10 @@ for propertyGroup in layout_propertyGroups:
             defaultValue = 'V_ALIGN_CENTER'
         elif property.typeName == 'CellPositioningMode':
             defaultValue = 'CELL_POSITIONING_NORMAL'
-        elif property.typeName == 'NSString *':
-            continue
+        elif property.typeName == 'WeViewSpacingInfo *':
+            defaultValue = 'nil'
+        elif property.typeName == 'VAlign':
+            defaultValue = 'V_ALIGN_CENTER'
         else:
             print 'Reset layout, Unknown typeName(2):', property.typeName, property.name
         lines.append('    self.%s = %s;' % (property.name, defaultValue, ))
@@ -829,6 +840,8 @@ def formatMethodNameForType(typeName):
         return 'ReprVAlign'
     elif typeName == 'CellPositioningMode':
         return 'ReprCellPositioningMode'
+    elif typeName == 'WeViewSpacingInfo *':
+        return 'ReprWeViewSpacingInfo'
     # elif property.typeName == 'CellPositioningMode':
     else:
         print 'Unknown typeName(3):', typeName

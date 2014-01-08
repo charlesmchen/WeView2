@@ -2,7 +2,7 @@
 //  DemoFactory.m
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -13,7 +13,7 @@
 #import "DemoFactory.h"
 #import "DemoViewFactory.h"
 #import "WeView.h"
-#import "WeViewSpacer.h"
+#import "WeViewSpacingView.h"
 
 UIColor *UIColorRGB(unsigned int rgb)
 {
@@ -955,7 +955,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         UILabel *subtitleLabel = [DemoFactory createLabel:@"Swiss, March 14, 1853 – May 19, 1918"
                                                     fontSize:14.f
                                                    textColor:[UIColor colorWithWhite:1.f alpha:0.9f]];
-        WeViewSpacer *titleSpacer = [[WeViewSpacer alloc] init];
+        WeViewSpacingView *titleSpacer = [[WeViewSpacingView alloc] init];
         titleSpacer.backgroundColor = [UIColor whiteColor];
         WeView *titlesPanel = [[WeView alloc] init];
         [[titlesPanel addSubviewsWithVerticalLayout:@[
@@ -999,7 +999,7 @@ UIColor *UIColorRGB(unsigned int rgb)
 
 + (UIView *)createFlatUIPillboxSpacer
 {
-    WeViewSpacer *spacer = [[WeViewSpacer alloc] init];
+    WeViewSpacingView *spacer = [[WeViewSpacingView alloc] init];
     spacer.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.f];
     spacer.opaque = YES;
     [spacer setVStretches];

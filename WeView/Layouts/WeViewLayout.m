@@ -2,7 +2,7 @@
 //  WeViewLayout.m
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -71,6 +71,9 @@ CGFloat _bottomMargin;
 
 int _vSpacing;
 int _hSpacing;
+
+WeViewSpacingInfo * _defaultVSpacingInfo;
+WeViewSpacingInfo * _defaultHSpacingInfo;
 
 HAlign _hAlign;
 VAlign _vAlign;
@@ -198,6 +201,30 @@ BOOL _debugMinSize;
     return self;
 }
 
+- (WeViewSpacingInfo *)defaultVSpacingInfo
+{
+    return _defaultVSpacingInfo;
+}
+
+- (WeViewLayout *)setDefaultVSpacingInfo:(WeViewSpacingInfo *)value
+{
+    _defaultVSpacingInfo = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (WeViewSpacingInfo *)defaultHSpacingInfo
+{
+    return _defaultHSpacingInfo;
+}
+
+- (WeViewLayout *)setDefaultHSpacingInfo:(WeViewSpacingInfo *)value
+{
+    _defaultHSpacingInfo = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
 - (HAlign)hAlign
 {
     return _hAlign;
@@ -316,6 +343,14 @@ BOOL _debugMinSize;
     return self;
 }
 
+- (WeViewLayout *)setDefaultSpacingInfo:(WeViewSpacingInfo *)value
+{
+    [self setDefaultHSpacingInfo:value];
+    [self setDefaultVSpacingInfo:value];
+    [self._superview setNeedsLayout];
+    return self;
+}
+
 /* CODEGEN MARKER: Accessors End */
 
 - (void)resetAllProperties
@@ -328,6 +363,8 @@ BOOL _debugMinSize;
     self.bottomMargin = 0.f;
     self.vSpacing = 0;
     self.hSpacing = 0;
+    self.defaultVSpacingInfo = nil;
+    self.defaultHSpacingInfo = nil;
     self.hAlign = H_ALIGN_CENTER;
     self.vAlign = V_ALIGN_CENTER;
     self.spacingStretches = NO;
@@ -650,6 +687,8 @@ BOOL _debugMinSize;
     self.bottomMargin = layout.bottomMargin;
     self.vSpacing = layout.vSpacing;
     self.hSpacing = layout.hSpacing;
+    self.defaultVSpacingInfo = layout.defaultVSpacingInfo;
+    self.defaultHSpacingInfo = layout.defaultHSpacingInfo;
     self.hAlign = layout.hAlign;
     self.vAlign = layout.vAlign;
     self.spacingStretches = layout.spacingStretches;
