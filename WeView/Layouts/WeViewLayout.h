@@ -48,36 +48,28 @@
 /* CODEGEN MARKER: Start */
 
 // The left margin of the contents of this view.
-- (CGFloat)leftMargin;
-- (WeViewLayout *)setLeftMargin:(CGFloat)value;
+- (WeViewSpacingInfo *)leftMarginInfo;
+- (WeViewLayout *)setLeftMarginInfo:(WeViewSpacingInfo *)value;
 
 // The right margin of the contents of this view.
-- (CGFloat)rightMargin;
-- (WeViewLayout *)setRightMargin:(CGFloat)value;
+- (WeViewSpacingInfo *)rightMarginInfo;
+- (WeViewLayout *)setRightMarginInfo:(WeViewSpacingInfo *)value;
 
 // The top margin of the contents of this view.
-- (CGFloat)topMargin;
-- (WeViewLayout *)setTopMargin:(CGFloat)value;
+- (WeViewSpacingInfo *)topMarginInfo;
+- (WeViewLayout *)setTopMarginInfo:(WeViewSpacingInfo *)value;
 
 // The bottom margin of the contents of this view.
-- (CGFloat)bottomMargin;
-- (WeViewLayout *)setBottomMargin:(CGFloat)value;
-
-// The vertical spacing between subviews of this view.
-- (int)vSpacing;
-- (WeViewLayout *)setVSpacing:(int)value;
-
-// The horizontal spacing between subviews of this view.
-- (int)hSpacing;
-- (WeViewLayout *)setHSpacing:(int)value;
-
-// The default vertical spacing between subviews of this view.
-- (WeViewSpacingInfo *)defaultVSpacingInfo;
-- (WeViewLayout *)setDefaultVSpacingInfo:(WeViewSpacingInfo *)value;
+- (WeViewSpacingInfo *)bottomMarginInfo;
+- (WeViewLayout *)setBottomMarginInfo:(WeViewSpacingInfo *)value;
 
 // The default horizontal spacing between subviews of this view.
 - (WeViewSpacingInfo *)defaultHSpacingInfo;
 - (WeViewLayout *)setDefaultHSpacingInfo:(WeViewSpacingInfo *)value;
+
+// The default vertical spacing between subviews of this view.
+- (WeViewSpacingInfo *)defaultVSpacingInfo;
+- (WeViewLayout *)setDefaultVSpacingInfo:(WeViewSpacingInfo *)value;
 
 // The horizontal alignment of this layout.
 - (HAlign)hAlign;
@@ -86,21 +78,6 @@
 // The vertical alignment of this layout.
 - (VAlign)vAlign;
 - (WeViewLayout *)setVAlign:(VAlign)value;
-
-// If YES, the spacings between subviews will be stretched if there is any extra space.
-//
-// Extra space will be distributed evenly between the spacings.
-//
-// Layouts will prefer to stretch subviews if possible.  Spacings will only be stretched if there
-// are no stretching subviews to receive the extra
-// space.
-//
-// The spacings will not be cropped if the layout cannot fit its subviews within their superview,
-// even if this property is YES.Only applies to the horizontal, vertical and flow layouts.  In a
-// flow layout where spacingStretches is YES, the subviews are
-// justified.
-- (BOOL)spacingStretches;
-- (WeViewLayout *)setSpacingStretches:(BOOL)value;
 
 // By default, if the content size (ie. the total subview size plus margins and spacing) of a
 // WeView overflows its bounds, subviews are cropped to fit inside the available
@@ -134,6 +111,38 @@
 - (BOOL)debugMinSize;
 - (WeViewLayout *)setDebugMinSize:(BOOL)value;
 
+// Convenience accessor(s) for the leftMarginInfo property.
+- (int)leftMargin;
+- (WeViewLayout *)setLeftMargin:(int)value;
+
+// Convenience accessor(s) for the rightMarginInfo property.
+- (int)rightMargin;
+- (WeViewLayout *)setRightMargin:(int)value;
+
+// Convenience accessor(s) for the topMarginInfo property.
+- (int)topMargin;
+- (WeViewLayout *)setTopMargin:(int)value;
+
+// Convenience accessor(s) for the bottomMarginInfo property.
+- (int)bottomMargin;
+- (WeViewLayout *)setBottomMargin:(int)value;
+
+// Convenience accessor(s) for the leftMarginInfo property.
+- (CGFloat)leftMarginStretchWeight;
+- (WeViewLayout *)setLeftMarginStretchWeight:(CGFloat)value;
+
+// Convenience accessor(s) for the rightMarginInfo property.
+- (CGFloat)rightMarginStretchWeight;
+- (WeViewLayout *)setRightMarginStretchWeight:(CGFloat)value;
+
+// Convenience accessor(s) for the topMarginInfo property.
+- (CGFloat)topMarginStretchWeight;
+- (WeViewLayout *)setTopMarginStretchWeight:(CGFloat)value;
+
+// Convenience accessor(s) for the bottomMarginInfo property.
+- (CGFloat)bottomMarginStretchWeight;
+- (WeViewLayout *)setBottomMarginStretchWeight:(CGFloat)value;
+
 // Convenience accessor(s) for the leftMargin and rightMargin properties.
 - (WeViewLayout *)setHMargin:(CGFloat)value;
 
@@ -144,11 +153,19 @@
 // properties.
 - (WeViewLayout *)setMargin:(CGFloat)value;
 
-// Convenience accessor(s) for the hSpacing and vSpacing properties.
-- (WeViewLayout *)setSpacing:(int)value;
-
 // Convenience accessor(s) for the defaultHSpacingInfo and defaultVSpacingInfo properties.
 - (WeViewLayout *)setDefaultSpacingInfo:(WeViewSpacingInfo *)value;
+
+// Convenience accessor(s) for the defaultHSpacingInfo property.
+- (int)hSpacing;
+- (WeViewLayout *)setHSpacing:(int)value;
+
+// Convenience accessor(s) for the defaultVSpacingInfo property.
+- (int)vSpacing;
+- (WeViewLayout *)setVSpacing:(int)value;
+
+// Convenience accessor(s) for the hSpacing and vSpacing properties.
+- (WeViewLayout *)setSpacing:(int)value;
 
 /* CODEGEN MARKER: End */
 

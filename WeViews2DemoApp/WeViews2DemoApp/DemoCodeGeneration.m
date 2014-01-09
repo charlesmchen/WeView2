@@ -90,20 +90,20 @@ NSString* ReprGridStretchPolicy(GridStretchPolicy value)
 CG_INLINE
 NSString* ReprWeViewSpacingInfo(WeViewSpacingInfo *value)
 {
-    if (value && value.fixedSize && value.stretchWeight)
+    if (value && value.size && value.stretchWeight)
     {
-        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithFixedSize:%@ stretchWeight:%@]",
-                value.fixedSize,
+        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithSize:%d stretchWeight:%f]",
+                value.size,
                 value.stretchWeight];
     }
-    else if (value && value.fixedSize)
+    else if (value && value.size)
     {
-        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithFixedSize:%@]",
-                value.fixedSize];
+        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithSize:%d]",
+                value.size];
     }
     else if (value && value.stretchWeight)
     {
-        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithStretchWeight:%@]",
+        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithStretchWeight:%f]",
                 value.stretchWeight];
     }
     else
@@ -419,44 +419,34 @@ haveAnyOfPrefixes:(NSArray *)prefixes
 
     /* CODEGEN MARKER: Code Generation Layout Properties Start */
 
-    if (layout.leftMargin != virginLayout.leftMargin)
+    if (layout.leftMarginInfo != virginLayout.leftMarginInfo)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setLeftMargin", FormatFloat(layout.leftMargin)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setLeftMarginInfo", ReprWeViewSpacingInfo(layout.leftMarginInfo)]];
     }
 
-    if (layout.rightMargin != virginLayout.rightMargin)
+    if (layout.rightMarginInfo != virginLayout.rightMarginInfo)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setRightMargin", FormatFloat(layout.rightMargin)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setRightMarginInfo", ReprWeViewSpacingInfo(layout.rightMarginInfo)]];
     }
 
-    if (layout.topMargin != virginLayout.topMargin)
+    if (layout.topMarginInfo != virginLayout.topMarginInfo)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setTopMargin", FormatFloat(layout.topMargin)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setTopMarginInfo", ReprWeViewSpacingInfo(layout.topMarginInfo)]];
     }
 
-    if (layout.bottomMargin != virginLayout.bottomMargin)
+    if (layout.bottomMarginInfo != virginLayout.bottomMarginInfo)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setBottomMargin", FormatFloat(layout.bottomMargin)]];
-    }
-
-    if (layout.vSpacing != virginLayout.vSpacing)
-    {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setVSpacing", FormatInt(layout.vSpacing)]];
-    }
-
-    if (layout.hSpacing != virginLayout.hSpacing)
-    {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setHSpacing", FormatInt(layout.hSpacing)]];
-    }
-
-    if (layout.defaultVSpacingInfo != virginLayout.defaultVSpacingInfo)
-    {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDefaultVSpacingInfo", ReprWeViewSpacingInfo(layout.defaultVSpacingInfo)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setBottomMarginInfo", ReprWeViewSpacingInfo(layout.bottomMarginInfo)]];
     }
 
     if (layout.defaultHSpacingInfo != virginLayout.defaultHSpacingInfo)
     {
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDefaultHSpacingInfo", ReprWeViewSpacingInfo(layout.defaultHSpacingInfo)]];
+    }
+
+    if (layout.defaultVSpacingInfo != virginLayout.defaultVSpacingInfo)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDefaultVSpacingInfo", ReprWeViewSpacingInfo(layout.defaultVSpacingInfo)]];
     }
 
     if (layout.hAlign != virginLayout.hAlign)
@@ -467,11 +457,6 @@ haveAnyOfPrefixes:(NSArray *)prefixes
     if (layout.vAlign != virginLayout.vAlign)
     {
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setVAlign", ReprVAlign(layout.vAlign)]];
-    }
-
-    if (layout.spacingStretches != virginLayout.spacingStretches)
-    {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setSpacingStretches", FormatBoolean(layout.spacingStretches)]];
     }
 
     if (layout.cropSubviewOverflow != virginLayout.cropSubviewOverflow)
@@ -495,20 +480,6 @@ haveAnyOfPrefixes:(NSArray *)prefixes
     }
 
     // Custom Accessors
-
-    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setDefaultHSpacingInfo:", @"setDefaultVSpacingInfo:"]] &&
-        layout.defaultHSpacingInfo == layout.defaultVSpacingInfo)
-    {
-        lines = [self removeLines:lines withPrefixes:@[@"setDefaultHSpacingInfo:", @"setDefaultVSpacingInfo:"]];
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDefaultSpacingInfo", ReprWeViewSpacingInfo(layout.defaultHSpacingInfo)]];
-    }
-
-    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setHSpacing:", @"setVSpacing:"]] &&
-        layout.hSpacing == layout.vSpacing)
-    {
-        lines = [self removeLines:lines withPrefixes:@[@"setHSpacing:", @"setVSpacing:"]];
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setSpacing", FormatInt(layout.hSpacing)]];
-    }
 
     if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setLeftMargin:", @"setRightMargin:", @"setTopMargin:", @"setBottomMargin:"]] &&
         layout.leftMargin == layout.rightMargin && layout.leftMargin == layout.topMargin && layout.leftMargin == layout.bottomMargin)

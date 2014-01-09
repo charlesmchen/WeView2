@@ -64,21 +64,16 @@ CG_INLINE CGRect FitSizeInRect(CGRect srcRect, CGSize srcSize)
 {
 /* CODEGEN MARKER: Members Start */
 
-CGFloat _leftMargin;
-CGFloat _rightMargin;
-CGFloat _topMargin;
-CGFloat _bottomMargin;
+WeViewSpacingInfo * _leftMarginInfo;
+WeViewSpacingInfo * _rightMarginInfo;
+WeViewSpacingInfo * _topMarginInfo;
+WeViewSpacingInfo * _bottomMarginInfo;
 
-int _vSpacing;
-int _hSpacing;
-
-WeViewSpacingInfo * _defaultVSpacingInfo;
 WeViewSpacingInfo * _defaultHSpacingInfo;
+WeViewSpacingInfo * _defaultVSpacingInfo;
 
 HAlign _hAlign;
 VAlign _vAlign;
-
-BOOL _spacingStretches;
 
 BOOL _cropSubviewOverflow;
 CellPositioningMode _cellPositioning;
@@ -129,86 +124,50 @@ BOOL _debugMinSize;
 
 /* CODEGEN MARKER: Accessors Start */
 
-- (CGFloat)leftMargin
+- (WeViewSpacingInfo *)leftMarginInfo
 {
-    return _leftMargin;
+    return _leftMarginInfo;
 }
 
-- (WeViewLayout *)setLeftMargin:(CGFloat)value
+- (WeViewLayout *)setLeftMarginInfo:(WeViewSpacingInfo *)value
 {
-    _leftMargin = value;
+    _leftMarginInfo = value;
     [self._superview setNeedsLayout];
     return self;
 }
 
-- (CGFloat)rightMargin
+- (WeViewSpacingInfo *)rightMarginInfo
 {
-    return _rightMargin;
+    return _rightMarginInfo;
 }
 
-- (WeViewLayout *)setRightMargin:(CGFloat)value
+- (WeViewLayout *)setRightMarginInfo:(WeViewSpacingInfo *)value
 {
-    _rightMargin = value;
+    _rightMarginInfo = value;
     [self._superview setNeedsLayout];
     return self;
 }
 
-- (CGFloat)topMargin
+- (WeViewSpacingInfo *)topMarginInfo
 {
-    return _topMargin;
+    return _topMarginInfo;
 }
 
-- (WeViewLayout *)setTopMargin:(CGFloat)value
+- (WeViewLayout *)setTopMarginInfo:(WeViewSpacingInfo *)value
 {
-    _topMargin = value;
+    _topMarginInfo = value;
     [self._superview setNeedsLayout];
     return self;
 }
 
-- (CGFloat)bottomMargin
+- (WeViewSpacingInfo *)bottomMarginInfo
 {
-    return _bottomMargin;
+    return _bottomMarginInfo;
 }
 
-- (WeViewLayout *)setBottomMargin:(CGFloat)value
+- (WeViewLayout *)setBottomMarginInfo:(WeViewSpacingInfo *)value
 {
-    _bottomMargin = value;
-    [self._superview setNeedsLayout];
-    return self;
-}
-
-- (int)vSpacing
-{
-    return _vSpacing;
-}
-
-- (WeViewLayout *)setVSpacing:(int)value
-{
-    _vSpacing = value;
-    [self._superview setNeedsLayout];
-    return self;
-}
-
-- (int)hSpacing
-{
-    return _hSpacing;
-}
-
-- (WeViewLayout *)setHSpacing:(int)value
-{
-    _hSpacing = value;
-    [self._superview setNeedsLayout];
-    return self;
-}
-
-- (WeViewSpacingInfo *)defaultVSpacingInfo
-{
-    return _defaultVSpacingInfo;
-}
-
-- (WeViewLayout *)setDefaultVSpacingInfo:(WeViewSpacingInfo *)value
-{
-    _defaultVSpacingInfo = value;
+    _bottomMarginInfo = value;
     [self._superview setNeedsLayout];
     return self;
 }
@@ -221,6 +180,18 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setDefaultHSpacingInfo:(WeViewSpacingInfo *)value
 {
     _defaultHSpacingInfo = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (WeViewSpacingInfo *)defaultVSpacingInfo
+{
+    return _defaultVSpacingInfo;
+}
+
+- (WeViewLayout *)setDefaultVSpacingInfo:(WeViewSpacingInfo *)value
+{
+    _defaultVSpacingInfo = value;
     [self._superview setNeedsLayout];
     return self;
 }
@@ -245,18 +216,6 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setVAlign:(VAlign)value
 {
     _vAlign = value;
-    [self._superview setNeedsLayout];
-    return self;
-}
-
-- (BOOL)spacingStretches
-{
-    return _spacingStretches;
-}
-
-- (WeViewLayout *)setSpacingStretches:(BOOL)value
-{
-    _spacingStretches = value;
     [self._superview setNeedsLayout];
     return self;
 }
@@ -309,6 +268,102 @@ BOOL _debugMinSize;
     return self;
 }
 
+- (int)leftMargin
+{
+    return self.leftMarginInfo.size;
+}
+
+- (WeViewLayout *)setLeftMargin:(int)value
+{
+    self.leftMarginInfo.size = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (int)rightMargin
+{
+    return self.rightMarginInfo.size;
+}
+
+- (WeViewLayout *)setRightMargin:(int)value
+{
+    self.rightMarginInfo.size = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (int)topMargin
+{
+    return self.topMarginInfo.size;
+}
+
+- (WeViewLayout *)setTopMargin:(int)value
+{
+    self.topMarginInfo.size = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (int)bottomMargin
+{
+    return self.bottomMarginInfo.size;
+}
+
+- (WeViewLayout *)setBottomMargin:(int)value
+{
+    self.bottomMarginInfo.size = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (CGFloat)leftMarginStretchWeight
+{
+    return self.leftMarginInfo.stretchWeight;
+}
+
+- (WeViewLayout *)setLeftMarginStretchWeight:(CGFloat)value
+{
+    self.leftMarginInfo.stretchWeight = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (CGFloat)rightMarginStretchWeight
+{
+    return self.rightMarginInfo.stretchWeight;
+}
+
+- (WeViewLayout *)setRightMarginStretchWeight:(CGFloat)value
+{
+    self.rightMarginInfo.stretchWeight = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (CGFloat)topMarginStretchWeight
+{
+    return self.topMarginInfo.stretchWeight;
+}
+
+- (WeViewLayout *)setTopMarginStretchWeight:(CGFloat)value
+{
+    self.topMarginInfo.stretchWeight = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (CGFloat)bottomMarginStretchWeight
+{
+    return self.bottomMarginInfo.stretchWeight;
+}
+
+- (WeViewLayout *)setBottomMarginStretchWeight:(CGFloat)value
+{
+    self.bottomMarginInfo.stretchWeight = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
 - (WeViewLayout *)setHMargin:(CGFloat)value
 {
     [self setLeftMargin:value];
@@ -335,18 +390,42 @@ BOOL _debugMinSize;
     return self;
 }
 
-- (WeViewLayout *)setSpacing:(int)value
-{
-    [self setHSpacing:value];
-    [self setVSpacing:value];
-    [self._superview setNeedsLayout];
-    return self;
-}
-
 - (WeViewLayout *)setDefaultSpacingInfo:(WeViewSpacingInfo *)value
 {
     [self setDefaultHSpacingInfo:value];
     [self setDefaultVSpacingInfo:value];
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (int)hSpacing
+{
+    return self.defaultHSpacingInfo.size;
+}
+
+- (WeViewLayout *)setHSpacing:(int)value
+{
+    self.defaultHSpacingInfo.size = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (int)vSpacing
+{
+    return self.defaultVSpacingInfo.size;
+}
+
+- (WeViewLayout *)setVSpacing:(int)value
+{
+    self.defaultVSpacingInfo.size = value;
+    [self._superview setNeedsLayout];
+    return self;
+}
+
+- (WeViewLayout *)setSpacing:(int)value
+{
+    [self setHSpacing:value];
+    [self setVSpacing:value];
     [self._superview setNeedsLayout];
     return self;
 }
@@ -357,17 +436,14 @@ BOOL _debugMinSize;
 {
     /* CODEGEN MARKER: Reset Start */
 
-    self.leftMargin = 0.f;
-    self.rightMargin = 0.f;
-    self.topMargin = 0.f;
-    self.bottomMargin = 0.f;
-    self.vSpacing = 0;
-    self.hSpacing = 0;
-    self.defaultVSpacingInfo = nil;
-    self.defaultHSpacingInfo = nil;
+    self.leftMarginInfo = nil;
+    self.rightMarginInfo = nil;
+    self.topMarginInfo = nil;
+    self.bottomMarginInfo = nil;
+    self.defaultHSpacingInfo = [[WeViewSpacingInfo alloc] init];
+    self.defaultVSpacingInfo = [[WeViewSpacingInfo alloc] init];
     self.hAlign = H_ALIGN_CENTER;
     self.vAlign = V_ALIGN_CENTER;
-    self.spacingStretches = NO;
     self.cropSubviewOverflow = NO;
     self.cellPositioning = CELL_POSITIONING_NORMAL;
     self.debugLayout = NO;
@@ -681,17 +757,14 @@ BOOL _debugMinSize;
 {
     /* CODEGEN MARKER: Copy Configuration Start */
 
-    self.leftMargin = layout.leftMargin;
-    self.rightMargin = layout.rightMargin;
-    self.topMargin = layout.topMargin;
-    self.bottomMargin = layout.bottomMargin;
-    self.vSpacing = layout.vSpacing;
-    self.hSpacing = layout.hSpacing;
-    self.defaultVSpacingInfo = layout.defaultVSpacingInfo;
+    self.leftMarginInfo = layout.leftMarginInfo;
+    self.rightMarginInfo = layout.rightMarginInfo;
+    self.topMarginInfo = layout.topMarginInfo;
+    self.bottomMarginInfo = layout.bottomMarginInfo;
     self.defaultHSpacingInfo = layout.defaultHSpacingInfo;
+    self.defaultVSpacingInfo = layout.defaultVSpacingInfo;
     self.hAlign = layout.hAlign;
     self.vAlign = layout.vAlign;
-    self.spacingStretches = layout.spacingStretches;
     self.cropSubviewOverflow = layout.cropSubviewOverflow;
     self.cellPositioning = layout.cellPositioning;
     self.debugLayout = layout.debugLayout;

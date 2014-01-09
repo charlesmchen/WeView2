@@ -218,19 +218,19 @@
                                 maxCrossSize:maxCrossSize];
             }
         }
-        else if (self.spacingStretches && isLayingOut)
-        {
-            NSMutableArray *spacingStretchWeights = [NSMutableArray array];
-            for (id spacing in spacings)
-            {
-                [spacingStretchWeights addObject:@(1.f)];
-            }
-            [self distributeAdjustment:extraAxisSpace
-                          acrossValues:spacings
-                           withWeights:spacingStretchWeights
-                              withSign:+1.f
-                           withMaxZero:NO];
-        }
+//        else if (self.spacingStretches && isLayingOut)
+//        {
+//            NSMutableArray *spacingStretchWeights = [NSMutableArray array];
+//            for (id spacing in spacings)
+//            {
+//                [spacingStretchWeights addObject:@(1.f)];
+//            }
+//            [self distributeAdjustment:extraAxisSpace
+//                          acrossValues:spacings
+//                           withWeights:spacingStretchWeights
+//                              withSign:+1.f
+//                           withMaxZero:NO];
+//        }
     }
 
     if (cropSubviewOverflow)

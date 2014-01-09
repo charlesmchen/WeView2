@@ -15,20 +15,45 @@
 
 #import "WeViewLayout.h"
 
-typedef enum
-{
-    // If there is extra space in the layout, stretch the cells to fill it, distributing the extra
-    // space equally among the cells.
-    GRID_STRETCH_POLICY_STRETCH_CELLS,
+// Represents the sizing behavior of a row or column in a grid layout.
+@interface WeViewGridInfo : NSObject
 
-    // If there is extra space in the layout, stretch the spacing between the cells to fill it,
-    // distributing the extra space equally among the spacings.
-    GRID_STRETCH_POLICY_STRETCH_SPACING,
+// Optional.
+//
+// If specified, the column or row will have the given desired size, regardless of its contents.
+// If it is not specified, the desired size of the column or row is based on its contents.
+@property (nonatomic) NSNumber *fixedSize;
 
-    // If there is extra space in the layout, stretch nothing.  Instead align the grid body within
-    // the cell content bounds.
-    GRID_STRETCH_POLICY_NO_STRETCH,
-} GridStretchPolicy;
+// If the stretchWeight is non-zero, the column or grid can stretch to fill any extra space in the layout
+// using that stretch weight.  It can also contract if the layout's desired size overflows the available
+// space.
+//
+// The default value is zero.
+@property (nonatomic) CGFloat stretchWeight;
+
++ (WeViewSpacingInfo *)spacingWithSize:(int)size;
+
++ (WeViewSpacingInfo *)spacingWithStretchWeight:(CGFloat)stretchWeight;
+
++ (WeViewSpacingInfo *)spacingWithSize:(int)size
+                         stretchWeight:(CGFloat)stretchWeight;
+
+@end
+
+//typedef struct
+//{
+//    // If there is extra space in the layout, stretch the cells to fill it, distributing the extra
+//    // space equally among the cells.
+//    GRID_STRETCH_POLICY_STRETCH_CELLS,
+//
+//    // If there is extra space in the layout, stretch the spacing between the cells to fill it,
+//    // distributing the extra space equally among the spacings.
+//    GRID_STRETCH_POLICY_STRETCH_SPACING,
+//
+//    // If there is extra space in the layout, stretch nothing.  Instead align the grid body within
+//    // the cell content bounds.
+//    GRID_STRETCH_POLICY_NO_STRETCH,
+//} GridStretchPolicy;
 
 #pragma mark -
 

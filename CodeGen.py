@@ -185,34 +185,29 @@ view_propertyGroups = (
                   )
 
 layout_propertyGroups = (
+
                   (
-                   Property('leftMargin', 'CGFloat',
+                   Property('leftMarginInfo', 'WeViewSpacingInfo *',
                        comments='The left margin of the contents of this view.',
                        layoutProperty=True, ),
-                   Property('rightMargin', 'CGFloat',
+                   Property('rightMarginInfo', 'WeViewSpacingInfo *',
                        comments='The right margin of the contents of this view.',
                        layoutProperty=True, ),
-                   Property('topMargin', 'CGFloat',
+                   Property('topMarginInfo', 'WeViewSpacingInfo *',
                        comments='The top margin of the contents of this view.',
                        layoutProperty=True, ),
-                   Property('bottomMargin', 'CGFloat',
+                   Property('bottomMarginInfo', 'WeViewSpacingInfo *',
                        comments='The bottom margin of the contents of this view.',
                        layoutProperty=True, ),
                    ),
                   (
-                   Property('vSpacing', 'int',
-                       comments='The vertical spacing between subviews of this view.',
-                       layoutProperty=True, ),
-                   Property('hSpacing', 'int',
-                       comments='The horizontal spacing between subviews of this view.',
-                        layoutProperty=True, ),
-                   ),
-                  (
-                   Property('defaultVSpacingInfo', 'WeViewSpacingInfo *',
-                       comments='The default vertical spacing between subviews of this view.',
-                       layoutProperty=True, ),
                    Property('defaultHSpacingInfo', 'WeViewSpacingInfo *',
                        comments='The default horizontal spacing between subviews of this view.',
+                       defaultValue="[[WeViewSpacingInfo alloc] init]",
+                       layoutProperty=True, ),
+                   Property('defaultVSpacingInfo', 'WeViewSpacingInfo *',
+                       comments='The default vertical spacing between subviews of this view.',
+                       defaultValue="[[WeViewSpacingInfo alloc] init]",
                        layoutProperty=True, ),
                    ),
                   (
@@ -223,17 +218,17 @@ layout_propertyGroups = (
                        comments='The vertical alignment of this layout.',
                         layoutProperty=True, ),
                    ),
-                  (
-                   Property('spacingStretches', 'BOOL',
-                       comments=(
-                           'If YES, the spacings between subviews will be stretched if there is any extra space.',
-                           'Extra space will be distributed evenly between the spacings.',
-                           'Layouts will prefer to stretch subviews if possible.  Spacings will only be stretched if there are no stretching subviews to receive the extra space.',
-                           'The spacings will not be cropped if the layout cannot fit its subviews within their superview, even if this property is YES.'
-                           'Only applies to the horizontal, vertical and flow layouts.  In a flow layout where spacingStretches is YES, the subviews are justified.',
-                           ),
-                       layoutProperty=True, ),
-                   ),
+                  # (
+                  #  Property('spacingStretches', 'BOOL',
+                  #      comments=(
+                  #          'If YES, the spacings between subviews will be stretched if there is any extra space.',
+                  #          'Extra space will be distributed evenly between the spacings.',
+                  #          'Layouts will prefer to stretch subviews if possible.  Spacings will only be stretched if there are no stretching subviews to receive the extra space.',
+                  #          'The spacings will not be cropped if the layout cannot fit its subviews within their superview, even if this property is YES.'
+                  #          'Only applies to the horizontal, vertical and flow layouts.  In a flow layout where spacingStretches is YES, the subviews are justified.',
+                  #          ),
+                  #      layoutProperty=True, ),
+                  #  ),
                   (
                    Property('cropSubviewOverflow', 'BOOL',
                        comments=(
@@ -316,13 +311,15 @@ def UpperName(name):
     return name[0].upper() + name[1:]
 
 class CustomAccessor:
-    def __init__(self, name, typeName, propertyList, setterValues=None, getterValue=None, comments=None, layoutProperty=False):
+    def __init__(self, name, typeName, propertyList, setterValues=None, getterValue=None, comments=None, setterStatements=None, skipCodeGenSimplification=False, layoutProperty=False):
         self.name = name
         self.typeName = typeName
         self.propertyList = propertyList
+        self.setterStatements = setterStatements
         self.setterValues = setterValues
         self.getterValue = getterValue
         self.comments = comments
+        self.skipCodeGenSimplification = skipCodeGenSimplification
         self.layoutProperty = layoutProperty
 
     def propertyNames(self):
@@ -348,13 +345,81 @@ view_customAccessors = (
                     )
 
 layout_customAccessors = (
+
+                    CustomAccessor('leftMargin', 'int', ('leftMarginInfo',),
+                        getterValue='self.leftMarginInfo.size',
+                        setterStatements=('\tself.leftMarginInfo.size = value;', ),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
+                    CustomAccessor('rightMargin', 'int', ('rightMarginInfo',),
+                        getterValue='self.rightMarginInfo.size',
+                        setterStatements=('\tself.rightMarginInfo.size = value;', ),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
+                    CustomAccessor('topMargin', 'int', ('topMarginInfo',),
+                        getterValue='self.topMarginInfo.size',
+                        setterStatements=('\tself.topMarginInfo.size = value;', ),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
+                    CustomAccessor('bottomMargin', 'int', ('bottomMarginInfo',),
+                        getterValue='self.bottomMarginInfo.size',
+                        setterStatements=('\tself.bottomMarginInfo.size = value;', ),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
+
+                    CustomAccessor('leftMarginStretchWeight', 'CGFloat', ('leftMarginInfo',),
+                        getterValue='self.leftMarginInfo.stretchWeight',
+                        setterStatements=('\tself.leftMarginInfo.stretchWeight = value;', ),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
+                    CustomAccessor('rightMarginStretchWeight', 'CGFloat', ('rightMarginInfo',),
+                        getterValue='self.rightMarginInfo.stretchWeight',
+                        setterStatements=('\tself.rightMarginInfo.stretchWeight = value;', ),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
+                    CustomAccessor('topMarginStretchWeight', 'CGFloat', ('topMarginInfo',),
+                        getterValue='self.topMarginInfo.stretchWeight',
+                        setterStatements=('\tself.topMarginInfo.stretchWeight = value;', ),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
+                    CustomAccessor('bottomMarginStretchWeight', 'CGFloat', ('bottomMarginInfo',),
+                        getterValue='self.bottomMarginInfo.stretchWeight',
+                        setterStatements=('\tself.bottomMarginInfo.stretchWeight = value;', ),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
+
                     CustomAccessor('hMargin', 'CGFloat', ('leftMargin', 'rightMargin',), layoutProperty=True, ),
                     CustomAccessor('vMargin', 'CGFloat', ('topMargin', 'bottomMargin',), layoutProperty=True, ),
                     CustomAccessor('margin', 'CGFloat', ('leftMargin', 'rightMargin', 'topMargin', 'bottomMargin',), layoutProperty=True, ),
 
-                    CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',), layoutProperty=True, ),
-                    CustomAccessor('defaultSpacingInfo', 'WeViewSpacingInfo *', ('defaultHSpacingInfo', 'defaultVSpacingInfo',), layoutProperty=True, ),
+                    # CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',), layoutProperty=True, ),
+                    CustomAccessor('defaultSpacingInfo', 'WeViewSpacingInfo *', ('defaultHSpacingInfo', 'defaultVSpacingInfo',),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
+                    CustomAccessor('hSpacing', 'int', ('defaultHSpacingInfo',),
+                        getterValue='self.defaultHSpacingInfo.size',
+                        setterStatements=('\tself.defaultHSpacingInfo.size = value;', ),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
+                    CustomAccessor('vSpacing', 'int', ('defaultVSpacingInfo',),
+                        getterValue='self.defaultVSpacingInfo.size',
+                        setterStatements=('\tself.defaultVSpacingInfo.size = value;', ),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
+                    CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',),
+                        skipCodeGenSimplification=True,
+                        layoutProperty=True, ),
                     )
+
+# --------
+
+def defaultCommentForCustomAccessor(customAccessor):
+    comments = []
+    if len(customAccessor.propertyNames()) > 1:
+        comments.append('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames()))
+    else:
+        comments.append('Convenience accessor(s) for the %s property.' % FormatList(customAccessor.propertyNames()))
+    return comments
 
 # --------
 
@@ -370,7 +435,7 @@ for propertyGroup in view_propertyGroups:
 
 for customAccessor in view_customAccessors:
     comments = []
-    comments.append('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames()))
+    comments.extend(defaultCommentForCustomAccessor(customAccessor))
     lines.extend(FormatComments(comments))
     # Getter
     if customAccessor.getterValue:
@@ -400,7 +465,7 @@ for propertyGroup in view_propertyGroups:
 
 for customAccessor in view_customAccessors:
     comments = []
-    comments.append('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames()))
+    comments.extend(defaultCommentForCustomAccessor(customAccessor))
     lines.extend(FormatComments(comments))
     # Getter
     if customAccessor.getterValue:
@@ -636,6 +701,32 @@ def createViewEditorControllerParameters(propertyGroups, blockStartKey, blockEnd
                                  ]
                                  doubleHeight:YES],
                                  ''' % (property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, ) )
+            # elif property.typeName == 'WeViewSpacingInfo *':
+            #     lines.append('''
+            #                     [ViewParameterSimple create:@"%s"
+            #                                     getterBlock:^NSString *(id item) {
+            #                                         return FormatCellPositioningMode(%s.%s);
+            #                                     }
+            #                                         setters:@[
+            #                      [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_NORMAL)
+            #                                      setterBlock:^(id item) {
+            #                                          %s.%s = CELL_POSITIONING_NORMAL;
+            #                                      }],
+            #                      [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FILL)
+            #                                      setterBlock:^(id item) {
+            #                                          %s.%s = CELL_POSITIONING_FILL;
+            #                                      }],
+            #                      [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FILL_W_ASPECT_RATIO)
+            #                                      setterBlock:^(id item) {
+            #                                          %s.%s = CELL_POSITIONING_FILL_W_ASPECT_RATIO;
+            #                                      }],
+            #                      [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FIT_W_ASPECT_RATIO)
+            #                                      setterBlock:^(id item) {
+            #                                          %s.%s = CELL_POSITIONING_FIT_W_ASPECT_RATIO;
+            #                                      }],
+            #                      ]
+            #                      doubleHeight:YES],
+            #                      ''' % (property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, ) )
             else:
                 print 'Unknown typeName(1):', property.typeName, property.name
 
@@ -679,7 +770,7 @@ for customAccessor in layout_customAccessors:
         continue
 
     comments = []
-    comments.append('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames()))
+    comments.extend(defaultCommentForCustomAccessor(customAccessor))
     lines.extend(FormatComments(comments))
     # Getter
     if customAccessor.getterValue:
@@ -751,17 +842,20 @@ for customAccessor in layout_customAccessors:
     # Getter
     if customAccessor.getterValue:
         lines.append('''
-- (%s)%s:(UIView *)view
+- (%s)%s
 {
-    return [view %s];
-}''' % (customAccessor.typeName, customAccessor.name, customAccessor.name, ))
+    return %s;
+}''' % (customAccessor.typeName, customAccessor.name, customAccessor.getterValue, ))
     # Setter
     subsetters = []
-    for index, propertyName in enumerate(customAccessor.propertyNames()):
-        valueName = 'value'
-        if customAccessor.setterValues:
-            valueName += customAccessor.setterValues[index]
-        subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
+    if customAccessor.setterStatements:
+        subsetters = customAccessor.setterStatements
+    else:
+        for index, propertyName in enumerate(customAccessor.propertyNames()):
+            valueName = 'value'
+            if customAccessor.setterValues:
+                valueName += customAccessor.setterValues[index]
+            subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
 
     lines.append('''
 - (WeViewLayout *)set%s:(%s)value
@@ -799,7 +893,9 @@ lines.append('')
 for propertyGroup in layout_propertyGroups:
     for property in propertyGroup:
         defaultValue = ''
-        if property.typeName == 'CGFloat':
+        if property.defaultValue:
+            defaultValue = property.defaultValue
+        elif property.typeName == 'CGFloat':
             defaultValue = '0.f'
         elif property.typeName == 'int':
             defaultValue = '0'
@@ -863,6 +959,8 @@ lines.append('    // Custom Accessors')
 lines.append('')
 
 for customAccessor in reversed(view_customAccessors):
+    if customAccessor.skipCodeGenSimplification:
+        continue
     if formatMethodNameForType(customAccessor.typeName):
 
         linePrefixes = []
@@ -911,6 +1009,8 @@ lines.append('    // Custom Accessors')
 lines.append('')
 
 for customAccessor in reversed(layout_customAccessors):
+    if customAccessor.skipCodeGenSimplification:
+        continue
     if formatMethodNameForType(customAccessor.typeName):
 
         linePrefixes = []

@@ -15,38 +15,26 @@
 
 // Represents the desired size of a margin or the spacing between views in a layout.
 //
-// If no WeViewSpacingInfo is specified OR if neither of the properties are set, the default behavior is to
-// have a fixed, non-stretching size of zero.
-//
-// If only fixedSize is specified, the margin or spacing has that desired size.
-//
-// If only stretchWeight is specified, the margin or spacing has a desired size of zero but stretches to
-// fill any extra space in the layout using that stretch weight.
-//
-// If both fixedSize and stretchWeight are specified, fixedSize determines the base size of the margin or
-// spacing but the stretchWeight also applies.
+// The default behavior is to have a fixed, non-stretching size of zero.
 @interface WeViewSpacingInfo : NSObject
 
-// Optional.
+// The desired size of the margin or spacing.
 //
-// If specified, the base desired size of the margin or spacing.
+// The size specifies the desired size of the margin or spacing.
+@property (nonatomic) int size;
+
+// If the stretchWeight is non-zero, the margin or spacing can stretch to fill any extra space in the layout
+// using that stretch weight or collapses if necessary.  It can also contract if the layout's desired size
+// overflows the available space.
 //
 // The default value is zero.
-@property (nonatomic) NSNumber *fixedSize;
+@property (nonatomic) CGFloat stretchWeight;
 
-// Optional.
-//
-// If specified, in addition to the "base desired size" of the margin or spacing, it stretches to fill any
-// extra space in the layout using that stretch weight.
-//
-// The default value is zero.
-@property (nonatomic) NSNumber *stretchWeight;
-
-+ (WeViewSpacingInfo *)spacingWithFixedSize:(int)fixedSize;
++ (WeViewSpacingInfo *)spacingWithSize:(int)size;
 
 + (WeViewSpacingInfo *)spacingWithStretchWeight:(CGFloat)stretchWeight;
 
-+ (WeViewSpacingInfo *)spacingWithFixedSize:(int)fixedSize
-                              stretchWeight:(CGFloat)stretchWeight;
++ (WeViewSpacingInfo *)spacingWithSize:(int)size
+                         stretchWeight:(CGFloat)stretchWeight;
 
 @end

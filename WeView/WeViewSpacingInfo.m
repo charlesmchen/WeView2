@@ -12,26 +12,26 @@
 
 @implementation WeViewSpacingInfo
 
-+ (WeViewSpacingInfo *)spacingWithFixedSize:(int)fixedSize
++ (WeViewSpacingInfo *)spacingWithSize:(int)size
 {
     WeViewSpacingInfo *result = [[WeViewSpacingInfo alloc] init];
-    result.fixedSize = @(fixedSize);
+    result.size = size;
     return result;
 }
 
 + (WeViewSpacingInfo *)spacingWithStretchWeight:(CGFloat)stretchWeight
 {
     WeViewSpacingInfo *result = [[WeViewSpacingInfo alloc] init];
-    result.stretchWeight = @(stretchWeight);
+    result.stretchWeight = stretchWeight;
     return result;
 }
 
-+ (WeViewSpacingInfo *)spacingWithFixedSize:(int)fixedSize
-                              stretchWeight:(CGFloat)stretchWeight
++ (WeViewSpacingInfo *)spacingWithSize:(int)size
+                         stretchWeight:(CGFloat)stretchWeight
 {
     WeViewSpacingInfo *result = [[WeViewSpacingInfo alloc] init];
-    result.fixedSize = @(fixedSize);
-    result.stretchWeight = @(stretchWeight);
+    result.size = size;
+    result.stretchWeight = stretchWeight;
     return result;
 }
 
