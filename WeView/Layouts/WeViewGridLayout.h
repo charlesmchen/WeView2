@@ -16,7 +16,7 @@
 #import "WeViewLayout.h"
 
 // Represents the sizing behavior of a row or column in a grid layout.
-@interface WeViewGridInfo : NSObject
+@interface WeViewGridSizing : NSObject
 
 // Optional.
 //
@@ -31,57 +31,114 @@
 // The default value is zero.
 @property (nonatomic) CGFloat stretchWeight;
 
-+ (WeViewSpacingInfo *)spacingWithSize:(int)size;
++ (WeViewGridSizing *)sizingWithSize:(int)size;
 
-+ (WeViewSpacingInfo *)spacingWithStretchWeight:(CGFloat)stretchWeight;
++ (WeViewGridSizing *)sizingWithStretchWeight:(CGFloat)stretchWeight;
 
-+ (WeViewSpacingInfo *)spacingWithSize:(int)size
-                         stretchWeight:(CGFloat)stretchWeight;
++ (WeViewGridSizing *)sizingWithSize:(int)size
+                       stretchWeight:(CGFloat)stretchWeight;
 
 @end
-
-//typedef struct
-//{
-//    // If there is extra space in the layout, stretch the cells to fill it, distributing the extra
-//    // space equally among the cells.
-//    GRID_STRETCH_POLICY_STRETCH_CELLS,
-//
-//    // If there is extra space in the layout, stretch the spacing between the cells to fill it,
-//    // distributing the extra space equally among the spacings.
-//    GRID_STRETCH_POLICY_STRETCH_SPACING,
-//
-//    // If there is extra space in the layout, stretch nothing.  Instead align the grid body within
-//    // the cell content bounds.
-//    GRID_STRETCH_POLICY_NO_STRETCH,
-//} GridStretchPolicy;
 
 #pragma mark -
 
 @interface WeViewGridLayout : WeViewLayout
 
-// Use this factory method if you want to specify a cellSizeHint.
-//
-// columnCount: The number of columns in the grid.
-// isGridUniform: If true, the layout guarantees that the cell sizes will all be nearly equal.
-//                Each column will be as wide as the widest column.
-//                Each row will be as tall as the tallest row.
-// stretchPolicy: See the GridStretchPolicy enum.
-// cellSizeHint: The base cell size to use. The cell sizes will not reflect the desired sizes of
-//                their contents.
-+ (WeViewGridLayout *)gridLayoutWithColumns:(int)columnCount
-                              isGridUniform:(BOOL)isGridUniform
-                              stretchPolicy:(GridStretchPolicy)stretchPolicy
-                               cellSizeHint:(CGSize)cellSizeHint;
+// The left margin of the contents of this view.
+- (WeViewSpacing *)leftMarginInfo;
+- (WeViewLayout *)setLeftMarginInfo:(WeViewSpacing *)value;
 
-// Use this factory method if the size of the cells should be based on their contents.
+// The right margin of the contents of this view.
+- (WeViewSpacing *)rightMarginInfo;
+- (WeViewLayout *)setRightMarginInfo:(WeViewSpacing *)value;
+
+// The top margin of the contents of this view.
+- (WeViewSpacing *)topMarginInfo;
+- (WeViewLayout *)setTopMarginInfo:(WeViewSpacing *)value;
+
+// The bottom margin of the contents of this view.
+- (WeViewSpacing *)bottomMarginInfo;
+- (WeViewLayout *)setBottomMarginInfo:(WeViewSpacing *)value;
+
+// The default horizontal spacing between subviews of this view.
+- (WeViewSpacing *)defaultHSpacing;
+- (WeViewLayout *)setDefaultHSpacing:(WeViewSpacing *)value;
+
+// The default vertical spacing between subviews of this view.
+- (WeViewSpacing *)defaultVSpacing;
+- (WeViewLayout *)setDefaultVSpacing:(WeViewSpacing *)value;
+
+// Optional.
+//
+// The default sizing behavior of all rows.  Only applies to rows for which no row-specific sizing behavior
+// has been specified with rowSizings.
+@property (nonatomic) WeViewGridSizing *defaultRowSizing;
+
+// The default sizing behavior of all columns.  Only applies to columns for which no column-specific sizing
+// behavior has been specified with columnSizings.
+@property (nonatomic) WeViewGridSizing *defaultColumnSizing;
+
+// Optional.
+//
+// Row-specific sizing behavior.
+//
+// All contents must be instances of WeViewGridSizing.
+//
+// The first element of rowSizings applies to the first (top-most row), etc.
+//
+// Does not need to exactly match the number of rows.  defaultRowSizing applies to any rows without a
+// corresponding element in rowSizings.
+@property (nonatomic) NSArray *rowSizings;
+
+// Optional.
+//
+// Column-specific sizing behavior.
+//
+// All contents must be instances of WeViewGridSizing.
+//
+// The first element of columnSizings applies to the first (left-most column), etc.
+//
+// Does not need to exactly match the number of columns.  defaultColumnSizing applies to any columns without a
+// corresponding element in columnSizings.
+@property (nonatomic) NSArray *columnSizings;
+
+// Optional.
+//
+// Specifies the spacing between specific rows.
+//
+// All contents must be instances of WeViewSpacing.
+//
+// The first element of rowSpacings applies to the spacing between the first and second rows, etc.
+//
+// Does not need to exactly match the number of spacings between rows.  defaultVSpacing applies to any
+// spacings without a corresponding element in rowSpacings.
+@property (nonatomic) NSArray *rowSpacings;
+
+// Optional.
+//
+// Specifies the spacing between specific columns.
+//
+// All contents must be instances of WeViewSpacing.
+//
+// The first element of columnSpacings applies to the spacing between the first and second columns, etc.
+//
+// Does not need to exactly match the number of spacings between columns.  defaultHSpacing applies to any
+// spacings without a corresponding element in columnSpacings.
+@property (nonatomic) NSArray *columnSpacings;
+
+// If YES, all rows will have the same height - the height of the tallest row.
+//
+// Default is NO.
+@property (nonatomic) BOOL isRowHeightUniform;
+
+// If YES, all columns will have the same width - the width of the widest column.
+//
+// Default is NO.
+@property (nonatomic) BOOL isColumnWidthUniform;
+
+// Factory method.
 //
 // columnCount: The number of columns in the grid.
-// isGridUniform: If true, the layout guarantees that the cell sizes will all be nearly equal.
-//                Each column will be as wide as the widest column.
-//                Each row will be as tall as the tallest row.
-// stretchPolicy: See the GridStretchPolicy enum.
-+ (WeViewGridLayout *)gridLayoutWithColumns:(int)columnCount
-                              isGridUniform:(BOOL)isGridUniform
-                              stretchPolicy:(GridStretchPolicy)stretchPolicy;
++ (WeViewGridLayout *)gridLayoutWithColumnCount:(int)columnCount;
 
 @end

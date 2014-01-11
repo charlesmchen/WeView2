@@ -14,7 +14,7 @@
 #import <UIKit/UIKit.h>
 
 #import "WeViewEnums.h"
-#import "WeViewSpacingInfo.h"
+#import "WeViewSpacing.h"
 
 @class WeView;
 
@@ -48,28 +48,28 @@
 /* CODEGEN MARKER: Start */
 
 // The left margin of the contents of this view.
-- (WeViewSpacingInfo *)leftMarginInfo;
-- (WeViewLayout *)setLeftMarginInfo:(WeViewSpacingInfo *)value;
+- (CGFloat)leftMargin;
+- (WeViewLayout *)setLeftMargin:(CGFloat)value;
 
 // The right margin of the contents of this view.
-- (WeViewSpacingInfo *)rightMarginInfo;
-- (WeViewLayout *)setRightMarginInfo:(WeViewSpacingInfo *)value;
+- (CGFloat)rightMargin;
+- (WeViewLayout *)setRightMargin:(CGFloat)value;
 
 // The top margin of the contents of this view.
-- (WeViewSpacingInfo *)topMarginInfo;
-- (WeViewLayout *)setTopMarginInfo:(WeViewSpacingInfo *)value;
+- (CGFloat)topMargin;
+- (WeViewLayout *)setTopMargin:(CGFloat)value;
 
 // The bottom margin of the contents of this view.
-- (WeViewSpacingInfo *)bottomMarginInfo;
-- (WeViewLayout *)setBottomMarginInfo:(WeViewSpacingInfo *)value;
+- (CGFloat)bottomMargin;
+- (WeViewLayout *)setBottomMargin:(CGFloat)value;
 
-// The default horizontal spacing between subviews of this view.
-- (WeViewSpacingInfo *)defaultHSpacingInfo;
-- (WeViewLayout *)setDefaultHSpacingInfo:(WeViewSpacingInfo *)value;
+// The vertical spacing between subviews of this view.
+- (int)vSpacing;
+- (WeViewLayout *)setVSpacing:(int)value;
 
-// The default vertical spacing between subviews of this view.
-- (WeViewSpacingInfo *)defaultVSpacingInfo;
-- (WeViewLayout *)setDefaultVSpacingInfo:(WeViewSpacingInfo *)value;
+// The horizontal spacing between subviews of this view.
+- (int)hSpacing;
+- (WeViewLayout *)setHSpacing:(int)value;
 
 // The horizontal alignment of this layout.
 - (HAlign)hAlign;
@@ -111,38 +111,6 @@
 - (BOOL)debugMinSize;
 - (WeViewLayout *)setDebugMinSize:(BOOL)value;
 
-// Convenience accessor(s) for the leftMarginInfo property.
-- (int)leftMargin;
-- (WeViewLayout *)setLeftMargin:(int)value;
-
-// Convenience accessor(s) for the rightMarginInfo property.
-- (int)rightMargin;
-- (WeViewLayout *)setRightMargin:(int)value;
-
-// Convenience accessor(s) for the topMarginInfo property.
-- (int)topMargin;
-- (WeViewLayout *)setTopMargin:(int)value;
-
-// Convenience accessor(s) for the bottomMarginInfo property.
-- (int)bottomMargin;
-- (WeViewLayout *)setBottomMargin:(int)value;
-
-// Convenience accessor(s) for the leftMarginInfo property.
-- (CGFloat)leftMarginStretchWeight;
-- (WeViewLayout *)setLeftMarginStretchWeight:(CGFloat)value;
-
-// Convenience accessor(s) for the rightMarginInfo property.
-- (CGFloat)rightMarginStretchWeight;
-- (WeViewLayout *)setRightMarginStretchWeight:(CGFloat)value;
-
-// Convenience accessor(s) for the topMarginInfo property.
-- (CGFloat)topMarginStretchWeight;
-- (WeViewLayout *)setTopMarginStretchWeight:(CGFloat)value;
-
-// Convenience accessor(s) for the bottomMarginInfo property.
-- (CGFloat)bottomMarginStretchWeight;
-- (WeViewLayout *)setBottomMarginStretchWeight:(CGFloat)value;
-
 // Convenience accessor(s) for the leftMargin and rightMargin properties.
 - (WeViewLayout *)setHMargin:(CGFloat)value;
 
@@ -152,17 +120,6 @@
 // Convenience accessor(s) for the leftMargin, rightMargin, topMargin and bottomMargin
 // properties.
 - (WeViewLayout *)setMargin:(CGFloat)value;
-
-// Convenience accessor(s) for the defaultHSpacingInfo and defaultVSpacingInfo properties.
-- (WeViewLayout *)setDefaultSpacingInfo:(WeViewSpacingInfo *)value;
-
-// Convenience accessor(s) for the defaultHSpacingInfo property.
-- (int)hSpacing;
-- (WeViewLayout *)setHSpacing:(int)value;
-
-// Convenience accessor(s) for the defaultVSpacingInfo property.
-- (int)vSpacing;
-- (WeViewLayout *)setVSpacing:(int)value;
 
 // Convenience accessor(s) for the hSpacing and vSpacing properties.
 - (WeViewLayout *)setSpacing:(int)value;

@@ -59,7 +59,8 @@
 		3444368B17D3F9DB00EFF341 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3444368A17D3F9DA00EFF341 /* README.md */; };
 		3444368D17D3F9E300EFF341 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3444368C17D3F9E200EFF341 /* LICENSE */; };
 		34988DE8187CEFB200110DE1 /* WeViewSpacingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34988DE7187CEFB200110DE1 /* WeViewSpacingView.m */; };
-		34988DEB187CF02700110DE1 /* WeViewSpacingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 34988DEA187CF02700110DE1 /* WeViewSpacingInfo.m */; };
+		34988DEE187E547100110DE1 /* WeViewSpacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 34988DED187E547100110DE1 /* WeViewSpacing.m */; };
+		34988DF1187E653400110DE1 /* WeViewLayoutUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 34988DF0187E653400110DE1 /* WeViewLayoutUtils.m */; };
 		34C19C6017DB967E0025914F /* DemoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C19C5F17DB967E0025914F /* DemoFactory.m */; };
 		34C19C7A17DCF2160025914F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19C7917DCF2160025914F /* ImageIO.framework */; };
 		34C19C7C17DCF22E0025914F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C19C7B17DCF22E0025914F /* MobileCoreServices.framework */; };
@@ -167,8 +168,10 @@
 		3444368C17D3F9E200EFF341 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		34988DE6187CEFB200110DE1 /* WeViewSpacingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewSpacingView.h; sourceTree = "<group>"; };
 		34988DE7187CEFB200110DE1 /* WeViewSpacingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewSpacingView.m; sourceTree = "<group>"; };
-		34988DE9187CF02700110DE1 /* WeViewSpacingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewSpacingInfo.h; sourceTree = "<group>"; };
-		34988DEA187CF02700110DE1 /* WeViewSpacingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewSpacingInfo.m; sourceTree = "<group>"; };
+		34988DEC187E547100110DE1 /* WeViewSpacing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewSpacing.h; sourceTree = "<group>"; };
+		34988DED187E547100110DE1 /* WeViewSpacing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewSpacing.m; sourceTree = "<group>"; };
+		34988DEF187E653400110DE1 /* WeViewLayoutUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeViewLayoutUtils.h; sourceTree = "<group>"; };
+		34988DF0187E653400110DE1 /* WeViewLayoutUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeViewLayoutUtils.m; sourceTree = "<group>"; };
 		34C19C5E17DB967E0025914F /* DemoFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoFactory.h; sourceTree = "<group>"; };
 		34C19C5F17DB967E0025914F /* DemoFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoFactory.m; sourceTree = "<group>"; };
 		34C19C7917DCF2160025914F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -421,8 +424,8 @@
 				34C19CC317DD1D4B0025914F /* WeView.m */,
 				34C19D3217EEA0A90025914F /* WeViewEnums.h */,
 				34C19CC617DD1D4B0025914F /* WeViewMacros.h */,
-				34988DE9187CF02700110DE1 /* WeViewSpacingInfo.h */,
-				34988DEA187CF02700110DE1 /* WeViewSpacingInfo.m */,
+				34988DEC187E547100110DE1 /* WeViewSpacing.h */,
+				34988DED187E547100110DE1 /* WeViewSpacing.m */,
 				34988DE6187CEFB200110DE1 /* WeViewSpacingView.h */,
 				34988DE7187CEFB200110DE1 /* WeViewSpacingView.m */,
 			);
@@ -441,6 +444,8 @@
 				34C19CB717DD1D4B0025914F /* WeViewGridLayout.m */,
 				34C19CB817DD1D4B0025914F /* WeViewLayout.h */,
 				34C19CB917DD1D4B0025914F /* WeViewLayout.m */,
+				34988DEF187E653400110DE1 /* WeViewLayoutUtils.h */,
+				34988DF0187E653400110DE1 /* WeViewLayoutUtils.m */,
 				34C19CBA17DD1D4B0025914F /* WeViewLinearLayout.h */,
 				34C19CBB17DD1D4B0025914F /* WeViewLinearLayout.m */,
 				34C19CBE17DD1D4B0025914F /* WeViewStackLayout.h */,
@@ -582,6 +587,7 @@
 				34195FEC17CA87400036F8DC /* SelectDemoViewController.m in Sources */,
 				344435C817CACFEB00EFF341 /* ViewDescriptionViewController.m in Sources */,
 				344435C917CACFEB00EFF341 /* ViewHierarchyTree.m in Sources */,
+				34988DEE187E547100110DE1 /* WeViewSpacing.m in Sources */,
 				344435CF17CAD20F00EFF341 /* DemoModel.m in Sources */,
 				344435D917CAFA1D00EFF341 /* ViewTreeViewController.m in Sources */,
 				34988DE8187CEFB200110DE1 /* WeViewSpacingView.m in Sources */,
@@ -589,9 +595,9 @@
 				3444365817D22B0A00EFF341 /* DefaultSandboxView.m in Sources */,
 				3444365917D22B0A00EFF341 /* SandboxView.m in Sources */,
 				3444365A17D22B0A00EFF341 /* SandboxViewController.m in Sources */,
-				34988DEB187CF02700110DE1 /* WeViewSpacingInfo.m in Sources */,
 				3444365D17D2930100EFF341 /* DemoViewFactory.m in Sources */,
 				34C19C6017DB967E0025914F /* DemoFactory.m in Sources */,
+				34988DF1187E653400110DE1 /* WeViewLayoutUtils.m in Sources */,
 				34C19CC917DD1D4C0025914F /* WeViewBlockLayout.m in Sources */,
 				34C19CCA17DD1D4C0025914F /* WeViewGridLayout.m in Sources */,
 				34C19CCB17DD1D4C0025914F /* WeViewLayout.m in Sources */,

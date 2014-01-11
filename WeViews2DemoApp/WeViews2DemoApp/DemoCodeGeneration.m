@@ -88,22 +88,22 @@ NSString* ReprGridStretchPolicy(GridStretchPolicy value)
 }
 
 CG_INLINE
-NSString* ReprWeViewSpacingInfo(WeViewSpacingInfo *value)
+NSString* ReprWeViewSpacing(WeViewSpacing *value)
 {
     if (value && value.size && value.stretchWeight)
     {
-        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithSize:%d stretchWeight:%f]",
+        return [NSString stringWithFormat:@"[WeViewSpacing spacingWithSize:%d stretchWeight:%f]",
                 value.size,
                 value.stretchWeight];
     }
     else if (value && value.size)
     {
-        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithSize:%d]",
+        return [NSString stringWithFormat:@"[WeViewSpacing spacingWithSize:%d]",
                 value.size];
     }
     else if (value && value.stretchWeight)
     {
-        return [NSString stringWithFormat:@"[WeViewSpacingInfo spacingWithStretchWeight:%f]",
+        return [NSString stringWithFormat:@"[WeViewSpacing spacingWithStretchWeight:%f]",
                 value.stretchWeight];
     }
     else
@@ -419,34 +419,34 @@ haveAnyOfPrefixes:(NSArray *)prefixes
 
     /* CODEGEN MARKER: Code Generation Layout Properties Start */
 
-    if (layout.leftMarginInfo != virginLayout.leftMarginInfo)
+    if (layout.leftMargin != virginLayout.leftMargin)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setLeftMarginInfo", ReprWeViewSpacingInfo(layout.leftMarginInfo)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setLeftMargin", FormatFloat(layout.leftMargin)]];
     }
 
-    if (layout.rightMarginInfo != virginLayout.rightMarginInfo)
+    if (layout.rightMargin != virginLayout.rightMargin)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setRightMarginInfo", ReprWeViewSpacingInfo(layout.rightMarginInfo)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setRightMargin", FormatFloat(layout.rightMargin)]];
     }
 
-    if (layout.topMarginInfo != virginLayout.topMarginInfo)
+    if (layout.topMargin != virginLayout.topMargin)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setTopMarginInfo", ReprWeViewSpacingInfo(layout.topMarginInfo)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setTopMargin", FormatFloat(layout.topMargin)]];
     }
 
-    if (layout.bottomMarginInfo != virginLayout.bottomMarginInfo)
+    if (layout.bottomMargin != virginLayout.bottomMargin)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setBottomMarginInfo", ReprWeViewSpacingInfo(layout.bottomMarginInfo)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setBottomMargin", FormatFloat(layout.bottomMargin)]];
     }
 
-    if (layout.defaultHSpacingInfo != virginLayout.defaultHSpacingInfo)
+    if (layout.vSpacing != virginLayout.vSpacing)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDefaultHSpacingInfo", ReprWeViewSpacingInfo(layout.defaultHSpacingInfo)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setVSpacing", FormatInt(layout.vSpacing)]];
     }
 
-    if (layout.defaultVSpacingInfo != virginLayout.defaultVSpacingInfo)
+    if (layout.hSpacing != virginLayout.hSpacing)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDefaultVSpacingInfo", ReprWeViewSpacingInfo(layout.defaultVSpacingInfo)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setHSpacing", FormatInt(layout.hSpacing)]];
     }
 
     if (layout.hAlign != virginLayout.hAlign)
@@ -480,6 +480,13 @@ haveAnyOfPrefixes:(NSArray *)prefixes
     }
 
     // Custom Accessors
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setHSpacing:", @"setVSpacing:"]] &&
+        layout.hSpacing == layout.vSpacing)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setHSpacing:", @"setVSpacing:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setSpacing", FormatInt(layout.hSpacing)]];
+    }
 
     if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setLeftMargin:", @"setRightMargin:", @"setTopMargin:", @"setBottomMargin:"]] &&
         layout.leftMargin == layout.rightMargin && layout.leftMargin == layout.topMargin && layout.leftMargin == layout.bottomMargin)

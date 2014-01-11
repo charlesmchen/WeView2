@@ -709,6 +709,18 @@ typedef void (^SetterBlock)(id item);
 
                             /* CODEGEN MARKER: Layout Parameters Start */
 
+                                [ViewParameterSimple floatProperty:@"leftMargin"],
+
+                                [ViewParameterSimple floatProperty:@"rightMargin"],
+
+                                [ViewParameterSimple floatProperty:@"topMargin"],
+
+                                [ViewParameterSimple floatProperty:@"bottomMargin"],
+
+                                [ViewParameterSimple intProperty:@"vSpacing"],
+
+                                [ViewParameterSimple intProperty:@"hSpacing"],
+
                                 [ViewParameterSimple create:@"hAlign"
                                                 getterBlock:^NSString *(id item) {
                                                     return FormatHAlign(((WeViewLayout *) item).hAlign);

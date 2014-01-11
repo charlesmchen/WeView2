@@ -185,30 +185,27 @@ view_propertyGroups = (
                   )
 
 layout_propertyGroups = (
-
                   (
-                   Property('leftMarginInfo', 'WeViewSpacingInfo *',
+                   Property('leftMargin', 'CGFloat',
                        comments='The left margin of the contents of this view.',
                        layoutProperty=True, ),
-                   Property('rightMarginInfo', 'WeViewSpacingInfo *',
+                   Property('rightMargin', 'CGFloat',
                        comments='The right margin of the contents of this view.',
                        layoutProperty=True, ),
-                   Property('topMarginInfo', 'WeViewSpacingInfo *',
+                   Property('topMargin', 'CGFloat',
                        comments='The top margin of the contents of this view.',
                        layoutProperty=True, ),
-                   Property('bottomMarginInfo', 'WeViewSpacingInfo *',
+                   Property('bottomMargin', 'CGFloat',
                        comments='The bottom margin of the contents of this view.',
                        layoutProperty=True, ),
                    ),
                   (
-                   Property('defaultHSpacingInfo', 'WeViewSpacingInfo *',
-                       comments='The default horizontal spacing between subviews of this view.',
-                       defaultValue="[[WeViewSpacingInfo alloc] init]",
+                   Property('vSpacing', 'int',
+                       comments='The vertical spacing between subviews of this view.',
                        layoutProperty=True, ),
-                   Property('defaultVSpacingInfo', 'WeViewSpacingInfo *',
-                       comments='The default vertical spacing between subviews of this view.',
-                       defaultValue="[[WeViewSpacingInfo alloc] init]",
-                       layoutProperty=True, ),
+                   Property('hSpacing', 'int',
+                       comments='The horizontal spacing between subviews of this view.',
+                        layoutProperty=True, ),
                    ),
                   (
                    Property('hAlign', 'HAlign',
@@ -218,17 +215,6 @@ layout_propertyGroups = (
                        comments='The vertical alignment of this layout.',
                         layoutProperty=True, ),
                    ),
-                  # (
-                  #  Property('spacingStretches', 'BOOL',
-                  #      comments=(
-                  #          'If YES, the spacings between subviews will be stretched if there is any extra space.',
-                  #          'Extra space will be distributed evenly between the spacings.',
-                  #          'Layouts will prefer to stretch subviews if possible.  Spacings will only be stretched if there are no stretching subviews to receive the extra space.',
-                  #          'The spacings will not be cropped if the layout cannot fit its subviews within their superview, even if this property is YES.'
-                  #          'Only applies to the horizontal, vertical and flow layouts.  In a flow layout where spacingStretches is YES, the subviews are justified.',
-                  #          ),
-                  #      layoutProperty=True, ),
-                  #  ),
                   (
                    Property('cropSubviewOverflow', 'BOOL',
                        comments=(
@@ -345,71 +331,13 @@ view_customAccessors = (
                     )
 
 layout_customAccessors = (
-
-                    CustomAccessor('leftMargin', 'int', ('leftMarginInfo',),
-                        getterValue='self.leftMarginInfo.size',
-                        setterStatements=('\tself.leftMarginInfo.size = value;', ),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
-                    CustomAccessor('rightMargin', 'int', ('rightMarginInfo',),
-                        getterValue='self.rightMarginInfo.size',
-                        setterStatements=('\tself.rightMarginInfo.size = value;', ),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
-                    CustomAccessor('topMargin', 'int', ('topMarginInfo',),
-                        getterValue='self.topMarginInfo.size',
-                        setterStatements=('\tself.topMarginInfo.size = value;', ),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
-                    CustomAccessor('bottomMargin', 'int', ('bottomMarginInfo',),
-                        getterValue='self.bottomMarginInfo.size',
-                        setterStatements=('\tself.bottomMarginInfo.size = value;', ),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
-
-                    CustomAccessor('leftMarginStretchWeight', 'CGFloat', ('leftMarginInfo',),
-                        getterValue='self.leftMarginInfo.stretchWeight',
-                        setterStatements=('\tself.leftMarginInfo.stretchWeight = value;', ),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
-                    CustomAccessor('rightMarginStretchWeight', 'CGFloat', ('rightMarginInfo',),
-                        getterValue='self.rightMarginInfo.stretchWeight',
-                        setterStatements=('\tself.rightMarginInfo.stretchWeight = value;', ),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
-                    CustomAccessor('topMarginStretchWeight', 'CGFloat', ('topMarginInfo',),
-                        getterValue='self.topMarginInfo.stretchWeight',
-                        setterStatements=('\tself.topMarginInfo.stretchWeight = value;', ),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
-                    CustomAccessor('bottomMarginStretchWeight', 'CGFloat', ('bottomMarginInfo',),
-                        getterValue='self.bottomMarginInfo.stretchWeight',
-                        setterStatements=('\tself.bottomMarginInfo.stretchWeight = value;', ),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
-
                     CustomAccessor('hMargin', 'CGFloat', ('leftMargin', 'rightMargin',), layoutProperty=True, ),
                     CustomAccessor('vMargin', 'CGFloat', ('topMargin', 'bottomMargin',), layoutProperty=True, ),
                     CustomAccessor('margin', 'CGFloat', ('leftMargin', 'rightMargin', 'topMargin', 'bottomMargin',), layoutProperty=True, ),
 
-                    # CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',), layoutProperty=True, ),
-                    CustomAccessor('defaultSpacingInfo', 'WeViewSpacingInfo *', ('defaultHSpacingInfo', 'defaultVSpacingInfo',),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
-                    CustomAccessor('hSpacing', 'int', ('defaultHSpacingInfo',),
-                        getterValue='self.defaultHSpacingInfo.size',
-                        setterStatements=('\tself.defaultHSpacingInfo.size = value;', ),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
-                    CustomAccessor('vSpacing', 'int', ('defaultVSpacingInfo',),
-                        getterValue='self.defaultVSpacingInfo.size',
-                        setterStatements=('\tself.defaultVSpacingInfo.size = value;', ),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
-                    CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',),
-                        skipCodeGenSimplification=True,
-                        layoutProperty=True, ),
+                    CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',), layoutProperty=True, ),
                     )
+
 
 # --------
 
@@ -701,7 +629,7 @@ def createViewEditorControllerParameters(propertyGroups, blockStartKey, blockEnd
                                  ]
                                  doubleHeight:YES],
                                  ''' % (property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, ) )
-            # elif property.typeName == 'WeViewSpacingInfo *':
+            # elif property.typeName == 'WeViewSpacing *':
             #     lines.append('''
             #                     [ViewParameterSimple create:@"%s"
             #                                     getterBlock:^NSString *(id item) {
@@ -907,7 +835,7 @@ for propertyGroup in layout_propertyGroups:
             defaultValue = 'V_ALIGN_CENTER'
         elif property.typeName == 'CellPositioningMode':
             defaultValue = 'CELL_POSITIONING_NORMAL'
-        elif property.typeName == 'WeViewSpacingInfo *':
+        elif property.typeName == 'WeViewSpacing *':
             defaultValue = 'nil'
         elif property.typeName == 'VAlign':
             defaultValue = 'V_ALIGN_CENTER'
@@ -936,8 +864,8 @@ def formatMethodNameForType(typeName):
         return 'ReprVAlign'
     elif typeName == 'CellPositioningMode':
         return 'ReprCellPositioningMode'
-    elif typeName == 'WeViewSpacingInfo *':
-        return 'ReprWeViewSpacingInfo'
+    elif typeName == 'WeViewSpacing *':
+        return 'ReprWeViewSpacing'
     # elif property.typeName == 'CellPositioningMode':
     else:
         print 'Unknown typeName(3):', typeName

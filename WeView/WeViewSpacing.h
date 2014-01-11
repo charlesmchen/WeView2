@@ -1,5 +1,5 @@
 //
-//  WeViewSpacingInfo.h
+//  WeViewSpacing.h
 //  WeView v2
 //
 //  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
@@ -16,7 +16,7 @@
 // Represents the desired size of a margin or the spacing between views in a layout.
 //
 // The default behavior is to have a fixed, non-stretching size of zero.
-@interface WeViewSpacingInfo : NSObject
+@interface WeViewSpacing : NSObject
 
 // The desired size of the margin or spacing.
 //
@@ -30,11 +30,11 @@
 // The default value is zero.
 @property (nonatomic) CGFloat stretchWeight;
 
-+ (WeViewSpacingInfo *)spacingWithSize:(int)size;
++ (WeViewSpacing *)spacingWithSize:(int)size;
 
-+ (WeViewSpacingInfo *)spacingWithStretchWeight:(CGFloat)stretchWeight;
++ (WeViewSpacing *)spacingWithStretchWeight:(CGFloat)stretchWeight;
 
-+ (WeViewSpacingInfo *)spacingWithSize:(int)size
-                         stretchWeight:(CGFloat)stretchWeight;
++ (WeViewSpacing *)spacingWithSize:(int)size
+                     stretchWeight:(CGFloat)stretchWeight;
 
 @end
