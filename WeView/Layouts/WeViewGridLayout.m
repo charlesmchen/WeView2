@@ -163,11 +163,6 @@ typedef struct
     return result;
 }
 
-//- (CGFloat)totalAxisStretchWeight
-//{
-//    return WeViewSumFloats([se]axisStretchWeights);
-//}
-
 - (NSMutableArray *)axisSizes
 {
     // Order of elements matters in this collection.
@@ -191,13 +186,30 @@ typedef struct
                                                                [self.spacingSizes count])] mutableCopy];
 }
 
-- (void)stretchIfNecessary:(CGFloat)viewAxisSize
+- (void)applyAxisAlignment:(int)extraAxisSize
+{
+    switch (self.axisAlignment)
+    {
+        case WEVIEW_ALIGNMENT_TOP_OR_LEFT:
+            self.axisOrigin = 0;
+            break;
+        case WEVIEW_ALIGNMENT_CENTER:
+            self.axisOrigin = roundf(extraAxisSize / 2.f);
+            break;
+        case WEVIEW_ALIGNMENT_BOTTOM_OR_RIGHT:
+            self.axisOrigin = extraAxisSize;
+            break;
+        default:
+            WeViewAssert(0);
+            break;
+    }
+}
+
+- (BOOL)stretchIfNecessary:(CGFloat)viewAxisSize
 {
     NSMutableArray *axisSizes = [self axisSizes];
     NSArray *axisStretchWeights = [self axisStretchWeights];
 
-//    //                          WeViewSumFloats(self.rowSpacingSizes));
-//    CGSize contentSize = CGSizeMax(CGSizeZero, [result totalSize]);
     int extraAxisSize = ceilf(viewAxisSize) - WeViewSumFloats(axisSizes);
     CGFloat totalAxisStretchWeight = WeViewSumFloats(axisStretchWeights);
     if (extraAxisSize > 0)
@@ -212,71 +224,39 @@ typedef struct
                                       withSign:+1.f
                                    withMaxZero:YES];
             [self updateAxisSizes:axisSizes];
+            return YES;
         }
         else
         {
             // There IS extra space in the layout BUT the content CANNOT stretch along this axis;
             // therefore apply alignment.
-            switch (self.axisAlignment)
-            {
-                case WEVIEW_ALIGNMENT_TOP_OR_LEFT:
-                    self.axisOrigin = 0;
-                    break;
-                case WEVIEW_ALIGNMENT_CENTER:
-                    self.axisOrigin = roundf(extraAxisSize / 2.f);
-                    break;
-                case WEVIEW_ALIGNMENT_BOTTOM_OR_RIGHT:
-                    self.axisOrigin = extraAxisSize;
-                    break;
-                default:
-                    WeViewAssert(0);
-                    break;
-            }
+            [self applyAxisAlignment:extraAxisSize];
         }
     }
     else if (extraAxisSize < 0)
     {
-        if (totalStretchWeights.x > 0)
+        if (totalAxisStretchWeight > 0)
         {
-            // TODO:
+            // There IS a shortfall in the layout AND the content CAN stretch along this axis;
+            // therefore stretch.
+            [WeViewLayout distributeAdjustment:-extraAxisSize
+                                  acrossValues:axisSizes
+                                   withWeights:axisStretchWeights
+                                      withSign:-1.f
+                                   withMaxZero:YES];
+            [self updateAxisSizes:axisSizes];
+            return YES;
         }
         else
         {
-            // TODO:
+            // There IS a shortfall of space in the layout BUT the content CANNOT stretch along this axis;
+            // therefore apply alignment.
+            [self applyAxisAlignment:extraAxisSize];
+
         }
     }
+    return NO;
 }
-
-//
-//        return CGSizeMake(self.leftMarginSize +
-//                          self.rightMarginSize +
-//                          WeViewSumFloats(self.columnSizes) +
-//                          WeViewSumFloats(self.columnSpacingSizes),
-//                          self.topMarginSize +
-//                          self.bottomMarginSize +
-//                          WeViewSumFloats(self.rowSizes) +
-//                          WeViewSumFloats(self.rowSpacingSizes));
-//CGSize contentSize = CGSizeMax(CGSizeZero, [result totalSize]);
-//int extraWidth = ceilf(CGSizeSubtract(viewSize, contentSize).width);
-//CGFloat totalAxisStretchWeight = WeViewSumFloats(axisStretchWeights);
-//if (extraWidth > 0)
-//
-//- (CGSize)totalSize
-//{
-//    return CGSizeMake(self.leftMarginSize +
-//                      self.rightMarginSize +
-//                      WeViewSumFloats(self.columnSizes) +
-//                      WeViewSumFloats(self.columnSpacingSizes),
-//                      self.topMarginSize +
-//                      self.bottomMarginSize +
-//                      WeViewSumFloats(self.rowSizes) +
-//                      WeViewSumFloats(self.rowSpacingSizes));
-//    //    //        NSLog(@"totalSize totalCellSize: %@", FormatCGSize([self totalCellSize:superview
-//    //    //                                                                        layout:layout]));
-//    //    //        NSLog(@"totalSize totalSpacingSize: %@", FormatCGSize([self totalSpacingSize:superview
-//    //    //                                                                        layout:layout]));
-//    //    //        NSLog(@"totalSize contentSize: %@", FormatCGSize(contentSize));
-//}
 
 @end
 
@@ -290,76 +270,14 @@ typedef struct
 @property (nonatomic) GridAxisLayout *rowAxisLayout;
 
 // TODO:
-@property (nonatomic) int columnCount;
-@property (nonatomic) int rowCount;
-
-//@property (nonatomic) int leftMarginSize;
-//@property (nonatomic) int rightMarginSize;
-//@property (nonatomic) int topMarginSize;
-//@property (nonatomic) int bottomMarginSize;
-//
-//@property (nonatomic) NSMutableArray *rowSizings;
-//@property (nonatomic) NSMutableArray *rowSizes;
-// TODO: Check renaming.
-//@property (nonatomic) NSMutableArray *rowSpacings;
-//@property (nonatomic) NSMutableArray *rowSpacingSizes;
-//
-//@property (nonatomic) NSMutableArray *columnSizings;
-//@property (nonatomic) NSMutableArray *columnSizes;
-// TODO: Check renaming.
-//@property (nonatomic) NSMutableArray *columnSpacings;
-//@property (nonatomic) NSMutableArray *columnSpacingSizes;
+//@property (nonatomic) int columnCount;
+//@property (nonatomic) int rowCount;
 
 @end
 
 #pragma mark -
 
 @implementation GridLayoutInfo
-
-//- (CGPoint)totalStretchWeights:(WeViewGridLayout *)layout
-//{
-//    // Ignore negative stretch weight values.
-//    //
-//    // TODO: Note this in the docs.
-//    CGPoint result = CGPointMake(MAX(0, layout.leftMarginInfo.stretchWeight) +
-//                                 MAX(0, layout.rightMarginInfo.stretchWeight),
-//                                 MAX(0, layout.topMarginInfo.stretchWeight) +
-//                                 MAX(0, layout.bottomMarginInfo.stretchWeight));
-//    for (WeViewGridSizing *sizing in self.columnSizings)
-//    {
-//        result.x += MAX(0, sizing.stretchWeight);
-//    }
-//    for (WeViewGridSizing *sizing in self.rowSizings)
-//    {
-//        result.y += MAX(0, sizing.stretchWeight);
-//    }
-//    for (WeViewSpacing *spacing in self.columnSpacings)
-//    {
-//        result.x += MAX(0, spacing.stretchWeight);
-//    }
-//    for (WeViewSpacing *spacing in self.rowSpacings)
-//    {
-//        result.y += MAX(0, spacing.stretchWeight);
-//    }
-//    return result;
-//}
-
-//- (CGSize)totalSize
-//{
-//    return CGSizeMake(self.leftMarginSize +
-//                      self.rightMarginSize +
-//                      WeViewSumFloats(self.columnSizes) +
-//                      WeViewSumFloats(self.columnSpacingSizes),
-//                      self.topMarginSize +
-//                      self.bottomMarginSize +
-//                      WeViewSumFloats(self.rowSizes) +
-//                      WeViewSumFloats(self.rowSpacingSizes));
-//    //    //        NSLog(@"totalSize totalCellSize: %@", FormatCGSize([self totalCellSize:superview
-//    //    //                                                                        layout:layout]));
-//    //    //        NSLog(@"totalSize totalSpacingSize: %@", FormatCGSize([self totalSpacingSize:superview
-//    //    //                                                                        layout:layout]));
-//    //    //        NSLog(@"totalSize contentSize: %@", FormatCGSize(contentSize));
-//}
 
 @end
 
@@ -667,8 +585,10 @@ BOOL _isColumnWidthUniform;
     GridLayoutInfo *result = [[GridLayoutInfo alloc] init];
 
     GridRowAndColumnCount rowAndColumnCount = [self rowAndColumnCount:subviews];
-    int rowCount = result.rowCount = rowAndColumnCount.rowCount;
-    int columnCount = result.columnCount = rowAndColumnCount.columnCount;
+    int rowCount = rowAndColumnCount.rowCount;
+    int columnCount = rowAndColumnCount.columnCount;
+//    int rowCount = result.rowCount = rowAndColumnCount.rowCount;
+//    int columnCount = result.columnCount = rowAndColumnCount.columnCount;
 
     WeViewAssert(rowCount > 0);
     WeViewAssert(columnCount > 0);
@@ -826,234 +746,30 @@ BOOL _isColumnWidthUniform;
         return result;
     }
 
-//    NSMutableArray *vStretchWeights = [NSMutableArray array];
-//    {
-//        // Ignore negative stretch weight values.
-//        //
-//        // TODO: Note this in the docs.
-//        [vStretchWeights addObject:@(MAX(0, self.topMarginInfo.stretchWeight))];
-//        [vStretchWeights addObject:@(MAX(0, self.bottomMarginInfo.stretchWeight))];
-//        for (WeViewGridSizing *sizing in self.rowSizings)
-//        {
-//            [vStretchWeights addObject:@(MAX(0, sizing.stretchWeight))];
-//        }
-//        for (WeViewSpacing *spacing in self.rowSpacings)
-//        {
-//            [vStretchWeights addObject:@(MAX(0, spacing.stretchWeight))];
-//        }
-//    }
-
     CGSize viewSize = CGSizeMax(CGSizeZero, view.size);
-//    CGPoint totalStretchWeights = [result totalStretchWeights:self];
-    // Stretch/crop horizontal content if necessary.
     {
-//        // Order of elements matters in this collection.
-//        NSMutableArray *axisStretchWeights = [NSMutableArray array];
-//        // Ignore negative stretch weight values.
-//        //
-//        // TODO: Note this in the docs.
-//        [axisStretchWeights addObject:@(MAX(0, self.leftMarginInfo.stretchWeight))];
-//        [axisStretchWeights addObject:@(MAX(0, self.rightMarginInfo.stretchWeight))];
-//        for (WeViewGridSizing *sizing in self.columnSizings)
-//        {
-//            [axisStretchWeights addObject:@(MAX(0, sizing.stretchWeight))];
-//        }
-//        for (WeViewSpacing *spacing in self.columnSpacings)
-//        {
-//            [axisStretchWeights addObject:@(MAX(0, spacing.stretchWeight))];
-//        }
-//
-//        // Order of elements matters in this collection.
-//        NSMutableArray *axisSizes = [NSMutableArray array];
-//        [axisSizes addObject:@(result.leftMarginSize)];
-//        [axisSizes addObject:@(result.rightMarginSize)];
-//        [axisSizes addObjectsFromArray:result.columnSizings];
-//        [axisSizes addObjectsFromArray:result.columnSpacingSizes];
-
-//        return CGSizeMake(self.leftMarginSize +
-//                          self.rightMarginSize +
-//                          WeViewSumFloats(self.columnSizes) +
-//                          WeViewSumFloats(self.columnSpacingSizes),
-//                          self.topMarginSize +
-//                          self.bottomMarginSize +
-//                          WeViewSumFloats(self.rowSizes) +
-//                          WeViewSumFloats(self.rowSpacingSizes));
-        CGSize contentSize = CGSizeMax(CGSizeZero, [result totalSize]);
-        int extraWidth = ceilf(CGSizeSubtract(viewSize, contentSize).width);
-        CGFloat totalAxisStretchWeight = WeViewSumFloats(axisStretchWeights);
-        if (extraWidth > 0)
+        if ([result.columnAxisLayout stretchIfNecessary:viewSize.width])
         {
-            if (totalAxisStretchWeight > 0)
-            {
-                // There is extra horizontal space in the layout AND the content can stretch.
-
-                - (NSArray *)distributeSpace:(CGFloat)space
-            acrossCellsWithWeights:(NSArray *)cellWeights;
-
-                - (void)distributeAdjustment:(CGFloat)totalAdjustment
-            acrossValues:(NSMutableArray *)values
-            withWeights:(NSArray *)weights
-            withSign:(CGFloat)sign
-            withMaxZero:(BOOL)withMaxZero;
-            }
-            else
-            {
-                // TODO:
-            }
+            // TODO:
         }
-        else
-        {
-            if (totalStretchWeights.x > 0)
-            {
-                // TODO:
-            }
-            else
-            {
-                // TODO:
-            }
-        }
-    }
-
-    - (CGSize)totalSize
-    - (CGPoint)totalStretchWeights:(WeViewGridLayout *)layout
-
-    // TODO: Use a two-pass approach where subview size calculation is based first on "guide size",
-    // then on attempt to trim if necessary.
-    CGRect contentBounds = [self contentBoundsOfView:view
-                                             forSize:CGSizeZero];
-    CGSize maxSubviewSize = contentBounds.size;
-    CGFloat hSpacing = ceilf([self hSpacing]);
-    CGFloat vSpacing = ceilf([self vSpacing]);
-    maxSubviewSize.width = MAX(0, maxSubviewSize.width - hSpacing * (columnCount - 1));
-    maxSubviewSize.height = MAX(0, maxSubviewSize.height - vSpacing * (rowCount - 1));
-    if (self.isGridUniform)
-    {
-        if (columnCount > 0)
-        {
-            maxSubviewSize.width = floorf(maxSubviewSize.width * (1.f / columnCount));
-        }
-        if (rowCount > 0)
-        {
-            maxSubviewSize.height = floorf(maxSubviewSize.height * (1.f / rowCount));
-        }
-    }
-    else
-    {
-        // TODO: The "non-uniform" case is quite complicated due to subview flow.
-        maxSubviewSize = CGSizeZero;
-    }
-
-    CGFloat columnWidths[columnCount];
-    CGFloat rowHeights[rowCount];
-    for (int column=0; column < columnCount; column++)
-    {
-        columnWidths[column] = 0;
-    }
-    for (int row=0; row < rowCount; row++)
-    {
-        rowHeights[row] = 0;
-    }
-//    result.maxColumnSize = 0;
-//    result.maxRowSize = 0;
-
-    if (self.hasCellSizeHint)
-    {
-        for (int i=0; i < columnCount; i++)
-        {
-            columnWidths[i] = self.cellSizeHint.width;
-        }
-        for (int i=0; i < rowCount; i++)
-        {
-            rowHeights[i] = self.cellSizeHint.height;
-        }
-    }
-    else if (!view.ignoreDesiredSize)
-    {
-        int index = 0;
-        for (UIView* subview in subviews)
-        {
-            int row = index / columnCount;
-            int column = index % columnCount;
-            index++;
-
-            CGSize subviewSize = [self desiredItemSize:subview
-                                               maxSize:useEmptyGuideSize ? CGSizeZero : maxSubviewSize];
-
-            columnWidths[column] = MAX(columnWidths[column], subviewSize.width);
-            result.maxColumnSize = MAX(result.maxColumnSize, subviewSize.width);
-            rowHeights[row] = MAX(rowHeights[row], subviewSize.height);
-            result.maxRowSize = MAX(result.maxRowSize, subviewSize.height);
-        }
-
-        if (self.isGridUniform)
-        {
-            for (int i=0; i < columnCount; i++)
-            {
-                columnWidths[i] = result.maxColumnSize;
-            }
-            for (int i=0; i < rowCount; i++)
-            {
-                rowHeights[i] = result.maxRowSize;
-            }
-        }
-    }
-
-    // Normalize the column and row sizes.
-    for (int i=0; i < columnCount; i++)
-    {
-        columnWidths[i] = MAX(0, ceilf(columnWidths[i]));
-    }
-    for (int i=0; i < rowCount; i++)
-    {
-        rowHeights[i] = MAX(0, ceilf(rowHeights[i]));
-    }
-
-    result.columnWidths = [self toNSFloatArray:&(columnWidths[0])
-                                         count:columnCount];
-    result.rowHeights = [self toNSFloatArray:&(rowHeights[0])
-                                       count:rowCount];
-
-    result.columnSpacings = [NSMutableArray array];
-    for (int i=0; i < columnCount - 1; i++)
-    {
-        [result.columnSpacings addObject:@(hSpacing)];
-    }
-    result.rowSpacings = [NSMutableArray array];
-    for (int i=0; i < rowCount - 1; i++)
-    {
-        [result.rowSpacings addObject:@(vSpacing)];
+        [result.rowAxisLayout stretchIfNecessary:viewSize.width];
     }
 
     if (debug)
     {
-        NSLog(@"%@ columnWidths: %@", [self indentPrefix:indent + 1], result.columnWidths);
-        NSLog(@"%@ rowHeights: %@", [self indentPrefix:indent + 1], result.rowHeights);
-        NSLog(@"%@ columnSpacings: %@", [self indentPrefix:indent + 1], result.columnSpacings);
-        NSLog(@"%@ rowSpacings: %@", [self indentPrefix:indent + 1], result.rowSpacings);
-    }
+        NSLog(@"%@ left margin: %d", [self indentPrefix:indent + 1], result.columnAxisLayout.preMarginSize);
+        NSLog(@"%@ right margin: %d", [self indentPrefix:indent + 1], result.columnAxisLayout.postMarginSize);
+        NSLog(@"%@ top margin: %d", [self indentPrefix:indent + 1], result.rowAxisLayout.preMarginSize);
+        NSLog(@"%@ bottom margin: %d", [self indentPrefix:indent + 1], result.rowAxisLayout.postMarginSize);
 
-    //    if (layer.debugLayout) {
-    //        NSLog(@"result.columnCount: %d",
-    //              columnCount);
-    //        NSLog(@"result.rowCount: %d",
-    //              rowCount);
-    //        for (int i=0; i < result.columnCount; i++) {
-    //            NSLog(@"result.columnWidths[%d]: %d",
-    //                  i, result.columnWidths[i]);
-    //        }
-    //        for (int i=0; i < result.rowCount; i++) {
-    //            NSLog(@"result.rowHeights[%d]: %d",
-    //                  i, result.rowHeights[i]);
-    //        }
-    //        NSLog(@"result.maxColumnSize: %d",
-    //              result.maxColumnSize);
-    //        NSLog(@"result.maxRowSize: %d",
-    //              result.maxRowSize);
-    //        NSLog(@"result.contentSize: %@",
-    //              FormatCGSize(result.contentSize));
-    //        NSLog(@"result.totalSize: %@",
-    //              FormatCGSize(result.totalSize));
-    //    }
+        NSLog(@"%@ columnWidths: %@", [self indentPrefix:indent + 1], result.columnAxisLayout.cellSizes);
+        NSLog(@"%@ rowHeights: %@", [self indentPrefix:indent + 1], result.rowAxisLayout.cellSizes);
+        NSLog(@"%@ columnSpacings: %@", [self indentPrefix:indent + 1], result.columnAxisLayout.spacingSizes);
+        NSLog(@"%@ rowSpacings: %@", [self indentPrefix:indent + 1], result.rowAxisLayout.spacingSizes);
+
+        NSLog(@"%@ column axis origin: %d", [self indentPrefix:indent + 1], result.columnAxisLayout.axisOrigin);
+        NSLog(@"%@ row axis origin: %d", [self indentPrefix:indent + 1], result.rowAxisLayout.axisOrigin);
+    }
 
     return result;
 }

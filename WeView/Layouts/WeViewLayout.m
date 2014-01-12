@@ -12,7 +12,7 @@
 
 #import "UIView+WeView.h"
 #import "WeView.h"
-#import "WeViewLayout+Subclass.h"
+#import "WeViewLayoutUtils.h"
 #import "WeViewLinearLayout.h"
 #import "WeViewMacros.h"
 
