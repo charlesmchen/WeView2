@@ -258,6 +258,10 @@ typedef struct
     return NO;
 }
 
+- (CGFloat)totalAxisSize {
+    return WeViewSumFloats([self axisSizes]);
+}
+
 @end
 
 #pragma mark -
@@ -269,9 +273,8 @@ typedef struct
 @property (nonatomic) GridAxisLayout *columnAxisLayout;
 @property (nonatomic) GridAxisLayout *rowAxisLayout;
 
-// TODO:
-//@property (nonatomic) int columnCount;
-//@property (nonatomic) int rowCount;
+@property (nonatomic) int columnCount;
+@property (nonatomic) int rowCount;
 
 @end
 
@@ -285,29 +288,29 @@ typedef struct
 
 @interface WeViewGridLayout ()
 {
-/* CODEGEN MARKER: Members Start */
+    /* CODEGEN MARKER: Members Start */
 
-WeViewSpacing *_leftMarginInfo;
-WeViewSpacing *_rightMarginInfo;
-WeViewSpacing *_topMarginInfo;
-WeViewSpacing *_bottomMarginInfo;
+    WeViewSpacing *_leftMarginInfo;
+    WeViewSpacing *_rightMarginInfo;
+    WeViewSpacing *_topMarginInfo;
+    WeViewSpacing *_bottomMarginInfo;
 
-WeViewGridSizing *_defaultRowSizing;
-WeViewGridSizing *_defaultColumnSizing;
+    WeViewGridSizing *_defaultRowSizing;
+    WeViewGridSizing *_defaultColumnSizing;
 
-NSArray *_rowSizings;
-NSArray *_columnSizings;
+    NSArray *_rowSizings;
+    NSArray *_columnSizings;
 
-WeViewSpacing *_defaultHSpacing;
-WeViewSpacing *_defaultVSpacing;
+    WeViewSpacing *_defaultHSpacing;
+    WeViewSpacing *_defaultVSpacing;
 
-NSArray *_rowSpacings;
-NSArray *_columnSpacings;
+    NSArray *_rowSpacings;
+    NSArray *_columnSpacings;
 
-BOOL _isRowHeightUniform;
-BOOL _isColumnWidthUniform;
+    BOOL _isRowHeightUniform;
+    BOOL _isColumnWidthUniform;
 
-/* CODEGEN MARKER: Members End */
+    /* CODEGEN MARKER: Members End */
 }
 
 @property (nonatomic) int columnCount;
@@ -585,10 +588,8 @@ BOOL _isColumnWidthUniform;
     GridLayoutInfo *result = [[GridLayoutInfo alloc] init];
 
     GridRowAndColumnCount rowAndColumnCount = [self rowAndColumnCount:subviews];
-    int rowCount = rowAndColumnCount.rowCount;
-    int columnCount = rowAndColumnCount.columnCount;
-//    int rowCount = result.rowCount = rowAndColumnCount.rowCount;
-//    int columnCount = result.columnCount = rowAndColumnCount.columnCount;
+    int rowCount = result.rowCount = rowAndColumnCount.rowCount;
+    int columnCount = result.columnCount = rowAndColumnCount.columnCount;
 
     WeViewAssert(rowCount > 0);
     WeViewAssert(columnCount > 0);
@@ -642,19 +643,19 @@ BOOL _isColumnWidthUniform;
     {
         // If not all row and columns sizes are fixed, we calculate the desired size of all subviews.
 
-//        CGSize maxContentSize = CGSizeZero;
+        //        CGSize maxContentSize = CGSizeZero;
         // TODO: No, always use CGSizeZero as the guide size for subviews.
-//        if (!isAbstractSizeQuery)
-//        {
-//            maxContentSize = CGSizeMake(MAX(0, floorf(view.size.width) - (result.leftMargin +
-//                                                                          result.rightMargin +
-//                                                                          WeViewSumInts(result.columnSizes) +
-//                                                                          WeViewSumInts(result.columnSpacingSizes))),
-//                                        MAX(0, floorf(view.size.height) - (result.topMargin +
-//                                                                           result.bottomMargin +
-//                                                                           WeViewSumInts(result.rowSizes) +
-//                                                                           WeViewSumInts(result.rowSpacingSizes))));
-//        }
+        //        if (!isAbstractSizeQuery)
+        //        {
+        //            maxContentSize = CGSizeMake(MAX(0, floorf(view.size.width) - (result.leftMargin +
+        //                                                                          result.rightMargin +
+        //                                                                          WeViewSumInts(result.columnSizes) +
+        //                                                                          WeViewSumInts(result.columnSpacingSizes))),
+        //                                        MAX(0, floorf(view.size.height) - (result.topMargin +
+        //                                                                           result.bottomMargin +
+        //                                                                           WeViewSumInts(result.rowSizes) +
+        //                                                                           WeViewSumInts(result.rowSpacingSizes))));
+        //        }
 
         // TODO: The "non-uniform" case is quite complicated due to subview flow.
         int subviewIdx = 0;
@@ -666,8 +667,8 @@ BOOL _isColumnWidthUniform;
 
             if (!subview.ignoreDesiredSize)
             {
-//                CGSize cellSize = CGSizeMake([result.rowSizes[row] floatValue],
-//                                             [result.columnSizes[column] floatValue]);
+                //                CGSize cellSize = CGSizeMake([result.rowSizes[row] floatValue],
+                //                                             [result.columnSizes[column] floatValue]);
                 if ([result.rowAxisLayout cellSizingForIndex:row].fixedSize &&
                     [result.columnAxisLayout cellSizingForIndex:column].fixedSize)
                 {
@@ -707,21 +708,21 @@ BOOL _isColumnWidthUniform;
                                                              subviewSize.width)
                                                 forIndex:column];
 
-//                    CGSize maxCellSize = maxContentSize;
-//                    if (((WeViewGridSizing *) result.rowSizings[row]).fixedSize)
-//                    {
-//                        maxCellSize.height = ((WeViewGridSizing *) result.rowSizings[row]).fixedSize.floatValue;
-//                    }
-//                    else if (((WeViewGridSizing *) result.columnSizings[column]).fixedSize)
-//                    {
-//                        maxCellSize.width = ((WeViewGridSizing *) result.columnSizings[column]).fixedSize.floatValue;
-//                    }
-//                    CGSize subviewSize = [self desiredItemSize:subview
-//                                                       maxSize:isAbstractSizeQuery ? CGSizeZero : maxCellSize];
-//                    result.rowSizes[row] = @(MAX([result.rowSizes[row] floatValue],
-//                                                 subviewSize.height));
-//                    result.columnSizes[column] = @(MAX([result.columnSizes[column] floatValue],
-//                                                       subviewSize.width));
+                    //                    CGSize maxCellSize = maxContentSize;
+                    //                    if (((WeViewGridSizing *) result.rowSizings[row]).fixedSize)
+                    //                    {
+                    //                        maxCellSize.height = ((WeViewGridSizing *) result.rowSizings[row]).fixedSize.floatValue;
+                    //                    }
+                    //                    else if (((WeViewGridSizing *) result.columnSizings[column]).fixedSize)
+                    //                    {
+                    //                        maxCellSize.width = ((WeViewGridSizing *) result.columnSizings[column]).fixedSize.floatValue;
+                    //                    }
+                    //                    CGSize subviewSize = [self desiredItemSize:subview
+                    //                                                       maxSize:isAbstractSizeQuery ? CGSizeZero : maxCellSize];
+                    //                    result.rowSizes[row] = @(MAX([result.rowSizes[row] floatValue],
+                    //                                                 subviewSize.height));
+                    //                    result.columnSizes[column] = @(MAX([result.columnSizes[column] floatValue],
+                    //                                                       subviewSize.width));
                 }
             }
         }
@@ -802,12 +803,13 @@ BOOL _isColumnWidthUniform;
 
     GridLayoutInfo *gridLayoutInfo = [self getGridLayoutInfo:view
                                                     subviews:subviews
-                                           isAbstractSizeQuery:!hasNonEmptyGuideSize
+                                         isAbstractSizeQuery:!hasNonEmptyGuideSize
                                                        debug:debugMinSize
                                                  debugIndent:indent];
 
-    CGSize totalSize = [gridLayoutInfo totalSize:view
-                                          layout:self];
+    // Return size, ignoring alignment.
+    CGSize totalSize = CGSizeMake([gridLayoutInfo.columnAxisLayout totalAxisSize],
+                                  [gridLayoutInfo.rowAxisLayout totalAxisSize]);
 
     if (debugMinSize)
     {
@@ -842,7 +844,7 @@ BOOL _isColumnWidthUniform;
 
     GridLayoutInfo *gridLayoutInfo = [self getGridLayoutInfo:view
                                                     subviews:subviews
-                                           isAbstractSizeQuery:NO
+                                         isAbstractSizeQuery:NO
                                                        debug:debugLayout
                                                  debugIndent:indent];
     int columnCount = gridLayoutInfo.columnCount;
