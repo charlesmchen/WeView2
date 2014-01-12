@@ -45,7 +45,7 @@
 // Layouts default to use the superview's properties (See: UIView+WeView.h).  However, any values
 // set on the layout itself with supercede values from the superview.
 
-/* CODEGEN MARKER: Start */
+/* CODEGEN MARKER: Properties Start */
 
 // The left margin of the contents of this view.
 - (CGFloat)leftMargin;
@@ -78,15 +78,6 @@
 // The vertical alignment of this layout.
 - (VAlign)vAlign;
 - (WeViewLayout *)setVAlign:(VAlign)value;
-
-// By default, if the content size (ie. the total subview size plus margins and spacing) of a
-// WeView overflows its bounds, subviews are cropped to fit inside the available
-// space.
-//
-// If cropSubviewOverflow is NO, no cropping occurs and subviews may overflow the bounds of their
-// superview.
-- (BOOL)cropSubviewOverflow;
-- (WeViewLayout *)setCropSubviewOverflow:(BOOL)value;
 
 // By default, cellPositioning has a value of CELL_POSITIONING_NORMAL and cell size is based on
 // their desired size and they are aligned within their layout
@@ -124,7 +115,7 @@
 // Convenience accessor(s) for the hSpacing and vSpacing properties.
 - (WeViewLayout *)setSpacing:(int)value;
 
-/* CODEGEN MARKER: End */
+/* CODEGEN MARKER: Properties End */
 
 - (void)resetAllProperties;
 
@@ -144,10 +135,10 @@
 - (CGSize)desiredItemSize:(UIView *)subview
                   maxSize:(CGSize)maxSize;
 
-- (NSArray *)distributeSpace:(CGFloat)space
++ (NSArray *)distributeSpace:(CGFloat)space
       acrossCellsWithWeights:(NSArray *)cellWeights;
 
-- (void)distributeAdjustment:(CGFloat)totalAdjustment
++ (void)distributeAdjustment:(CGFloat)totalAdjustment
                 acrossValues:(NSMutableArray *)values
                  withWeights:(NSArray *)weights
                     withSign:(CGFloat)sign

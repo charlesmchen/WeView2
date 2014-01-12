@@ -132,11 +132,11 @@
         // Crop from subviews with axis stretch first.
         if (hasCellWithAxisStretch)
         {
-            [self distributeAdjustment:-extraAxisSpace
-                          acrossValues:cellAxisSizes
-                           withWeights:cellStretchWeights
-                              withSign:-1.f
-                           withMaxZero:YES];
+            [WeViewLayout distributeAdjustment:-extraAxisSpace
+                                  acrossValues:cellAxisSizes
+                                   withWeights:cellStretchWeights
+                                      withSign:-1.f
+                                   withMaxZero:YES];
 
             if (horizontal)
             {
@@ -154,11 +154,11 @@
         if (extraAxisSpace < 0)
         {
             // If we still have underflow, crop all subviews.
-            [self distributeAdjustment:-extraAxisSpace
-                          acrossValues:cellAxisSizes
-                           withWeights:cellAxisSizes
-                              withSign:-1.f
-                           withMaxZero:YES];
+            [WeViewLayout distributeAdjustment:-extraAxisSpace
+                                  acrossValues:cellAxisSizes
+                                   withWeights:cellAxisSizes
+                                      withSign:-1.f
+                                   withMaxZero:YES];
 
             if (horizontal)
             {
@@ -174,11 +174,11 @@
     {
         if (hasCellWithAxisStretch)
         {
-            [self distributeAdjustment:extraAxisSpace
-                          acrossValues:cellAxisSizes
-                           withWeights:cellStretchWeights
-                              withSign:+1.f
-                           withMaxZero:YES];
+            [WeViewLayout distributeAdjustment:extraAxisSpace
+                                  acrossValues:cellAxisSizes
+                                   withWeights:cellStretchWeights
+                                      withSign:+1.f
+                                   withMaxZero:YES];
 
             if (horizontal)
             {
@@ -196,7 +196,7 @@
 //            {
 //                [spacingStretchWeights addObject:@(1.f)];
 //            }
-//            [self distributeAdjustment:extraAxisSpace
+//            [WeViewLayout distributeAdjustment:extraAxisSpace
 //                          acrossValues:spacings
 //                           withWeights:spacingStretchWeights
 //                              withSign:+1.f

@@ -459,11 +459,6 @@ haveAnyOfPrefixes:(NSArray *)prefixes
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setVAlign", ReprVAlign(layout.vAlign)]];
     }
 
-    if (layout.cropSubviewOverflow != virginLayout.cropSubviewOverflow)
-    {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setCropSubviewOverflow", FormatBoolean(layout.cropSubviewOverflow)]];
-    }
-
     if (layout.cellPositioning != virginLayout.cellPositioning)
     {
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setCellPositioning", ReprCellPositioningMode(layout.cellPositioning)]];

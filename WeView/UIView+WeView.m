@@ -18,7 +18,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 @interface WeViewViewInfo : NSObject
 
-/* CODEGEN MARKER: View Info H Start */
+/* CODEGEN MARKER: View Info Properties Start */
 
 // The minimum desired width of this view. Trumps the maxWidth.
 @property (nonatomic) CGFloat minDesiredWidth;
@@ -133,7 +133,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 // Convenience accessor(s) for the vStretchWeight and hStretchWeight properties.
 - (void)setStretchWeight:(CGFloat)value;
 
-/* CODEGEN MARKER: View Info H End */
+/* CODEGEN MARKER: View Info Properties End */
 
 @end
 

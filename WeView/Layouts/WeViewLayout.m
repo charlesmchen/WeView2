@@ -12,6 +12,7 @@
 
 #import "UIView+WeView.h"
 #import "WeView.h"
+#import "WeViewLayout+Subclass.h"
 #import "WeViewLinearLayout.h"
 #import "WeViewMacros.h"
 
@@ -75,7 +76,6 @@ int _hSpacing;
 HAlign _hAlign;
 VAlign _vAlign;
 
-BOOL _cropSubviewOverflow;
 CellPositioningMode _cellPositioning;
 
 BOOL _debugLayout;
@@ -132,7 +132,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setLeftMargin:(CGFloat)value
 {
     _leftMargin = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -144,7 +144,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setRightMargin:(CGFloat)value
 {
     _rightMargin = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -156,7 +156,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setTopMargin:(CGFloat)value
 {
     _topMargin = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -168,7 +168,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setBottomMargin:(CGFloat)value
 {
     _bottomMargin = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -180,7 +180,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setVSpacing:(int)value
 {
     _vSpacing = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -192,7 +192,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setHSpacing:(int)value
 {
     _hSpacing = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -204,7 +204,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setHAlign:(HAlign)value
 {
     _hAlign = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -216,19 +216,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setVAlign:(VAlign)value
 {
     _vAlign = value;
-    [self._superview setNeedsLayout];
-    return self;
-}
-
-- (BOOL)cropSubviewOverflow
-{
-    return _cropSubviewOverflow;
-}
-
-- (WeViewLayout *)setCropSubviewOverflow:(BOOL)value
-{
-    _cropSubviewOverflow = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -240,7 +228,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setCellPositioning:(CellPositioningMode)value
 {
     _cellPositioning = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -252,7 +240,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setDebugLayout:(BOOL)value
 {
     _debugLayout = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -264,7 +252,7 @@ BOOL _debugMinSize;
 - (WeViewLayout *)setDebugMinSize:(BOOL)value
 {
     _debugMinSize = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -272,7 +260,7 @@ BOOL _debugMinSize;
 {
     [self setLeftMargin:value];
     [self setRightMargin:value];
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -280,7 +268,7 @@ BOOL _debugMinSize;
 {
     [self setTopMargin:value];
     [self setBottomMargin:value];
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -290,7 +278,7 @@ BOOL _debugMinSize;
     [self setRightMargin:value];
     [self setTopMargin:value];
     [self setBottomMargin:value];
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
@@ -298,11 +286,16 @@ BOOL _debugMinSize;
 {
     [self setHSpacing:value];
     [self setVSpacing:value];
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }
 
 /* CODEGEN MARKER: Accessors End */
+
+- (void)propertyChanged
+{
+    [self._superview setNeedsLayout];
+}
 
 - (void)resetAllProperties
 {
@@ -316,7 +309,6 @@ BOOL _debugMinSize;
     self.hSpacing = 0;
     self.hAlign = H_ALIGN_CENTER;
     self.vAlign = V_ALIGN_CENTER;
-    self.cropSubviewOverflow = NO;
     self.cellPositioning = CELL_POSITIONING_NORMAL;
     self.debugLayout = NO;
     self.debugMinSize = NO;
@@ -521,7 +513,7 @@ BOOL _debugMinSize;
                                           desiredSize)));
 }
 
-- (NSArray *)distributeSpace:(CGFloat)space
++ (NSArray *)distributeSpace:(CGFloat)space
       acrossCellsWithWeights:(NSArray *)cellWeights
 {
     // Weighted distribution of space between cells.
@@ -575,7 +567,7 @@ BOOL _debugMinSize;
     return result;
 }
 
-- (void)distributeAdjustment:(CGFloat)totalAdjustment
++ (void)distributeAdjustment:(CGFloat)totalAdjustment
                 acrossValues:(NSMutableArray *)values
                  withWeights:(NSArray *)weights
                     withSign:(CGFloat)sign
@@ -639,7 +631,6 @@ BOOL _debugMinSize;
     self.hSpacing = layout.hSpacing;
     self.hAlign = layout.hAlign;
     self.vAlign = layout.vAlign;
-    self.cropSubviewOverflow = layout.cropSubviewOverflow;
     self.cellPositioning = layout.cellPositioning;
     self.debugLayout = layout.debugLayout;
     self.debugMinSize = layout.debugMinSize;

@@ -761,8 +761,6 @@ typedef void (^SetterBlock)(id item);
                                  ]
                                  doubleHeight:YES],
 
-                                [ViewParameterSimple booleanProperty:@"cropSubviewOverflow"],
-
                                 [ViewParameterSimple create:@"cellPositioning"
                                                 getterBlock:^NSString *(id item) {
                                                     return FormatCellPositioningMode(((WeViewLayout *) item).cellPositioning);

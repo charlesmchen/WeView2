@@ -44,39 +44,47 @@
 
 @interface WeViewGridLayout : WeViewLayout
 
-// The left margin of the contents of this view.
-- (WeViewSpacing *)leftMarginInfo;
-- (WeViewLayout *)setLeftMarginInfo:(WeViewSpacing *)value;
-
-// The right margin of the contents of this view.
-- (WeViewSpacing *)rightMarginInfo;
-- (WeViewLayout *)setRightMarginInfo:(WeViewSpacing *)value;
-
-// The top margin of the contents of this view.
-- (WeViewSpacing *)topMarginInfo;
-- (WeViewLayout *)setTopMarginInfo:(WeViewSpacing *)value;
-
-// The bottom margin of the contents of this view.
-- (WeViewSpacing *)bottomMarginInfo;
-- (WeViewLayout *)setBottomMarginInfo:(WeViewSpacing *)value;
-
-// The default horizontal spacing between subviews of this view.
-- (WeViewSpacing *)defaultHSpacing;
-- (WeViewLayout *)setDefaultHSpacing:(WeViewSpacing *)value;
-
-// The default vertical spacing between subviews of this view.
-- (WeViewSpacing *)defaultVSpacing;
-- (WeViewLayout *)setDefaultVSpacing:(WeViewSpacing *)value;
+/* CODEGEN MARKER: Properties Start */
 
 // Optional.
 //
-// The default sizing behavior of all rows.  Only applies to rows for which no row-specific sizing behavior
-// has been specified with rowSizings.
-@property (nonatomic) WeViewGridSizing *defaultRowSizing;
+// The left margin of the contents of this view.
+- (WeViewSpacing *)leftMarginInfo;
+- (WeViewGridLayout *)setLeftMarginInfo:(WeViewSpacing *)value;
 
-// The default sizing behavior of all columns.  Only applies to columns for which no column-specific sizing
-// behavior has been specified with columnSizings.
-@property (nonatomic) WeViewGridSizing *defaultColumnSizing;
+// Optional.
+//
+// The right margin of the contents of this view.
+- (WeViewSpacing *)rightMarginInfo;
+- (WeViewGridLayout *)setRightMarginInfo:(WeViewSpacing *)value;
+
+// Optional.
+//
+// The top margin of the contents of this view.
+- (WeViewSpacing *)topMarginInfo;
+- (WeViewGridLayout *)setTopMarginInfo:(WeViewSpacing *)value;
+
+// Optional.
+//
+// The bottom margin of the contents of this view.
+- (WeViewSpacing *)bottomMarginInfo;
+- (WeViewGridLayout *)setBottomMarginInfo:(WeViewSpacing *)value;
+
+// Optional.
+//
+// The default sizing behavior of all rows.  Only applies to rows for which no row-specific
+// sizing behavior has been specified with
+// rowSizings.
+- (WeViewGridSizing *)defaultRowSizing;
+- (WeViewGridLayout *)setDefaultRowSizing:(WeViewGridSizing *)value;
+
+// Optional.
+//
+// The default sizing behavior of all columns.  Only applies to columns for which no
+// column-specific sizing behavior has been specified with
+// columnSizings.
+- (WeViewGridSizing *)defaultColumnSizing;
+- (WeViewGridLayout *)setDefaultColumnSizing:(WeViewGridSizing *)value;
 
 // Optional.
 //
@@ -86,9 +94,11 @@
 //
 // The first element of rowSizings applies to the first (top-most row), etc.
 //
-// Does not need to exactly match the number of rows.  defaultRowSizing applies to any rows without a
-// corresponding element in rowSizings.
-@property (nonatomic) NSArray *rowSizings;
+// Does not need to exactly match the number of rows.  defaultRowSizing applies to any rows
+// without a corresponding element in
+// rowSizings.
+- (NSArray *)rowSizings;
+- (WeViewGridLayout *)setRowSizings:(NSArray *)value;
 
 // Optional.
 //
@@ -98,9 +108,23 @@
 //
 // The first element of columnSizings applies to the first (left-most column), etc.
 //
-// Does not need to exactly match the number of columns.  defaultColumnSizing applies to any columns without a
-// corresponding element in columnSizings.
-@property (nonatomic) NSArray *columnSizings;
+// Does not need to exactly match the number of columns.  defaultColumnSizing applies to any
+// columns without a corresponding element in
+// columnSizings.
+- (NSArray *)columnSizings;
+- (WeViewGridLayout *)setColumnSizings:(NSArray *)value;
+
+// Optional.
+//
+// The default horizontal spacing between subviews of this view.
+- (WeViewSpacing *)defaultHSpacing;
+- (WeViewGridLayout *)setDefaultHSpacing:(WeViewSpacing *)value;
+
+// Optional.
+//
+// The default vertical spacing between subviews of this view.
+- (WeViewSpacing *)defaultVSpacing;
+- (WeViewGridLayout *)setDefaultVSpacing:(WeViewSpacing *)value;
 
 // Optional.
 //
@@ -108,11 +132,14 @@
 //
 // All contents must be instances of WeViewSpacing.
 //
-// The first element of rowSpacings applies to the spacing between the first and second rows, etc.
+// The first element of rowSpacings applies to the spacing between the first and second rows,
+// etc.
 //
-// Does not need to exactly match the number of spacings between rows.  defaultVSpacing applies to any
-// spacings without a corresponding element in rowSpacings.
-@property (nonatomic) NSArray *rowSpacings;
+// Does not need to exactly match the number of spacings between rows.  defaultVSpacing applies
+// to any spacings without a corresponding element in
+// rowSpacings.
+- (NSArray *)rowSpacings;
+- (WeViewGridLayout *)setRowSpacings:(NSArray *)value;
 
 // Optional.
 //
@@ -120,21 +147,29 @@
 //
 // All contents must be instances of WeViewSpacing.
 //
-// The first element of columnSpacings applies to the spacing between the first and second columns, etc.
+// The first element of columnSpacings applies to the spacing between the first and second
+// columns,
+// etc.
 //
-// Does not need to exactly match the number of spacings between columns.  defaultHSpacing applies to any
-// spacings without a corresponding element in columnSpacings.
-@property (nonatomic) NSArray *columnSpacings;
+// Does not need to exactly match the number of spacings between columns.  defaultHSpacing
+// applies to any spacings without a corresponding element in
+// columnSpacings.
+- (NSArray *)columnSpacings;
+- (WeViewGridLayout *)setColumnSpacings:(NSArray *)value;
 
 // If YES, all rows will have the same height - the height of the tallest row.
 //
 // Default is NO.
-@property (nonatomic) BOOL isRowHeightUniform;
+- (BOOL)isRowHeightUniform;
+- (WeViewGridLayout *)setIsRowHeightUniform:(BOOL)value;
 
 // If YES, all columns will have the same width - the width of the widest column.
 //
 // Default is NO.
-@property (nonatomic) BOOL isColumnWidthUniform;
+- (BOOL)isColumnWidthUniform;
+- (WeViewGridLayout *)setIsColumnWidthUniform:(BOOL)value;
+
+/* CODEGEN MARKER: Properties End */
 
 // Factory method.
 //
