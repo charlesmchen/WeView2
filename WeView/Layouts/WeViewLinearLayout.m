@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "UIView+WeView.h"
+#import "WeViewLayout+Subclass.h"
 #import "WeViewLayoutUtils.h"
 #import "WeViewLinearLayout.h"
 #import "WeViewMacros.h"

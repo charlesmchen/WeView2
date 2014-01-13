@@ -171,9 +171,26 @@
 
 /* CODEGEN MARKER: Properties End */
 
+#pragma mark - Factory methods
+
 // Factory method.
 //
-// columnCount: The number of columns in the grid.
-+ (WeViewGridLayout *)gridLayoutWithColumnCount:(int)columnCount;
+// maxColumnCount: The maximum number of columns in the grid.  If zero, the subviews will be
+// layed out with as many columns as subviews (ie. horizontally).
++ (WeViewGridLayout *)gridLayoutWithMaxColumnCount:(int)maxColumnCount;
+
+// Factory method.
+//
+// maxRowCount: The maximum number of rows in the grid.  If zero, the subviews will be
+// layed out with as many rows as subviews (ie. vertically).
++ (WeViewGridLayout *)gridLayoutWithMaxRowCount:(int)maxRowCount;
+
+#pragma mark - Convenience accessors
+
+- (WeViewGridLayout *)setMarginStretchWeight:(CGFloat)value;
+
+- (WeViewGridLayout *)setDefaultSpacing:(WeViewSpacing *)value;
+
+- (WeViewGridLayout *)setDefaultSpacingStretchWeight:(CGFloat)value;
 
 @end

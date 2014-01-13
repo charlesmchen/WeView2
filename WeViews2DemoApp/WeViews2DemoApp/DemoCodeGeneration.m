@@ -71,23 +71,6 @@ NSString* ReprCellPositioningMode(CellPositioningMode value)
 }
 
 CG_INLINE
-NSString* ReprGridStretchPolicy(GridStretchPolicy value)
-{
-    switch (value)
-    {
-        case GRID_STRETCH_POLICY_STRETCH_CELLS:
-            return @"GRID_STRETCH_POLICY_STRETCH_CELLS";
-        case GRID_STRETCH_POLICY_STRETCH_SPACING:
-            return @"GRID_STRETCH_POLICY_STRETCH_SPACING";
-        case GRID_STRETCH_POLICY_NO_STRETCH:
-            return @"GRID_STRETCH_POLICY_NO_STRETCH";
-        default:
-            WeViewAssert(0);
-            return nil;
-    }
-}
-
-CG_INLINE
 NSString* ReprWeViewSpacing(WeViewSpacing *value)
 {
     if (value && value.size && value.stretchWeight)
@@ -144,12 +127,9 @@ NSString* ReprWeViewSpacing(WeViewSpacing *value)
 
 @interface WeViewGridLayout (DemoCodeGeneration)
 
-- (int)columnCount;
-- (BOOL)isGridUniform;
-- (GridStretchPolicy)stretchPolicy;
-
-- (BOOL)hasCellSizeHint;
-- (CGSize)cellSizeHint;
+// We need private access to this class' internals to generate the code.
+@property (nonatomic) NSNumber *maxColumnCount;
+@property (nonatomic) NSNumber *maxRowCount;
 
 @end
 
@@ -270,9 +250,6 @@ NSString* ReprWeViewSpacing(WeViewSpacing *value)
                  firstSubviewClause:(NSString *)firstSubviewClause
                layoutSubviewsClause:(NSString *)layoutSubviewsClause
 {
-    // TODO:
-    //#import "WeViewGridLayout.h"
-
     if ([layout isKindOfClass:[WeViewLinearLayout class]])
     {
         WeViewLinearLayout *linearLayout = (WeViewLinearLayout *)layout;
@@ -328,25 +305,44 @@ NSString* ReprWeViewSpacing(WeViewSpacing *value)
     else if ([layout isKindOfClass:[WeViewGridLayout class]])
     {
         WeViewGridLayout *gridLayout = (WeViewGridLayout *)layout;
-        if (gridLayout.hasCellSizeHint)
+
+        NSString *result;
+        if (gridLayout.maxRowCount)
         {
-            return [NSString stringWithFormat:@"[%@ addSubviewsWithGridLayout:%@ columnCount:%d isGridUniform:%d stretchPolicy:%@]",
-                    viewName,
-                    layoutSubviewsClause,
-                    gridLayout.columnCount,
-                    gridLayout.isGridUniform,
-                    ReprGridStretchPolicy(gridLayout.stretchPolicy)];
+            result = [NSString stringWithFormat:@"[%@ addSubviewsWithGridLayout:%@ rowCount:%d]",
+                      viewName,
+                      layoutSubviewsClause,
+                      [gridLayout.maxRowCount intValue]];
         }
         else
         {
-            return [NSString stringWithFormat:@"[%@ addSubviewsWithGridLayout:%@ columnCount:%d isGridUniform:%d stretchPolicy:%@ cellSizeHint:%@]",
-                    viewName,
-                    layoutSubviewsClause,
-                    gridLayout.columnCount,
-                    gridLayout.isGridUniform,
-                    ReprGridStretchPolicy(gridLayout.stretchPolicy),
-                    [NSString stringWithFormat:@"CGSizeMake(%f, %f)", gridLayout.cellSizeHint.width, gridLayout.cellSizeHint.height]];
+            result = [NSString stringWithFormat:@"[%@ addSubviewsWithGridLayout:%@ columnCount:%d]",
+                      viewName,
+                      layoutSubviewsClause,
+                      [gridLayout.maxColumnCount intValue]];
         }
+
+//        WeViewSpacing *_leftMarginInfo;
+//        WeViewSpacing *_rightMarginInfo;
+//        WeViewSpacing *_topMarginInfo;
+//        WeViewSpacing *_bottomMarginInfo;
+//
+//        WeViewGridSizing *_defaultRowSizing;
+//        WeViewGridSizing *_defaultColumnSizing;
+//
+//        NSArray *_rowSizings;
+//        NSArray *_columnSizings;
+//
+//        WeViewSpacing *_defaultHSpacing;
+//        WeViewSpacing *_defaultVSpacing;
+//
+//        NSArray *_rowSpacings;
+//        NSArray *_columnSpacings;
+//
+//        BOOL _isRowHeightUniform;
+//        BOOL _isColumnWidthUniform;
+
+        return result;
     }
     else
     {
@@ -457,6 +453,11 @@ haveAnyOfPrefixes:(NSArray *)prefixes
     if (layout.vAlign != virginLayout.vAlign)
     {
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setVAlign", ReprVAlign(layout.vAlign)]];
+    }
+
+    if (layout.cropSubviewOverflow != virginLayout.cropSubviewOverflow)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setCropSubviewOverflow", FormatBoolean(layout.cropSubviewOverflow)]];
     }
 
     if (layout.cellPositioning != virginLayout.cellPositioning)

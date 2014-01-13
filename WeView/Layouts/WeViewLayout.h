@@ -79,6 +79,15 @@
 - (VAlign)vAlign;
 - (WeViewLayout *)setVAlign:(VAlign)value;
 
+// By default, if the content size (ie. the total subview size plus margins and spacing) of a
+// WeView overflows its bounds, subviews are cropped to fit inside the available
+// space.
+//
+// If cropSubviewOverflow is NO, no cropping occurs and subviews may overflow the bounds of their
+// superview.
+- (BOOL)cropSubviewOverflow;
+- (WeViewLayout *)setCropSubviewOverflow:(BOOL)value;
+
 // By default, cellPositioning has a value of CELL_POSITIONING_NORMAL and cell size is based on
 // their desired size and they are aligned within their layout
 // cell.
@@ -118,36 +127,5 @@
 /* CODEGEN MARKER: Properties End */
 
 - (void)resetAllProperties;
-
-#pragma mark - Utility Methods
-
-- (void)positionSubview:(UIView *)subview
-            inSuperview:(UIView *)superview
-               withSize:(CGSize)subviewSize
-           inCellBounds:(CGRect)cellBounds
-        cellPositioning:(CellPositioningMode)cellPositioning;
-
-- (CGRect)contentBoundsOfView:(UIView *)view
-                      forSize:(CGSize)size;
-
-- (CGSize)insetSizeOfView:(UIView *)view;
-
-- (CGSize)desiredItemSize:(UIView *)subview
-                  maxSize:(CGSize)maxSize;
-
-+ (NSArray *)distributeSpace:(CGFloat)space
-      acrossCellsWithWeights:(NSArray *)cellWeights;
-
-+ (void)distributeAdjustment:(CGFloat)totalAdjustment
-                acrossValues:(NSMutableArray *)values
-                 withWeights:(NSArray *)weights
-                    withSign:(CGFloat)sign
-                 withMaxZero:(BOOL)withMaxZero;
-
-#pragma mark - Debug Methods
-
-- (NSString *)indentPrefix:(int)indent;
-
-- (int)viewHierarchyDistanceToWindow:(UIView *)view;
 
 @end

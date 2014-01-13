@@ -12,6 +12,7 @@
 
 #import "UIView+WeView.h"
 #import "WeViewFlowLayout.h"
+#import "WeViewLayout+Subclass.h"
 #import "WeViewMacros.h"
 
 @implementation WeViewFlowLayout

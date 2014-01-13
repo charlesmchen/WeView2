@@ -43,6 +43,7 @@
 - (void)addWrappedViewController:(UIViewController *)viewController
 {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    navigationController.navigationBar.translucent = NO;
     [self addChildViewController:navigationController];
 }
 
@@ -70,7 +71,7 @@
     [viewEditorWrapper.view setStretchWeight:2.f];
 
     [self.rootView addSubviewsWithVerticalLayout:subviews];
-//    [self.rootView setDebugLayoutOflayouts:YES];
+//    [self.rootView setDebugLayoutOfLayouts:YES];
 }
 
 - (void)didReceiveMemoryWarning

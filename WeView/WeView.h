@@ -79,6 +79,12 @@
 - (WeViewGridLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
                                     columnCount:(int)columnCount;
 
+// Use this factory method if the size of the cells should be based on their contents.
+//
+// rowCount: The number of rows in the grid.
+- (WeViewGridLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
+                                       rowCount:(int)rowCount;
+
 #pragma mark - Fill & Fit Layouts
 
 // Add a subview with a layout that stretches the subview to fill this view's bounds,
@@ -100,7 +106,7 @@
 
 - (void)removeAllSubviews;
 
-- (void)setDebugLayoutOflayouts:(BOOL)value;
-- (void)setDebugMinSizeOflayouts:(BOOL)value;
+- (void)setDebugLayoutOfLayouts:(BOOL)value;
+- (void)setDebugMinSizeOfLayouts:(BOOL)value;
 
 @end

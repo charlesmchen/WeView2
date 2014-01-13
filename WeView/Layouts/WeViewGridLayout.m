@@ -12,6 +12,7 @@
 
 #import "UIView+WeView.h"
 #import "WeViewGridLayout.h"
+#import "WeViewLayout+Subclass.h"
 #import "WeViewLayoutUtils.h"
 #import "WeViewMacros.h"
 
@@ -22,10 +23,30 @@ typedef struct
 
 #pragma mark -
 
-// TODO: Make this category public.
-@interface WeViewLayout (Subclass)
+@implementation WeViewGridSizing
 
-- (void)propertyChanged;
++ (WeViewGridSizing *)sizingWithSize:(int)size
+{
+    WeViewGridSizing *result = [[WeViewGridSizing alloc] init];
+    result.fixedSize = @(size);
+    return result;
+}
+
++ (WeViewGridSizing *)sizingWithStretchWeight:(CGFloat)stretchWeight
+{
+    WeViewGridSizing *result = [[WeViewGridSizing alloc] init];
+    result.stretchWeight = stretchWeight;
+    return result;
+}
+
++ (WeViewGridSizing *)sizingWithSize:(int)size
+                       stretchWeight:(CGFloat)stretchWeight
+{
+    WeViewGridSizing *result = [[WeViewGridSizing alloc] init];
+    result.fixedSize = @(size);
+    result.stretchWeight = stretchWeight;
+    return result;
+}
 
 @end
 
@@ -207,6 +228,8 @@ typedef struct
 
 - (BOOL)stretchIfNecessary:(CGFloat)viewAxisSize
 {
+    // Returns YES IFF cell, margin or spacing sizes are changed.
+
     NSMutableArray *axisSizes = [self axisSizes];
     NSArray *axisStretchWeights = [self axisStretchWeights];
 
@@ -252,9 +275,9 @@ typedef struct
             // There IS a shortfall of space in the layout BUT the content CANNOT stretch along this axis;
             // therefore apply alignment.
             [self applyAxisAlignment:extraAxisSize];
-
         }
     }
+
     return NO;
 }
 
@@ -290,30 +313,32 @@ typedef struct
 {
     /* CODEGEN MARKER: Members Start */
 
-    WeViewSpacing *_leftMarginInfo;
-    WeViewSpacing *_rightMarginInfo;
-    WeViewSpacing *_topMarginInfo;
-    WeViewSpacing *_bottomMarginInfo;
+WeViewSpacing *_leftMarginInfo;
+WeViewSpacing *_rightMarginInfo;
+WeViewSpacing *_topMarginInfo;
+WeViewSpacing *_bottomMarginInfo;
 
-    WeViewGridSizing *_defaultRowSizing;
-    WeViewGridSizing *_defaultColumnSizing;
+WeViewGridSizing *_defaultRowSizing;
+WeViewGridSizing *_defaultColumnSizing;
 
-    NSArray *_rowSizings;
-    NSArray *_columnSizings;
+NSArray *_rowSizings;
+NSArray *_columnSizings;
 
-    WeViewSpacing *_defaultHSpacing;
-    WeViewSpacing *_defaultVSpacing;
+WeViewSpacing *_defaultHSpacing;
+WeViewSpacing *_defaultVSpacing;
 
-    NSArray *_rowSpacings;
-    NSArray *_columnSpacings;
+NSArray *_rowSpacings;
+NSArray *_columnSpacings;
 
-    BOOL _isRowHeightUniform;
-    BOOL _isColumnWidthUniform;
+BOOL _isRowHeightUniform;
+BOOL _isColumnWidthUniform;
 
-    /* CODEGEN MARKER: Members End */
+/* CODEGEN MARKER: Members End */
 }
 
-@property (nonatomic) int columnCount;
+// One but only one of the following two properties should be set.
+@property (nonatomic) NSNumber *maxColumnCount;
+@property (nonatomic) NSNumber *maxRowCount;
 
 @end
 
@@ -321,16 +346,26 @@ typedef struct
 
 @implementation WeViewGridLayout
 
-+ (WeViewGridLayout *)gridLayoutWithColumnCount:(int)columnCount
++ (WeViewGridLayout *)gridLayoutWithMaxColumnCount:(int)maxColumnCount
 {
+    WeViewAssert(maxColumnCount >= 0);
     WeViewGridLayout *layout = [[WeViewGridLayout alloc] init];
-    layout.columnCount = columnCount;
+    layout.maxColumnCount = @(maxColumnCount);
+    return layout;
+}
+
++ (WeViewGridLayout *)gridLayoutWithMaxRowCount:(int)maxRowCount
+{
+    WeViewAssert(maxRowCount >= 0);
+    WeViewGridLayout *layout = [[WeViewGridLayout alloc] init];
+    layout.maxRowCount = @(maxRowCount);
     return layout;
 }
 
 - (void)resetAllProperties
 {
-    self.columnCount = 1;
+    // Do not reset maxColumnCount or maxRowCount.
+
     self.defaultRowSizing = nil;
     self.defaultColumnSizing = nil;
     self.rowSizings = nil;
@@ -518,15 +553,33 @@ typedef struct
 - (GridRowAndColumnCount)rowAndColumnCount:(NSArray *)subviews
 {
     GridRowAndColumnCount result;
-    if (self.columnCount > 0)
+    if (self.maxRowCount)
     {
-        result.columnCount = self.columnCount;
-        result.rowCount = ceilf([subviews count] / (CGFloat) result.columnCount);
+        if ([self.maxRowCount intValue] > 0)
+        {
+            result.rowCount = MIN([self.maxRowCount intValue],
+                                  [subviews count]);
+            result.columnCount = ceilf([subviews count] / (CGFloat) MAX(1, result.rowCount));
+        }
+        else
+        {
+            result.columnCount = 1;
+            result.rowCount = [subviews count];
+        }
     }
     else
     {
-        result.columnCount = [subviews count];
-        result.rowCount = 1;
+        if ([self.maxColumnCount intValue] > 0)
+        {
+            result.columnCount = MIN([self.maxColumnCount intValue],
+                                     [subviews count]);
+            result.rowCount = ceilf([subviews count] / (CGFloat) MAX(1, result.columnCount));
+        }
+        else
+        {
+            result.columnCount = [subviews count];
+            result.rowCount = 1;
+        }
     }
     return result;
 }
@@ -546,7 +599,7 @@ typedef struct
                              sizings:(NSArray *)sizings
                        defaultSizing:(WeViewGridSizing *)defaultSizing
 {
-    WeViewAssert(index > 0);
+    WeViewAssert(index >= 0);
     if (index < [sizings count])
     {
         WeViewGridSizing *sizing = sizings[index];
@@ -564,7 +617,7 @@ typedef struct
                           spacings:(NSArray *)spacings
                     defaultSpacing:(WeViewSpacing *)defaultSpacing
 {
-    WeViewAssert(index > 0);
+    WeViewAssert(index >= 0);
     if (index < [spacings count])
     {
         WeViewSpacing *spacing = spacings[index];
@@ -753,7 +806,7 @@ typedef struct
         {
             // TODO:
         }
-        [result.rowAxisLayout stretchIfNecessary:viewSize.width];
+        [result.rowAxisLayout stretchIfNecessary:viewSize.height];
     }
 
     if (debug)
@@ -848,165 +901,54 @@ typedef struct
                                                        debug:debugLayout
                                                  debugIndent:indent];
     int columnCount = gridLayoutInfo.columnCount;
-    CGRect contentBounds = [self contentBoundsOfView:view
-                                             forSize:guideSize];
-    CGSize totalSpacingSize = [gridLayoutInfo totalSpacingSize:view
-                                                        layout:self];
-    CGSize maxTotalCellSize = CGSizeMax(CGSizeZero,
-                                        CGSizeFloor(CGSizeSubtract(contentBounds.size,
-                                                                   totalSpacingSize)));
-    CGSize rawTotalCellSize = [gridLayoutInfo totalCellSize:view
-                                                     layout:self];
-    // If extraCellSpace is positive, there's extra space in the layout.
-    // If extraCellSpace is negative, we may need to crop the cells.
-    CGSize extraCellSpace = CGSizeSubtract(maxTotalCellSize, rawTotalCellSize);
-    CGPoint cellsOrigin = contentBounds.origin;
-    if (extraCellSpace.width > 0)
-    {
-        switch (self.stretchPolicy)
-        {
-            case GRID_STRETCH_POLICY_STRETCH_CELLS:
-            {
-                // Stretch the cells, distributing the extra space evenly between them.
-                [self distributeAdjustment:extraCellSpace.width
-                              acrossValues:gridLayoutInfo.columnWidths
-                               withWeights:gridLayoutInfo.columnWidths
-                                  withSign:+1.f
-                               withMaxZero:YES];
-                break;
-            }
-            case GRID_STRETCH_POLICY_STRETCH_SPACING:
-            {
-                // Stretch the spacing between cells, distributing the extra space evenly between
-                // them.
-                [self distributeAdjustment:extraCellSpace.width
-                              acrossValues:gridLayoutInfo.columnSpacings
-                               withWeights:gridLayoutInfo.columnSpacings
-                                  withSign:+1.f
-                               withMaxZero:YES];
-                break;
-            }
-            case GRID_STRETCH_POLICY_NO_STRETCH:
-            {
-                // Don't stretch cells or spacing; instead align grid body within the extra space.
-                switch ([self hAlign])
-                {
-                    case H_ALIGN_LEFT:
-                        break;
-                    case H_ALIGN_CENTER:
-                        cellsOrigin.x += roundf(extraCellSpace.width / 2);
-                        break;
-                    case H_ALIGN_RIGHT:
-                        cellsOrigin.x += extraCellSpace.width;
-                        break;
-                    default:
-                        WeViewAssert(0);
-                        break;
-                }
-                break;
-            }
-            default:
-                WeViewAssert(0);
-                break;
-        }
-    }
-    else if (extraCellSpace.width < 0)
-    {
-        if (self.cropSubviewOverflow)
-        {
-            // Crop the width of cells based on their existing width - ie. crop wider columns more.
-            [self distributeAdjustment:-extraCellSpace.width
-                          acrossValues:gridLayoutInfo.columnWidths
-                           withWeights:gridLayoutInfo.columnWidths
-                              withSign:-1.f
-                           withMaxZero:YES];
-        }
-    }
-    if (extraCellSpace.height > 0)
-    {
-        switch (self.stretchPolicy)
-        {
-            case GRID_STRETCH_POLICY_STRETCH_CELLS:
-            {
-                // Stretch the cells, distributing the extra space evenly between them.
-                [self distributeAdjustment:extraCellSpace.height
-                              acrossValues:gridLayoutInfo.rowHeights
-                               withWeights:gridLayoutInfo.rowHeights
-                                  withSign:+1.f
-                               withMaxZero:YES];
-                break;
-            }
-            case GRID_STRETCH_POLICY_STRETCH_SPACING:
-            {
-                // Stretch the spacing between cells, distributing the extra space evenly between
-                // them.
-                [self distributeAdjustment:extraCellSpace.height
-                              acrossValues:gridLayoutInfo.rowSpacings
-                               withWeights:gridLayoutInfo.rowSpacings
-                                  withSign:+1.f
-                               withMaxZero:YES];
-                break;
-            }
-            case GRID_STRETCH_POLICY_NO_STRETCH:
-            {
-                // Don't stretch cells or spacing; instead align grid body within the extra space.
-                switch ([self vAlign])
-                {
-                    case V_ALIGN_BOTTOM:
-                        cellsOrigin.y += extraCellSpace.height;
-                        break;
-                    case V_ALIGN_CENTER:
-                        cellsOrigin.y += roundf(extraCellSpace.height / 2);
-                        break;
-                    case V_ALIGN_TOP:
-                        break;
-                    default:
-                        WeViewAssert(0);
-                        break;
-                }
-                break;
-            }
-            default:
-                WeViewAssert(0);
-                break;
-        }
-    }
-    else if (extraCellSpace.height < 0)
-    {
-        if (self.cropSubviewOverflow)
-        {
-            // Crop the height of cells based on their existing height - ie. crop taller rows more.
-            [self distributeAdjustment:-extraCellSpace.height
-                          acrossValues:gridLayoutInfo.rowHeights
-                           withWeights:gridLayoutInfo.rowHeights
-                              withSign:-1.f
-                           withMaxZero:YES];
-        }
-    }
 
     // Calculate and apply the subviews' frames.
     CellPositioningMode cellPositioning = [self cellPositioning];
-    CGPoint cellOrigin = cellsOrigin;
-    int subviewCount = [subviews count];
-    for (int i=0; i < subviewCount; i++)
+    BOOL cropSubviewOverflow = [self cropSubviewOverflow];
+    int x = gridLayoutInfo.columnAxisLayout.axisOrigin + gridLayoutInfo.columnAxisLayout.preMarginSize;
+    int y = gridLayoutInfo.rowAxisLayout.axisOrigin + gridLayoutInfo.rowAxisLayout.preMarginSize;
+    int subviewIdx = 0;
+    for (UIView *subview in subviews)
     {
-        UIView* subview = subviews[i];
-        int row = i / columnCount;
-        int column = i % columnCount;
-        WeViewAssert(column < gridLayoutInfo.columnCount);
-        WeViewAssert(row < gridLayoutInfo.rowCount);
-        CGRect cellBounds = CGRectMake(cellOrigin.x,
-                                       cellOrigin.y,
-                                       [gridLayoutInfo.columnWidths[column] floatValue],
-                                       [gridLayoutInfo.rowHeights[row] floatValue]);
+        int row = subviewIdx / columnCount;
+        int column = subviewIdx % columnCount;
+        subviewIdx++;
+
+        if (column == 0)
+        {
+            // Newline.
+            x = gridLayoutInfo.columnAxisLayout.axisOrigin + gridLayoutInfo.columnAxisLayout.preMarginSize;
+            if (row > 0)
+            {
+                y += roundf([gridLayoutInfo.rowAxisLayout.cellSizes[row - 1] floatValue]);
+                // Apply row spacing.
+                y += roundf([gridLayoutInfo.rowAxisLayout.spacingSizes[row - 1] floatValue]);
+            }
+        }
+        else
+        {
+            // Apply column spacing.
+            x += roundf([gridLayoutInfo.columnAxisLayout.spacingSizes[column - 1] floatValue]);
+        }
+
+        CGRect cellFrame = CGRectMake(x, y,
+                                       roundf([gridLayoutInfo.columnAxisLayout.cellSizes[column] floatValue]),
+                                       roundf([gridLayoutInfo.rowAxisLayout.cellSizes[row] floatValue]));
 
         CGSize subviewSize = [self desiredItemSize:subview
-                                           maxSize:cellBounds.size];
+                                           maxSize:cellFrame.size];
+
+        if (cropSubviewOverflow)
+        {
+            subviewSize = CGSizeMin(cellFrame.size, subviewSize);
+        }
+        subviewSize = CGSizeMax(CGSizeZero,
+                                CGSizeCeil(subviewSize));
 
         [self positionSubview:subview
                   inSuperview:view
                      withSize:subviewSize
-                 inCellBounds:cellBounds
+                 inCellBounds:cellFrame
               cellPositioning:cellPositioning];
 
         if (debugLayout)
@@ -1018,22 +960,151 @@ typedef struct
                   FormatCGSize(subviewSize));
         }
 
-        cellOrigin.x += cellBounds.size.width;
-        if (column < [gridLayoutInfo.columnSpacings count])
-        {
-            cellOrigin.x += [gridLayoutInfo.columnSpacings[column] floatValue];
-        }
-        if (column + 1 == columnCount)
-        {
-            // Start new row.
-            cellOrigin.x = cellsOrigin.x;
-            cellOrigin.y += cellBounds.size.height;
-            if (row < [gridLayoutInfo.rowSpacings count])
-            {
-                cellOrigin.y += [gridLayoutInfo.rowSpacings[row] floatValue];
-            }
-        }
+        x += roundf(cellFrame.size.width);
     }
+}
+
+#pragma mark - Reappropriate base class properties.
+
+- (CGFloat)leftMargin
+{
+    return self.leftMarginInfo.size;
+}
+
+- (WeViewLayout *)setLeftMargin:(CGFloat)value;
+{
+    if (!self.leftMarginInfo)
+    {
+        self.leftMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    self.leftMarginInfo.size = ceilf(value);
+    return self;
+}
+
+- (CGFloat)rightMargin
+{
+    return self.rightMarginInfo.size;
+}
+
+- (WeViewLayout *)setRightMargin:(CGFloat)value
+{
+    if (!self.rightMarginInfo)
+    {
+        self.rightMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    self.rightMarginInfo.size = ceilf(value);
+    return self;
+}
+
+- (CGFloat)topMargin
+{
+    return self.topMarginInfo.size;
+}
+
+- (WeViewLayout *)setTopMargin:(CGFloat)value
+{
+    if (!self.topMarginInfo)
+    {
+        self.topMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    self.topMarginInfo.size = ceilf(value);
+    return self;
+}
+
+- (CGFloat)bottomMargin
+{
+    return self.bottomMarginInfo.size;
+}
+
+- (WeViewLayout *)setBottomMargin:(CGFloat)value
+{
+    if (!self.bottomMarginInfo)
+    {
+        self.bottomMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    self.bottomMarginInfo.size = ceilf(value);
+    return self;
+}
+
+- (int)vSpacing
+{
+    return self.defaultVSpacing.size;
+}
+
+- (WeViewLayout *)setVSpacing:(int)value
+{
+    if (!self.defaultVSpacing)
+    {
+        self.defaultVSpacing = [[WeViewSpacing alloc] init];
+    }
+    self.defaultVSpacing.size = ceilf(value);
+    return self;
+}
+
+- (int)hSpacing
+{
+    return self.defaultHSpacing.size;
+}
+
+- (WeViewLayout *)setHSpacing:(int)value
+{
+    if (!self.defaultHSpacing)
+    {
+        self.defaultHSpacing = [[WeViewSpacing alloc] init];
+    }
+    self.defaultHSpacing.size = ceilf(value);
+    return self;
+}
+
+#pragma mark - Convenience accessors
+
+- (WeViewGridLayout *)setMarginStretchWeight:(CGFloat)value
+{
+    if (!self.leftMarginInfo)
+    {
+        self.leftMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    if (!self.rightMarginInfo)
+    {
+        self.rightMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    if (!self.topMarginInfo)
+    {
+        self.topMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    if (!self.bottomMarginInfo)
+    {
+        self.bottomMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    self.leftMarginInfo.stretchWeight = value;
+    self.rightMarginInfo.stretchWeight = value;
+    self.topMarginInfo.stretchWeight = value;
+    self.bottomMarginInfo.stretchWeight = value;
+    return self;
+}
+
+- (WeViewGridLayout *)setDefaultSpacing:(WeViewSpacing *)value
+{
+    [self setDefaultHSpacing:[WeViewSpacing spacingWithSize:value.size
+                                              stretchWeight:value.stretchWeight]];
+    [self setDefaultVSpacing:[WeViewSpacing spacingWithSize:value.size
+                                              stretchWeight:value.stretchWeight]];
+    return self;
+}
+
+- (WeViewGridLayout *)setDefaultSpacingStretchWeight:(CGFloat)value
+{
+    if (!self.defaultHSpacing)
+    {
+        self.defaultHSpacing = [[WeViewSpacing alloc] init];
+    }
+    if (!self.defaultVSpacing)
+    {
+        self.defaultVSpacing = [[WeViewSpacing alloc] init];
+    }
+    self.defaultHSpacing.stretchWeight = value;
+    self.defaultVSpacing.stretchWeight = value;
+    return self;
 }
 
 @end

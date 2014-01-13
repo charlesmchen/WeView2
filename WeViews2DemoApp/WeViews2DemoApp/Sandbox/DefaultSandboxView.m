@@ -239,7 +239,7 @@ typedef enum
                }]
      setCropSubviewOverflow:NO];
 
-//    [self.phoneContainer setDebugLayoutOflayouts:YES];
+//    [self.phoneContainer setDebugLayoutOfLayouts:YES];
 //    self.phoneContainer.layer.borderColor = [UIColor yellowColor].CGColor;
 //    self.phoneContainer.layer.borderWidth = 1.f;
 

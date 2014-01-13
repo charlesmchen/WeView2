@@ -12,6 +12,7 @@
 
 #import "UIView+WeView.h"
 #import "WeViewBlockLayout.h"
+#import "WeViewLayout+Subclass.h"
 #import "WeViewMacros.h"
 
 @interface WeViewBlockLayout ()

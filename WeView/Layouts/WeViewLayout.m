@@ -12,6 +12,7 @@
 
 #import "UIView+WeView.h"
 #import "WeView.h"
+#import "WeViewLayout+Subclass.h"
 #import "WeViewLayoutUtils.h"
 #import "WeViewLinearLayout.h"
 #import "WeViewMacros.h"
@@ -76,6 +77,7 @@ int _hSpacing;
 HAlign _hAlign;
 VAlign _vAlign;
 
+BOOL _cropSubviewOverflow;
 CellPositioningMode _cellPositioning;
 
 BOOL _debugLayout;
@@ -220,6 +222,18 @@ BOOL _debugMinSize;
     return self;
 }
 
+- (BOOL)cropSubviewOverflow
+{
+    return _cropSubviewOverflow;
+}
+
+- (WeViewLayout *)setCropSubviewOverflow:(BOOL)value
+{
+    _cropSubviewOverflow = value;
+    [self propertyChanged];
+    return self;
+}
+
 - (CellPositioningMode)cellPositioning
 {
     return _cellPositioning;
@@ -309,6 +323,7 @@ BOOL _debugMinSize;
     self.hSpacing = 0;
     self.hAlign = H_ALIGN_CENTER;
     self.vAlign = V_ALIGN_CENTER;
+    self.cropSubviewOverflow = NO;
     self.cellPositioning = CELL_POSITIONING_NORMAL;
     self.debugLayout = NO;
     self.debugMinSize = NO;
@@ -631,6 +646,7 @@ BOOL _debugMinSize;
     self.hSpacing = layout.hSpacing;
     self.hAlign = layout.hAlign;
     self.vAlign = layout.vAlign;
+    self.cropSubviewOverflow = layout.cropSubviewOverflow;
     self.cellPositioning = layout.cellPositioning;
     self.debugLayout = layout.debugLayout;
     self.debugMinSize = layout.debugMinSize;
