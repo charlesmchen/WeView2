@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3414729A18836AAB0011B8D9 /* WeViewLayout+Subclass.m in Sources */ = {isa = PBXBuildFile; fileRef = 3414729818836AAB0011B8D9 /* WeViewLayout+Subclass.m */; };
 		34195F7D17CA80A90036F8DC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34195F7C17CA80A90036F8DC /* UIKit.framework */; };
 		34195F7F17CA80A90036F8DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34195F7E17CA80A90036F8DC /* Foundation.framework */; };
 		34195F8117CA80A90036F8DC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34195F8017CA80A90036F8DC /* CoreGraphics.framework */; };
@@ -93,7 +92,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3414729818836AAB0011B8D9 /* WeViewLayout+Subclass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WeViewLayout+Subclass.m"; sourceTree = "<group>"; };
 		3414729918836AAB0011B8D9 /* WeViewLayout+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WeViewLayout+Subclass.h"; sourceTree = "<group>"; };
 		34195F7917CA80A90036F8DC /* WeViews2DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeViews2DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34195F7C17CA80A90036F8DC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -446,7 +444,6 @@
 				34C19CB617DD1D4B0025914F /* WeViewGridLayout.h */,
 				34C19CB717DD1D4B0025914F /* WeViewGridLayout.m */,
 				3414729918836AAB0011B8D9 /* WeViewLayout+Subclass.h */,
-				3414729818836AAB0011B8D9 /* WeViewLayout+Subclass.m */,
 				34C19CB817DD1D4B0025914F /* WeViewLayout.h */,
 				34C19CB917DD1D4B0025914F /* WeViewLayout.m */,
 				34446D311882FBA2001327C6 /* WeViewLayoutUtils.h */,
@@ -609,7 +606,6 @@
 				34C19CCC17DD1D4C0025914F /* WeViewLinearLayout.m in Sources */,
 				34C19CCE17DD1D4C0025914F /* WeViewStackLayout.m in Sources */,
 				34C19CCF17DD1D4C0025914F /* UIView+WeView.m in Sources */,
-				3414729A18836AAB0011B8D9 /* WeViewLayout+Subclass.m in Sources */,
 				34C19CD017DD1D4C0025914F /* WeView.m in Sources */,
 				34C19CD617DD1DA30025914F /* WeViewDemoUtils.m in Sources */,
 				34C19D2517E64CCA0025914F /* TutorialCode.m in Sources */,

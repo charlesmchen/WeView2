@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class WeViewLayout;
+#import "WeViewLayout.h"
 
 @interface WeViewLayout (Subclass)
 
