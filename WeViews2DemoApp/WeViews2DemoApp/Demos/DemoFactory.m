@@ -746,9 +746,8 @@ UIColor *UIColorRGB(unsigned int rgb)
         UIImageView *background = [[UIImageView alloc] initWithImage:image];
         WeView *imageView = [[WeView alloc] init];
         imageView.debugName = @"imageView";
-        [[[imageView addSubviewWithCustomLayout:[[background setStretches]
-                                                 setIgnoreDesiredSize]]
-          setCellPositioning:CELL_POSITIONING_FILL_W_ASPECT_RATIO]
+        [[imageView addSubviewWithFillLayoutWAspectRatio:[[background setStretches]
+                                                          setIgnoreDesiredSize]]
          setVAlign:V_ALIGN_TOP];
         // The background will exceed the imageView's bounds, so we need to clip.
         imageView.clipsToBounds = YES;
@@ -980,9 +979,8 @@ UIColor *UIColorRGB(unsigned int rgb)
 {
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imagePath]];
     WeView *subpanel = [[WeView alloc] init];
-    [[[subpanel addSubviewWithCustomLayout:[[imageView setStretches]
-                                              setIgnoreDesiredSize]]
-      setCellPositioning:CELL_POSITIONING_FILL_W_ASPECT_RATIO]
+    [[subpanel addSubviewWithFillLayoutWAspectRatio:[[imageView setStretches]
+                                                     setIgnoreDesiredSize]]
      setVAlign:V_ALIGN_TOP];
     [subpanel setFixedDesiredSize:CGSizeMake(120, 120)];
     subpanel.clipsToBounds = YES;

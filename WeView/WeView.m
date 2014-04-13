@@ -14,6 +14,7 @@
 #import "WeView.h"
 #import "WeViewFlowLayout.h"
 #import "WeViewGridLayout.h"
+#import "WeViewLayout+Subclass.h"
 #import "WeViewLayout.h"
 #import "WeViewLinearLayout.h"
 #import "WeViewMacros.h"

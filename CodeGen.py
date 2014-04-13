@@ -64,7 +64,7 @@ def replaceBlock(filePath, blockStartKey, blockEndKey, block):
 
 
 class Property:
-    def __init__(self, name, typeName, defaultValue=None, asserts=None, comments=None, extraSetterLine=None, doubleHeight=False):
+    def __init__(self, name, typeName, defaultValue=None, asserts=None, comments=None, extraSetterLine=None, doubleHeight=False, omitFromHeader=False):
         self.name = name
         self.typeName = typeName
         self.defaultValue = defaultValue
@@ -72,6 +72,7 @@ class Property:
         self.comments = comments
         self.extraSetterLine = extraSetterLine
         self.doubleHeight = doubleHeight
+        self.omitFromHeader = omitFromHeader
 
 
     def UpperName(self):
@@ -230,17 +231,20 @@ layout_propertyGroups = (
                   #       ),
                   #  ),
                   (
-
-
+                   Property('cropSubviewOverflow', 'BOOL',
+                       comments=(
+                           'By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView overflows its bounds, subviews are cropped to fit inside the available space.',
+                           'If cropSubviewOverflow is NO, no cropping occurs and subviews may overflow the bounds of their superview.',
+                           ),
+                       ),
                    Property('cellPositioning', 'CellPositioningMode',
                        comments=(
-                           'By default, cellPositioning has a value of CELL_POSITIONING_NORMAL and cell size is based on their desired size and they are aligned within their layout cell.',
-                           'If cellPositioning is set to CELL_POSITIONING_FILL, subviews fill the entire bounds of their layout cell, regardless of their desired size.',
-                           'If cellPositioning is set to CELL_POSITIONING_FILL_W_ASPECT_RATIO, subviews fill the entire bounds of their layout cell but retain the aspect ratio of their desired size.',
-                           'If cellPositioning is set to CELL_POSITIONING_FIT_W_ASPECT_RATIO, subviews are "fit" inside the bounds of their layout cell and retain the aspect ratio of their desired size.',
+                           'By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView overflows its bounds, subviews are cropped to fit inside the available space.',
+                           'If cropSubviewOverflow is NO, no cropping occurs and subviews may overflow the bounds of their superview.',
                            ),
-                        ),
-                   ),
+                       omitFromHeader=True,
+                       ),
+                  ),
                   (
                    Property('debugLayout', 'BOOL',
                         ),
@@ -748,6 +752,8 @@ def generatePropertiesForHeader(propertyGroups, customAccessors, returnType, fil
     for propertyGroup in propertyGroups:
         hasGroup = False
         for property in propertyGroup:
+            if property.omitFromHeader:
+                continue
             hasGroup = True
             if property.comments:
                 lines.extend(FormatComments(property.comments))

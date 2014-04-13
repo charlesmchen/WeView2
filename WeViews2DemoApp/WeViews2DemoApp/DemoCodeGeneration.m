@@ -14,6 +14,7 @@
 #import "WeViewBlockLayout.h"
 #import "WeViewFlowLayout.h"
 #import "WeViewGridLayout.h"
+#import "WeViewLayout+Subclass.h"
 #import "WeViewLinearLayout.h"
 #import "WeViewStackLayout.h"
 

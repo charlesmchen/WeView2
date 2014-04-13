@@ -19,6 +19,26 @@
 
 - (void)propertyChanged;
 
+#pragma mark - Cell Positioning
+
+// By default, cellPositioning has a value of CELL_POSITIONING_NORMAL and cell size is based on
+// their desired size and they are aligned within their layout
+// cell.
+//
+// If cellPositioning is set to CELL_POSITIONING_FILL, subviews fill the entire bounds of their
+// layout cell, regardless of their desired
+// size.
+//
+// If cellPositioning is set to CELL_POSITIONING_FILL_W_ASPECT_RATIO, subviews fill the entire
+// bounds of their layout cell but retain the aspect ratio of their desired
+// size.
+//
+// If cellPositioning is set to CELL_POSITIONING_FIT_W_ASPECT_RATIO, subviews are "fit" inside
+// the bounds of their layout cell and retain the aspect ratio of their desired
+// size.
+- (CellPositioningMode)cellPositioning;
+- (WeViewLayout *)setCellPositioning:(CellPositioningMode)value;
+
 #pragma mark - Utility Methods
 
 - (void)positionSubview:(UIView *)subview

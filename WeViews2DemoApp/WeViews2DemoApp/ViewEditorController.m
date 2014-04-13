@@ -15,6 +15,7 @@
 #import "UIView+WeView.h"
 #import "ViewEditorController.h"
 #import "WeViewDemoConstants.h"
+#import "WeViewLayout+Subclass.h"
 #import "WeViewMacros.h"
 
 @interface WeView (ViewEditorController)
