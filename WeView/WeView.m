@@ -2,7 +2,7 @@
 //  WeView.m
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -286,29 +286,19 @@
     return layout;
 }
 
-- (WeViewLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
-                                columnCount:(int)columnCount
-                              isGridUniform:(BOOL)isGridUniform
-                              stretchPolicy:(GridStretchPolicy)stretchPolicy
+- (WeViewGridLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
+                                    columnCount:(int)columnCount
 {
-    WeViewGridLayout *layout = [WeViewGridLayout gridLayoutWithColumns:columnCount
-                                                         isGridUniform:isGridUniform
-                                                         stretchPolicy:stretchPolicy];
+    WeViewGridLayout *layout = [WeViewGridLayout gridLayoutWithMaxColumnCount:columnCount];
     [self addSubviews:subviews
            withLayout:layout];
     return layout;
 }
 
-- (WeViewLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
-                                columnCount:(int)columnCount
-                              isGridUniform:(BOOL)isGridUniform
-                              stretchPolicy:(GridStretchPolicy)stretchPolicy
-                               cellSizeHint:(CGSize)cellSizeHint
+- (WeViewGridLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
+                                       rowCount:(int)rowCount
 {
-    WeViewGridLayout *layout = [WeViewGridLayout gridLayoutWithColumns:columnCount
-                                                         isGridUniform:isGridUniform
-                                                         stretchPolicy:stretchPolicy
-                                                          cellSizeHint:cellSizeHint];
+    WeViewGridLayout *layout = [WeViewGridLayout gridLayoutWithMaxRowCount:rowCount];
     [self addSubviews:subviews
            withLayout:layout];
     return layout;
@@ -392,12 +382,10 @@
 {
     // This method should only be used by the demo.
     return [self replaceLayout:oldLayout
-                    withLayout:[WeViewGridLayout gridLayoutWithColumns:2
-                                                         isGridUniform:NO
-                                                         stretchPolicy:GRID_STRETCH_POLICY_STRETCH_SPACING]];
+                    withLayout:[WeViewGridLayout gridLayoutWithMaxColumnCount:2]];
 }
 
-- (void)setDebugLayoutOflayouts:(BOOL)value
+- (void)setDebugLayoutOfLayouts:(BOOL)value
 {
     for (WeViewLayout *layout in [self layouts])
     {
@@ -405,7 +393,7 @@
     }
 }
 
-- (void)setDebugMinSizeOflayouts:(BOOL)value
+- (void)setDebugMinSizeOfLayouts:(BOOL)value
 {
     for (WeViewLayout *layout in [self layouts])
     {

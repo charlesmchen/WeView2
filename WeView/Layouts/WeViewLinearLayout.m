@@ -2,7 +2,7 @@
 //  WeViewLinearLayout.m
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -11,6 +11,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "UIView+WeView.h"
+#import "WeViewLayout+Subclass.h"
+#import "WeViewLayoutUtils.h"
 #import "WeViewLinearLayout.h"
 #import "WeViewMacros.h"
 
@@ -49,36 +51,6 @@
     WeViewLinearLayout *layout = [[WeViewLinearLayout alloc] init];
     layout.isHorizontal = NO;
     return layout;
-}
-
-- (CGFloat)sumFloats:(NSArray *)values
-{
-    CGFloat result = 0;
-    for (NSNumber *value in values)
-    {
-        result += [value floatValue];
-    }
-    return result;
-}
-
-- (int)sumInts:(NSArray *)values
-{
-    CGFloat result = 0;
-    for (NSNumber *value in values)
-    {
-        result += [value intValue];
-    }
-    return result;
-}
-
-- (CGFloat)maxFloats:(NSArray *)values
-{
-    CGFloat result = 0;
-    for (NSNumber *value in values)
-    {
-        result = MAX(result, [value floatValue]);
-    }
-    return result;
 }
 
 - (NSMutableArray *)getSpacings:(NSArray *)subviews
@@ -153,7 +125,7 @@
                                                   horizontal:horizontal];
     CGFloat maxCrossSize = horizontal ? maxTotalSubviewsSize.height : maxTotalSubviewsSize.width;
     CGFloat maxTotalAxisSize = horizontal ? maxTotalSubviewsSize.width : maxTotalSubviewsSize.height;
-    CGFloat totalAxisSize = [self sumFloats:cellAxisSizes];
+    CGFloat totalAxisSize = WeViewSumFloats(cellAxisSizes);
     CGFloat extraAxisSpace = maxTotalAxisSize - totalAxisSize;
 
     if (extraAxisSpace < 0 && cropSubviewOverflow)
@@ -161,11 +133,11 @@
         // Crop from subviews with axis stretch first.
         if (hasCellWithAxisStretch)
         {
-            [self distributeAdjustment:-extraAxisSpace
-                          acrossValues:cellAxisSizes
-                           withWeights:cellStretchWeights
-                              withSign:-1.f
-                           withMaxZero:YES];
+            [WeViewLayout distributeAdjustment:-extraAxisSpace
+                                  acrossValues:cellAxisSizes
+                                   withWeights:cellStretchWeights
+                                      withSign:-1.f
+                                   withMaxZero:YES];
 
             if (horizontal)
             {
@@ -176,18 +148,18 @@
                                 maxCrossSize:maxCrossSize];
             }
 
-            totalAxisSize = [self sumFloats:cellAxisSizes];
+            totalAxisSize = WeViewSumFloats(cellAxisSizes);
             extraAxisSpace = maxTotalAxisSize - totalAxisSize;
         }
 
         if (extraAxisSpace < 0)
         {
             // If we still have underflow, crop all subviews.
-            [self distributeAdjustment:-extraAxisSpace
-                          acrossValues:cellAxisSizes
-                           withWeights:cellAxisSizes
-                              withSign:-1.f
-                           withMaxZero:YES];
+            [WeViewLayout distributeAdjustment:-extraAxisSpace
+                                  acrossValues:cellAxisSizes
+                                   withWeights:cellAxisSizes
+                                      withSign:-1.f
+                                   withMaxZero:YES];
 
             if (horizontal)
             {
@@ -203,11 +175,11 @@
     {
         if (hasCellWithAxisStretch)
         {
-            [self distributeAdjustment:extraAxisSpace
-                          acrossValues:cellAxisSizes
-                           withWeights:cellStretchWeights
-                              withSign:+1.f
-                           withMaxZero:YES];
+            [WeViewLayout distributeAdjustment:extraAxisSpace
+                                  acrossValues:cellAxisSizes
+                                   withWeights:cellStretchWeights
+                                      withSign:+1.f
+                                   withMaxZero:YES];
 
             if (horizontal)
             {
@@ -218,19 +190,19 @@
                                 maxCrossSize:maxCrossSize];
             }
         }
-        else if (self.spacingStretches && isLayingOut)
-        {
-            NSMutableArray *spacingStretchWeights = [NSMutableArray array];
-            for (id spacing in spacings)
-            {
-                [spacingStretchWeights addObject:@(1.f)];
-            }
-            [self distributeAdjustment:extraAxisSpace
-                          acrossValues:spacings
-                           withWeights:spacingStretchWeights
-                              withSign:+1.f
-                           withMaxZero:NO];
-        }
+//        else if (self.spacingStretches && isLayingOut)
+//        {
+//            NSMutableArray *spacingStretchWeights = [NSMutableArray array];
+//            for (id spacing in spacings)
+//            {
+//                [spacingStretchWeights addObject:@(1.f)];
+//            }
+//            [WeViewLayout distributeAdjustment:extraAxisSpace
+//                          acrossValues:spacings
+//                           withWeights:spacingStretchWeights
+//                              withSign:+1.f
+//                           withMaxZero:NO];
+//        }
     }
 
     if (cropSubviewOverflow)
@@ -246,7 +218,7 @@
                       spacings:(NSArray *)spacings
                     horizontal:(BOOL)horizontal
 {
-    int totalSpacing = [self sumInts:spacings];
+    int totalSpacing = WeViewSumInts(spacings);
     CGSize totalSpacingSize = CGSizeMake(horizontal ? totalSpacing : 0.f,
                                          horizontal ? 0.f : totalSpacing);
     return CGSizeSubtract(contentSize,
@@ -362,9 +334,9 @@
                      indent:indent+2];
     }
 
-    CGFloat largestCrossSize = [self maxFloats:cellCrossSizes];
-    CGFloat totalAxisSize = [self sumFloats:cellAxisSizes];
-    int totalSpacing = [self sumInts:spacings];
+    CGFloat largestCrossSize = WeViewMaxFloats(cellCrossSizes);
+    CGFloat totalAxisSize = WeViewSumFloats(cellAxisSizes);
+    int totalSpacing = WeViewSumInts(spacings);
     CGSize totalSpacingSize = CGSizeMake(horizontal ? totalSpacing : 0.f,
                                          horizontal ? 0.f : totalSpacing);
 
@@ -595,8 +567,8 @@
               spacings);
     }
 
-    CGFloat bodyCrossSize = [self maxFloats:cellCrossSizes];
-    CGFloat totalAxisSize = [self sumFloats:cellAxisSizes];
+    CGFloat bodyCrossSize = WeViewMaxFloats(cellCrossSizes);
+    CGFloat totalAxisSize = WeViewSumFloats(cellAxisSizes);
 
     if (hasCellWithAxisStretch)
     {

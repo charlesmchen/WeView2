@@ -2,7 +2,7 @@
 //  SidebarViewController.m
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -43,6 +43,7 @@
 - (void)addWrappedViewController:(UIViewController *)viewController
 {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    navigationController.navigationBar.translucent = NO;
     [self addChildViewController:navigationController];
 }
 
@@ -70,7 +71,7 @@
     [viewEditorWrapper.view setStretchWeight:2.f];
 
     [self.rootView addSubviewsWithVerticalLayout:subviews];
-//    [self.rootView setDebugLayoutOflayouts:YES];
+//    [self.rootView setDebugLayoutOfLayouts:YES];
 }
 
 - (void)didReceiveMemoryWarning

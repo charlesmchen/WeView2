@@ -8,26 +8,30 @@ if (not os.path.exists(folderPath) or
     not os.path.isdir(folderPath)):
     raise Exception('Invalid folderPath: %s' % folderPath)
 
-hFilePath = os.path.join(folderPath, 'UIView+WeView.h')
-mFilePath = os.path.join(folderPath, 'UIView+WeView.m')
+viewCategoryhFilePath = os.path.join(folderPath, 'UIView+WeView.h')
+viewCategorymFilePath = os.path.join(folderPath, 'UIView+WeView.m')
 viewInfohFilePath = os.path.join(folderPath, 'WeViewViewInfo.h')
 viewInfomFilePath = os.path.join(folderPath, 'WeViewViewInfo.m')
-viewInfohFilePath = mFilePath
-viewInfomFilePath = mFilePath
+viewInfohFilePath = viewCategorymFilePath
+viewInfomFilePath = viewCategorymFilePath
 
 ViewEditorController_hFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.h')
 ViewEditorController_mFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.m')
 WeViewLayout_hFilePath = os.path.join(folderPath, 'Layouts', 'WeViewLayout.h')
 WeViewLayout_mFilePath = os.path.join(folderPath, 'Layouts', 'WeViewLayout.m')
+WeViewGridLayout_hFilePath = os.path.join(folderPath, 'Layouts', 'WeViewGridLayout.h')
+WeViewGridLayout_mFilePath = os.path.join(folderPath, 'Layouts', 'WeViewGridLayout.m')
 DemoCodeGeneration_mFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'DemoCodeGeneration.m')
 
-for filePath in (hFilePath,
-                    mFilePath,
+for filePath in (viewCategoryhFilePath,
+                    viewCategorymFilePath,
                     viewInfohFilePath, viewInfomFilePath,
                     ViewEditorController_hFilePath,
                     ViewEditorController_mFilePath,
                     WeViewLayout_hFilePath,
                     WeViewLayout_mFilePath,
+                    WeViewGridLayout_hFilePath,
+                    WeViewGridLayout_mFilePath,
                      ):
     if (not os.path.exists(filePath) or
         not os.path.isfile(filePath)):
@@ -60,13 +64,12 @@ def replaceBlock(filePath, blockStartKey, blockEndKey, block):
 
 
 class Property:
-    def __init__(self, name, typeName, defaultValue=None, asserts=None, comments=None, layoutProperty=False, extraSetterLine=None, doubleHeight=False):
+    def __init__(self, name, typeName, defaultValue=None, asserts=None, comments=None, extraSetterLine=None, doubleHeight=False):
         self.name = name
         self.typeName = typeName
         self.defaultValue = defaultValue
         self.asserts = asserts
         self.comments = comments
-        self.layoutProperty = layoutProperty
         self.extraSetterLine = extraSetterLine
         self.doubleHeight = doubleHeight
 
@@ -188,51 +191,47 @@ layout_propertyGroups = (
                   (
                    Property('leftMargin', 'CGFloat',
                        comments='The left margin of the contents of this view.',
-                       layoutProperty=True, ),
+                        ),
                    Property('rightMargin', 'CGFloat',
                        comments='The right margin of the contents of this view.',
-                       layoutProperty=True, ),
+                        ),
                    Property('topMargin', 'CGFloat',
                        comments='The top margin of the contents of this view.',
-                       layoutProperty=True, ),
+                        ),
                    Property('bottomMargin', 'CGFloat',
                        comments='The bottom margin of the contents of this view.',
-                       layoutProperty=True, ),
+                        ),
                    ),
                   (
                    Property('vSpacing', 'int',
                        comments='The vertical spacing between subviews of this view.',
-                       layoutProperty=True, ),
+                        ),
                    Property('hSpacing', 'int',
                        comments='The horizontal spacing between subviews of this view.',
-                        layoutProperty=True, ),
+                         ),
                    ),
                   (
                    Property('hAlign', 'HAlign',
                        comments='The horizontal alignment of this layout.',
-                       layoutProperty=True, ),
+                        ),
                    Property('vAlign', 'VAlign',
                        comments='The vertical alignment of this layout.',
-                        layoutProperty=True, ),
+                         ),
                    ),
+                  # (
+                  #  Property('spacingStretches', 'BOOL',
+                  #      comments=(
+                  #          'If YES, the spacings between subviews will be stretched if there is any extra space.',
+                  #          'Extra space will be distributed evenly between the spacings.',
+                  #          'Layouts will prefer to stretch subviews if possible.  Spacings will only be stretched if there are no stretching subviews to receive the extra space.',
+                  #          'The spacings will not be cropped if the layout cannot fit its subviews within their superview, even if this property is YES.'
+                  #          'Only applies to the horizontal, vertical and flow layouts.  In a flow layout where spacingStretches is YES, the subviews are justified.',
+                  #          ),
+                  #       ),
+                  #  ),
                   (
-                   Property('spacingStretches', 'BOOL',
-                       comments=(
-                           'If YES, the spacings between subviews will be stretched if there is any extra space.',
-                           'Extra space will be distributed evenly between the spacings.',
-                           'Layouts will prefer to stretch subviews if possible.  Spacings will only be stretched if there are no stretching subviews to receive the extra space.',
-                           'The spacings will not be cropped if the layout cannot fit its subviews within their superview, even if this property is YES.'
-                           'Only applies to the horizontal, vertical and flow layouts.  In a flow layout where spacingStretches is YES, the subviews are justified.',
-                           ),
-                       layoutProperty=True, ),
-                   ),
-                  (
-                   Property('cropSubviewOverflow', 'BOOL',
-                       comments=(
-                           'By default, if the content size (ie. the total subview size plus margins and spacing) of a WeView overflows its bounds, subviews are cropped to fit inside the available space.',
-                           'If cropSubviewOverflow is NO, no cropping occurs and subviews may overflow the bounds of their superview.',
-                           ),
-                       layoutProperty=True, ),
+
+
                    Property('cellPositioning', 'CellPositioningMode',
                        comments=(
                            'By default, cellPositioning has a value of CELL_POSITIONING_NORMAL and cell size is based on their desired size and they are aligned within their layout cell.',
@@ -240,15 +239,128 @@ layout_propertyGroups = (
                            'If cellPositioning is set to CELL_POSITIONING_FILL_W_ASPECT_RATIO, subviews fill the entire bounds of their layout cell but retain the aspect ratio of their desired size.',
                            'If cellPositioning is set to CELL_POSITIONING_FIT_W_ASPECT_RATIO, subviews are "fit" inside the bounds of their layout cell and retain the aspect ratio of their desired size.',
                            ),
-                       layoutProperty=True, ),
+                        ),
                    ),
                   (
                    Property('debugLayout', 'BOOL',
-                       layoutProperty=True, ),
+                        ),
                    Property('debugMinSize', 'BOOL',
-                       layoutProperty=True, ),
+                        ),
                    ),
 
+                  )
+
+gridLayout_propertyGroups = (
+                  (
+                   Property('leftMarginInfo', 'WeViewSpacing *',
+                       comments=('Optional.',
+                           'The left margin of the contents of this view.',
+                           ),
+                        ),
+                   Property('rightMarginInfo', 'WeViewSpacing *',
+                       comments=('Optional.',
+                           'The right margin of the contents of this view.',
+                           ),
+                        ),
+                   Property('topMarginInfo', 'WeViewSpacing *',
+                       comments=('Optional.',
+                           'The top margin of the contents of this view.',
+                           ),
+                        ),
+                   Property('bottomMarginInfo', 'WeViewSpacing *',
+                       comments=('Optional.',
+                           'The bottom margin of the contents of this view.',
+                           ),
+                        ),
+                   ),
+                  (
+                   Property('defaultRowSizing', 'WeViewGridSizing *',
+                       comments=('Optional.',
+                           'The default sizing behavior of all rows.  Only applies to rows for which no row-specific sizing behavior has been specified with rowSizings.',
+                           ),
+                       defaultValue="[[WeViewGridSizing alloc] init]",
+                        ),
+                   Property('defaultColumnSizing', 'WeViewGridSizing *',
+                       comments=('Optional.',
+                           'The default sizing behavior of all columns.  Only applies to columns for which no column-specific sizing behavior has been specified with columnSizings.',
+                           ),
+                       defaultValue="[[WeViewGridSizing alloc] init]",
+                        ),
+                   ),
+                  (
+                   Property('rowSizings', 'NSArray *',
+                       comments=(
+                            'Optional.',
+                            'Row-specific sizing behavior.',
+                            'All contents must be instances of WeViewGridSizing.',
+                            'The first element of rowSizings applies to the first (top-most row), etc.',
+                            'Does not need to exactly match the number of rows.  defaultRowSizing applies to any rows without a corresponding element in rowSizings.',
+                           ),
+                       defaultValue="nil",
+                        ),
+                   Property('columnSizings', 'NSArray *',
+                       comments=(
+                            'Optional.',
+                            'Column-specific sizing behavior.',
+                            'All contents must be instances of WeViewGridSizing.',
+                            'The first element of columnSizings applies to the first (left-most column), etc.',
+                            'Does not need to exactly match the number of columns.  defaultColumnSizing applies to any columns without a corresponding element in columnSizings.',
+                           ),
+                       defaultValue="nil",
+                        ),
+                   ),
+                  (
+                   Property('defaultHSpacing', 'WeViewSpacing *',
+                       comments=('Optional.',
+                           'The default horizontal spacing between subviews of this view.',
+                           ),
+                       defaultValue="[[WeViewSpacing alloc] init]",
+                        ),
+                   Property('defaultVSpacing', 'WeViewSpacing *',
+                       comments=('Optional.',
+                           'The default vertical spacing between subviews of this view.',
+                           ),
+                       defaultValue="[[WeViewSpacing alloc] init]",
+                        ),
+                   ),
+                  (
+                   Property('rowSpacings', 'NSArray *',
+                       comments=(
+                            'Optional.',
+                            'Specifies the spacing between specific rows.',
+                            'All contents must be instances of WeViewSpacing.',
+                            'The first element of rowSpacings applies to the spacing between the first and second rows, etc.',
+                            'Does not need to exactly match the number of spacings between rows.  defaultVSpacing applies to any spacings without a corresponding element in rowSpacings.',
+                           ),
+                       defaultValue="[[WeViewSpacing alloc] init]",
+                        ),
+                   Property('columnSpacings', 'NSArray *',
+                       comments=(
+                            'Optional.',
+                            'Specifies the spacing between specific columns.',
+                            'All contents must be instances of WeViewSpacing.',
+                            'The first element of columnSpacings applies to the spacing between the first and second columns, etc.',
+                            'Does not need to exactly match the number of spacings between columns.  defaultHSpacing applies to any spacings without a corresponding element in columnSpacings.',
+                           ),
+                       defaultValue="[[WeViewSpacing alloc] init]",
+                        ),
+                   ),
+                  (
+                   Property('isRowHeightUniform', 'BOOL',
+                       comments=(
+                            'If YES, all rows will have the same height - the height of the tallest row.',
+                            'Default is NO.',
+                           ),
+                       defaultValue="[[WeViewSpacing alloc] init]",
+                        ),
+                   Property('isColumnWidthUniform', 'BOOL',
+                       comments=(
+                            'If YES, all columns will have the same width - the width of the widest column.',
+                            'Default is NO.',
+                           ),
+                       defaultValue="[[WeViewSpacing alloc] init]",
+                        ),
+                   ),
                   )
 
 def FormatList(values):
@@ -308,14 +420,15 @@ def UpperName(name):
     return name[0].upper() + name[1:]
 
 class CustomAccessor:
-    def __init__(self, name, typeName, propertyList, setterValues=None, getterValue=None, comments=None, layoutProperty=False):
+    def __init__(self, name, typeName, propertyList, setterValues=None, getterValue=None, comments=None, setterStatements=None, skipCodeGenSimplification=False):
         self.name = name
         self.typeName = typeName
         self.propertyList = propertyList
+        self.setterStatements = setterStatements
         self.setterValues = setterValues
         self.getterValue = getterValue
         self.comments = comments
-        self.layoutProperty = layoutProperty
+        self.skipCodeGenSimplification = skipCodeGenSimplification
 
     def propertyNames(self):
         return self.propertyList
@@ -340,68 +453,89 @@ view_customAccessors = (
                     )
 
 layout_customAccessors = (
-                    CustomAccessor('hMargin', 'CGFloat', ('leftMargin', 'rightMargin',), layoutProperty=True, ),
-                    CustomAccessor('vMargin', 'CGFloat', ('topMargin', 'bottomMargin',), layoutProperty=True, ),
-                    CustomAccessor('margin', 'CGFloat', ('leftMargin', 'rightMargin', 'topMargin', 'bottomMargin',), layoutProperty=True, ),
+                    CustomAccessor('hMargin', 'CGFloat', ('leftMargin', 'rightMargin',),  ),
+                    CustomAccessor('vMargin', 'CGFloat', ('topMargin', 'bottomMargin',),  ),
+                    CustomAccessor('margin', 'CGFloat', ('leftMargin', 'rightMargin', 'topMargin', 'bottomMargin',),  ),
 
-                    CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',), layoutProperty=True, ),
+                    CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',),  ),
+                    )
+
+gridLayout_customAccessors = (
+
+                    # CustomAccessor('leftMargin', 'int', ('leftMarginInfo',),
+                    #     getterValue='self.leftMarginInfo.size',
+                    #     setterStatements=('\tself.leftMarginInfo.size = value;', ),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
+                    # CustomAccessor('rightMargin', 'int', ('rightMarginInfo',),
+                    #     getterValue='self.rightMarginInfo.size',
+                    #     setterStatements=('\tself.rightMarginInfo.size = value;', ),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
+                    # CustomAccessor('topMargin', 'int', ('topMarginInfo',),
+                    #     getterValue='self.topMarginInfo.size',
+                    #     setterStatements=('\tself.topMarginInfo.size = value;', ),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
+                    # CustomAccessor('bottomMargin', 'int', ('bottomMarginInfo',),
+                    #     getterValue='self.bottomMarginInfo.size',
+                    #     setterStatements=('\tself.bottomMarginInfo.size = value;', ),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
+                    #
+                    # CustomAccessor('leftMarginStretchWeight', 'CGFloat', ('leftMarginInfo',),
+                    #     getterValue='self.leftMarginInfo.stretchWeight',
+                    #     setterStatements=('\tself.leftMarginInfo.stretchWeight = value;', ),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
+                    # CustomAccessor('rightMarginStretchWeight', 'CGFloat', ('rightMarginInfo',),
+                    #     getterValue='self.rightMarginInfo.stretchWeight',
+                    #     setterStatements=('\tself.rightMarginInfo.stretchWeight = value;', ),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
+                    # CustomAccessor('topMarginStretchWeight', 'CGFloat', ('topMarginInfo',),
+                    #     getterValue='self.topMarginInfo.stretchWeight',
+                    #     setterStatements=('\tself.topMarginInfo.stretchWeight = value;', ),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
+                    # CustomAccessor('bottomMarginStretchWeight', 'CGFloat', ('bottomMarginInfo',),
+                    #     getterValue='self.bottomMarginInfo.stretchWeight',
+                    #     setterStatements=('\tself.bottomMarginInfo.stretchWeight = value;', ),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
+
+                    # CustomAccessor('hMargin', 'CGFloat', ('leftMargin', 'rightMargin',),  ),
+                    # CustomAccessor('vMargin', 'CGFloat', ('topMargin', 'bottomMargin',),  ),
+                    # CustomAccessor('margin', 'CGFloat', ('leftMargin', 'rightMargin', 'topMargin', 'bottomMargin',),  ),
+                    #
+                    # # CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',),  ),
+                    # CustomAccessor('defaultSpacing', 'WeViewSpacing *', ('defaultHSpacing', 'defaultVSpacing',),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
+                    # CustomAccessor('hSpacing', 'int', ('defaultHSpacing',),
+                    #     getterValue='self.defaultHSpacing.size',
+                    #     setterStatements=('\tself.defaultHSpacing.size = value;', ),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
+                    # CustomAccessor('vSpacing', 'int', ('defaultVSpacing',),
+                    #     getterValue='self.defaultVSpacing.size',
+                    #     setterStatements=('\tself.defaultVSpacing.size = value;', ),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
+                    # CustomAccessor('spacing', 'int', ('hSpacing', 'vSpacing',),
+                    #     skipCodeGenSimplification=True,
+                    #      ),
                     )
 
 # --------
 
-lines = []
-lines.append('')
-lines.append('')
-for propertyGroup in view_propertyGroups:
-    for property in propertyGroup:
-        if property.comments:
-            lines.extend(FormatComments(property.comments))
-        lines.append('@property (nonatomic) %s %s;' % (property.typeName, property.name, ))
-    lines.append('')
-
-for customAccessor in view_customAccessors:
+def defaultCommentForCustomAccessor(customAccessor):
     comments = []
-    comments.append('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames()))
-    lines.extend(FormatComments(comments))
-    # Getter
-    if customAccessor.getterValue:
-        lines.append('- (%s)%s;' % (customAccessor.typeName, customAccessor.name, ))
-    # Setter
-    lines.append('- (void)set%s:(%s)value;\n' % (customAccessor.UpperName(), customAccessor.typeName, ))
-lines.append('')
-block = '\n'.join(lines)
-
-replaceBlock(viewInfohFilePath, 'View Info H Start', 'View Info H End', block)
-
-# --------
-
-lines = []
-lines.append('')
-lines.append('')
-for propertyGroup in view_propertyGroups:
-    for property in propertyGroup:
-        if property.comments:
-            lines.extend(FormatComments(property.comments))
-        # Getter
-        lines.append('- (%s)%s;' % (property.typeName, property.name, ))
-        # Setter
-        lines.append('- (UIView *)set%s:(%s)value;' % (property.UpperName(), property.typeName, ))
-
-    lines.append('')
-
-for customAccessor in view_customAccessors:
-    comments = []
-    comments.append('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames()))
-    lines.extend(FormatComments(comments))
-    # Getter
-    if customAccessor.getterValue:
-        lines.append('- (%s)%s;' % (customAccessor.typeName, customAccessor.name, ))
-    # Setter
-    lines.append('- (UIView *)set%s:(%s)value;\n' % (customAccessor.UpperName(), customAccessor.typeName, ))
-lines.append('')
-block = '\n'.join(lines)
-
-replaceBlock(hFilePath, 'Start', 'End', block)
+    if len(customAccessor.propertyNames()) > 1:
+        comments.append('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames()))
+    else:
+        comments.append('Convenience accessor(s) for the %s property.' % FormatList(customAccessor.propertyNames()))
+    return comments
 
 # --------
 
@@ -452,73 +586,6 @@ lines.append('')
 block = '\n'.join(lines)
 
 replaceBlock(viewInfomFilePath, 'View Info M Start', 'View Info M End', block)
-
-# --------
-
-lines = []
-lines.append('')
-for propertyGroup in view_propertyGroups:
-    for property in propertyGroup:
-        asserts = ''
-        if property.asserts:
-            if type(property.asserts) == types.StringType:
-                asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
-                pass
-            else:
-                raise Exception('Unknown asserts: %s' % str(property.asserts))
-        defaultValue = ''
-        if property.defaultValue:
-            defaultValue = ' defaultValue:%s' % property.defaultValue
-        lines.append('''
-- (%s)%s
-{
-    return [self.viewInfo %s];
-}
-
-- (UIView *)set%s:(%s)value
-{
-    [self.viewInfo set%s:value];
-    [self.superview setNeedsLayout];
-    return self;
-}''' % (property.typeName, property.name, property.name, property.UpperName(), property.typeName, property.UpperName(), ))
-
-for customAccessor in view_customAccessors:
-    asserts = ''
-    #     if pseudoProperty.asserts:
-    #         if type(pseudoProperty.asserts) == types.StringType:
-    #             asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
-    #             pass
-    #         else:
-    #             raise Exception('Unknown asserts: %s' % str(property.asserts))
-
-    # Getter
-    if customAccessor.getterValue:
-        lines.append('''
-- (%s)%s
-{
-    return [self.viewInfo %s];
-}''' % (customAccessor.typeName, customAccessor.name, customAccessor.name, ))
-    # Setter
-    subsetters = []
-    for index, propertyName in enumerate(customAccessor.propertyNames()):
-        valueName = 'value'
-        if customAccessor.setterValues:
-            valueName += customAccessor.setterValues[index]
-        subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
-
-    lines.append('''
-- (UIView *)set%s:(%s)value
-{
-%s
-    [self.superview setNeedsLayout];
-    return self;
-}''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
-
-lines.append('')
-lines.append('')
-block = '\n'.join(lines)
-
-replaceBlock(mFilePath, 'Accessors Start', 'Accessors End', block)
 
 # --------
 
@@ -627,6 +694,32 @@ def createViewEditorControllerParameters(propertyGroups, blockStartKey, blockEnd
                                  ]
                                  doubleHeight:YES],
                                  ''' % (property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, ) )
+            # elif property.typeName == 'WeViewSpacing *':
+            #     lines.append('''
+            #                     [ViewParameterSimple create:@"%s"
+            #                                     getterBlock:^NSString *(id item) {
+            #                                         return FormatCellPositioningMode(%s.%s);
+            #                                     }
+            #                                         setters:@[
+            #                      [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_NORMAL)
+            #                                      setterBlock:^(id item) {
+            #                                          %s.%s = CELL_POSITIONING_NORMAL;
+            #                                      }],
+            #                      [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FILL)
+            #                                      setterBlock:^(id item) {
+            #                                          %s.%s = CELL_POSITIONING_FILL;
+            #                                      }],
+            #                      [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FILL_W_ASPECT_RATIO)
+            #                                      setterBlock:^(id item) {
+            #                                          %s.%s = CELL_POSITIONING_FILL_W_ASPECT_RATIO;
+            #                                      }],
+            #                      [ViewParameterSetter create:FormatCellPositioningMode(CELL_POSITIONING_FIT_W_ASPECT_RATIO)
+            #                                      setterBlock:^(id item) {
+            #                                          %s.%s = CELL_POSITIONING_FIT_W_ASPECT_RATIO;
+            #                                      }],
+            #                      ]
+            #                      doubleHeight:YES],
+            #                      ''' % (property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, itemCast, property.name, ) )
             else:
                 print 'Unknown typeName(1):', property.typeName, property.name
 
@@ -643,130 +736,152 @@ def createViewEditorControllerParameters(propertyGroups, blockStartKey, blockEnd
 
 createViewEditorControllerParameters(view_propertyGroups, 'View Parameters Start', 'View Parameters End', '((UIView *) item)')
 createViewEditorControllerParameters(layout_propertyGroups, 'Layout Parameters Start', 'Layout Parameters End', '((WeViewLayout *) item)')
-
-# --------
-
-lines = []
-lines.append('')
-lines.append('')
-for propertyGroup in layout_propertyGroups:
-    hasGroup = False
-    for property in propertyGroup:
-        if not property.layoutProperty:
-            continue
-        hasGroup = True
-        if property.comments:
-            lines.extend(FormatComments(property.comments))
-        # Getter
-        lines.append('- (%s)%s;' % (property.typeName, property.name, ))
-        # Setter
-        lines.append('- (WeViewLayout *)set%s:(%s)value;' % (property.UpperName(), property.typeName, ))
-
-    if hasGroup:
-        lines.append('')
-
-for customAccessor in layout_customAccessors:
-    if not customAccessor.layoutProperty:
-        continue
-
-    comments = []
-    comments.append('Convenience accessor(s) for the %s properties.' % FormatList(customAccessor.propertyNames()))
-    lines.extend(FormatComments(comments))
-    # Getter
-    if customAccessor.getterValue:
-        lines.append('- (%s)%s;' % (customAccessor.typeName, customAccessor.name, ))
-    # Setter
-    lines.append('- (WeViewLayout *)set%s:(%s)value;\n' % (customAccessor.UpperName(), customAccessor.typeName, ))
-lines.append('')
-block = '\n'.join(lines)
-block = block.replace('\n\n\n', '\n\n')
-
-replaceBlock(WeViewLayout_hFilePath, 'Start', 'End', block)
-
-# --------
-
-lines = []
-lines.append('')
-lines.append('')
-for propertyGroup in layout_propertyGroups:
-    hasGroup = False
-    for property in propertyGroup:
-        if not property.layoutProperty:
-            continue
-        hasGroup = True
-        # Getter
-        lines.append('%s _%s;' % (property.typeName, property.name, ))
-
-    if hasGroup:
-        lines.append('')
-lines.append('')
-block = '\n'.join(lines)
-
-replaceBlock(WeViewLayout_mFilePath, 'Members Start', 'Members End', block)
+# TODO: gridLayout_propertyGroups
 
 
 # --------
 
-lines = []
-lines.append('')
-for propertyGroup in layout_propertyGroups:
-    for property in propertyGroup:
-        if not property.layoutProperty:
-            continue
-        asserts = ''
-        if property.asserts:
-            if type(property.asserts) == types.StringType:
-                asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
-                pass
+def generatePropertiesForHeader(propertyGroups, customAccessors, returnType, filepath, blockStartKey, blockEndKey, synthesize=False):
+    lines = []
+    lines.append('')
+    lines.append('')
+    for propertyGroup in propertyGroups:
+        hasGroup = False
+        for property in propertyGroup:
+            hasGroup = True
+            if property.comments:
+                lines.extend(FormatComments(property.comments))
+            if synthesize:
+                lines.append('@property (nonatomic) %s %s;' % (property.typeName, property.name, ))
             else:
-                raise Exception('Unknown asserts: %s' % str(property.asserts))
-        defaultValue = ''
-        if property.defaultValue:
-            defaultValue = ' defaultValue:%s' % property.defaultValue
-        lines.append('''
+                # Getter
+                lines.append('- (%s)%s;' % (property.typeName, property.name, ))
+                # Setter
+                lines.append('- (%s)set%s:(%s)value;' % (returnType, property.UpperName(), property.typeName, ))
+
+        if hasGroup:
+            lines.append('')
+
+    for customAccessor in customAccessors:
+        comments = []
+        comments.extend(defaultCommentForCustomAccessor(customAccessor))
+        lines.extend(FormatComments(comments))
+        # Getter
+        if customAccessor.getterValue:
+            lines.append('- (%s)%s;' % (customAccessor.typeName, customAccessor.name, ))
+        # Setter
+        lines.append('- (%s)set%s:(%s)value;\n' % (returnType, customAccessor.UpperName(), customAccessor.typeName, ))
+    lines.append('')
+    block = '\n'.join(lines)
+    block = block.replace('\n\n\n', '\n\n')
+
+    replaceBlock(filepath, blockStartKey, blockEndKey, block)
+
+# --------
+
+generatePropertiesForHeader(view_propertyGroups, view_customAccessors, 'UIView *', viewCategoryhFilePath, 'Properties Start', 'Properties End')
+generatePropertiesForHeader(view_propertyGroups, view_customAccessors, 'void', viewInfohFilePath, 'View Info Properties Start', 'View Info Properties End', synthesize=True)
+generatePropertiesForHeader(layout_propertyGroups, layout_customAccessors, 'WeViewLayout *', WeViewLayout_hFilePath, 'Properties Start', 'Properties End')
+generatePropertiesForHeader(gridLayout_propertyGroups, gridLayout_customAccessors, 'WeViewGridLayout *', WeViewGridLayout_hFilePath, 'Properties Start', 'Properties End')
+
+# --------
+
+def generateMembersForSource(propertyGroups, filepath, blockStartKey, blockEndKey):
+    lines = []
+    lines.append('')
+    lines.append('')
+    for propertyGroup in propertyGroups:
+        hasGroup = False
+        for property in propertyGroup:
+            hasGroup = True
+            # Getter
+            lines.append('%s%s_%s;' % (property.typeName, ' ' if ' ' not in property.typeName else '', property.name, ))
+
+        if hasGroup:
+            lines.append('')
+    lines.append('')
+    block = '\n'.join(lines)
+
+    replaceBlock(filepath, blockStartKey, blockEndKey, block)
+
+# --------
+
+generateMembersForSource(layout_propertyGroups, WeViewLayout_mFilePath, 'Members Start', 'Members End')
+generateMembersForSource(gridLayout_propertyGroups, WeViewGridLayout_mFilePath, 'Members Start', 'Members End')
+
+# --------
+
+def generateAccessorsForSource(propertyGroups, customAccessors, filepath, blockStartKey, blockEndKey):
+
+    lines = []
+    lines.append('')
+    for propertyGroup in propertyGroups:
+        for property in propertyGroup:
+            asserts = ''
+            if property.asserts:
+                if type(property.asserts) == types.StringType:
+                    asserts ='\n    WeViewAssert(%s);' % (property.asserts % 'value', )
+                    pass
+                else:
+                    raise Exception('Unknown asserts: %s' % str(property.asserts))
+            defaultValue = ''
+            if property.defaultValue:
+                defaultValue = ' defaultValue:%s' % property.defaultValue
+            lines.append('''
 - (%s)%s
 {
     return _%s;
 }''' % (property.typeName, property.name, property.name, ))
-        lines.append('''
+            lines.append('''
 - (WeViewLayout *)set%s:(%s)value
 {
     _%s = value;
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }''' % (property.UpperName(), property.typeName, property.name, ))
 
-for customAccessor in layout_customAccessors:
-    if not customAccessor.layoutProperty:
-        continue
-    # Getter
-    if customAccessor.getterValue:
-        lines.append('''
-- (%s)%s:(UIView *)view
+    for customAccessor in customAccessors:
+        # Getter
+        if customAccessor.getterValue:
+            lines.append('''
+- (%s)%s
 {
-    return [view %s];
-}''' % (customAccessor.typeName, customAccessor.name, customAccessor.name, ))
-    # Setter
-    subsetters = []
-    for index, propertyName in enumerate(customAccessor.propertyNames()):
-        valueName = 'value'
-        if customAccessor.setterValues:
-            valueName += customAccessor.setterValues[index]
-        subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
+    return %s;
+}''' % (customAccessor.typeName, customAccessor.name, customAccessor.getterValue, ))
+        # Setter
+        subsetters = []
+        if customAccessor.setterStatements:
+            subsetters = customAccessor.setterStatements
+        else:
+            for index, propertyName in enumerate(customAccessor.propertyNames()):
+                valueName = 'value'
+                if customAccessor.setterValues:
+                    valueName += customAccessor.setterValues[index]
+                subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
 
-    lines.append('''
+        lines.append('''
 - (WeViewLayout *)set%s:(%s)value
 {
 %s
-    [self._superview setNeedsLayout];
+    [self propertyChanged];
     return self;
 }''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
 
-lines.append('')
-lines.append('')
-block = '\n'.join(lines)
+    lines.append('')
+    lines.append('')
+    block = '\n'.join(lines)
 
-replaceBlock(WeViewLayout_mFilePath, 'Accessors Start', 'Accessors End', block)
+    replaceBlock(filepath, blockStartKey, blockEndKey, block)
+
+# --------
+
+generateAccessorsForSource(layout_propertyGroups, layout_customAccessors, WeViewLayout_mFilePath, 'Accessors Start', 'Accessors End')
+generateAccessorsForSource(gridLayout_propertyGroups, gridLayout_customAccessors, WeViewGridLayout_mFilePath, 'Accessors Start', 'Accessors End')
+
+# generatePropertiesForHeader(view_propertyGroups, view_customAccessors, 'UIView *', viewCategoryhFilePath, 'Properties Start', 'Properties End')
+# generatePropertiesForHeader(view_propertyGroups, view_customAccessors, 'void', viewInfohFilePath, 'View Info Properties Start', 'View Info Properties End', synthesize=True)
+# generatePropertiesForHeader(layout_propertyGroups, layout_customAccessors, 'WeViewLayout *', WeViewLayout_hFilePath, 'Properties Start', 'Properties End')
+# generatePropertiesForHeader(gridLayout_propertyGroups, gridLayout_customAccessors, 'WeViewGridLayout *', WeViewGridLayout_hFilePath, 'Properties Start', 'Properties End')
 
 # --------
 
@@ -790,7 +905,9 @@ lines.append('')
 for propertyGroup in layout_propertyGroups:
     for property in propertyGroup:
         defaultValue = ''
-        if property.typeName == 'CGFloat':
+        if property.defaultValue:
+            defaultValue = property.defaultValue
+        elif property.typeName == 'CGFloat':
             defaultValue = '0.f'
         elif property.typeName == 'int':
             defaultValue = '0'
@@ -802,8 +919,10 @@ for propertyGroup in layout_propertyGroups:
             defaultValue = 'V_ALIGN_CENTER'
         elif property.typeName == 'CellPositioningMode':
             defaultValue = 'CELL_POSITIONING_NORMAL'
-        elif property.typeName == 'NSString *':
-            continue
+        elif property.typeName == 'WeViewSpacing *':
+            defaultValue = 'nil'
+        elif property.typeName == 'VAlign':
+            defaultValue = 'V_ALIGN_CENTER'
         else:
             print 'Reset layout, Unknown typeName(2):', property.typeName, property.name
         lines.append('    self.%s = %s;' % (property.name, defaultValue, ))
@@ -829,6 +948,8 @@ def formatMethodNameForType(typeName):
         return 'ReprVAlign'
     elif typeName == 'CellPositioningMode':
         return 'ReprCellPositioningMode'
+    elif typeName == 'WeViewSpacing *':
+        return 'ReprWeViewSpacing'
     # elif property.typeName == 'CellPositioningMode':
     else:
         print 'Unknown typeName(3):', typeName
@@ -850,6 +971,8 @@ lines.append('    // Custom Accessors')
 lines.append('')
 
 for customAccessor in reversed(view_customAccessors):
+    if customAccessor.skipCodeGenSimplification:
+        continue
     if formatMethodNameForType(customAccessor.typeName):
 
         linePrefixes = []
@@ -883,9 +1006,6 @@ lines = []
 lines.append('')
 for propertyGroup in layout_propertyGroups:
     for property in propertyGroup:
-        # if not property.layoutProperty:
-        #     continue
-
         if formatMethodNameForType(property.typeName):
             lines.append('''
     if (layout.%s != virginLayout.%s)
@@ -898,6 +1018,8 @@ lines.append('    // Custom Accessors')
 lines.append('')
 
 for customAccessor in reversed(layout_customAccessors):
+    if customAccessor.skipCodeGenSimplification:
+        continue
     if formatMethodNameForType(customAccessor.typeName):
 
         linePrefixes = []

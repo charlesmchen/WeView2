@@ -2,7 +2,7 @@
 //  ViewEditorController.m
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -14,7 +14,6 @@
 #import "DemoMacros.h"
 #import "UIView+WeView.h"
 #import "ViewEditorController.h"
-#import "ViewHierarchyTree.h"
 #import "WeViewDemoConstants.h"
 #import "WeViewMacros.h"
 
@@ -761,8 +760,6 @@ typedef void (^SetterBlock)(id item);
                                  ]
                                  doubleHeight:YES],
 
-                                [ViewParameterSimple booleanProperty:@"spacingStretches"],
-
                                 [ViewParameterSimple booleanProperty:@"cropSubviewOverflow"],
 
                                 [ViewParameterSimple create:@"cellPositioning"
@@ -857,29 +854,28 @@ typedef void (^SetterBlock)(id item);
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *cellIdentifier = @"Cell";
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    // Do not reuse cells until we determine a maintainable way to clear their contents.
+//    if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-        {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:cellIdentifier];
     }
 
-    for (UIView *subview in cell.subviews)
-    {
-        [subview removeFromSuperview];
-    }
+//    for (UIView *subview in cell.subviews)
+//    {
+//        if ([subview isKindOfClass:[WeView class]])
+//        {
+//            [subview removeFromSuperview];
+//        }
+//    }
 
     ViewParameter *viewParameter = self.viewParams[indexPath.row];
     viewParameter.delegate = self;
     [viewParameter configureCell:cell
                         withItem:self.currentItem];
-
-    //    ((WeView *)cell.subviews[0]).debugLayout = indexPath.row == 2;
 
     return cell;
 }
@@ -901,6 +897,7 @@ typedef void (^SetterBlock)(id item);
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    NSLog(@" \t heightForRowAtIndexPath: %f", [self tableView:tableView cellForRowAtIndexPath:indexPath].height);
     return [self tableView:tableView cellForRowAtIndexPath:indexPath].height;
 }
 

@@ -2,7 +2,7 @@
 //  WeViewEnums.h
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -15,14 +15,21 @@
 
 #import "WeViewMacros.h"
 
+typedef enum
+{
+    WEVIEW_ALIGNMENT_TOP_OR_LEFT = 0,
+    WEVIEW_ALIGNMENT_CENTER = 1,
+    WEVIEW_ALIGNMENT_BOTTOM_OR_RIGHT = 2,
+} WeViewAxisAlignment;
+
 /**
  * Horizontal alignment constants.
  */
 typedef enum
 {
-    H_ALIGN_LEFT = 0,
-    H_ALIGN_CENTER = 1,
-    H_ALIGN_RIGHT = 2,
+    H_ALIGN_LEFT = WEVIEW_ALIGNMENT_TOP_OR_LEFT,
+    H_ALIGN_CENTER = WEVIEW_ALIGNMENT_CENTER,
+    H_ALIGN_RIGHT = WEVIEW_ALIGNMENT_BOTTOM_OR_RIGHT,
 } HAlign;
 
 /**
@@ -30,9 +37,9 @@ typedef enum
  */
 typedef enum
 {
-    V_ALIGN_TOP = 0,
-    V_ALIGN_CENTER = 1,
-    V_ALIGN_BOTTOM = 2,
+    V_ALIGN_TOP = WEVIEW_ALIGNMENT_TOP_OR_LEFT,
+    V_ALIGN_CENTER = WEVIEW_ALIGNMENT_CENTER,
+    V_ALIGN_BOTTOM = WEVIEW_ALIGNMENT_BOTTOM_OR_RIGHT,
 } VAlign;
 
 CG_INLINE

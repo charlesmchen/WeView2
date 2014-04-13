@@ -2,7 +2,7 @@
 //  UIView+WeView.h
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -17,7 +17,7 @@
 
 @interface UIView (WeView) <NSCopying>
 
-/* CODEGEN MARKER: Start */
+/* CODEGEN MARKER: Properties Start */
 
 // The minimum desired width of this view. Trumps the maxWidth.
 - (CGFloat)minDesiredWidth;
@@ -150,7 +150,7 @@
 // Convenience accessor(s) for the vStretchWeight and hStretchWeight properties.
 - (UIView *)setStretchWeight:(CGFloat)value;
 
-/* CODEGEN MARKER: End */
+/* CODEGEN MARKER: Properties End */
 
 // The layout should stretch this subview horizontally to fit any available space.
 - (UIView *)setHStretches;

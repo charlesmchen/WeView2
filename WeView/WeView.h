@@ -2,7 +2,7 @@
 //  WeView.h
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -76,29 +76,14 @@
 // Use this factory method if the size of the cells should be based on their contents.
 //
 // columnCount: The number of columns in the grid.
-// isGridUniform: If true, the layout guarantees that the cell sizes will all be nearly equal.
-//                Each column will be as wide as the widest column.
-//                Each row will be as tall as the tallest row.
-// stretchPolicy: See the GridStretchPolicy enum.
-- (WeViewLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
-                                columnCount:(int)columnCount
-                              isGridUniform:(BOOL)isGridUniform
-                              stretchPolicy:(GridStretchPolicy)stretchPolicy;
+- (WeViewGridLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
+                                    columnCount:(int)columnCount;
 
-// Use this factory method if you want to specify a cellSizeHint.
+// Use this factory method if the size of the cells should be based on their contents.
 //
-// columnCount: The number of columns in the grid.
-// isGridUniform: If true, the layout guarantees that the cell sizes will all be nearly equal.
-//                Each column will be as wide as the widest column.
-//                Each row will be as tall as the tallest row.
-// stretchPolicy: See the GridStretchPolicy enum.
-// cellSizeHint: The base cell size to use. The cell sizes will not reflect the desired sizes of
-//                their contents.
-- (WeViewLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
-                                columnCount:(int)columnCount
-                              isGridUniform:(BOOL)isGridUniform
-                              stretchPolicy:(GridStretchPolicy)stretchPolicy
-                               cellSizeHint:(CGSize)cellSizeHint;
+// rowCount: The number of rows in the grid.
+- (WeViewGridLayout *)addSubviewsWithGridLayout:(NSArray *)subviews
+                                       rowCount:(int)rowCount;
 
 #pragma mark - Fill & Fit Layouts
 
@@ -121,7 +106,7 @@
 
 - (void)removeAllSubviews;
 
-- (void)setDebugLayoutOflayouts:(BOOL)value;
-- (void)setDebugMinSizeOflayouts:(BOOL)value;
+- (void)setDebugLayoutOfLayouts:(BOOL)value;
+- (void)setDebugMinSizeOfLayouts:(BOOL)value;
 
 @end

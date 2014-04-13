@@ -2,7 +2,7 @@
 //  DemoFactory.m
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -13,7 +13,7 @@
 #import "DemoFactory.h"
 #import "DemoViewFactory.h"
 #import "WeView.h"
-#import "WeViewSpacer.h"
+#import "WeViewSpacingView.h"
 
 UIColor *UIColorRGB(unsigned int rgb)
 {
@@ -52,6 +52,8 @@ UIColor *UIColorRGB(unsigned int rgb)
              [self smallUIImageViewDemo1],
              [self miscDemo1],
              [self multiDemo1],
+             [self gridDemo1],
+             [self gridDemo2],
              ];
 }
 
@@ -60,9 +62,10 @@ UIColor *UIColorRGB(unsigned int rgb)
     //    return [self iphoneDemo2_transformDesign];
 //    return [self iphoneDemo2_transforml10n];
     //    return [self iphoneDemo2_dynamicContent];
-    return [self horizontalDemo1];
+//    return [self horizontalDemo1];
 //    return [self flowDemo4];
 //    return [self verticalDemo3];
+    return [self gridDemo2];
 }
 
 + (Demo *)randomImageDemo1
@@ -263,6 +266,75 @@ UIColor *UIColorRGB(unsigned int rgb)
     return demo;
 }
 
++ (Demo *)gridDemo1
+{
+    NSString *demoName = @"Grid Demo 1";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        [[[[demoModel.rootView addSubviewsWithGridLayout:@[
+                                                           [DemoFactory createLabel:@"Welcome" fontSize:16.f],
+                                                           [DemoFactory createLabel:@"To" fontSize:24.f],
+                                                           [DemoFactory createLabel:@"WeView" fontSize:32.f],
+                                                           ]
+                                             columnCount:2]
+           setVMargin:10]
+          setHMargin:10]
+         setSpacing:5];
+
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        //    result.debugLayout = YES;
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
++ (Demo *)gridDemo2
+{
+    NSString *demoName = @"Grid Demo 2";
+    Demo *demo = [[Demo alloc] init];
+    demo.name = demoName;
+    demo.createDemoModelBlock = ^DemoModel *()
+    {
+        DemoModel *demoModel = [DemoModel create];
+
+        [[[[[demoModel.rootView addSubviewsWithGridLayout:@[
+                                                           [DemoFactory createLabel:@"Welcome" fontSize:16.f],
+                                                           [DemoFactory createLabel:@"To" fontSize:24.f],
+                                                           [DemoFactory createLabel:@"WeView" fontSize:32.f],
+                                                           [DemoFactory createLabel:@"A UILabel"
+                                                                           fontSize:16.f],
+                                                           [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]],
+                                                           [DemoFactory createLabel:@"=^)"
+                                                                           fontSize:24.f],
+                                                           [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/ok_button_up.png"]],
+                                                           [DemoFactory createLabel:@"=^)"
+                                                                           fontSize:24.f],
+                                                           [DemoViewFactory createFlatUIButton:@"A UIButton"
+                                                                                     textColor:[UIColor whiteColor]
+                                                                                   buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
+                                                                                        target:nil
+                                                                                      selector:nil],
+                                                           [self createWrappingLabel],
+                                                           ]
+                                             columnCount:3]
+           setDefaultSpacingStretchWeight:1.f]
+           setVMargin:10]
+          setHMargin:10]
+         setSpacing:5];
+
+        [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
+        //    result.debugLayout = YES;
+        demoModel.rootView.debugName = demoName;
+        return demoModel;
+    };
+    return demo;
+}
+
 + (Demo *)horizontalDemo1
 {
     NSString *demoName = @"Horizontal Demo 1";
@@ -273,10 +345,10 @@ UIColor *UIColorRGB(unsigned int rgb)
         DemoModel *demoModel = [DemoModel create];
 
         [[[[demoModel.rootView addSubviewsWithHorizontalLayout:@[
-            [DemoFactory createLabel:@"Welcome" fontSize:16.f],
-            [DemoFactory createLabel:@"To" fontSize:24.f],
-            [DemoFactory createLabel:@"WeView" fontSize:32.f],
-            ]]
+                                                                 [DemoFactory createLabel:@"Welcome" fontSize:16.f],
+                                                                 [DemoFactory createLabel:@"To" fontSize:24.f],
+                                                                 [DemoFactory createLabel:@"WeView" fontSize:32.f],
+                                                                 ]]
            setVMargin:10]
           setHMargin:10]
          setSpacing:5];
@@ -695,9 +767,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         WeView *infoView = [[WeView alloc] init];
         infoView.debugName = @"infoView";
         [[[infoView addSubviewsWithGridLayout:infoViews
-                                  columnCount:2
-                                isGridUniform:NO
-                                stretchPolicy:GRID_STRETCH_POLICY_NO_STRETCH]
+                                  columnCount:2]
           setSpacing:10]
          setMargin:20];
 
@@ -955,7 +1025,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         UILabel *subtitleLabel = [DemoFactory createLabel:@"Swiss, March 14, 1853 – May 19, 1918"
                                                     fontSize:14.f
                                                    textColor:[UIColor colorWithWhite:1.f alpha:0.9f]];
-        WeViewSpacer *titleSpacer = [[WeViewSpacer alloc] init];
+        WeViewSpacingView *titleSpacer = [[WeViewSpacingView alloc] init];
         titleSpacer.backgroundColor = [UIColor whiteColor];
         WeView *titlesPanel = [[WeView alloc] init];
         [[titlesPanel addSubviewsWithVerticalLayout:@[
@@ -976,9 +1046,7 @@ UIColor *UIColorRGB(unsigned int rgb)
             [self multiDemo1_subpanelWithTitle:@"Rhythmic Landscape on Lake Geneva"
                                    descriptions:@[@"Materials: Oil on Canvas.", @"Date: 1908.", @"Dimensions: 67 x 91 cm."]],
             ]
-                                    columnCount:2
-                                  isGridUniform:NO
-                                  stretchPolicy:GRID_STRETCH_POLICY_NO_STRETCH]
+                                    columnCount:2]
            setHSpacing:25]
           setVSpacing:30];
 
@@ -999,7 +1067,7 @@ UIColor *UIColorRGB(unsigned int rgb)
 
 + (UIView *)createFlatUIPillboxSpacer
 {
-    WeViewSpacer *spacer = [[WeViewSpacer alloc] init];
+    WeViewSpacingView *spacer = [[WeViewSpacingView alloc] init];
     spacer.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.f];
     spacer.opaque = YES;
     [spacer setVStretches];

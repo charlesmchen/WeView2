@@ -1,5 +1,5 @@
 //
-//  DemoCodeGeneration.h
+//  WeViewLayoutUtils.h
 //  WeView v2
 //
 //  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
@@ -12,8 +12,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DemoCodeGeneration : NSObject
+CGFloat WeViewSumFloats(NSArray *values);
 
-- (NSString *)generateCodeForView:(UIView *)view;
+int WeViewSumInts(NSArray *values);
 
-@end
+CGFloat WeViewMaxFloats(NSArray *values);
+
+NSMutableArray *WeViewArrayOfFloatsWithValue(CGFloat value, int count);

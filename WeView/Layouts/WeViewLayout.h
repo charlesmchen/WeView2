@@ -2,7 +2,7 @@
 //  WeViewLayout.h
 //  WeView v2
 //
-//  Copyright (c) 2013 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -14,6 +14,7 @@
 #import <UIKit/UIKit.h>
 
 #import "WeViewEnums.h"
+#import "WeViewSpacing.h"
 
 @class WeView;
 
@@ -44,7 +45,7 @@
 // Layouts default to use the superview's properties (See: UIView+WeView.h).  However, any values
 // set on the layout itself with supercede values from the superview.
 
-/* CODEGEN MARKER: Start */
+/* CODEGEN MARKER: Properties Start */
 
 // The left margin of the contents of this view.
 - (CGFloat)leftMargin;
@@ -77,21 +78,6 @@
 // The vertical alignment of this layout.
 - (VAlign)vAlign;
 - (WeViewLayout *)setVAlign:(VAlign)value;
-
-// If YES, the spacings between subviews will be stretched if there is any extra space.
-//
-// Extra space will be distributed evenly between the spacings.
-//
-// Layouts will prefer to stretch subviews if possible.  Spacings will only be stretched if there
-// are no stretching subviews to receive the extra
-// space.
-//
-// The spacings will not be cropped if the layout cannot fit its subviews within their superview,
-// even if this property is YES.Only applies to the horizontal, vertical and flow layouts.  In a
-// flow layout where spacingStretches is YES, the subviews are
-// justified.
-- (BOOL)spacingStretches;
-- (WeViewLayout *)setSpacingStretches:(BOOL)value;
 
 // By default, if the content size (ie. the total subview size plus margins and spacing) of a
 // WeView overflows its bounds, subviews are cropped to fit inside the available
@@ -138,39 +124,8 @@
 // Convenience accessor(s) for the hSpacing and vSpacing properties.
 - (WeViewLayout *)setSpacing:(int)value;
 
-/* CODEGEN MARKER: End */
+/* CODEGEN MARKER: Properties End */
 
 - (void)resetAllProperties;
-
-#pragma mark - Utility Methods
-
-- (void)positionSubview:(UIView *)subview
-            inSuperview:(UIView *)superview
-               withSize:(CGSize)subviewSize
-           inCellBounds:(CGRect)cellBounds
-        cellPositioning:(CellPositioningMode)cellPositioning;
-
-- (CGRect)contentBoundsOfView:(UIView *)view
-                      forSize:(CGSize)size;
-
-- (CGSize)insetSizeOfView:(UIView *)view;
-
-- (CGSize)desiredItemSize:(UIView *)subview
-                  maxSize:(CGSize)maxSize;
-
-- (NSArray *)distributeSpace:(CGFloat)space
-      acrossCellsWithWeights:(NSArray *)cellWeights;
-
-- (void)distributeAdjustment:(CGFloat)totalAdjustment
-                acrossValues:(NSMutableArray *)values
-                 withWeights:(NSArray *)weights
-                    withSign:(CGFloat)sign
-                 withMaxZero:(BOOL)withMaxZero;
-
-#pragma mark - Debug Methods
-
-- (NSString *)indentPrefix:(int)indent;
-
-- (int)viewHierarchyDistanceToWindow:(UIView *)view;
 
 @end
