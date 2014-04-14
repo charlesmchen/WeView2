@@ -85,6 +85,8 @@ These methods let you set more than one property at a time.
 		// Sets both of the desiredWidthAdjustment and desiredHeightAdjustment properties.
 		- (UIView *)setDesiredSizeAdjustment:(CGSize)value;
 
+Additionally, you can adjust the desired width or height of a subview using these methods.  \[setDesiredWidthAdjustment:+10.f\], for example, means: "Treat this subview as though it wanted to be 10 points wider than it think it should be".
+
 The _desired size adjustment_ properties can have positive and negative values.
 
 ### Ignoring Desired Sizes
