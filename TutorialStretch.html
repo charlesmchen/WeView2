@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>WeView v2 by charlesmchen</title>
+    <title>WeView 2 by charlesmchen</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -16,7 +16,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>WeView v2</h1>
+        <h1>WeView 2</h1>
         <p>An alternative to iOS Auto Layout</p>
 
 
@@ -31,7 +31,7 @@
 		<div class="social">
 		<div>
 
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView v2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView 2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 		</div>
@@ -59,7 +59,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="whyAutolayout.html">Why use Dynamic Layout?</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView v2?</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView 2?</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialOverview.html">Tutorial 1: Overview</a></li>
@@ -110,7 +110,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="designPhilosophy.html">Design Philosophy</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView v2</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView 2</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="License.html">License</a></li>
@@ -128,78 +128,99 @@
       <section>
 
 
-    <h1 id='tutorial_9_stretch'>Tutorial 9: Stretch</h1>
+    <h1 id="tutorial_9_stretch">Tutorial 9: Stretch</h1>
 <!-- TEMPLATE START -->
-<p><em>Stretch</em> is a per-subview property. It has a few roles in WeView. Put simply, subviews can &#8220;stretch&#8221; to receive extra space in their layout.</p>
+<p><em>Stretch</em> is a per-subview property. It has a few roles in WeView. Put simply, subviews can “stretch” to receive extra space in their layout.</p>
 
 <p>There are separate <strong>horizontal</strong> and <strong>vertical</strong> stretch properties. That is, a subview may stretch horizontally but not vertically or vice versa.</p>
 
 <p>Stretch can effect <strong>measurement</strong>, ie. a <strong>WeView</strong> with subviews that can stretch may report a larger size, since the <strong>WeView</strong> can grow to occupy the available space.</p>
 
-<p>Stretch can also effect <strong>arrangement</strong>, both in terms of <strong>cell size</strong> (the cell of a subview that can stretch will grow to occupy extra space in its superview&#8217;s bounds) and <strong>subview size</strong> (a subview that can stretch will grow to fill its cell).</p>
+<p>Stretch can also effect <strong>arrangement</strong>, both in terms of <strong>cell size</strong> (the cell of a subview that can stretch will grow to occupy extra space in its superview’s bounds) and <strong>subview size</strong> (a subview that can stretch will grow to fill its cell).</p>
 
-<h3 id='vertical_stretch_in_a_horizontal_layout'>Vertical Stretch in a Horizontal Layout</h3>
-<video AUTOPLAY='true' controls='true' HEIGHT='324' LOOP='true' WIDTH='356' class='embedded_video'>
+<h3 id="vertical_stretch_in_a_horizontal_layout">Vertical Stretch in a Horizontal Layout</h3>
+
+<p><video AUTOPLAY='true' HEIGHT='324' LOOP='true' WIDTH='356' class='embedded_video' controls='true'>
 <source src='videos/video-9DAFBBF5-5099-4CCF-8A41-F7DCAB5E2E1C-30497-00024594CE3DD371.mp4' type='video/mp4' />
 <source src='videos/video-9DAFBBF5-5099-4CCF-8A41-F7DCAB5E2E1C-30497-00024594CE3DD371.webm' type='video/webm' />
-</video>
+</video></p>
+
 <p>Here we set one UILabel to vertically stretch. Since it stretches <em>vertically</em> in a <em>horizontal</em> layout, its stretch <em>does not</em> effect the layout of the other subviews.</p>
 
-<p>The stretch affects the vertical size of the subviews&#8217;s <em>layout cell</em> (See: <a href='TutorialLayoutModel.html'>Layout Model</a>), <em>and</em> the subview stretches vertically to fill its layout cell.</p>
+<p>The stretch affects the vertical size of the subviews’s <em>layout cell</em> (See: <a href="TutorialLayoutModel.html">Layout Model</a>), <em>and</em> the subview stretches vertically to fill its layout cell.</p>
 
-<h3 id='horizontal_stretch_in_a_horizontal_layout'>Horizontal Stretch in a Horizontal Layout</h3>
-<video AUTOPLAY='true' controls='true' HEIGHT='324' LOOP='true' WIDTH='356' class='embedded_video'>
+<h3 id="horizontal_stretch_in_a_horizontal_layout">Horizontal Stretch in a Horizontal Layout</h3>
+
+<p><video AUTOPLAY='true' HEIGHT='324' LOOP='true' WIDTH='356' class='embedded_video' controls='true'>
 <source src='videos/video-C3956C04-2100-4C64-8958-4EEB97CE381D-30497-00024592468344C2.mp4' type='video/mp4' />
 <source src='videos/video-C3956C04-2100-4C64-8958-4EEB97CE381D-30497-00024592468344C2.webm' type='video/webm' />
-</video>
+</video></p>
+
 <p>Here we set one UILabel to horizontally stretch. Since it stretches <em>horizontally</em> in a <em>horizontal</em> layout, its stretch <em>does</em> effect the layout of the other subviews.</p>
 
-<p>Again, the subview&#8217;s horizontal stretch affects the size of its <em>layout cell</em>.</p>
+<p>Again, the subview’s horizontal stretch affects the size of its <em>layout cell</em>.</p>
 
-<h3 id='when_more_than_one_subview_stretches'>When More Than One Subview Stretches&#8230;</h3>
-<video AUTOPLAY='true' controls='true' HEIGHT='324' LOOP='true' WIDTH='356' class='embedded_video'>
+<h3 id="when_more_than_one_subview_stretches">When More Than One Subview Stretches</h3>
+
+<p><video AUTOPLAY='true' HEIGHT='324' LOOP='true' WIDTH='356' class='embedded_video' controls='true'>
  <source src='videos/video-E3D6C0C3-99D0-4244-8DE3-AFAC08EACF50-30497-000246034A91B250.mp4' type='video/mp4' />
  <source src='videos/video-E3D6C0C3-99D0-4244-8DE3-AFAC08EACF50-30497-000246034A91B250.webm' type='video/webm' />
- </video>
+ </video></p>
+
 <p>When more than one subview stretches horizontally in a horizontal layout, they <em>share any extra space</em> in the layout equally between them.</p>
 
 <p>Note that they <em>do not have the same width</em>; they each receive an <em>equal amount of extra space</em> in addition to their desired size. If we wanted them to have the same width we would a) make sure they had the same stretch weight and b) call <em>[UIView setIgnoreDesiredSize]</em> on both views, so that their sizes were based purely on their stretch weight and not on their desired size.</p>
 
-<h3 id='stretch_weight'>Stretch Weight</h3>
-<video AUTOPLAY='true' controls='true' HEIGHT='324' LOOP='true' WIDTH='356' class='embedded_video'>
+<h3 id="stretch_weight">Stretch Weight</h3>
+
+<p><video AUTOPLAY='true' HEIGHT='324' LOOP='true' WIDTH='356' class='embedded_video' controls='true'>
 <source src='videos/video-195620C4-BBD3-4CAC-95F3-9A5C4CD02BB3-30497-0002460DBE426621.mp4' type='video/mp4' />
 <source src='videos/video-195620C4-BBD3-4CAC-95F3-9A5C4CD02BB3-30497-0002460DBE426621.webm' type='video/webm' />
-</video>
+</video></p>
+
 <p>Usually it is sufficient to set whether or not subviews stretch. However, we can also control how they stretch by setting their <em>stretch weight</em>. Extra space is divided between subviews that can stretch in proportion to their relative stretch weights.</p>
 
 <p>In this example, the second label has an hStretchWeight of 1.0 and the first label is shown with hStretchWeights of 0.0, 1.0, 2.0, 3.0 and 4.0. Extra space is divided between the stretching subview in proportion to their weights.</p>
 
 <p><em>[UIView setHStretches]</em> is equivalent to <em>[UIView setHStretchWeight:1.f]</em>, since the default stretch weight is 1.0.</p>
 
-<h3 id='stretch_properties_and_accessors'>Stretch Properties and Accessors</h3>
+<h3 id="stretch_properties_and_accessors">Stretch Properties and Accessors</h3>
 
 <p>The <em>UIView+WeView</em> category adds two stretch-related properties to all UIViews:</p>
 
-<pre><code>- (UIView *)setHStretchWeight:(CGFloat)value;
-- (UIView *)setVStretchWeight:(CGFloat)value;</code></pre>
+<ul>
+<li>(UIView *)setHStretchWeight:(CGFloat)value;
+<ul>
+<li>(UIView *)setVStretchWeight:(CGFloat)value;</li>
+</ul>
+</li>
+</ul>
 
 <p>The <em>UIView+WeView</em> category also adds a few convenience accessors:</p>
 
-<pre><code>- (UIView *)setHStretches; // A convenience accessor that sets hStretchWeight = 1.f.
-- (UIView *)setVStretches; // A convenience accessor that sets vStretchWeight = 1.f.
-- (UIView *)setStretches; // A convenience accessor that sets hStretchWeight = 1.f and vStretchWeight = 1.f.</code></pre>
+<ul>
+<li>(UIView *)setHStretches; // A convenience accessor that sets hStretchWeight = 1.f.
+<ul>
+<li>(UIView *)setVStretches; // A convenience accessor that sets vStretchWeight = 1.f.</li>
 
-<p>Typically, we just want to indicate which subviews stretch and which don&#8217;t. These convenience accessors set stretch to a default non-zero value.</p>
+<li>(UIView *)setStretches; // A convenience accessor that sets hStretchWeight = 1.f and vStretchWeight = 1.f.</li>
+</ul>
+</li>
+</ul>
 
-<h3 id='ignoring_desired_size'>Ignoring Desired Size</h3>
+<p>Typically, we just want to indicate which subviews stretch and which don’t. These convenience accessors set stretch to a default non-zero value.</p>
+
+<h3 id="ignoring_desired_size">Ignoring Desired Size</h3>
 
 <p>As noted above, usually layouts will begin by laying out their subviews at their <em>desired sizes</em> and then distribute any remaining extra space between stretching subviews in proportion to their relative stretch weights. Sometimes it is convenient to ignore the desired size of subviews.</p>
-<video AUTOPLAY='true' controls='true' HEIGHT='300' LOOP='true' WIDTH='292' class='embedded_video'>
+
+<p><video AUTOPLAY='true' HEIGHT='300' LOOP='true' WIDTH='292' class='embedded_video' controls='true'>
     <source src='videos/video-B0203939-DBF5-4EDA-9DC3-D76E58FD7522-19015-0006A36CDD754484.mp4' type='video/mp4' />
     <source src='videos/video-B0203939-DBF5-4EDA-9DC3-D76E58FD7522-19015-0006A36CDD754484.webm' type='video/webm' />
-</video>
-<p>It this example, we have a UILabel and a UIScrollView in a vertical layout. The UIScrollView contains a UIImageView with an image much larger than the available space. The title&#8217;s height should reflect it&#8217;s <em>desired size</em> and the UIScrollView should get the rest of the height, regardless of its desired size. We therefore invoke <em>[UIView setIgnoreDesiredSize]</em> on the UIScrollView.</p>
-<script src='https://gist.github.com/6619176.js'> </script><!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='TutorialDiscussion.html'>Tutorial 10: Discussion</a></p>
+</video></p>
+
+<p>It this example, we have a UILabel and a UIScrollView in a vertical layout. The UIScrollView contains a UIImageView with an image much larger than the available space. The title’s height should reflect it’s <em>desired size</em> and the UIScrollView should get the rest of the height, regardless of its desired size. We therefore invoke <em>[UIView setIgnoreDesiredSize]</em> on the UIScrollView.</p>
+<script src='https://gist.github.com/6619176.js'><![CDATA[ ]]></script><!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='TutorialDiscussion.html'>Tutorial 10: Discussion</a></p>
 
 
 

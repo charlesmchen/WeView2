@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>WeView v2 by charlesmchen</title>
+    <title>WeView 2 by charlesmchen</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -16,7 +16,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>WeView v2</h1>
+        <h1>WeView 2</h1>
         <p>An alternative to iOS Auto Layout</p>
 
 
@@ -31,7 +31,7 @@
 		<div class="social">
 		<div>
 
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView v2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView 2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 		</div>
@@ -59,7 +59,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="whyAutolayout.html">Why use Dynamic Layout?</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView v2?</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView 2?</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialOverview.html">Tutorial 1: Overview</a></li>
@@ -110,7 +110,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="designPhilosophy.html">Design Philosophy</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView v2</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView 2</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="License.html">License</a></li>
@@ -128,26 +128,35 @@
       <section>
 
 
-    <h1 id='tutorial_11_conveniences'>Tutorial 11: Conveniences</h1>
+    <h1 id="tutorial_11_conveniences">Tutorial 11: Conveniences</h1>
 <!-- TEMPLATE START -->
 <p>The <em>UIView+WeView</em> category adds a number of convenience methods to all UIViews.</p>
 
 <p>These methods allow you to write more concise, expressive code.</p>
 
-<h3 id='origin_accessors'>Origin Accessors</h3>
+<h3 id="origin_accessors">Origin Accessors</h3>
 
-<pre><code>- (CGPoint)origin;
-- (void)setOrigin:(CGPoint)origin;
-- (CGFloat)x;
-- (void)setX:(CGFloat)value;
-- (CGFloat)y;
-- (void)setY:(CGFloat)value;</code></pre>
+<ul>
+<li>(CGPoint)origin;
+<ul>
+<li>(void)setOrigin:(CGPoint)origin;</li>
+
+<li>(CGFloat)x;</li>
+
+<li>(void)setX:(CGFloat)value;</li>
+
+<li>(CGFloat)y;</li>
+
+<li>(void)setY:(CGFloat)value;</li>
+</ul>
+</li>
+</ul>
 
 <p>The origin accessors make left-aligning two views as easy as:</p>
 
 <pre><code>view1.x = view2.x;</code></pre>
 
-<p>Without these accessors, you&#8217;d have to do something like this:</p>
+<p>Without these accessors, you’d have to do something like this:</p>
 
 <pre><code>CGRect view1Frame = view1.frame;
 view1Frame.origin.x = view2.frame.origin.x;
@@ -155,34 +164,57 @@ view1.frame = view1Frame;</code></pre>
 
 <p>Note that this assumes that both views have the same superview, ie. that their origins are in the same coordinate system.</p>
 
-<h3 id='size_accessors'>Size Accessors</h3>
+<h3 id="size_accessors">Size Accessors</h3>
 
-<pre><code>- (CGSize)size;
-- (void)setSize:(CGSize)size;
-- (CGFloat)width;
-- (void)setWidth:(CGFloat)value;
-- (CGFloat)height;
-- (void)setHeight:(CGFloat)value;</code></pre>
+<ul>
+<li>(CGSize)size;
+<ul>
+<li>(void)setSize:(CGSize)size;</li>
 
-<h3 id='right_and_bottom_accessors'>Right and Bottom Accessors</h3>
+<li>(CGFloat)width;</li>
 
-<pre><code>- (CGFloat)right;
-- (void)setRight:(CGFloat)value;
-- (CGFloat)bottom;
-- (void)setBottom:(CGFloat)value;</code></pre>
+<li>(void)setWidth:(CGFloat)value;</li>
 
-<p>The <em>right</em> property is the view&#8217;s x position + the view&#8217;s width, ie. the right edge of the view. Likewise, the <em>bottom</em> property is the view&#8217;s y + height.</p>
+<li>(CGFloat)height;</li>
+
+<li>(void)setHeight:(CGFloat)value;</li>
+</ul>
+</li>
+</ul>
+
+<h3 id="right_and_bottom_accessors">Right and Bottom Accessors</h3>
+
+<ul>
+<li>(CGFloat)right;
+<ul>
+<li>(void)setRight:(CGFloat)value;</li>
+
+<li>(CGFloat)bottom;</li>
+
+<li>(void)setBottom:(CGFloat)value;</li>
+</ul>
+</li>
+</ul>
+
+<p>The <em>right</em> property is the view’s x position + the view’s width, ie. the right edge of the view. Likewise, the <em>bottom</em> property is the view’s y + height.</p>
 
 <p>To place two views side-by-side, you might do something like this:</p>
 
 <pre><code>view2.x = view1.right;</code></pre>
 
-<h3 id='center_accessors'>Center Accessors</h3>
+<h3 id="center_accessors">Center Accessors</h3>
 
-<pre><code>- (CGFloat)hCenter;
-- (void)setHCenter:(CGFloat)value;
-- (CGFloat)vCenter;
-- (void)setVCenter:(CGFloat)value;</code></pre>
+<ul>
+<li>(CGFloat)hCenter;
+<ul>
+<li>(void)setHCenter:(CGFloat)value;</li>
+
+<li>(CGFloat)vCenter;</li>
+
+<li>(void)setVCenter:(CGFloat)value;</li>
+</ul>
+</li>
+</ul>
 
 <p>The <em>hCenter</em> and <em>vCenter</em> properties let you horizontally center-align two views like this:</p>
 

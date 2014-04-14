@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>WeView v2 by charlesmchen</title>
+    <title>WeView 2 by charlesmchen</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -16,7 +16,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>WeView v2</h1>
+        <h1>WeView 2</h1>
         <p>An alternative to iOS Auto Layout</p>
 
 
@@ -31,7 +31,7 @@
 		<div class="social">
 		<div>
 
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView v2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView 2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 		</div>
@@ -59,7 +59,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="whyAutolayout.html">Why use Dynamic Layout?</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView v2?</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView 2?</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialOverview.html">Tutorial 1: Overview</a></li>
@@ -110,7 +110,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="designPhilosophy.html">Design Philosophy</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView v2</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView 2</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="License.html">License</a></li>
@@ -128,33 +128,35 @@
       <section>
 
 
-    <h1 id='tutorial_12_example'>Tutorial 12: Example</h1>
+    <h1 id="tutorial_12_example">Tutorial 12: Example</h1>
 <!-- TEMPLATE START -->
-<p>Here&#8217;s an example whose layout is <em>responsive</em> to changes of orientation and device:</p>
-<video AUTOPLAY='true' controls='true' HEIGHT='720' LOOP='true' WIDTH='700' class='embedded_video'>
+<p>Here’s an example whose layout is <em>responsive</em> to changes of orientation and device:</p>
+
+<p><video AUTOPLAY='true' HEIGHT='720' LOOP='true' WIDTH='700' class='embedded_video' controls='true'>
 <source src='videos/video-B2B0C11D-E1A1-4CAE-B4B4-D043D5989B4E-40400-0001287E815CD5CB.mp4' type='video/mp4' />
 <source src='videos/video-B2B0C11D-E1A1-4CAE-B4B4-D043D5989B4E-40400-0001287E815CD5CB.webm' type='video/webm' />
-</video>
-<h3 id='getting_started'>Getting Started</h3>
+</video></p>
 
-<p>We&#8217;ll use one WeView (the <em>rootView</em>) to layout the contents of the screen.</p>
-<script src='https://gist.github.com/7295271.js'> </script>
-<h3 id='the_activity_indicator'>The Activity Indicator</h3>
+<h3 id="getting_started">Getting Started</h3>
 
-<p>We&#8217;ll start with the easiest element of the layout, the activity indicator.</p>
+<p>We’ll use one WeView (the <em>rootView</em>) to layout the contents of the screen.</p>
+<script src='https://gist.github.com/7295271.js'><![CDATA[ ]]></script>
+<h3 id="the_activity_indicator">The Activity Indicator</h3>
+
+<p>We’ll start with the easiest element of the layout, the activity indicator.</p>
 
 <ul>
 <li>We add the activity indicator to the <em>rootView</em> with <em>[addSubviewWithCustomLayout:]</em>. This method can be used for any subviews that are laid out alone.</li>
 
-<li>In this case, we don&#8217;t need to need configure the layout or the subview. The default behavior is to center-align the subview at its desired size.</li>
+<li>In this case, we don’t need to need configure the layout or the subview. The default behavior is to center-align the subview at its desired size.</li>
 </ul>
-<script src='https://gist.github.com/7295479.js'> </script>
-<h3 id='the_header'>The Header</h3>
+<script src='https://gist.github.com/7295479.js'><![CDATA[ ]]></script>
+<h3 id="the_header">The Header</h3>
 
 <ul>
-<li>We&#8217;ll use a separate WeView for the header, the <em>headerView</em>.</li>
+<li>We’ll use a separate WeView for the header, the <em>headerView</em>.</li>
 
-<li>The headerView is populated with a &#8220;title&#8221; UILabel and a &#8220;tag&#8221; button.</li>
+<li>The headerView is populated with a “title” UILabel and a “tag” button.</li>
 
 <li>The UILabel and button use separate layouts; the label is center-aligned (the default behavior) and the tag button is right-aligned.</li>
 
@@ -162,37 +164,37 @@
 
 <li>We call <em>setHStretches</em> on the headerView so that it stretches horizontally, extending to the edges of the screen.</li>
 </ul>
-<script src='https://gist.github.com/7294435.js'> </script>
-<h3 id='the_pillbox_buttons'>The Pillbox Buttons</h3>
+<script src='https://gist.github.com/7294435.js'><![CDATA[ ]]></script>
+<h3 id="the_pillbox_buttons">The Pillbox Buttons</h3>
 
 <ul>
 <li>We add the pillbox buttons in a <em>horizontal layout</em>.</li>
 
-<li>We configure the buttons&#8217; layout with bottom alignment.</li>
+<li>We configure the buttons’ layout with bottom alignment.</li>
 </ul>
-<script src='https://gist.github.com/7295582.js'> </script>
-<h3 id='the_background'>The Background</h3>
+<script src='https://gist.github.com/7295582.js'><![CDATA[ ]]></script>
+<h3 id="the_background">The Background</h3>
 
 <p>The background image is the trickiest part of the layout.</p>
 
-<p>If we simply wanted to stretch the background image&#8217;s UIImageView to fill the screen, we could simply:</p>
+<p>If we simply wanted to stretch the background image’s UIImageView to fill the screen, we could simply:</p>
 
 <ul>
 <li>Configure the UIImageView with <em>[setStretches]</em>, so that it would stretch vertically and horizontally.</li>
 
 <li>Configure the UIImageView with <em>[setIgnoreDesiredSize]</em>, so that its size was based solely on the available space in the layout and add it to the rootView in its own layout.</li>
 </ul>
-<script src='https://gist.github.com/7295674.js'> </script>
-<p><img src='images/snapshot-E4B61D65-B3B3-431B-A0F5-6707A8113EE9-32015-0002538CDA5194E7.png' alt='Layout Snapshot' /></p>
+<script src='https://gist.github.com/7295674.js'><![CDATA[ ]]></script>
+<p><img src="images/snapshot-E4B61D65-B3B3-431B-A0F5-6707A8113EE9-32015-0002538CDA5194E7.png" alt="Layout Snapshot" /></p>
 
 <p>But simply stretching the image to fill the screen distorts its content. We want to preserve the aspect ratio of the image as we stretch it, although this will cause the image to extend offscreen and be cropped.</p>
 
-<p><img src='images/snapshot-443C9E3D-08D9-4ED3-B247-306EAE2C7189-32015-0002538DD232DFAF.png' alt='Layout Snapshot' /></p>
+<p><img src="images/snapshot-443C9E3D-08D9-4ED3-B247-306EAE2C7189-32015-0002538DD232DFAF.png" alt="Layout Snapshot" /></p>
 
 <p>Therefore, we wrap the the background image in a separate WeView and add the UIImageView using <em>[addSubviewWithFillLayoutWAspectRatio]</em>.</p>
-<script src='https://gist.github.com/7295668.js'> </script>
-<h3 id='the_final_code'>The Final Code</h3>
-<script src='https://gist.github.com/6489214.js'> </script><!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='DemoApp.html'>Demo App</a></p>
+<script src='https://gist.github.com/7295668.js'><![CDATA[ ]]></script>
+<h3 id="the_final_code">The Final Code</h3>
+<script src='https://gist.github.com/6489214.js'><![CDATA[ ]]></script><!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='DemoApp.html'>Demo App</a></p>
 
 
 

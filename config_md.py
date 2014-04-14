@@ -28,9 +28,9 @@ layout: default
 ---
 '''
 links = (
-  Link('home.md', 'Home', indent=0, sidebarFilename='index.html', pageTitle='WeView v2'),
+  Link('home.md', 'Home', indent=0, sidebarFilename='index.html', pageTitle='WeView 2'),
   Link('whyAutolayout.md', 'Why use Dynamic Layout?'),
-  Link('whyWeView2.md', 'Why use WeView v2?'),
+  Link('whyWeView2.md', 'Why use WeView 2?'),
   Link('TutorialOverview.md', 'Overview', groupKey='Tutorial'),
   Link('TutorialInstalling.md', 'Installing', groupKey='Tutorial'),
   Link('TutorialTerminology.md', 'Terminology', groupKey='Tutorial'),
@@ -47,7 +47,7 @@ links = (
   Link('FAQ.md', 'FAQ'),
   Link('Issues.md', 'Bugs & Feature Requests'),
   Link('designPhilosophy.md', 'Design Philosophy'),
-  Link('whatsNewWeView2.md', 'What\'s New in WeView v2'),
+  Link('whatsNewWeView2.md', 'What\'s New in WeView 2'),
   Link('License.md', 'License'),
   Link('CHANGELOG.md', 'Change Log'),
   Link('Acknowledgments.md', 'Acknowledgments'),

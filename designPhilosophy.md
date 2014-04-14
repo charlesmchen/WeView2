@@ -55,4 +55,4 @@ API Design References
 
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="whatsNewWeView2.html">What's New in WeView v2</a></p>
+<p class="nextLink">Next:  <a href="whatsNewWeView2.html">What's New in WeView 2</a></p>

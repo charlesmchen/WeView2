@@ -51,4 +51,4 @@ This becomes even more important with _iOS 7_, which allows users to adjust text
 
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="whyWeView2.html">Why use WeView v2?</a></p>
+<p class="nextLink">Next:  <a href="whyWeView2.html">Why use WeView 2?</a></p>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>WeView v2 by charlesmchen</title>
+    <title>WeView 2 by charlesmchen</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -16,7 +16,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>WeView v2</h1>
+        <h1>WeView 2</h1>
         <p>An alternative to iOS Auto Layout</p>
 
 
@@ -31,7 +31,7 @@
 		<div class="social">
 		<div>
 
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView v2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView 2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 		</div>
@@ -59,7 +59,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="whyAutolayout.html">Why use Dynamic Layout?</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView v2?</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView 2?</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialOverview.html">Tutorial 1: Overview</a></li>
@@ -110,7 +110,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="designPhilosophy.html">Design Philosophy</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView v2</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView 2</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="License.html">License</a></li>
@@ -128,20 +128,20 @@
       <section>
 
 
-    <p>Next: <a href='designPhilosophy.html'>Design Philosophy</a></p>
+    <p>Next: <a href="designPhilosophy.html">Design Philosophy</a></p>
 
-<h1 id='tutorial_3_the_layouts'>Tutorial 3: The Layouts</h1>
-<!-- TEMPLATE START --><EMBED AUTOPLAY='true' CONTROLLER='false' SRC='videos/video-633796AA-99BC-4296-853C-CD30D8AD2EE0-54898-00058943C9E1C927.mov' PLUGINSPAGE='http://www.apple.com/quicktime/' HEIGHT='94' LOOP='true' WIDTH='241' />
+<h1 id="tutorial_3_the_layouts">Tutorial 3: The Layouts</h1>
+<!-- TEMPLATE START --><EMBED AUTOPLAY='true' CONTROLLER='false' HEIGHT='94' LOOP='true' PLUGINSPAGE='http://www.apple.com/quicktime/' SRC='videos/video-633796AA-99BC-4296-853C-CD30D8AD2EE0-54898-00058943C9E1C927.mov' WIDTH='241' />
 <p>The core class of this library is the <strong>WeView</strong>.<br />WeView is a subclass of UIView that can position its subviews using a variety of layouts.</p>
 
-<h3 id='example_1'>Example 1</h3>
+<h3 id="example_1">Example 1</h3>
 
-<p>Let&#8217;s plunge right in with an example. Here is a WeView that contains a UILabel, a UIImageView and a UIButton.</p>
+<p>Let’s plunge right in with an example. Here is a WeView that contains a UILabel, a UIImageView and a UIButton.</p>
 
-<p><img src='images/snapshot-C8C60F9D-AE44-4405-B077-A3EAC0636E31-90246-0004232B38E3D685-2.png' alt='Layout Snapshot' /></p>
+<p><img src="images/snapshot-C8C60F9D-AE44-4405-B077-A3EAC0636E31-90246-0004232B38E3D685-2.png" alt="Layout Snapshot" /></p>
 
-<p>Here&#8217;s the code:</p>
-<script src='https://gist.github.com/6489061.js'> </script>
+<p>Here’s the code:</p>
+<script src='https://gist.github.com/6489061.js'><![CDATA[ ]]></script>
 <ul>
 <li>The three subviews use a <strong>horizontal layout</strong>.</li>
 
@@ -154,14 +154,14 @@
 <li><strong>The key idea</strong>: Although the WeView needs to be layed out as usual, it takes care of laying out its subviews. It is not necessary to ever set the size or position of any of the subviews - in fact, their existing size and position are ignored by the WeView layout.</li>
 </ul>
 
-<h3 id='example_2'>Example 2</h3>
+<h3 id="example_2">Example 2</h3>
 
-<p>Here&#8217;s another example:</p>
+<p>Here’s another example:</p>
 
-<p><img src='images/iphone_example.png' alt='Layout Snapshot' /></p>
+<p><img src="images/iphone_example.png" alt="Layout Snapshot" /></p>
 
-<p>Here&#8217;s the code:</p>
-<script src='https://gist.github.com/6489214.js'> </script>
+<p>Here’s the code:</p>
+<script src='https://gist.github.com/6489214.js'><![CDATA[ ]]></script>
 <ul>
 <li>There are two WeViews in this layout: the outer <em>rootView</em> and the inner <em>bodyView</em>.</li>
 
@@ -171,30 +171,30 @@
 
 <li>The <em>bodyView</em> is also configured with <strong>[UIView setIgnoreDesiredSize]</strong> which indicates to the layout that the <strong>desired size</strong> of this view should be ignored.</li>
 
-<li>A background image is added to the <em>bodyView</em> with a custom layout that exactly fills the <em>bodyView</em>&#8217;s bounds while retaining its aspect ratio.</li>
+<li>A background image is added to the <em>bodyView</em> with a custom layout that exactly fills the <em>bodyView</em>’s bounds while retaining its aspect ratio.</li>
 
 <li>A group of three buttons is added to the <em>bodyView</em> using a horizontal layout. This layout has <strong>bottom alignment</strong> and a 20pt <strong>bottom margin</strong>.</li>
 
-<li>An activity indicator is added to the <em>bodyView</em> with its own layout. That layout doesn&#8217;t need to be configured, since the default behavior is to center subviews within their superview.</li>
+<li>An activity indicator is added to the <em>bodyView</em> with its own layout. That layout doesn’t need to be configured, since the default behavior is to center subviews within their superview.</li>
 
 <li>The <em>bodyView</em> contains three separate groups of subviews: the background, the buttons and the activity indicator. <strong>Each group of subviews has its own layout</strong>. The layouts work independently and only affect their subviews.</li>
 
-<li><strong>Each layout can be configured separately</strong>. For example, the buttons&#8217; layout has bottom alignment, but that doesn&#8217;t effect the activity indicator because it has a separate layout.</li>
+<li><strong>Each layout can be configured separately</strong>. For example, the buttons’ layout has bottom alignment, but that doesn’t effect the activity indicator because it has a separate layout.</li>
 </ul>
 
 <p>The <em>bodyView</em> is also configured with <em>[UIView setIgnoreDesiredSize]</em> which indicates to the layout that the <strong>desired size</strong> of this view should be ignored.</p>
 
-<p><img src='images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-1.png' alt='Layout Snapshot' /> <img src='images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-0.png' alt='Layout Snapshot' /></p>
+<p><img src="images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-1.png" alt="Layout Snapshot" /> <img src="images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-0.png" alt="Layout Snapshot" /></p>
 
 <p>A WeView layou</p>
 
-<p><img src='images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-2.png' alt='Layout Snapshot' /> <img src='images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-1.png' alt='Layout Snapshot' /> <img src='images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-0.png' alt='Layout Snapshot' /></p>
+<p><img src="images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-2.png" alt="Layout Snapshot" /> <img src="images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-1.png" alt="Layout Snapshot" /> <img src="images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-0.png" alt="Layout Snapshot" /></p>
 
-<p><img src='images/snapshot-0-0.png' alt='Layout Snapshot' /> <img src='images/snapshot-0-1.png' alt='Layout Snapshot' /> <img src='images/snapshot-0-2.png' alt='Layout Snapshot' /></p>
+<p><img src="images/snapshot-0-0.png" alt="Layout Snapshot" /> <img src="images/snapshot-0-1.png" alt="Layout Snapshot" /> <img src="images/snapshot-0-2.png" alt="Layout Snapshot" /></p>
 
-<p><img src='images/snapshot-0-0.png' alt='Layout Snapshot' /> <img src='images/snapshot-0-1.png' alt='Layout Snapshot' /> <img src='images/snapshot-0-2.png' alt='Layout Snapshot' /></p>
+<p><img src="images/snapshot-0-0.png" alt="Layout Snapshot" /> <img src="images/snapshot-0-1.png" alt="Layout Snapshot" /> <img src="images/snapshot-0-2.png" alt="Layout Snapshot" /></p>
 <!-- TEMPLATE END -->
-<p>Next: <a href='designPhilosophy.html'>Design Philosophy</a></p>
+<p>Next: <a href="designPhilosophy.html">Design Philosophy</a></p>
 
 
 

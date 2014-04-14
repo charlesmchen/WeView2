@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>WeView v2 by charlesmchen</title>
+    <title>WeView 2 by charlesmchen</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -16,7 +16,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>WeView v2</h1>
+        <h1>WeView 2</h1>
         <p>An alternative to iOS Auto Layout</p>
 
 
@@ -31,7 +31,7 @@
 		<div class="social">
 		<div>
 
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView v2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView 2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 		</div>
@@ -59,7 +59,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="whyAutolayout.html">Why use Dynamic Layout?</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView v2?</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView 2?</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialOverview.html">Tutorial 1: Overview</a></li>
@@ -110,7 +110,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="designPhilosophy.html">Design Philosophy</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView v2</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView 2</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="License.html">License</a></li>
@@ -128,37 +128,41 @@
       <section>
 
 
-    <h1 id='tutorial_3_terminology'>Tutorial 3: Terminology</h1>
+    <h1 id="tutorial_3_terminology">Tutorial 3: Terminology</h1>
 <!-- TEMPLATE START -->
-<h3 id='view_hierarchy'>View Hierarchy</h3>
+<h1 id="view_hierarchy">View Hierarchy</h1>
+
+<h2 id="view_hierarchy_2">View Hierarchy</h2>
+
+<h3 id="view_hierarchy_3">View Hierarchy</h3>
 
 <p>Layout takes place in the context of a <strong>View Hierarchy</strong>, but generally we only need to concern ourselves the relationships between a single parent view and its children at a time.</p>
 
-<h3 id='superview__subviews'>Superview &amp; Subviews</h3>
+<h2 id="superview__subviews">Superview &amp; Subviews</h2>
 
 <p>In the context of layout, we call a parent view the <strong>superview</strong> and its children the <strong>subviews</strong>. When using <strong>WeView 2</strong>, the superview will generally be a <strong>WeView</strong>. Subviews can be any kind of UIView.</p>
 
-<h3 id='widgets_vs_containers'>Widgets vs. Containers</h3>
+<h2 id="widgets_vs_containers">Widgets vs. Containers</h2>
 
 <p>We also distinguish between <strong>widgets</strong> - the visible elements of the interface, ie. buttons and labels - and <strong>containers</strong>, mostly invisible views that we use to structure and layout other views. In HTML, DIVs are usually used as <strong>containers</strong>; in UIKit, plain UIViews are often used. The core of <strong>WeView 2</strong> is the <strong>WeView</strong> container class.</p>
 
-<p>We refer to a given container&#8217;s subviews collectively as its <strong>contents</strong>.</p>
+<p>We refer to a given container’s subviews collectively as its <strong>contents</strong>.</p>
 
-<h3 id='measurement_and_arrangement'>Measurement and Arrangement</h3>
+<h2 id="measurement_and_arrangement">Measurement and Arrangement</h2>
 
 <p>There are two complementary aspects of layout: <strong>measurement</strong> and <strong>arrangement</strong>. <strong>Measurement</strong> is the process of determining what size each view should be - perhaps in the abstract, or perhaps in the context of specific amount of space. <strong>Arrangement</strong> is the process of actually sizing and positioning views and always takes place in the context of a specific space.</p>
 
 <p>In UIKit, <strong>measurement</strong> centers around the <em>[UIView sizeThatFits:]</em> method and <strong>arrangement</strong> is driven by the <em>[UIView layoutSubviews]</em> method.</p>
 
-<h3 id='desired_size'>Desired Size</h3>
+<h2 id="desired_size">Desired Size</h2>
 
-<p>In terms of <strong>measurement</strong>, many views have a specific size they want to have. Ie. a button might want to be the size of its icon and a UILabel might want to be the size of its text, as rendered with its font. UIKit refers to this as a view&#8217;s <strong>desired size</strong>. (When using <strong>WeView 2</strong>, we can safely ignore the related concept of <strong>intrinsic size</strong>.) A view&#8217;s <strong>desired size</strong> corresponds to the size returned by <em>[UIView sizeThatFits:]</em>.</p>
+<p>In terms of <strong>measurement</strong>, many views have a specific size they want to have. Ie. a button might want to be the size of its icon and a UILabel might want to be the size of its text, as rendered with its font. UIKit refers to this as a view’s <strong>desired size</strong>. (When using <strong>WeView 2</strong>, we can safely ignore the related concept of <strong>intrinsic size</strong>.) A view’s <strong>desired size</strong> corresponds to the size returned by <em>[UIView sizeThatFits:]</em>.</p>
 
-<p>Note that the <strong>desired size</strong> of a view can depend on the argument passed to that method and is a surprisingly complicated concept. More on that <a href='TutorialDesiredSize.html'>later</a>.</p>
+<p>Note that the <strong>desired size</strong> of a view can depend on the argument passed to that method and is a surprisingly complicated concept. More on that <a href="TutorialDesiredSize.html">later</a>.</p>
 
-<h3 id='frame_and_bounds'>Frame and Bounds</h3>
+<h2 id="frame_and_bounds">Frame and Bounds</h2>
 
-<p>UIViews use two coordinate systems. A UIView&#8217;s <strong>frame</strong> specifies its size and position in the coordinate system of its parent. A UIView&#8217;s <strong>bounds</strong> specifies its size and position in its own local coordinate system. Layout of <strong>subviews</strong> always takes place in the coordinate system of the <strong>superview</strong> and therefore manipulates the subviews&#8217; frames. Changes to a view&#8217;s frame affects the bounds and vice versa. UIView properties (ie. frame) and WeView properties (ie. spacing) are expressed in points, not pixels. On a Retina device, a point is 2 pixels.</p>
+<p>UIViews use two coordinate systems. A UIView’s <strong>frame</strong> specifies its size and position in the coordinate system of its parent. A UIView’s <strong>bounds</strong> specifies its size and position in its own local coordinate system. Layout of <strong>subviews</strong> always takes place in the coordinate system of the <strong>superview</strong> and therefore manipulates the subviews’ frames. Changes to a view’s frame affects the bounds and vice versa. UIView properties (ie. frame) and WeView properties (ie. spacing) are expressed in points, not pixels. On a Retina device, a point is 2 pixels.</p>
 <!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='TutorialBasics.html'>Tutorial 4: Basics</a></p>
 
 

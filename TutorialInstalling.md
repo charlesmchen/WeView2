@@ -8,13 +8,13 @@ layout: default
 
 <!-- TEMPLATE START -->
 
-To install WeView v2, add the WeView folder to your XCode project.
+To install WeView 2, add the WeView folder to your XCode project.
 
 ![Layout Snapshot](images/WeViewFolderHierarchy.png)
 
-The only dependencies of WeView v2 are the following iOS Frameworks: Foundation, UIKit and Quartz Core.
+The only dependencies of WeView 2 are the following iOS Frameworks: Foundation, UIKit and Quartz Core.
 
-WeView v2 requires iOS 5 or later.
+WeView 2 requires iOS 5 or later.
 
 
 ### Headers

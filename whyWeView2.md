@@ -3,7 +3,7 @@ permalink: whyWeView2.html
 layout: default
 ---
 
-# Why use WeView v2?
+# Why use WeView 2?
 
 
 <!-- TEMPLATE START -->
@@ -27,7 +27,7 @@ Here's the equivalent logic using a _WeView_:
 
 iOS Auto Layout has the advantage of being integrated into Interface Builder, and the Inteface Builder support for iOS Auto Layout has dramatically improved in Xcode 5.  However, as soon as you outgrow what can done in Interface Builder, you must work programmatically and iOS Auto Layout requires verbose, brittle code. 
 
-_WeView v2 can only be used programmatically, and is designed to yield concise, expressive and maintainable code_.  The benefits of the syntax only become more clear as layouts become more complex.
+_WeView 2 can only be used programmatically, and is designed to yield concise, expressive and maintainable code_.  The benefits of the syntax only become more clear as layouts become more complex.
 
 ### Other Alternatives:
 

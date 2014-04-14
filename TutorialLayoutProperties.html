@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>WeView v2 by charlesmchen</title>
+    <title>WeView 2 by charlesmchen</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -16,7 +16,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>WeView v2</h1>
+        <h1>WeView 2</h1>
         <p>An alternative to iOS Auto Layout</p>
 
 
@@ -31,7 +31,7 @@
 		<div class="social">
 		<div>
 
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView v2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView 2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 		</div>
@@ -59,7 +59,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="whyAutolayout.html">Why use Dynamic Layout?</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView v2?</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView 2?</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialOverview.html">Tutorial 1: Overview</a></li>
@@ -110,7 +110,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="designPhilosophy.html">Design Philosophy</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView v2</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView 2</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="License.html">License</a></li>
@@ -128,13 +128,15 @@
       <section>
 
 
-    <h1 id='tutorial_6_layout_properties'>Tutorial 6: Layout Properties</h1>
+    <h1 id="tutorial_6_layout_properties">Tutorial 6: Layout Properties</h1>
 <!-- TEMPLATE START -->
-<h3 id='margins_and_spacing'>Margins and Spacing</h3>
-<video AUTOPLAY='true' controls='true' HEIGHT='324' LOOP='true' WIDTH='360' class='embedded_video'>
+<h3 id="margins_and_spacing">Margins and Spacing</h3>
+
+<p><video AUTOPLAY='true' HEIGHT='324' LOOP='true' WIDTH='360' class='embedded_video' controls='true'>
 <source src='videos/video-F38F546F-397C-4F0C-9756-94114D3FA777-34104-000125DB30986218.mp4' type='video/mp4' />
 <source src='videos/video-F38F546F-397C-4F0C-9756-94114D3FA777-34104-000125DB30986218.webm' type='video/webm' />
-</video>
+</video></p>
+
 <p><strong>Margins</strong> and <strong>spacing</strong> work like their HTML/CSS equivalents.</p>
 
 <ul>
@@ -142,27 +144,31 @@
 
 <li><strong>Margins</strong> control the space between the contents of the subview and its bounds.</li>
 
-<li><strong>Container size depends on the size of its contents their layouts</strong>. A WeView&#8217;s <em>desired size</em> is the sum of it&#8217;s subview&#8217;s desired sizes plus margins, spacing, etc. Changing a layout&#8217;s <em>margins</em> or <em>spacing</em> affects its WeView&#8217;s desired size and how its subviews are positioned.</li>
+<li><strong>Container size depends on the size of its contents their layouts</strong>. A WeView’s <em>desired size</em> is the sum of it’s subview’s desired sizes plus margins, spacing, etc. Changing a layout’s <em>margins</em> or <em>spacing</em> affects its WeView’s desired size and how its subviews are positioned.</li>
 
 <li><strong>Convenience methods offer many ways to set the same properties.</strong> You can set <em>margins</em> with methods like <em>[WeViewLayout setLeftMargin:]</em> or <em>[WeViewLayout setTopMargin:]</em> or you can set multiple margins at once with methods like <em>[WeViewLayout setHMargin:]</em> (which sets the left and right margins) or <em>[WeViewLayout setMargin:]</em> (which sets all of the margins: top, bottom, left and right). You can set <em>spacing</em> with <em>[WeViewLayout setHSpacing:]</em> or <em>[WeViewLayout setVSpacing:]</em> or set both at once with <em>[WeViewLayout setSpacing:]</em>.</li>
 </ul>
 
-<h3 id='alignment'>Alignment</h3>
-<video AUTOPLAY='true' controls='true' HEIGHT='384' LOOP='true' WIDTH='368' class='embedded_video'>
+<h3 id="alignment">Alignment</h3>
+
+<p><video AUTOPLAY='true' HEIGHT='384' LOOP='true' WIDTH='368' class='embedded_video' controls='true'>
 <source src='videos/video-C0E146FB-9E8D-4D94-9801-930842817EE7-34104-0001266CBF84E648.mp4' type='video/mp4' />
 <source src='videos/video-C0E146FB-9E8D-4D94-9801-930842817EE7-34104-0001266CBF84E648.webm' type='video/webm' />
-</video>
+</video></p>
+
 <ul>
-<li><strong>Content Alignment</strong> If a WeView&#8217;s layout has extra space, its contents are positioned based on <strong>alignment</strong>. A WeView layout has separate <strong>hAlign</strong> (left, center, right) and <strong>vAlign</strong> (top, center, bottom) properties. By default, layouts have center alignment.</li>
+<li><strong>Content Alignment</strong> If a WeView’s layout has extra space, its contents are positioned based on <strong>alignment</strong>. A WeView layout has separate <strong>hAlign</strong> (left, center, right) and <strong>vAlign</strong> (top, center, bottom) properties. By default, layouts have center alignment.</li>
 
 <li><strong>Convenience methods</strong>. You can set alignment with <em>[WeViewLayout setHAlign:]</em> or <em>[WeViewLayout setVAlign:]</em> or you can set multiple margins at once with methods like <em>[UIView setMargin:]</em>.</li>
 </ul>
 
-<h3 id='stretch'>Stretch</h3>
-<video AUTOPLAY='true' controls='true' HEIGHT='380' LOOP='true' WIDTH='452' class='embedded_video'>
+<h3 id="stretch">Stretch</h3>
+
+<p><video AUTOPLAY='true' HEIGHT='380' LOOP='true' WIDTH='452' class='embedded_video' controls='true'>
 <source src='videos/video-9FC06858-E988-4214-8998-44F639BCA133-34104-000126A323C1EB39.mp4' type='video/mp4' />
 <source src='videos/video-9FC06858-E988-4214-8998-44F639BCA133-34104-000126A323C1EB39.webm' type='video/webm' />
-</video>
+</video></p>
+
 <ul>
 <li>The <em>UIView+WeView category</em> adds a number of properties to all UIViews that allow us to control the layout process.</li>
 
@@ -175,13 +181,15 @@
 <li>Additionally, you can use <em>[WeViewLayout setSpacingStretches:]</em> to indicate that the spacing should stretch to fill any available space. That spacing will only stretch if no subview can stretch.</li>
 </ul>
 
-<h3 id='cropping'>Cropping</h3>
-<video AUTOPLAY='true' controls='true' HEIGHT='124' LOOP='true' WIDTH='268' class='embedded_video'>
+<h3 id="cropping">Cropping</h3>
+
+<p><video AUTOPLAY='true' HEIGHT='124' LOOP='true' WIDTH='268' class='embedded_video' controls='true'>
     <source src='videos/video-036A3D47-789B-4CB4-B1A7-0FF87933C4DD-76443-0005E4417509FC15.mp4' type='video/mp4' />
     <source src='videos/video-036A3D47-789B-4CB4-B1A7-0FF87933C4DD-76443-0005E4417509FC15.webm' type='video/webm' />
-</video>
+</video></p>
+
 <ul>
-<li>If the WeView&#8217;s bounds are smaller than it&#8217;s desired size (ie. the subviews overflow their superview), the subviews of the layout are cropped to fit (unless the <em>cropSubviewOverflow</em> property is set to NO).</li>
+<li>If the WeView’s bounds are smaller than it’s desired size (ie. the subviews overflow their superview), the subviews of the layout are cropped to fit (unless the <em>cropSubviewOverflow</em> property is set to NO).</li>
 </ul>
 <!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='TutorialLayouts.html'>Tutorial 7: The Layouts</a></p>
 

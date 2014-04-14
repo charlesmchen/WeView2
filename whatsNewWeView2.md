@@ -3,7 +3,7 @@ permalink: whatsNewWeView2.html
 layout: default
 ---
 
-# What's New in WeView v2
+# What's New in WeView 2
 
 
 <!-- TEMPLATE START -->
@@ -15,14 +15,14 @@ layout: default
   use.
 * WeView has a new cell-based layout model that is easier to understand.
 * WeView should be more consistent and better handle edge cases such as degenerate layouts.
-* WeView offers a number of new per-view properties that allow more fine-grained control over 
+* WeView offers a number of new per-view properties that allow more fine-grained control over
    layout behavior.
 
-### Migrating from WeViews to WeView v2
+### Migrating from WeViews to WeView 2
 
 * Use the _WeView_ class instead of the _WePanel_ class.  
 * We've streamlined the class structure.  Many of the old view classes are no longer necessary. Many of the old layouts have been combined or renamed.
-* We've combined _layers_ and _layouts_.  There are no _layers_ in WeView v2.
+* We've combined _layers_ and _layouts_.  There are no _layers_ in WeView 2.
 * Many of the features (such as _stretch_) have been completely redesigned.  
 * See the documentation
 

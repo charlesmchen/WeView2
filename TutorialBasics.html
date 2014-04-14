@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>WeView v2 by charlesmchen</title>
+    <title>WeView 2 by charlesmchen</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -16,7 +16,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>WeView v2</h1>
+        <h1>WeView 2</h1>
         <p>An alternative to iOS Auto Layout</p>
 
 
@@ -31,7 +31,7 @@
 		<div class="social">
 		<div>
 
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView v2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView 2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 		</div>
@@ -59,7 +59,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="whyAutolayout.html">Why use Dynamic Layout?</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView v2?</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView 2?</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialOverview.html">Tutorial 1: Overview</a></li>
@@ -110,7 +110,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="designPhilosophy.html">Design Philosophy</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView v2</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView 2</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="License.html">License</a></li>
@@ -128,7 +128,7 @@
       <section>
 
 
-    <h1 id='tutorial_4_basics'>Tutorial 4: Basics</h1>
+    <h1 id="tutorial_4_basics">Tutorial 4: Basics</h1>
 <!-- TEMPLATE START -->
 <p><strong>WeView 2</strong> provides a container (The <strong>WeView</strong> class) that offers a variety of layouts for its subviews.</p>
 
@@ -136,17 +136,19 @@
 
 <p><strong>WeView 2</strong> introduces <strong>layouts</strong>, which a <strong>WeView</strong> superview uses to lay out (ie. measure and arrange) its subviews. We add subviews to a <strong>WeView</strong> using a method that specifies the layout to apply to those subviews.</p>
 
-<h3 id='a_simple_example'>A Simple Example</h3>
+<h3 id="a_simple_example">A Simple Example</h3>
 
 <p>Here is an example WeView that has three subviews: a UILabel, a UIImageView and a UIButton.</p>
-<video AUTOPLAY='true' controls='true' HEIGHT='280' LOOP='true' WIDTH='352' class='embedded_video'>
+
+<p><video AUTOPLAY='true' HEIGHT='280' LOOP='true' WIDTH='352' class='embedded_video' controls='true'>
  <source src='videos/video-1AC1BE13-D72E-45F5-95A3-80A8E925C210-24401-00023AED9C1B3FE7.mp4' type='video/mp4' />
  <source src='videos/video-1AC1BE13-D72E-45F5-95A3-80A8E925C210-24401-00023AED9C1B3FE7.webm' type='video/webm' />
- </video>
+ </video></p>
+
 <ul>
 <li><strong>Layouts</strong>. These three subviews use a <strong>horizontal layout</strong>. <strong>WeViews</strong> have a variety of built-in layouts and supports custom layouts as well.</li>
 
-<li><strong>New &#8220;addSubview(s)&#8221; methods</strong>. <em>[addSubviewsWithHorizontalLayout]</em> creates the new layout, adds the subviews to the WeView, and associates the layout with those subviews.</li>
+<li><strong>New “addSubview(s)” methods</strong>. <em>[addSubviewsWithHorizontalLayout]</em> creates the new layout, adds the subviews to the WeView, and associates the layout with those subviews.</li>
 
 <li><strong>Per-subview layouts.</strong> The layout only applies to the subviews passed as arguments to that method.</li>
 
@@ -161,9 +163,9 @@
 <li><strong>Automated Layout</strong>. The WeView takes care of laying out its subviews. It is not necessary to ever resize or position of any of the subviews. In fact, their existing size and position are ignored by the WeView layout.</li>
 </ul>
 
-<h3 id='when_does_layout_occur'>When does layout occur?</h3>
+<h3 id="when_does_layout_occur">When does layout occur?</h3>
 
-<p>UIKit provides a mechanism for triggering layout - UIView&#8217;s <strong>needsLayout</strong> property. It is a simple &#8220;dirty flag&#8221; for layout. UIKit ensures that [UIView layoutSubviews] is eventually called whenever <strong>needsLayout</strong> is set. <strong>WeView 2</strong> ensures that it is set whenever a <strong>WeView</strong> is resized or whenever subviews are added or removed. Therefore, layout is usually triggered automatically as necessary. You should only need to trigger layout yourself (ie. set the <strong>needsLayout</strong> property on one or more <strong>WeViews</strong>) if the desired size of a subview changes.</p>
+<p>UIKit provides a mechanism for triggering layout - UIView’s <strong>needsLayout</strong> property. It is a simple “dirty flag” for layout. UIKit ensures that [UIView layoutSubviews] is eventually called whenever <strong>needsLayout</strong> is set. <strong>WeView 2</strong> ensures that it is set whenever a <strong>WeView</strong> is resized or whenever subviews are added or removed. Therefore, layout is usually triggered automatically as necessary. You should only need to trigger layout yourself (ie. set the <strong>needsLayout</strong> property on one or more <strong>WeViews</strong>) if the desired size of a subview changes.</p>
 <!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='TutorialLayoutModel.html'>Tutorial 5: Layout Model</a></p>
 
 

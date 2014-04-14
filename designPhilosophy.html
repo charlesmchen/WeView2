@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>WeView v2 by charlesmchen</title>
+    <title>WeView 2 by charlesmchen</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -16,7 +16,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>WeView v2</h1>
+        <h1>WeView 2</h1>
         <p>An alternative to iOS Auto Layout</p>
 
 
@@ -31,7 +31,7 @@
 		<div class="social">
 		<div>
 
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView v2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView 2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 		</div>
@@ -59,7 +59,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="whyAutolayout.html">Why use Dynamic Layout?</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView v2?</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView 2?</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialOverview.html">Tutorial 1: Overview</a></li>
@@ -110,7 +110,7 @@
 			<li>&nbsp;&nbsp;&nbsp;<a href="designPhilosophy.html">Design Philosophy</a></li>
 
 
-			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView v2</a></li>
+			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView 2</a></li>
 
 
 			<li>&nbsp;&nbsp;&nbsp;<a href="License.html">License</a></li>
@@ -128,36 +128,36 @@
       <section>
 
 
-    <h1 id='design_philosophy'>Design Philosophy</h1>
+    <h1 id="design_philosophy">Design Philosophy</h1>
 <!-- TEMPLATE START -->
 <blockquote>
-<p>Tracy: &#8220;We sailed it down the coast of Maine and back the Summer we were married. My, she was yar&#8230;&#8221;</p>
+<p>Tracy: “We sailed it down the coast of Maine and back the Summer we were married. My, she was yar…”</p>
 
-<p>George: &#8220;Yar? What does that mean?&#8221;</p>
+<p>George: “Yar? What does that mean?”</p>
 
-<p>Tracy: &#8220;It means&#8230; easy to handle, quick to the helm, fast, right. Everything a boat should be, until she develops dry rot.&#8221;</p>
+<p>Tracy: “It means… easy to handle, quick to the helm, fast, right. Everything a boat should be, until she develops dry rot.”</p>
 
-<p>From &#8220;The Philadelphia Story&#8221; by Philip Barry</p>
+<p>From “The Philadelphia Story” by Philip Barry</p>
 </blockquote>
 
-<p>Creating a UI auto-layout tool doesn&#8217;t require much code. There isn&#8217;t any algorithmic complexity; performance isn&#8217;t a concern. The difficulty lies in coming up with an design that is easy to learn and use. It should yield code that is easy to write and maintain. It is an API design challenge.</p>
+<p>Creating a UI auto-layout tool doesn’t require much code. There isn’t any algorithmic complexity; performance isn’t a concern. The difficulty lies in coming up with an design that is easy to learn and use. It should yield code that is easy to write and maintain. It is an API design challenge.</p>
 
 <p>It is awkward to express layout using code, even when using a declarative tool like <strong>WeView 2</strong>. Layout code easily devolves into spaghetti code: repetitious boilerplate with a profusion of badly-named variables. In the interest of maintainability, <strong>WeView 2</strong> is tightly focused on the goal of yielding concise, expressive code.</p>
 
 <p>To this end, <strong>WeView 2</strong> takes a number of unusual measures.</p>
 
 <ul>
-<li><strong>Chaining</strong>. <strong>WeView 2</strong> property setters like <em>[setMargin:]</em> and <em>[setSpacing:]</em> return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance. Chaining reduces the need for boilerplate code. Chaining isn&#8217;t particularly idiomatic Objective-C, but it is a key mechanism for keeping layout code concise. Ultimately, chaining is optional - but if you don&#8217;t use it, your code quality will suffer.</li>
+<li><strong>Chaining</strong>. <strong>WeView 2</strong> property setters like <em>[setMargin:]</em> and <em>[setSpacing:]</em> return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance. Chaining reduces the need for boilerplate code. Chaining isn’t particularly idiomatic Objective-C, but it is a key mechanism for keeping layout code concise. Ultimately, chaining is optional - but if you don’t use it, your code quality will suffer.</li>
 
-<li><strong>Redundancy</strong>. There are tradeoffs between the <a href='http://en.wikipedia.org/wiki/There&apos;s_more_than_one_way_to_do_it'>There&#8217;s More Than One Way To Do It</a> design philosophy (as exemplified by Perl) and the <a href='http://legacy.python.org/dev/peps/pep-0020/'>There&#8217;s Only One Way To Do It</a> design philosophy (as exemplified by Python). <strong>WeView 2</strong> comes down firmly on the &#8220;more than one way&#8221; side of the argument in the interest of yielding concise code, for example by offering factory and convenience methods. The horizontal and vertical layouts are simplified forms of the grid layout, but are far simpler and easier to use.</li>
+<li><strong>Redundancy</strong>. There are tradeoffs between the <a href="http://en.wikipedia.org/wiki/There's_more_than_one_way_to_do_it">There’s More Than One Way To Do It</a> design philosophy (as exemplified by Perl) and the <a href="http://legacy.python.org/dev/peps/pep-0020/">There’s Only One Way To Do It</a> design philosophy (as exemplified by Python). <strong>WeView 2</strong> comes down firmly on the “more than one way” side of the argument in the interest of yielding concise code, for example by offering factory and convenience methods. The horizontal and vertical layouts are simplified forms of the grid layout, but are far simpler and easier to use.</li>
 </ul>
 
-<h3 id='weview_2_design_goals'>WeView 2 Design Goals</h3>
+<h3 id="weview_2_design_goals">WeView 2 Design Goals</h3>
 
 <ul>
 <li><strong>Strive to be lightweight</strong>. Stay focused on solving a single problem. Add no third-party dependencies. Play nicely with other layout mechanisms.</li>
 
-<li><strong>Lower the learning curve</strong>. Keep the barrier to entry low and ensure that the library is easy to master through conceptual simplicity, comments and documentation. Leverage existing understanding of HTML and CSS: container-driven, declarative layout. Provide a demo app that let&#8217;s users learn how <strong>WeView 2</strong> layout works in an interactive sandbox.</li>
+<li><strong>Lower the learning curve</strong>. Keep the barrier to entry low and ensure that the library is easy to master through conceptual simplicity, comments and documentation. Leverage existing understanding of HTML and CSS: container-driven, declarative layout. Provide a demo app that let’s users learn how <strong>WeView 2</strong> layout works in an interactive sandbox.</li>
 
 <li><strong>Focus on maintainability</strong>. Bend over backwards to allow users to write terse, readable code.</li>
 
@@ -167,9 +167,9 @@
 
 <li><strong>Keep it simple</strong>. When in doubt, leave it out.</li>
 
-<li><strong>Don&#8217;t Reinvent The Wheel</strong>. <strong>WeView 2</strong> leverages and elaborates upon UIKit&#8217;s existing layout mechanism.</li>
+<li><strong>Don’t Reinvent The Wheel</strong>. <strong>WeView 2</strong> leverages and elaborates upon UIKit’s existing layout mechanism.</li>
 
-<li><strong>Leverage XCode</strong>. Take advantage of XCode&#8217;s autocomplete.</li>
+<li><strong>Leverage XCode</strong>. Take advantage of XCode’s autocomplete.</li>
 
 <li><strong>Transparency</strong>. Developers need to maintain a mental model of how layout works. Stick to a simple, understandable layout model (cell-based layout) and resist the temptation to get fancy.</li>
 </ul>
@@ -188,16 +188,16 @@
 <li>Whenever the documentation becomes complicated or involved, revisit the design.</li>
 </ul>
 
-<h1 id='api_design_references'>API Design References</h1>
+<h1 id="api_design_references">API Design References</h1>
 
 <ul>
-<li><a href='http://www4.in.tum.de/~blanchet/api-design.pdf'>The Little Manual of API Design</a></li>
+<li><a href="http://www4.in.tum.de/~blanchet/api-design.pdf">The Little Manual of API Design</a></li>
 
-<li><a href='http://lcsd05.cs.tamu.edu/slides/keynote.pdf'>How to Design a Good API and Why it Matters by Joshua Bloch</a></li>
+<li><a href="http://lcsd05.cs.tamu.edu/slides/keynote.pdf">How to Design a Good API and Why it Matters by Joshua Bloch</a></li>
 
-<li><a href='http://mattgemmell.com/2012/05/24/api-design/'>API Design by Matt Gemmell</a></li>
+<li><a href="http://mattgemmell.com/2012/05/24/api-design/">API Design by Matt Gemmell</a></li>
 </ul>
-<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='whatsNewWeView2.html'>What's New in WeView v2</a></p>
+<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='whatsNewWeView2.html'>What's New in WeView 2</a></p>
 
 
 
