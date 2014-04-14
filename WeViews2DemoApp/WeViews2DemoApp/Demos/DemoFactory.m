@@ -325,7 +325,7 @@ UIColor *UIColorRGB(unsigned int rgb)
            setDefaultSpacingStretchWeight:1.f]
            setVMargin:10]
           setHMargin:10]
-         setSpacing:5];
+          setSpacing:15];
 
         [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         //    result.debugLayout = YES;

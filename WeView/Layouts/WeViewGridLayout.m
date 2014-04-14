@@ -227,6 +227,7 @@ typedef struct
 }
 
 - (BOOL)stretchIfNecessary:(CGFloat)viewAxisSize
+                 canExpand:(BOOL)canExpand
 {
     // Returns YES IFF cell, margin or spacing sizes are changed.
 
@@ -235,6 +236,10 @@ typedef struct
 
     int extraAxisSize = ceilf(viewAxisSize) - WeViewSumFloats(axisSizes);
     CGFloat totalAxisStretchWeight = WeViewSumFloats(axisStretchWeights);
+    if (!canExpand)
+    {
+        extraAxisSize = MIN(extraAxisSize, 0);
+    }
     if (extraAxisSize > 0)
     {
         if (totalAxisStretchWeight > 0)
@@ -634,7 +639,9 @@ BOOL _isColumnWidthUniform;
 // TODO: Apply "isAbstractSizeQuery" in other layouts.
 - (GridLayoutInfo *)getGridLayoutInfo:(UIView *)view
                              subviews:(NSArray *)subviews
+                            guideSize:(CGSize)guideSize
                   isAbstractSizeQuery:(BOOL)isAbstractSizeQuery
+                   isMinimumSizeQuery:(BOOL)isMinimumSizeQuery
                                 debug:(BOOL)debug
                           debugIndent:(int)indent
 {
@@ -661,6 +668,7 @@ BOOL _isColumnWidthUniform;
                                           defaultSpacing:self.defaultVSpacing]];
         }
     }
+
     result.rowAxisLayout = [GridAxisLayout createWithPreMargin:self.topMarginInfo
                                                     postMargin:self.bottomMarginInfo
                                                    cellSizings:rowSizings
@@ -800,13 +808,14 @@ BOOL _isColumnWidthUniform;
         return result;
     }
 
-    CGSize viewSize = CGSizeMax(CGSizeZero, view.size);
     {
-        if ([result.columnAxisLayout stretchIfNecessary:viewSize.width])
+        if ([result.columnAxisLayout stretchIfNecessary:guideSize.width
+                                              canExpand:!isMinimumSizeQuery])
         {
             // TODO:
         }
-        [result.rowAxisLayout stretchIfNecessary:viewSize.height];
+        [result.rowAxisLayout stretchIfNecessary:guideSize.height
+                                       canExpand:!isMinimumSizeQuery];
     }
 
     if (debug)
@@ -856,7 +865,9 @@ BOOL _isColumnWidthUniform;
 
     GridLayoutInfo *gridLayoutInfo = [self getGridLayoutInfo:view
                                                     subviews:subviews
+                                                   guideSize:guideSize
                                          isAbstractSizeQuery:!hasNonEmptyGuideSize
+                                          isMinimumSizeQuery:YES
                                                        debug:debugMinSize
                                                  debugIndent:indent];
 
@@ -897,7 +908,9 @@ BOOL _isColumnWidthUniform;
 
     GridLayoutInfo *gridLayoutInfo = [self getGridLayoutInfo:view
                                                     subviews:subviews
+                                                   guideSize:guideSize
                                          isAbstractSizeQuery:NO
+                                          isMinimumSizeQuery:NO
                                                        debug:debugLayout
                                                  debugIndent:indent];
     int columnCount = gridLayoutInfo.columnCount;

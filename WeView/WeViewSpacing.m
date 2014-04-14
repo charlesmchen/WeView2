@@ -35,4 +35,9 @@
     return result;
 }
 
+-(NSString*)description
+{
+    return [NSString stringWithFormat:@"[%@, size: %d, stretchWeight: %f]", self.class, self.size, self.stretchWeight];
+}
+
 @end
