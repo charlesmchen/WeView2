@@ -5,7 +5,7 @@ import sys
 import cgi
 
 class Link:
-    def __init__(self, filename, name, indent=1, dstFilename=None, sidebarFilename=None, pageTitle=None):
+    def __init__(self, filename, name, indent=1, dstFilename=None, sidebarFilename=None, pageTitle=None, groupKey=None):
         self.srcFilename = filename
         self.dstFilename = filename[:-3] + '.html'
         if dstFilename:
@@ -16,33 +16,36 @@ class Link:
         self.name = name
         self.indent = indent
         self.pageTitle = name
+        self.groupKey = groupKey
         if pageTitle:
             self.pageTitle = pageTitle
-  
+
 '''
 ---
 title: Index
 permalink: index_temp.html
 layout: default
 ---
-''' 
-links = ( 
+'''
+links = (
   Link('home.md', 'Home', indent=0, sidebarFilename='index.html', pageTitle='WeView v2'),
   Link('whyAutolayout.md', 'Why use Dynamic Layout?'),
   Link('whyWeView2.md', 'Why use WeView v2?'),
-  Link('TutorialOverview.md', 'Tutorial 1: Overview'),
-  Link('TutorialIPhoneDemo.md', 'Tutorial 2: iPhone Demo'),
-  Link('TutorialInstalling.md', 'Tutorial 3: Installing'),
-  Link('TutorialConcepts.md', 'Tutorial 4: Concepts'),
-  Link('TutorialLayouts.md', 'Tutorial 5: The Layouts'),
-  Link('TutorialLayoutModel.md', 'Tutorial 6: Layout Model'),
-  Link('TutorialDesiredSize.md', 'Tutorial 7: Desired Size'),
-  Link('TutorialStretch.md', 'Tutorial 8: Stretch'),
-  Link('TutorialConvenience.md', 'Tutorial 9: Conveniences'),
+  Link('TutorialOverview.md', 'Overview', groupKey='Tutorial'),
+  Link('TutorialInstalling.md', 'Installing', groupKey='Tutorial'),
+  Link('TutorialTerminology.md', 'Terminology', groupKey='Tutorial'),
+  Link('TutorialBasics.md', 'Basics', groupKey='Tutorial'),
+  Link('TutorialLayoutModel.md', 'Layout Model', groupKey='Tutorial'),
+  Link('TutorialLayoutProperties.md', 'Layout Properties', groupKey='Tutorial'),
+  Link('TutorialLayouts.md', 'The Layouts', groupKey='Tutorial'),
+  Link('TutorialDesiredSize.md', 'Sizing', groupKey='Tutorial'),
+  Link('TutorialStretch.md', 'Stretch', groupKey='Tutorial'),
+  Link('TutorialDiscussion.md', 'Discussion', groupKey='Tutorial'),
+  Link('TutorialConvenience.md', 'Conveniences', groupKey='Tutorial'),
+  Link('TutorialIPhoneDemo.md', 'Example', groupKey='Tutorial'),
   Link('DemoApp.md', 'Demo App'),
   Link('FAQ.md', 'FAQ'),
   Link('Issues.md', 'Bugs & Feature Requests'),
-  Link('ExtrasDesiredSize.md', 'Extras 1: Desired Size'),
   Link('designPhilosophy.md', 'Design Philosophy'),
   Link('whatsNewWeView2.md', 'What\'s New in WeView v2'),
   Link('License.md', 'License'),
@@ -52,6 +55,13 @@ links = (
 # Layout model - Cells.
 # FAQ
 # Text wrapping.
+
+linkGroupMap = {}
+for index, link in enumerate(links):
+  if link.groupKey:
+    groupIndex = linkGroupMap.get(link.groupKey, 1)
+    link.name = '%s %d: %s' % (link.groupKey, groupIndex, link.name, )
+    linkGroupMap[link.groupKey] = groupIndex + 1
 
 for index, link in enumerate(links):
     linkery = []
@@ -64,17 +74,17 @@ for index, link in enumerate(links):
         # linkery.append('Next\: [%s](%s)' % (nextLink.name, nextLink.sidebarFilename,) )
 
     linkery = '\n\n'.join(linkery)
-    
+
     startMarker = '<!-- TEMPLATE START -->'
     endMarker = '<!-- TEMPLATE END -->'
 
     # print 'link.srcFilename', link.srcFilename
     with open(link.srcFilename, 'rt') as f:
         text = f.read()
-        
+
     startIndex = text.index(startMarker)
     endIndex = text.index(endMarker)
-    
+
 # title: Index
     newText = '''---
 permalink: %s
@@ -90,7 +100,7 @@ layout: default
 
     with open(link.srcFilename, 'wt') as f:
         f.write(newText)
-        
+
 
 headerFilepath = '_includes/header.html'
 
@@ -117,4 +127,3 @@ text = text[:startIndex + len(startMarker)] + sidebarHtml + text[endIndex:]
 
 with open(headerFilepath, 'wt') as f:
     f.write(text)
-    

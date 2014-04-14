@@ -12,7 +12,7 @@ When a WeView lays out out its subviews, there are three kinds of actors in play
 
 * The __superview__, which is always a _WeView_.  It has a collection of layouts which it uses to lay out its subviews.
 * The __subviews__, which can be any kind of _UIView_.  Thanks to the _UIView+WeView_ category, each subview's layout behavior can be controlled using properties that specify how it stretches, its desired size, etc.
-* The __layouts__, which are a subclass of _WeViewLayout_. 
+* The __layouts__, which are a subclass of _WeViewLayout_.
 
 * A given WeView can have __multiple layouts__.  It might use one layout to center a "title" UILabel at the top of its bounds and another layout to position a "share" UIButton in the bottom-right corner.
 * Subviews are associated with a __layout__ when they are added to the WeView.

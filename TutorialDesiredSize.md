@@ -3,7 +3,7 @@ permalink: TutorialDesiredSize.html
 layout: default
 ---
 
-Tutorial 7: Desired Size
+Sizing
 ==
 
 <!-- TEMPLATE START -->
@@ -54,7 +54,7 @@ If _\[UIView sizeThatFits:(CGSize)size\]_ is called with a size of _CGSizeZero_ 
 However, if _\[UIView sizeThatFits:(CGSize)size\]_ is called with a non-zero size, the UIView should return its _desired size_ in the context of the available space.
 
 
-### Manipulating Desired Sizes
+### Manipulating Desired Size
 
 WeViews offer a variety of ways to manipulate the _desired size_ of a subview.
 
@@ -63,26 +63,36 @@ WeViews offer a variety of ways to manipulate the _desired size_ of a subview.
 	- (UIView *)setMinDesiredHeight:(CGFloat)value;
 	- (UIView *)setMaxDesiredHeight:(CGFloat)value;
 
-These methods let you set a maximum or minimum desired width or height.
+These methods let you set a maximum or minimum desired width or height.  By setting both to the same value you can fix the desired width or height to that value.
 
 	// Sets both the minDesiredWidth and maxDesiredWidth properties.
 	- (UIView *)setFixedDesiredWidth:(CGFloat)value;
-	
+
 	// Sets both the minDesiredHeight and maxDesiredHeight properties.
 	- (UIView *)setFixedDesiredHeight:(CGFloat)value;
-	
+
 	// Sets all of the minDesiredWidth, minDesiredHeight, maxDesiredWidth and maxDesiredHeight properties.
 	- (UIView *)setFixedDesiredSize:(CGSize)value;
 
 These methods let you set more than one property at a time.  
 
-You can assign a UIView a _fixed_ desired width by setting its minDesiredWidth and maxDesiredWidth properties to the same value.
+	// This adjustment can be used to manipulate the desired width of a view.
+	- (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
 
+	// This adjustment can be used to manipulate the desired height of a view.
+	- (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
+
+	// Sets both of the desiredWidthAdjustment and desiredHeightAdjustment properties.
+	- (UIView *)setDesiredSizeAdjustment:(CGSize)value;
+
+Additionally, you can adjust the desired width or height of a subview using these methods.  _\[setDesiredWidthAdjustment:+10.f\]_, for example, means: "Treat this subview as though it wanted to be 10 points wider than it think it should be".
+
+The _desired size adjustment_ properties can have positive and negative values.
 
 ### Ignoring Desired Sizes
 
 	- (UIView *)setIgnoreDesiredSize:(BOOL)value;
-	
+
 	// Equivalent to [UIVIew setIgnoreDesiredSize:YES].
 	- (UIView *)setIgnoreDesiredSize;
 
@@ -92,4 +102,4 @@ If this property is set, the WeView layouts will treat the _desired size_ of thi
 
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="TutorialStretch.html">Tutorial 8: Stretch</a></p>
+<p class="nextLink">Next:  <a href="TutorialStretch.html">Tutorial 9: Stretch</a></p>

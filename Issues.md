@@ -15,4 +15,4 @@ Have a question?  [Contact me](mailto:charlesmchen@gmail.com).
 
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="ExtrasDesiredSize.html">Extras 1: Desired Size</a></p>
+<p class="nextLink">Next:  <a href="designPhilosophy.html">Design Philosophy</a></p>

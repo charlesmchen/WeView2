@@ -15,10 +15,10 @@ WeViews offer a variety of ways to manipulate the _desired size_ of a subview.
 
 	// This adjustment can be used to manipulate the desired width of a view.
 	- (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
-	
+
 	// This adjustment can be used to manipulate the desired height of a view.
 	- (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
-	
+
 	// Sets both of the desiredWidthAdjustment and desiredHeightAdjustment properties.
 	- (UIView *)setDesiredSizeAdjustment:(CGSize)value;
 

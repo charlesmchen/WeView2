@@ -3,13 +3,18 @@ permalink: TutorialStretch.html
 layout: default
 ---
 
-Tutorial 8: Stretch
+Stretch
 ==
 
 <!-- TEMPLATE START -->
 
 _Stretch_ is a per-subview property. It has a few roles in WeView.  Put simply, subviews can "stretch" to receive extra space in their layout.
 
+There are separate **horizontal** and **vertical** stretch properties.  That is, a subview may stretch horizontally but not vertically or vice versa.
+
+Stretch can effect **measurement**, ie. a **WeView** with subviews that can stretch may report a larger size, since the **WeView** can grow to occupy the available space.
+
+Stretch can also effect **arrangement**, both in terms of **cell size** (the cell of a subview that can stretch will grow to occupy extra space in its superview's bounds) and **subview size** (a subview that can stretch will grow to fill its cell).
 
 ### Vertical Stretch in a Horizontal Layout
 
@@ -44,7 +49,7 @@ Again, the subview's horizontal stretch affects the size of its _layout cell_.
 
 When more than one subview stretches horizontally in a horizontal layout, they _share any extra space_ in the layout equally between them.
 
-Note that they _do not have the same width_; they each receive an _equal amount of extra space_.  If we wanted them to have the same width we would a) make sure they had the same stretch weight and b) call _\[UIView setIgnoreDesiredSize\]_ on both views, so that their sizes were based purely on their stretch weight and not on their desired size.
+Note that they _do not have the same width_; they each receive an _equal amount of extra space_ in addition to their desired size.  If we wanted them to have the same width we would a) make sure they had the same stretch weight and b) call _\[UIView setIgnoreDesiredSize\]_ on both views, so that their sizes were based purely on their stretch weight and not on their desired size.
 
 ### Stretch Weight
 
@@ -53,10 +58,11 @@ Note that they _do not have the same width_; they each receive an _equal amount 
 <source src="videos/video-195620C4-BBD3-4CAC-95F3-9A5C4CD02BB3-30497-0002460DBE426621.webm" type="video/webm" />
 </video>
 
-Usually it is sufficient to set whether or not subviews stretch.  However, we can also control how they stretch by setting their _stretch weight_.  
+Usually it is sufficient to set whether or not subviews stretch.  However, we can also control how they stretch by setting their _stretch weight_.  Extra space is divided between subviews that can stretch in proportion to their relative stretch weights.
 
 In this example, the second label has an hStretchWeight of 1.0 and the first label is shown with hStretchWeights of 0.0, 1.0, 2.0, 3.0 and 4.0.  Extra space is divided between the stretching subview in proportion to their weights.
 
+_\[UIView setHStretches\]_ is equivalent to _\[UIView setHStretchWeight:1.f\]_, since the default stretch weight is 1.0.
 
 ### Stretch Properties and Accessors
 
@@ -75,7 +81,7 @@ Typically, we just want to indicate which subviews stretch and which don't.  The
 
 ### Ignoring Desired Size
 
-As noted above, usually layouts will begin by laying out their subviews at their _desired sizes_ and then divide any extra space between stretching subviews if necessary.  Sometimes it is convenient to ignore the desired size of subviews.
+As noted above, usually layouts will begin by laying out their subviews at their _desired sizes_ and then distribute any remaining extra space between stretching subviews in proportion to their relative stretch weights.  Sometimes it is convenient to ignore the desired size of subviews.
 
 <video WIDTH="292" HEIGHT="300" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
     <source src="videos/video-B0203939-DBF5-4EDA-9DC3-D76E58FD7522-19015-0006A36CDD754484.mp4" type="video/mp4" />
@@ -89,4 +95,4 @@ It this example, we have a UILabel and a UIScrollView in a vertical layout.  The
 
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="TutorialConvenience.html">Tutorial 9: Conveniences</a></p>
+<p class="nextLink">Next:  <a href="TutorialDiscussion.html">Tutorial 10: Discussion</a></p>

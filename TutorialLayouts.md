@@ -3,12 +3,12 @@ permalink: TutorialLayouts.html
 layout: default
 ---
 
-Tutorial 5: The Layouts
+The Layouts
 ==
 
 <!-- TEMPLATE START -->
 
-WeView Layouts have two responsibilities: 
+WeView Layouts have two responsibilities:
 
 * Laying out the contents of (some of) the subviews of a WeView.
 * Helping that WeView determine its desired size.  
@@ -63,7 +63,7 @@ The Flow layout (shown here with left & v-center alignment at a variety of sizes
 
 ### The Block-based Layout
 
-The Block-based layout can be used for unusual layouts. 
+The Block-based layout can be used for unusual layouts.
 
 {% gist 6576364 %}
 
@@ -75,4 +75,4 @@ The Block-based layout can be used for unusual layouts.
 
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="TutorialLayoutModel.html">Tutorial 6: Layout Model</a></p>
+<p class="nextLink">Next:  <a href="TutorialDesiredSize.html">Tutorial 8: Sizing</a></p>
