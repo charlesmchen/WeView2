@@ -15,7 +15,7 @@ Tutorial 3: The Layouts
 The core class of this library is the __WeView__.  
 WeView is a subclass of UIView that can position its subviews using a variety of layouts.
 
-### Example 1
+## Example 1
 
 Let's plunge right in with an example.  Here is a WeView that contains a UILabel, a UIImageView and a UIButton.
 
@@ -31,7 +31,7 @@ Here's the code:
 * The subviews are layed out at their __desired size__, ie. the size returned by _\[UIView sizeThatFits:\]_.
 * __The key idea__: Although the WeView needs to be layed out as usual, it takes care of laying out its subviews.  It is not necessary to ever set the size or position of any of the subviews - in fact, their existing size and position are ignored by the WeView layout.
 
-### Example 2
+## Example 2
 
 Here's another example:
 

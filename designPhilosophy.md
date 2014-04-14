@@ -26,7 +26,7 @@ To this end, **WeView 2** takes a number of unusual measures.
 * **Redundancy**.  There are tradeoffs between the [There's More Than One Way To Do It](http://en.wikipedia.org/wiki/There's_more_than_one_way_to_do_it) design philosophy (as exemplified by Perl) and the [There's Only One Way To Do It](http://legacy.python.org/dev/peps/pep-0020/) design philosophy (as exemplified by Python). **WeView 2** comes down firmly on the "more than one way" side of the argument in the interest of yielding concise code, for example by offering factory and convenience methods.  The horizontal and vertical layouts are simplified forms of the grid layout, but are far simpler and easier to use.
 
 
-### WeView 2 Design Goals
+## WeView 2 Design Goals
 
 * __Strive to be lightweight__. Stay focused on solving a single problem. Add no third-party dependencies. Play nicely with other layout mechanisms.
 * __Lower the learning curve__.  Keep the barrier to entry low and ensure that the library is easy to master through conceptual simplicity, comments and documentation. Leverage existing understanding of HTML and CSS: container-driven, declarative layout. Provide a demo app that let's users learn how **WeView 2** layout works in an interactive sandbox.

@@ -17,13 +17,13 @@ The only dependencies of WeView 2 are the following iOS Frameworks: Foundation, 
 WeView 2 requires iOS 5 or later.
 
 
-### Headers
+## Headers
 
 Generally it is sufficient to import a single header:
 
     #import "WeView.h"
 
-### Classes
+## Classes
 
 * The **WeView** container is the core class.  **WeView** itself has no properties - only methods for adding subviews and their layouts.
 * WeView layouts are subclasses of **WeViewLayout**.

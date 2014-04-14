@@ -8,7 +8,7 @@ layout: default
 
 <!-- TEMPLATE START -->
 
-### Introduction
+## Introduction
 
 What size will a subview be in WeView layout?
 
@@ -28,7 +28,7 @@ The _desired size_ of a WeView is the minimum size in which its subviews can be 
 
 If a WeView has _multiple layouts_, its minimum size is the max width or height needed by any of its layouts.
 
-### Text Wrap, Flow Layouts, etc.
+## Text Wrap, Flow Layouts, etc.
 
 For some UIViews, their _desired size_ is context-dependent.  
 
@@ -54,7 +54,7 @@ If _\[UIView sizeThatFits:(CGSize)size\]_ is called with a size of _CGSizeZero_ 
 However, if _\[UIView sizeThatFits:(CGSize)size\]_ is called with a non-zero size, the UIView should return its _desired size_ in the context of the available space.
 
 
-### Manipulating Desired Size
+## Manipulating Desired Size
 
 WeViews offer a variety of ways to manipulate the _desired size_ of a subview.
 
@@ -89,7 +89,7 @@ Additionally, you can adjust the desired width or height of a subview using thes
 
 The _desired size adjustment_ properties can have positive and negative values.
 
-### Ignoring Desired Sizes
+## Ignoring Desired Sizes
 
 	- (UIView \*)setIgnoreDesiredSize:(BOOL)value;
 

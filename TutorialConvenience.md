@@ -12,7 +12,7 @@ The _UIView+WeView_ category adds a number of convenience methods to all UIViews
 
 These methods allow you to write more concise, expressive code.
 
-### Origin Accessors
+## Origin Accessors
 
 	- (CGPoint)origin;
 	- (void)setOrigin:(CGPoint)origin;
@@ -34,7 +34,7 @@ Without these accessors, you'd have to do something like this:
 Note that this assumes that both views have the same superview, ie. that their origins are in the same coordinate system.
 
 
-### Size Accessors
+## Size Accessors
 
 	- (CGSize)size;
 	- (void)setSize:(CGSize)size;
@@ -43,7 +43,7 @@ Note that this assumes that both views have the same superview, ie. that their o
 	- (CGFloat)height;
 	- (void)setHeight:(CGFloat)value;
 
-### Right and Bottom Accessors
+## Right and Bottom Accessors
 
 	- (CGFloat)right;
 	- (void)setRight:(CGFloat)value;
@@ -56,7 +56,7 @@ To place two views side-by-side, you might do something like this:
 
 	view2.x = view1.right;
 
-### Center Accessors
+## Center Accessors
 
 	- (CGFloat)hCenter;
 	- (void)setHCenter:(CGFloat)value;

@@ -29,7 +29,7 @@ iOS Auto Layout has the advantage of being integrated into Interface Builder, an
 
 _WeView 2 can only be used programmatically, and is designed to yield concise, expressive and maintainable code_.  The benefits of the syntax only become more clear as layouts become more complex.
 
-### Other Alternatives:
+## Other Alternatives:
 
 * [ReactiveCocoaLayout](https://github.com/ReactiveCocoa/ReactiveCocoaLayout) is another alternative to iOS Auto Layout built on [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa).  
 * [FLKAutoLayout](https://github.com/dkduck/FLKAutoLayout).  This popular project offers a UIView category that provides a variety of convenience methods for creating common constraints.

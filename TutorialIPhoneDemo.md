@@ -15,13 +15,13 @@ Here's an example whose layout is _responsive_ to changes of orientation and dev
 <source src="videos/video-B2B0C11D-E1A1-4CAE-B4B4-D043D5989B4E-40400-0001287E815CD5CB.webm" type="video/webm" />
 </video>
 
-### Getting Started
+## Getting Started
 
 We'll use one WeView (the _rootView_) to layout the contents of the screen.
 
 {% gist 7295271 %}
 
-### The Activity Indicator
+## The Activity Indicator
 
 We'll start with the easiest element of the layout, the activity indicator.
 
@@ -30,7 +30,7 @@ We'll start with the easiest element of the layout, the activity indicator.
 
 {% gist 7295479 %}
 
-### The Header
+## The Header
 
 * We'll use a separate WeView for the header, the _headerView_.
 * The headerView is populated with a "title" UILabel and a "tag" button.
@@ -40,14 +40,14 @@ We'll start with the easiest element of the layout, the activity indicator.
 
 {% gist 7294435 %}
 
-### The Pillbox Buttons
+## The Pillbox Buttons
 
 * We add the pillbox buttons in a _horizontal layout_.
 * We configure the buttons' layout with bottom alignment.
 
 {% gist 7295582 %}
 
-### The Background
+## The Background
 
 The background image is the trickiest part of the layout.
 
@@ -68,7 +68,7 @@ Therefore, we wrap the the background image in a separate WeView and add the UII
 
 {% gist 7295668 %}
 
-### The Final Code
+## The Final Code
 
 {% gist 6489214 %}
 

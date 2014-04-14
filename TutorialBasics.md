@@ -14,7 +14,7 @@ Normally, when working with UIKit there is only the **superview** and its **subv
 
 **WeView 2** introduces **layouts**, which a **WeView** superview uses to lay out \(ie. measure and arrange\) its subviews.  We add subviews to a **WeView** using a method that specifies the layout to apply to those subviews.
 
-### A Simple Example
+## A Simple Example
 
 Here is an example WeView that has three subviews: a UILabel, a UIImageView and a UIButton.
 
@@ -33,7 +33,7 @@ Here is an example WeView that has three subviews: a UILabel, a UIImageView and 
 * __Order matters__.  The subviews are layed out in the order in which they were added to their superview.
 * __Automated Layout__. The WeView takes care of laying out its subviews.  It is not necessary to ever resize or position of any of the subviews. In fact, their existing size and position are ignored by the WeView layout.  
 
-### When does layout occur?
+## When does layout occur?
 
 UIKit provides a mechanism for triggering layout - UIView's **needsLayout** property.  It is a simple "dirty flag" for layout.  UIKit ensures that \[UIView layoutSubviews\] is eventually called whenever **needsLayout** is set.  **WeView 2** ensures that it is set whenever a **WeView** is resized or whenever subviews are added or removed.  Therefore, layout is usually triggered automatically as necessary.  You should only need to trigger layout yourself (ie. set the **needsLayout** property on one or more **WeViews**) if the desired size of a subview changes.
 

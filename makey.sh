@@ -1,3 +1,4 @@
+rm *.html
 rm CHANGELOG.md
 echo "<!-- TEMPLATE START -->" >> CHANGELOG.md
 curl https://raw.github.com/charlesmchen/WeView2/master/CHANGELOG.md >> CHANGELOG.md

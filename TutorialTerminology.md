@@ -8,11 +8,7 @@ layout: default
 
 <!-- TEMPLATE START -->
 
-# View Hierarchy
-
-## View Hierarchy
-
-### View Hierarchy
+## View Hierarchy 
 
 Layout takes place in the context of a **View Hierarchy**, but generally we only need to concern ourselves the relationships between a single parent view and its children at a time.  
 

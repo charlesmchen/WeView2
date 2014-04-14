@@ -16,7 +16,7 @@ Stretch can effect **measurement**, ie. a **WeView** with subviews that can stre
 
 Stretch can also effect **arrangement**, both in terms of **cell size** (the cell of a subview that can stretch will grow to occupy extra space in its superview's bounds) and **subview size** (a subview that can stretch will grow to fill its cell).
 
-### Vertical Stretch in a Horizontal Layout
+## Vertical Stretch in a Horizontal Layout
 
 <video WIDTH="356" HEIGHT="324" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
 <source src="videos/video-9DAFBBF5-5099-4CCF-8A41-F7DCAB5E2E1C-30497-00024594CE3DD371.mp4" type="video/mp4" />
@@ -28,7 +28,7 @@ Here we set one UILabel to vertically stretch.  Since it stretches _vertically_ 
 The stretch affects the vertical size of the subviews's _layout cell_ (See: [Layout Model](TutorialLayoutModel.html)), _and_ the subview stretches vertically to fill its layout cell.
 
 
-### Horizontal Stretch in a Horizontal Layout
+## Horizontal Stretch in a Horizontal Layout
 
 <video WIDTH="356" HEIGHT="324" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
 <source src="videos/video-C3956C04-2100-4C64-8958-4EEB97CE381D-30497-00024592468344C2.mp4" type="video/mp4" />
@@ -40,7 +40,7 @@ Here we set one UILabel to horizontally stretch.  Since it stretches _horizontal
 Again, the subview's horizontal stretch affects the size of its _layout cell_.
 
 
-### When More Than One Subview Stretches...
+## When More Than One Subview Stretches...
 
  <video WIDTH="356" HEIGHT="324" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
  <source src="videos/video-E3D6C0C3-99D0-4244-8DE3-AFAC08EACF50-30497-000246034A91B250.mp4" type="video/mp4" />
@@ -51,7 +51,7 @@ When more than one subview stretches horizontally in a horizontal layout, they _
 
 Note that they _do not have the same width_; they each receive an _equal amount of extra space_ in addition to their desired size.  If we wanted them to have the same width we would a) make sure they had the same stretch weight and b) call _\[UIView setIgnoreDesiredSize\]_ on both views, so that their sizes were based purely on their stretch weight and not on their desired size.
 
-### Stretch Weight
+## Stretch Weight
 
 <video WIDTH="356" HEIGHT="324" AUTOPLAY="true" controls="true" LOOP="true" class="embedded_video" >
 <source src="videos/video-195620C4-BBD3-4CAC-95F3-9A5C4CD02BB3-30497-0002460DBE426621.mp4" type="video/mp4" />
@@ -64,7 +64,7 @@ In this example, the second label has an hStretchWeight of 1.0 and the first lab
 
 _\[UIView setHStretches\]_ is equivalent to _\[UIView setHStretchWeight:1.f\]_, since the default stretch weight is 1.0.
 
-### Stretch Properties and Accessors
+## Stretch Properties and Accessors
 
 The _UIView+WeView_ category adds two stretch-related properties to all UIViews:
 
@@ -79,7 +79,7 @@ The _UIView+WeView_ category also adds a few convenience accessors:
 
 Typically, we just want to indicate which subviews stretch and which don't.  These convenience accessors set stretch to a default non-zero value.
 
-### Ignoring Desired Size
+## Ignoring Desired Size
 
 As noted above, usually layouts will begin by laying out their subviews at their _desired sizes_ and then distribute any remaining extra space between stretching subviews in proportion to their relative stretch weights.  Sometimes it is convenient to ignore the desired size of subviews.
 

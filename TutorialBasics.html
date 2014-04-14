@@ -136,7 +136,7 @@
 
 <p><strong>WeView 2</strong> introduces <strong>layouts</strong>, which a <strong>WeView</strong> superview uses to lay out (ie. measure and arrange) its subviews. We add subviews to a <strong>WeView</strong> using a method that specifies the layout to apply to those subviews.</p>
 
-<h3 id="a_simple_example">A Simple Example</h3>
+<h2 id="a_simple_example">A Simple Example</h2>
 
 <p>Here is an example WeView that has three subviews: a UILabel, a UIImageView and a UIButton.</p>
 
@@ -163,7 +163,7 @@
 <li><strong>Automated Layout</strong>. The WeView takes care of laying out its subviews. It is not necessary to ever resize or position of any of the subviews. In fact, their existing size and position are ignored by the WeView layout.</li>
 </ul>
 
-<h3 id="when_does_layout_occur">When does layout occur?</h3>
+<h2 id="when_does_layout_occur">When does layout occur?</h2>
 
 <p>UIKit provides a mechanism for triggering layout - UIView’s <strong>needsLayout</strong> property. It is a simple “dirty flag” for layout. UIKit ensures that [UIView layoutSubviews] is eventually called whenever <strong>needsLayout</strong> is set. <strong>WeView 2</strong> ensures that it is set whenever a <strong>WeView</strong> is resized or whenever subviews are added or removed. Therefore, layout is usually triggered automatically as necessary. You should only need to trigger layout yourself (ie. set the <strong>needsLayout</strong> property on one or more <strong>WeViews</strong>) if the desired size of a subview changes.</p>
 <!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='TutorialLayoutModel.html'>Tutorial 5: Layout Model</a></p>

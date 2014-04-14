@@ -21,7 +21,7 @@ The layout process works like this:
 
 A **WeView** might have multiple layouts.  Each layout operates independently of the others and only one layout applies to any given subview.
 
-### An Example
+## An Example
 
 Here is a horizontal layout with three UILabels:
 
@@ -38,7 +38,7 @@ Each subview has its own cell in the layout.  In the animation above, the subvie
 * The spaces between and around the cells reflect the layout's _spacing_ and _margin_ properties.
 * The layout's _hAlign_ and _vAlign_ properties default to _center alignment_, so the subviews are centered within their cells.
 
-### Alignment
+## Alignment
 
 In our first example, the WeView was shown at its _desired size_, ie. just large enough to exactly fit its subviews.  Let's see what happens if that WeView is larger than its _desired size_.
 
@@ -49,7 +49,7 @@ In our first example, the WeView was shown at its _desired size_, ie. just large
 
 * The layout's hAlign and vAlign properties default to _center alignment_, so the layout cells are centered within the superview's bounds _and_ the subviews are centered within their cells.
 
-### Layout Alignment vs. Cell Alignment
+## Layout Alignment vs. Cell Alignment
 
 Here's the same WeView if we use _top_ and _right alignment_.
 
@@ -67,7 +67,7 @@ We might want the labels to be top-aligned as a group within their superview (ie
 <source src="videos/video-7F504DEE-5941-48B1-B8CE-A4DDE80B90DC-28150-00023EE54101B012.webm" type="video/webm" />
 </video>
 
-### Custom Cell Alignment
+## Custom Cell Alignment
 
 Here we use _center vertical cell alignment_.
 

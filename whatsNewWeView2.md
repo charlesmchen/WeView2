@@ -18,7 +18,7 @@ layout: default
 * WeView offers a number of new per-view properties that allow more fine-grained control over
    layout behavior.
 
-### Migrating from WeViews to WeView 2
+## Migrating from WeViews to WeView 2
 
 * Use the _WeView_ class instead of the _WePanel_ class.  
 * We've streamlined the class structure.  Many of the old view classes are no longer necessary. Many of the old layouts have been combined or renamed.
