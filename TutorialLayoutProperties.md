@@ -3,7 +3,7 @@ permalink: TutorialLayoutProperties.html
 layout: default
 ---
 
-Layout Properties
+Tutorial 6: Layout Properties
 ==
 
 <!-- TEMPLATE START -->

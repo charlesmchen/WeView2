@@ -3,7 +3,7 @@ permalink: TutorialTerminology.html
 layout: default
 ---
 
-Terminology
+Tutorial 3: Terminology
 ==
 
 <!-- TEMPLATE START -->

@@ -3,7 +3,7 @@ permalink: TutorialStretch.html
 layout: default
 ---
 
-Stretch
+Tutorial 9: Stretch
 ==
 
 <!-- TEMPLATE START -->

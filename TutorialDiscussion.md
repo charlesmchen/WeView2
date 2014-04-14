@@ -3,7 +3,7 @@ permalink: TutorialDiscussion.html
 layout: default
 ---
 
-Discussion
+Tutorial 10: Discussion
 ==
 
 <!-- TEMPLATE START -->

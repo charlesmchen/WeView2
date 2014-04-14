@@ -3,7 +3,7 @@ permalink: TutorialDesiredSize.html
 layout: default
 ---
 
-Sizing
+Tutorial 8: Sizing
 ==
 
 <!-- TEMPLATE START -->
@@ -58,34 +58,32 @@ However, if _\[UIView sizeThatFits:(CGSize)size\]_ is called with a non-zero siz
 
 WeViews offer a variety of ways to manipulate the _desired size_ of a subview.
 
-	- (UIView *)setMinDesiredWidth:(CGFloat)value;
-	- (UIView *)setMaxDesiredWidth:(CGFloat)value;
-	- (UIView *)setMinDesiredHeight:(CGFloat)value;
-	- (UIView *)setMaxDesiredHeight:(CGFloat)value;
+    - (UIView *)setMinDesiredWidth:(CGFloat)value;
+    - (UIView *)setMaxDesiredWidth:(CGFloat)value;
+    - (UIView *)setMinDesiredHeight:(CGFloat)value;
+    - (UIView *)setMaxDesiredHeight:(CGFloat)value;
 
 These methods let you set a maximum or minimum desired width or height.  By setting both to the same value you can fix the desired width or height to that value.
 
-	// Sets both the minDesiredWidth and maxDesiredWidth properties.
-	- (UIView *)setFixedDesiredWidth:(CGFloat)value;
+    // Sets both the minDesiredWidth and maxDesiredWidth properties.
+    - (UIView *)setFixedDesiredWidth:(CGFloat)value;
 
-	// Sets both the minDesiredHeight and maxDesiredHeight properties.
-	- (UIView *)setFixedDesiredHeight:(CGFloat)value;
+    // Sets both the minDesiredHeight and maxDesiredHeight properties.
+    - (UIView *)setFixedDesiredHeight:(CGFloat)value;
 
-	// Sets all of the minDesiredWidth, minDesiredHeight, maxDesiredWidth and maxDesiredHeight properties.
-	- (UIView *)setFixedDesiredSize:(CGSize)value;
+    // Sets all of the minDesiredWidth, minDesiredHeight, maxDesiredWidth and maxDesiredHeight properties.
+    - (UIView *)setFixedDesiredSize:(CGSize)value;
 
 These methods let you set more than one property at a time.  
 
-	// This adjustment can be used to manipulate the desired width of a view.
-	- (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
+    // This adjustment can be used to manipulate the desired width of a view.
+		- (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
 
-	// This adjustment can be used to manipulate the desired height of a view.
-	- (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
+		// This adjustment can be used to manipulate the desired height of a view.
+		- (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
 
-	// Sets both of the desiredWidthAdjustment and desiredHeightAdjustment properties.
-	- (UIView *)setDesiredSizeAdjustment:(CGSize)value;
-
-Additionally, you can adjust the desired width or height of a subview using these methods.  _\[setDesiredWidthAdjustment:+10.f\]_, for example, means: "Treat this subview as though it wanted to be 10 points wider than it think it should be".
+		// Sets both of the desiredWidthAdjustment and desiredHeightAdjustment properties.
+		- (UIView *)setDesiredSizeAdjustment:(CGSize)value;
 
 The _desired size adjustment_ properties can have positive and negative values.
 

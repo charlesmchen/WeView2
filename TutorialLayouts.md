@@ -3,7 +3,7 @@ permalink: TutorialLayouts.html
 layout: default
 ---
 
-The Layouts
+Tutorial 7: The Layouts
 ==
 
 <!-- TEMPLATE START -->

@@ -61,6 +61,7 @@ for index, link in enumerate(links):
   if link.groupKey:
     groupIndex = linkGroupMap.get(link.groupKey, 1)
     link.name = '%s %d: %s' % (link.groupKey, groupIndex, link.name, )
+    link.pageTitle = link.name
     linkGroupMap[link.groupKey] = groupIndex + 1
 
 for index, link in enumerate(links):
