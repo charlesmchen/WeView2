@@ -3,8 +3,8 @@ permalink: TutorialStretch.html
 layout: default
 ---
 
-Tutorial 9: Stretch
-==
+# Tutorial 9: Stretch
+
 
 <!-- TEMPLATE START -->
 
@@ -68,14 +68,14 @@ _\[UIView setHStretches\]_ is equivalent to _\[UIView setHStretchWeight:1.f\]_, 
 
 The _UIView+WeView_ category adds two stretch-related properties to all UIViews:
 
-	- (UIView *)setHStretchWeight:(CGFloat)value;
-	- (UIView *)setVStretchWeight:(CGFloat)value;
+	- (UIView \*)setHStretchWeight:(CGFloat)value;
+	- (UIView \*)setVStretchWeight:(CGFloat)value;
 
 The _UIView+WeView_ category also adds a few convenience accessors:
 
-	- (UIView *)setHStretches; // A convenience accessor that sets hStretchWeight = 1.f.
-	- (UIView *)setVStretches; // A convenience accessor that sets vStretchWeight = 1.f.
-	- (UIView *)setStretches; // A convenience accessor that sets hStretchWeight = 1.f and vStretchWeight = 1.f.
+	- (UIView \*)setHStretches; // A convenience accessor that sets hStretchWeight = 1.f.
+	- (UIView \*)setVStretches; // A convenience accessor that sets vStretchWeight = 1.f.
+	- (UIView \*)setStretches; // A convenience accessor that sets hStretchWeight = 1.f and vStretchWeight = 1.f.
 
 Typically, we just want to indicate which subviews stretch and which don't.  These convenience accessors set stretch to a default non-zero value.
 

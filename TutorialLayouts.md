@@ -3,8 +3,8 @@ permalink: TutorialLayouts.html
 layout: default
 ---
 
-Tutorial 7: The Layouts
-==
+# Tutorial 7: The Layouts
+
 
 <!-- TEMPLATE START -->
 

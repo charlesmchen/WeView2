@@ -3,8 +3,8 @@ permalink: License.html
 layout: default
 ---
 
-License
-==
+# License
+
 
 <!-- TEMPLATE START -->
 

@@ -3,12 +3,16 @@ permalink: TutorialTerminology.html
 layout: default
 ---
 
-Tutorial 3: Terminology
-==
+# Tutorial 3: Terminology
+
 
 <!-- TEMPLATE START -->
 
+# View Hierarchy
+
 ## View Hierarchy
+
+### View Hierarchy
 
 Layout takes place in the context of a **View Hierarchy**, but generally we only need to concern ourselves the relationships between a single parent view and its children at a time.  
 

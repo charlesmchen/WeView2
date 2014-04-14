@@ -3,8 +3,8 @@ permalink: TutorialBasics.html
 layout: default
 ---
 
-Tutorial 4: Basics
-==
+# Tutorial 4: Basics
+
 
 <!-- TEMPLATE START -->
 
@@ -28,7 +28,7 @@ Here is an example WeView that has three subviews: a UILabel, a UIImageView and 
 * **New "addSubview\(s\)" methods**.  _\[addSubviewsWithHorizontalLayout\]_ creates the new layout, adds the subviews to the WeView, and associates the layout with those subviews.  
 * **Per-subview layouts.** The layout only applies to the subviews passed as arguments to that method.
 * **Layout properties.** The layout has 5pt __margins__ and 5pt __spacing__.  
-* **Chaining**.  The configuration methods _\[setMargin:\]_ and _\[setSpacing:\]_ are chained.  WeView configuration methods return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance. 
+* **Chaining**.  The configuration methods _\[setMargin:\]_ and _\[setSpacing:\]_ are chained.  WeView configuration methods return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance.
 * **Auto-sizing**.  The subviews are layed out at their __desired size__, ie. the size returned by _\[UIView sizeThatFits:\]_.
 * __Order matters__.  The subviews are layed out in the order in which they were added to their superview.
 * __Automated Layout__. The WeView takes care of laying out its subviews.  It is not necessary to ever resize or position of any of the subviews. In fact, their existing size and position are ignored by the WeView layout.  

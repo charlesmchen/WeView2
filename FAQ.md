@@ -3,8 +3,8 @@ permalink: FAQ.html
 layout: default
 ---
 
-FAQ
-==
+# FAQ
+
 
 <!-- TEMPLATE START -->
 

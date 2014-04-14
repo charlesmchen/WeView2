@@ -3,8 +3,8 @@ permalink: TutorialInstalling.html
 layout: default
 ---
 
-Tutorial 2: Installing
-==
+# Tutorial 2: Installing
+
 
 <!-- TEMPLATE START -->
 

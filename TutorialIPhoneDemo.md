@@ -3,8 +3,8 @@ permalink: TutorialIPhoneDemo.html
 layout: default
 ---
 
-Tutorial 12: Example
-==
+# Tutorial 12: Example
+
 
 <!-- TEMPLATE START -->
 

@@ -3,8 +3,8 @@ permalink: CHANGELOG.html
 layout: default
 ---
 
-Change Log
-==
+# Change Log
+
 
 <!-- TEMPLATE START -->
 

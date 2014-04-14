@@ -3,8 +3,8 @@ permalink: whatsNewWeView2.html
 layout: default
 ---
 
-What's New in WeView v2
-==
+# What's New in WeView v2
+
 
 <!-- TEMPLATE START -->
 

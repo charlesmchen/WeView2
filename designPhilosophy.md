@@ -3,8 +3,8 @@ permalink: designPhilosophy.html
 layout: default
 ---
 
-Design Philosophy
-==
+# Design Philosophy
+
 
 <!-- TEMPLATE START -->
 

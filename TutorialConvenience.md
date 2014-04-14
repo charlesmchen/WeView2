@@ -3,8 +3,8 @@ permalink: TutorialConvenience.html
 layout: default
 ---
 
-Tutorial 11: Conveniences
-==
+# Tutorial 11: Conveniences
+
 
 <!-- TEMPLATE START -->
 

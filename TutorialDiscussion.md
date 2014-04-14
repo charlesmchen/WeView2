@@ -3,8 +3,8 @@ permalink: TutorialDiscussion.html
 layout: default
 ---
 
-Tutorial 10: Discussion
-==
+# Tutorial 10: Discussion
+
 
 <!-- TEMPLATE START -->
 

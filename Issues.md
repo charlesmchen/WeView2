@@ -3,8 +3,8 @@ permalink: Issues.html
 layout: default
 ---
 
-Bugs & Feature Requests
-==
+# Bugs & Feature Requests
+
 
 <!-- TEMPLATE START -->
 

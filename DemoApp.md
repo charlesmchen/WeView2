@@ -3,8 +3,8 @@ permalink: DemoApp.html
 layout: default
 ---
 
-Demo App
-==
+# Demo App
+
 
 <!-- TEMPLATE START -->
 

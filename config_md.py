@@ -92,8 +92,8 @@ permalink: %s
 layout: default
 ---
 
-%s
-==
+# %s
+
 
 ''' % (link.dstFilename, link.pageTitle, )
 

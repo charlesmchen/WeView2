@@ -3,8 +3,8 @@ permalink: TutorialLayoutProperties.html
 layout: default
 ---
 
-Tutorial 6: Layout Properties
-==
+# Tutorial 6: Layout Properties
+
 
 <!-- TEMPLATE START -->
 

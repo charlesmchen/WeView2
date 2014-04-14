@@ -3,8 +3,8 @@ permalink: whyAutolayout.html
 layout: default
 ---
 
-Why use Dynamic Layout?
-==
+# Why use Dynamic Layout?
+
 
 <!-- TEMPLATE START -->
 

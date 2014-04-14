@@ -3,8 +3,8 @@ permalink: Acknowledgments.html
 layout: default
 ---
 
-Acknowledgments
-==
+# Acknowledgments
+
 
 <!-- TEMPLATE START -->
 
