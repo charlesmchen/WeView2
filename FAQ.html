@@ -128,29 +128,20 @@
       <section>
 
 
-    <h1 id='weview_v2'>WeView v2</h1>
-<!-- TEMPLATE START --><video AUTOPLAY='true' controls='true' HEIGHT='356' LOOP='true' WIDTH='368' class='embedded_video'>
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.mp4' type='video/mp4' />
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.webm' type='video/webm' />
-</video>
-<p>The WeView library is a tool for auto layout of iOS UIs.</p>
+    <h1 id='faq'>FAQ</h1>
+<!-- TEMPLATE START -->
+<ul>
+<li><strong>Q: When I try to build WeView, I get build errors like this: &#8220;Undefined symbols for architecture &#8230;: &#8220;_CTFontCreateWithName&#8221;,&#8221;</strong></li>
+</ul>
+
+<p>You may have accidentally added the demo app to your project. The demo app uses the CoreText iOS framework. You only need to add the &#8220;WeView&#8221; folder to your project.</p>
 
 <ul>
-<li>WeView is an alternative to <a href='https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/Articles/Introduction.html'>iOS Auto Layout</a>.</li>
-
-<li>WeView aims to provide an <em>easier, more natural, more expressive, and more maintainable</em> way to create <em>dynamic, adaptive UIs</em> with UIKit.</li>
-
-<li>WeView takes a <em>declarative</em> approach to layout using familiar concepts like <em>alignment</em>, <em>margins</em> and <em>spacing</em>.</li>
-
-<li>WeView builds on iOS&#8217; existing sizing and layout mechanisms.</li>
-
-<li>WeView is <em>lightweight</em>: less than 5k lines of code, no dependencies.</li>
-
-<li>WeView is compatible with <em>iOS 5 and later</em>.</li>
-
-<li>WeView is <em>free</em> and <em>open source</em>. It is available under a <a href='License.html'>permissive license</a>.</li>
+<li><strong>Q: How do I remove subviews from a WeView?</strong></li>
 </ul>
-<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='whyAutolayout.html'>Why use Dynamic Layout?</a></p>
+
+<p>Subviews are removed as normal, using <em>[UIView removeFromSuperview]</em>. The subview&#8217;s layout is updated or disposed of automatically.</p>
+<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='Issues.html'>Bugs &amp; Feature Requests</a></p>
 
 
 

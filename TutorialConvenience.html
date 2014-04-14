@@ -128,29 +128,66 @@
       <section>
 
 
-    <h1 id='weview_v2'>WeView v2</h1>
-<!-- TEMPLATE START --><video AUTOPLAY='true' controls='true' HEIGHT='356' LOOP='true' WIDTH='368' class='embedded_video'>
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.mp4' type='video/mp4' />
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.webm' type='video/webm' />
-</video>
-<p>The WeView library is a tool for auto layout of iOS UIs.</p>
+    <h1 id='tutorial_11_conveniences'>Tutorial 11: Conveniences</h1>
+<!-- TEMPLATE START -->
+<p>The <em>UIView+WeView</em> category adds a number of convenience methods to all UIViews.</p>
 
-<ul>
-<li>WeView is an alternative to <a href='https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/Articles/Introduction.html'>iOS Auto Layout</a>.</li>
+<p>These methods allow you to write more concise, expressive code.</p>
 
-<li>WeView aims to provide an <em>easier, more natural, more expressive, and more maintainable</em> way to create <em>dynamic, adaptive UIs</em> with UIKit.</li>
+<h3 id='origin_accessors'>Origin Accessors</h3>
 
-<li>WeView takes a <em>declarative</em> approach to layout using familiar concepts like <em>alignment</em>, <em>margins</em> and <em>spacing</em>.</li>
+<pre><code>- (CGPoint)origin;
+- (void)setOrigin:(CGPoint)origin;
+- (CGFloat)x;
+- (void)setX:(CGFloat)value;
+- (CGFloat)y;
+- (void)setY:(CGFloat)value;</code></pre>
 
-<li>WeView builds on iOS&#8217; existing sizing and layout mechanisms.</li>
+<p>The origin accessors make left-aligning two views as easy as:</p>
 
-<li>WeView is <em>lightweight</em>: less than 5k lines of code, no dependencies.</li>
+<pre><code>view1.x = view2.x;</code></pre>
 
-<li>WeView is compatible with <em>iOS 5 and later</em>.</li>
+<p>Without these accessors, you&#8217;d have to do something like this:</p>
 
-<li>WeView is <em>free</em> and <em>open source</em>. It is available under a <a href='License.html'>permissive license</a>.</li>
-</ul>
-<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='whyAutolayout.html'>Why use Dynamic Layout?</a></p>
+<pre><code>CGRect view1Frame = view1.frame;
+view1Frame.origin.x = view2.frame.origin.x;
+view1.frame = view1Frame;</code></pre>
+
+<p>Note that this assumes that both views have the same superview, ie. that their origins are in the same coordinate system.</p>
+
+<h3 id='size_accessors'>Size Accessors</h3>
+
+<pre><code>- (CGSize)size;
+- (void)setSize:(CGSize)size;
+- (CGFloat)width;
+- (void)setWidth:(CGFloat)value;
+- (CGFloat)height;
+- (void)setHeight:(CGFloat)value;</code></pre>
+
+<h3 id='right_and_bottom_accessors'>Right and Bottom Accessors</h3>
+
+<pre><code>- (CGFloat)right;
+- (void)setRight:(CGFloat)value;
+- (CGFloat)bottom;
+- (void)setBottom:(CGFloat)value;</code></pre>
+
+<p>The <em>right</em> property is the view&#8217;s x position + the view&#8217;s width, ie. the right edge of the view. Likewise, the <em>bottom</em> property is the view&#8217;s y + height.</p>
+
+<p>To place two views side-by-side, you might do something like this:</p>
+
+<pre><code>view2.x = view1.right;</code></pre>
+
+<h3 id='center_accessors'>Center Accessors</h3>
+
+<pre><code>- (CGFloat)hCenter;
+- (void)setHCenter:(CGFloat)value;
+- (CGFloat)vCenter;
+- (void)setVCenter:(CGFloat)value;</code></pre>
+
+<p>The <em>hCenter</em> and <em>vCenter</em> properties let you horizontally center-align two views like this:</p>
+
+<pre><code>view1.hCenter = view2.hCenter;</code></pre>
+<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='TutorialIPhoneDemo.html'>Tutorial 12: Example</a></p>
 
 
 

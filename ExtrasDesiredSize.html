@@ -128,29 +128,25 @@
       <section>
 
 
-    <h1 id='weview_v2'>WeView v2</h1>
-<!-- TEMPLATE START --><video AUTOPLAY='true' controls='true' HEIGHT='356' LOOP='true' WIDTH='368' class='embedded_video'>
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.mp4' type='video/mp4' />
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.webm' type='video/webm' />
-</video>
-<p>The WeView library is a tool for auto layout of iOS UIs.</p>
+    <h1 id='extras_1_desired_size'>Extras 1: Desired Size</h1>
+<!-- TEMPLATE START -->
+<h3 id='manipulating_desired_sizes'>Manipulating Desired Sizes</h3>
 
-<ul>
-<li>WeView is an alternative to <a href='https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/Articles/Introduction.html'>iOS Auto Layout</a>.</li>
+<p>WeViews offer a variety of ways to manipulate the <em>desired size</em> of a subview.</p>
 
-<li>WeView aims to provide an <em>easier, more natural, more expressive, and more maintainable</em> way to create <em>dynamic, adaptive UIs</em> with UIKit.</li>
+<pre><code>// This adjustment can be used to manipulate the desired width of a view.
+- (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
 
-<li>WeView takes a <em>declarative</em> approach to layout using familiar concepts like <em>alignment</em>, <em>margins</em> and <em>spacing</em>.</li>
+// This adjustment can be used to manipulate the desired height of a view.
+- (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
 
-<li>WeView builds on iOS&#8217; existing sizing and layout mechanisms.</li>
+// Sets both of the desiredWidthAdjustment and desiredHeightAdjustment properties.
+- (UIView *)setDesiredSizeAdjustment:(CGSize)value;</code></pre>
 
-<li>WeView is <em>lightweight</em>: less than 5k lines of code, no dependencies.</li>
+<p>The <em>desired size adjustment</em> properties let you add a fixed (positive or negative) adjustment to the desired width and/or height of the view.</p>
 
-<li>WeView is compatible with <em>iOS 5 and later</em>.</li>
-
-<li>WeView is <em>free</em> and <em>open source</em>. It is available under a <a href='License.html'>permissive license</a>.</li>
-</ul>
-<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='whyAutolayout.html'>Why use Dynamic Layout?</a></p>
+<p>For example, UIButtons have a useful <em>contentEdgeInsets</em> property that functions like <em>padding</em>. UILabels do not have a similar property, but by setting a <em>desired size adjustment</em>, we can add padding to a UILabel.</p>
+<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='designPhilosophy.html'>Design Philosophy</a></p>
 
 
 

@@ -128,29 +128,34 @@
       <section>
 
 
-    <h1 id='weview_v2'>WeView v2</h1>
-<!-- TEMPLATE START --><video AUTOPLAY='true' controls='true' HEIGHT='356' LOOP='true' WIDTH='368' class='embedded_video'>
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.mp4' type='video/mp4' />
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.webm' type='video/webm' />
-</video>
-<p>The WeView library is a tool for auto layout of iOS UIs.</p>
+    <h1 id='why_use_weview_v2'>Why use WeView v2?</h1>
+<!-- TEMPLATE START -->
+<ul>
+<li>When using iOS Auto Layout you need to manage considerations such as <em>constraint priority, constraint sufficiency, constraint conflicts (ie. over-constrained layouts), ambiguous layout, nearest common ancestors</em>, etc. These issues also complicate refactoring and redesign.</li>
+
+<li><em>Here&#8217;s a simple code comparison</em>, based on Apple&#8217;s sample code that centers a button at the bottom of it&#8217;s superview bounds with 20pt spacing.</li>
+</ul>
+
+<p><img src='images/snapshot-5B46EB1B-30D4-4FAE-8BC7-D76FA3BBE6CA-34104-00011AA1BCCB403A.png' alt='Layout Snapshot' /></p>
+
+<p>Here&#8217;s the layout using <em>iOS Auto Layout</em>:</p>
+<script src='https://gist.github.com/6504510.js'> </script>
+<p>iOS Auto Layout also supports a <em>Visual Format Language</em>. Here&#8217;s the same layout using <em>VFL</em>:</p>
+<script src='https://gist.github.com/6504515.js'> </script>
+<p>Here&#8217;s the equivalent logic using a <em>WeView</em>:</p>
+<script src='https://gist.github.com/6504519.js'> </script>
+<p>iOS Auto Layout has the advantage of being integrated into Interface Builder, and the Inteface Builder support for iOS Auto Layout has dramatically improved in Xcode 5. However, as soon as you outgrow what can done in Interface Builder, you must work programmatically and iOS Auto Layout requires verbose, brittle code.</p>
+
+<p><em>WeView v2 can only be used programmatically, and is designed to yield concise, expressive and maintainable code</em>. The benefits of the syntax only become more clear as layouts become more complex.</p>
+
+<h3 id='other_alternatives'>Other Alternatives:</h3>
 
 <ul>
-<li>WeView is an alternative to <a href='https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/Articles/Introduction.html'>iOS Auto Layout</a>.</li>
+<li><a href='https://github.com/ReactiveCocoa/ReactiveCocoaLayout'>ReactiveCocoaLayout</a> is another alternative to iOS Auto Layout built on <a href='https://github.com/ReactiveCocoa/ReactiveCocoa'>ReactiveCocoa</a>.</li>
 
-<li>WeView aims to provide an <em>easier, more natural, more expressive, and more maintainable</em> way to create <em>dynamic, adaptive UIs</em> with UIKit.</li>
-
-<li>WeView takes a <em>declarative</em> approach to layout using familiar concepts like <em>alignment</em>, <em>margins</em> and <em>spacing</em>.</li>
-
-<li>WeView builds on iOS&#8217; existing sizing and layout mechanisms.</li>
-
-<li>WeView is <em>lightweight</em>: less than 5k lines of code, no dependencies.</li>
-
-<li>WeView is compatible with <em>iOS 5 and later</em>.</li>
-
-<li>WeView is <em>free</em> and <em>open source</em>. It is available under a <a href='License.html'>permissive license</a>.</li>
+<li><a href='https://github.com/dkduck/FLKAutoLayout'>FLKAutoLayout</a>. This popular project offers a UIView category that provides a variety of convenience methods for creating common constraints.</li>
 </ul>
-<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='whyAutolayout.html'>Why use Dynamic Layout?</a></p>
+<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='TutorialOverview.html'>Tutorial 1: Overview</a></p>
 
 
 

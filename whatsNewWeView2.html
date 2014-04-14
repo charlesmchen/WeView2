@@ -128,29 +128,34 @@
       <section>
 
 
-    <h1 id='weview_v2'>WeView v2</h1>
-<!-- TEMPLATE START --><video AUTOPLAY='true' controls='true' HEIGHT='356' LOOP='true' WIDTH='368' class='embedded_video'>
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.mp4' type='video/mp4' />
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.webm' type='video/webm' />
-</video>
-<p>The WeView library is a tool for auto layout of iOS UIs.</p>
+    <h1 id='whats_new_in_weview_v2'>What&#8217;s New in WeView v2</h1>
+<!-- TEMPLATE START -->
+<ul>
+<li>WeView is a near-total rewrite, that should be more consistent and better handle edge cases such as degenerate layouts.</li>
+
+<li>WeView uses a category and associated objects to hang layout properties on any existing UIView, removing the need for subclassing, implementing a protocol, etc. This makes WeView far easier to use.</li>
+
+<li>WeView has a new cell-based layout model that is easier to understand.</li>
+
+<li>WeView should be more consistent and better handle edge cases such as degenerate layouts.</li>
+
+<li>WeView offers a number of new per-view properties that allow more fine-grained control over layout behavior.</li>
+</ul>
+
+<h3 id='migrating_from_weviews_to_weview_v2'>Migrating from WeViews to WeView v2</h3>
 
 <ul>
-<li>WeView is an alternative to <a href='https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/Articles/Introduction.html'>iOS Auto Layout</a>.</li>
+<li>Use the <em>WeView</em> class instead of the <em>WePanel</em> class.</li>
 
-<li>WeView aims to provide an <em>easier, more natural, more expressive, and more maintainable</em> way to create <em>dynamic, adaptive UIs</em> with UIKit.</li>
+<li>We&#8217;ve streamlined the class structure. Many of the old view classes are no longer necessary. Many of the old layouts have been combined or renamed.</li>
 
-<li>WeView takes a <em>declarative</em> approach to layout using familiar concepts like <em>alignment</em>, <em>margins</em> and <em>spacing</em>.</li>
+<li>We&#8217;ve combined <em>layers</em> and <em>layouts</em>. There are no <em>layers</em> in WeView v2.</li>
 
-<li>WeView builds on iOS&#8217; existing sizing and layout mechanisms.</li>
+<li>Many of the features (such as <em>stretch</em>) have been completely redesigned.</li>
 
-<li>WeView is <em>lightweight</em>: less than 5k lines of code, no dependencies.</li>
-
-<li>WeView is compatible with <em>iOS 5 and later</em>.</li>
-
-<li>WeView is <em>free</em> and <em>open source</em>. It is available under a <a href='License.html'>permissive license</a>.</li>
+<li>See the documentation</li>
 </ul>
-<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='whyAutolayout.html'>Why use Dynamic Layout?</a></p>
+<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='License.html'>License</a></p>
 
 
 

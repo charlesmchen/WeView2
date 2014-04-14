@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>WeView v2 by charlesmchen</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	<link rel="shortcut icon" type="image/x-icon" href="/WeView2/favicon.ico">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>WeView v2</h1>
+        <p>An alternative to iOS Auto Layout</p>
+
+
+        <ul class=linky>
+          <li><a href="https://github.com/charlesmchen/WeView2/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/charlesmchen/WeView2/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/charlesmchen/WeView2">View On <strong>GitHub</strong></a></li>
+        </ul>
+
+		<!-- SOCIAL -->
+
+		<div class="social">
+		<div>
+
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://charlesmchen.github.io/WeView2/" data-text="WeView v2, an open source alternative to iOS Auto Layout." data-via="cmchen" data-size="large" data-hashtags="WeView2">Tweet</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+		</div>
+
+		</div>
+
+		<div class="social">
+
+		<div>
+
+			<iframe src="http://ghbtns.com/github-btn.html?user=charlesmchen&repo=WeView2&type=watch&count=true&size=large"
+			allowtransparency="true" frameborder="0" scrolling="0" width="150" height="30"></iframe>
+			</div>
+
+		</div>
+
+		<!-- SOCIAL -->
+
+		<ul class="linkage">
+<!-- SIDEBAR START -->
+
+			<li><a href="index.html">Home</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="whyAutolayout.html">Why use Dynamic Layout?</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="whyWeView2.html">Why use WeView v2?</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialOverview.html">Tutorial 1: Overview</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialInstalling.html">Tutorial 2: Installing</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialTerminology.html">Tutorial 3: Terminology</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialBasics.html">Tutorial 4: Basics</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialLayoutModel.html">Tutorial 5: Layout Model</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialLayoutProperties.html">Tutorial 6: Layout Properties</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialLayouts.html">Tutorial 7: The Layouts</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialDesiredSize.html">Tutorial 8: Sizing</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialStretch.html">Tutorial 9: Stretch</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialDiscussion.html">Tutorial 10: Discussion</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialConvenience.html">Tutorial 11: Conveniences</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="TutorialIPhoneDemo.html">Tutorial 12: Example</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="DemoApp.html">Demo App</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="FAQ.html">FAQ</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="Issues.html">Bugs & Feature Requests</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="designPhilosophy.html">Design Philosophy</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="whatsNewWeView2.html">What's New in WeView v2</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="License.html">License</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="CHANGELOG.html">Change Log</a></li>
+
+
+			<li>&nbsp;&nbsp;&nbsp;<a href="Acknowledgments.html">Acknowledgments</a></li>
+
+<!-- SIDEBAR END -->
+		</ul>
+
+      </header>
+      <section>
+
+
+    <p>Next: <a href='designPhilosophy.html'>Design Philosophy</a></p>
+
+<h1 id='tutorial_3_the_layouts'>Tutorial 3: The Layouts</h1>
+<!-- TEMPLATE START --><EMBED AUTOPLAY='true' CONTROLLER='false' SRC='videos/video-633796AA-99BC-4296-853C-CD30D8AD2EE0-54898-00058943C9E1C927.mov' PLUGINSPAGE='http://www.apple.com/quicktime/' HEIGHT='94' LOOP='true' WIDTH='241' />
+<p>The core class of this library is the <strong>WeView</strong>.<br />WeView is a subclass of UIView that can position its subviews using a variety of layouts.</p>
+
+<h3 id='example_1'>Example 1</h3>
+
+<p>Let&#8217;s plunge right in with an example. Here is a WeView that contains a UILabel, a UIImageView and a UIButton.</p>
+
+<p><img src='images/snapshot-C8C60F9D-AE44-4405-B077-A3EAC0636E31-90246-0004232B38E3D685-2.png' alt='Layout Snapshot' /></p>
+
+<p>Here&#8217;s the code:</p>
+<script src='https://gist.github.com/6489061.js'> </script>
+<ul>
+<li>The three subviews use a <strong>horizontal layout</strong>.</li>
+
+<li>The layout has 5pt <strong>margins</strong> and 5pt <strong>spacing</strong>. These properties are like their HTML/CSS equivalents.</li>
+
+<li>The configuration methods <em>[setMargin:]</em> and <em>[setSpacing:]</em> are <strong>chained</strong>. WeView configuration methods return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance. Chaining reduces the need for boilerplate code. Chaining is optional.</li>
+
+<li>The subviews are layed out at their <strong>desired size</strong>, ie. the size returned by <em>[UIView sizeThatFits:]</em>.</li>
+
+<li><strong>The key idea</strong>: Although the WeView needs to be layed out as usual, it takes care of laying out its subviews. It is not necessary to ever set the size or position of any of the subviews - in fact, their existing size and position are ignored by the WeView layout.</li>
+</ul>
+
+<h3 id='example_2'>Example 2</h3>
+
+<p>Here&#8217;s another example:</p>
+
+<p><img src='images/iphone_example.png' alt='Layout Snapshot' /></p>
+
+<p>Here&#8217;s the code:</p>
+<script src='https://gist.github.com/6489214.js'> </script>
+<ul>
+<li>There are two WeViews in this layout: the outer <em>rootView</em> and the inner <em>bodyView</em>.</li>
+
+<li>The <em>rootView</em> contains the toolbar and <em>bodyView</em> in a <strong>vertical layout</strong>.</li>
+
+<li>The <em>bodyView</em> is configured with <strong>[UIView setStretches]</strong> which indicates to the layout that it should be stretched to receive any extra space in the layout.</li>
+
+<li>The <em>bodyView</em> is also configured with <strong>[UIView setIgnoreDesiredSize]</strong> which indicates to the layout that the <strong>desired size</strong> of this view should be ignored.</li>
+
+<li>A background image is added to the <em>bodyView</em> with a custom layout that exactly fills the <em>bodyView</em>&#8217;s bounds while retaining its aspect ratio.</li>
+
+<li>A group of three buttons is added to the <em>bodyView</em> using a horizontal layout. This layout has <strong>bottom alignment</strong> and a 20pt <strong>bottom margin</strong>.</li>
+
+<li>An activity indicator is added to the <em>bodyView</em> with its own layout. That layout doesn&#8217;t need to be configured, since the default behavior is to center subviews within their superview.</li>
+
+<li>The <em>bodyView</em> contains three separate groups of subviews: the background, the buttons and the activity indicator. <strong>Each group of subviews has its own layout</strong>. The layouts work independently and only affect their subviews.</li>
+
+<li><strong>Each layout can be configured separately</strong>. For example, the buttons&#8217; layout has bottom alignment, but that doesn&#8217;t effect the activity indicator because it has a separate layout.</li>
+</ul>
+
+<p>The <em>bodyView</em> is also configured with <em>[UIView setIgnoreDesiredSize]</em> which indicates to the layout that the <strong>desired size</strong> of this view should be ignored.</p>
+
+<p><img src='images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-1.png' alt='Layout Snapshot' /> <img src='images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-0.png' alt='Layout Snapshot' /></p>
+
+<p>A WeView layou</p>
+
+<p><img src='images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-2.png' alt='Layout Snapshot' /> <img src='images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-1.png' alt='Layout Snapshot' /> <img src='images/snapshot-397477B6-5DFF-4EFE-981D-9F1A287DA87F-81210-0003C33F3794A10F-0.png' alt='Layout Snapshot' /></p>
+
+<p><img src='images/snapshot-0-0.png' alt='Layout Snapshot' /> <img src='images/snapshot-0-1.png' alt='Layout Snapshot' /> <img src='images/snapshot-0-2.png' alt='Layout Snapshot' /></p>
+
+<p><img src='images/snapshot-0-0.png' alt='Layout Snapshot' /> <img src='images/snapshot-0-1.png' alt='Layout Snapshot' /> <img src='images/snapshot-0-2.png' alt='Layout Snapshot' /></p>
+<!-- TEMPLATE END -->
+<p>Next: <a href='designPhilosophy.html'>Design Philosophy</a></p>
+
+
+
+      </section>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-86009-6', 'charlesmchen.github.io');
+	  ga('send', 'pageview');
+
+	</script>
+	
+  </body>
+</html>

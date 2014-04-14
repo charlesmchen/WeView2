@@ -128,29 +128,62 @@
       <section>
 
 
-    <h1 id='weview_v2'>WeView v2</h1>
-<!-- TEMPLATE START --><video AUTOPLAY='true' controls='true' HEIGHT='356' LOOP='true' WIDTH='368' class='embedded_video'>
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.mp4' type='video/mp4' />
-<source src='videos/video-7F14AE72-D134-4AE9-AF33-87A3FC766838-27545-00023D38783F7606.webm' type='video/webm' />
-</video>
-<p>The WeView library is a tool for auto layout of iOS UIs.</p>
+    <h1 id='tutorial_4_concepts'>Tutorial 4: Concepts</h1>
+<!-- TEMPLATE START -->
+<p>When a WeView lays out out its subviews, there are three kinds of actors in play:</p>
 
 <ul>
-<li>WeView is an alternative to <a href='https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/Articles/Introduction.html'>iOS Auto Layout</a>.</li>
+<li>
+<p>The <strong>superview</strong>, which is always a <em>WeView</em>. It has a collection of layouts which it uses to lay out its subviews.</p>
+</li>
 
-<li>WeView aims to provide an <em>easier, more natural, more expressive, and more maintainable</em> way to create <em>dynamic, adaptive UIs</em> with UIKit.</li>
+<li>
+<p>The <strong>subviews</strong>, which can be any kind of <em>UIView</em>. Thanks to the <em>UIView+WeView</em> category, each subview&#8217;s layout behavior can be controlled using properties that specify how it stretches, its desired size, etc.</p>
+</li>
 
-<li>WeView takes a <em>declarative</em> approach to layout using familiar concepts like <em>alignment</em>, <em>margins</em> and <em>spacing</em>.</li>
+<li>
+<p>The <strong>layouts</strong>, which are a subclass of <em>WeViewLayout</em>.</p>
+</li>
 
-<li>WeView builds on iOS&#8217; existing sizing and layout mechanisms.</li>
+<li>
+<p>A given WeView can have <strong>multiple layouts</strong>. It might use one layout to center a &#8220;title&#8221; UILabel at the top of its bounds and another layout to position a &#8220;share&#8221; UIButton in the bottom-right corner.</p>
+</li>
 
-<li>WeView is <em>lightweight</em>: less than 5k lines of code, no dependencies.</li>
+<li>
+<p>Subviews are associated with a <strong>layout</strong> when they are added to the WeView.</p>
+</li>
 
-<li>WeView is compatible with <em>iOS 5 and later</em>.</li>
-
-<li>WeView is <em>free</em> and <em>open source</em>. It is available under a <a href='License.html'>permissive license</a>.</li>
+<li>
+<p>Most WeViews will only use a single layout.</p>
+</li>
 </ul>
-<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='whyAutolayout.html'>Why use Dynamic Layout?</a></p>
+
+<h3 id='mechanics'>Mechanics</h3>
+
+<ul>
+<li>WeView uses UIKit&#8217;s built-in mechanisms for coordinating layout: <em>[UIView setNeedsLayout]</em> and <em>[UIView layoutSubviews]</em>.</li>
+
+<li>Layout is automatically triggered when a UIView&#8217;s size is changed.</li>
+</ul>
+
+<h3 id='uikit_fundamentals'>UIKit Fundamentals</h3>
+
+<ul>
+<li>A UIView has separate <strong>frame</strong> and <strong>bounds</strong> properties.</li>
+
+<li>The <strong>frame</strong> represents the UIView&#8217;s position (frame.origin) and size (frame.size) of the view within its superview&#8217;s coordinate system.</li>
+
+<li>The <strong>bounds</strong> represents the UIView&#8217;s position (bounds.origin) and size (bounds.size) of the view within the UIView&#8217;s own coordinate system.</li>
+
+<li>Changes to the <strong>frame</strong> effect the <strong>bounds</strong> and vice versa.</li>
+
+<li>WeView layout generally uses the <strong>frame</strong> property.</li>
+
+<li><strong>frame</strong> values are expressed in <em>points</em>, not <em>pixels</em>. On a Retina device, a <em>point</em> is 2 <em>pixels</em>.</li>
+
+<li>The z-order Subviews reflects the order in which they were added to their superview. That is, if two subviews overlap, the subview added first will be rendered behind the subview added second.</li>
+</ul>
+<!-- TEMPLATE END --><p class='nextLink'>Next:  <a href='TutorialLayouts.html'>Tutorial 5: The Layouts</a></p>
 
 
 
