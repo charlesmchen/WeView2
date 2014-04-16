@@ -46,9 +46,9 @@ Basically, you set either a max column count or max row count, but not both.  Th
 
 <img src="images/grid-layout-2.png" width="585" height="333" />
 
-We refer to the cells (ie. all rows and columns) and the spacing (but _not_ the margins) between them collectively as the layout's **contents**.  Subviews are aligned within their cells according to the per-subview cellAlignment properties but the **contents** of the layout are aligned within the WeView's bounds according to the per-layout alignment properties.
+*Illustration: the grid's layout has left alignment, but all cells have right cell-alignment.*
 
-In the illustration above, the grid's layout is left-aligned, but all cells have right-alignment.
+We refer to the cells (ie. all rows and columns) and the spacing (but _not_ the margins) between them collectively as the layout's **contents**.  Subviews are aligned within their cells according to the per-subview cellAlignment properties but the **contents** of the layout are aligned within the WeView's bounds according to the per-layout alignment properties.
 
 Layout alignment doesn't matter if the contents of the layout **stretch** (in one or both axes) to fill the bounds of the **WeView**.
 
