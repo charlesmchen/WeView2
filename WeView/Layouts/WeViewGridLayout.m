@@ -686,7 +686,7 @@ BOOL _isColumnWidthUniform;
         {
             [columnSpacings addObject:[self spacingForIndex:columnIdx - 1
                                                    spacings:self.columnSpacings
-                                             defaultSpacing:self.defaultRowSpacing]];
+                                             defaultSpacing:self.defaultColumnSpacing]];
         }
     }
     result.columnAxisLayout = [GridAxisLayout createWithPreMargin:self.leftMarginInfo
