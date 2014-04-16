@@ -329,8 +329,8 @@ WeViewGridSizing *_defaultColumnSizing;
 NSArray *_rowSizings;
 NSArray *_columnSizings;
 
-WeViewSpacing *_defaultColumnSpacing;
 WeViewSpacing *_defaultRowSpacing;
+WeViewSpacing *_defaultColumnSpacing;
 
 NSArray *_rowSpacings;
 NSArray *_columnSpacings;
@@ -481,18 +481,6 @@ BOOL _isColumnWidthUniform;
     return self;
 }
 
-- (WeViewSpacing *)defaultColumnSpacing
-{
-    return _defaultColumnSpacing;
-}
-
-- (WeViewLayout *)setDefaultColumnSpacing:(WeViewSpacing *)value
-{
-    _defaultColumnSpacing = value;
-    [self propertyChanged];
-    return self;
-}
-
 - (WeViewSpacing *)defaultRowSpacing
 {
     return _defaultRowSpacing;
@@ -501,6 +489,18 @@ BOOL _isColumnWidthUniform;
 - (WeViewLayout *)setDefaultRowSpacing:(WeViewSpacing *)value
 {
     _defaultRowSpacing = value;
+    [self propertyChanged];
+    return self;
+}
+
+- (WeViewSpacing *)defaultColumnSpacing
+{
+    return _defaultColumnSpacing;
+}
+
+- (WeViewLayout *)setDefaultColumnSpacing:(WeViewSpacing *)value
+{
+    _defaultColumnSpacing = value;
     [self propertyChanged];
     return self;
 }

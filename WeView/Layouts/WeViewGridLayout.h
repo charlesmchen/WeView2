@@ -101,15 +101,15 @@
 
 // Optional.
 // 
-// The default horizontal spacing between subviews of this view.
-- (WeViewSpacing *)defaultColumnSpacing;
-- (WeViewGridLayout *)setDefaultColumnSpacing:(WeViewSpacing *)value;
-
-// Optional.
-// 
 // The default vertical spacing between subviews of this view.
 - (WeViewSpacing *)defaultRowSpacing;
 - (WeViewGridLayout *)setDefaultRowSpacing:(WeViewSpacing *)value;
+
+// Optional.
+// 
+// The default horizontal spacing between subviews of this view.
+- (WeViewSpacing *)defaultColumnSpacing;
+- (WeViewGridLayout *)setDefaultColumnSpacing:(WeViewSpacing *)value;
 
 // Optional.
 // 
