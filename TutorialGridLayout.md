@@ -10,7 +10,7 @@ layout: default
 
 **WeView 2** provides a variety of layouts (ie. Horizontal, Vertical and Stack) which are simplified forms of the grid layout - they're easier to use and understand.  The grid layout, however, is more powerful.
 
-<img src="images/grid-layout-1.small.png" width="490" height="331" />
+<img src="images/grid-layout-1a.png" width="550" height="384" />
 
 Like the other layouts, the grid layout uses a [cell model](TutorialLayoutModel.html).  The cells are arranged in **rows** and **columns**.  Between the rows and columns are **row spacing** and **column spacing**.  Outside the cells lies the top, bottom, left and right **margins**.
 
