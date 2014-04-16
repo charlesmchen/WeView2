@@ -329,8 +329,8 @@ WeViewGridSizing *_defaultColumnSizing;
 NSArray *_rowSizings;
 NSArray *_columnSizings;
 
-WeViewSpacing *_defaultHSpacing;
-WeViewSpacing *_defaultVSpacing;
+WeViewSpacing *_defaultColumnSpacing;
+WeViewSpacing *_defaultRowSpacing;
 
 NSArray *_rowSpacings;
 NSArray *_columnSpacings;
@@ -481,26 +481,26 @@ BOOL _isColumnWidthUniform;
     return self;
 }
 
-- (WeViewSpacing *)defaultHSpacing
+- (WeViewSpacing *)defaultColumnSpacing
 {
-    return _defaultHSpacing;
+    return _defaultColumnSpacing;
 }
 
-- (WeViewLayout *)setDefaultHSpacing:(WeViewSpacing *)value
+- (WeViewLayout *)setDefaultColumnSpacing:(WeViewSpacing *)value
 {
-    _defaultHSpacing = value;
+    _defaultColumnSpacing = value;
     [self propertyChanged];
     return self;
 }
 
-- (WeViewSpacing *)defaultVSpacing
+- (WeViewSpacing *)defaultRowSpacing
 {
-    return _defaultVSpacing;
+    return _defaultRowSpacing;
 }
 
-- (WeViewLayout *)setDefaultVSpacing:(WeViewSpacing *)value
+- (WeViewLayout *)setDefaultRowSpacing:(WeViewSpacing *)value
 {
-    _defaultVSpacing = value;
+    _defaultRowSpacing = value;
     [self propertyChanged];
     return self;
 }
@@ -665,7 +665,7 @@ BOOL _isColumnWidthUniform;
         {
             [rowSpacings addObject:[self spacingForIndex:rowIdx - 1
                                                 spacings:self.rowSpacings
-                                          defaultSpacing:self.defaultVSpacing]];
+                                          defaultSpacing:self.defaultRowSpacing]];
         }
     }
 
@@ -686,7 +686,7 @@ BOOL _isColumnWidthUniform;
         {
             [columnSpacings addObject:[self spacingForIndex:columnIdx - 1
                                                    spacings:self.columnSpacings
-                                             defaultSpacing:self.defaultVSpacing]];
+                                             defaultSpacing:self.defaultRowSpacing]];
         }
     }
     result.columnAxisLayout = [GridAxisLayout createWithPreMargin:self.leftMarginInfo
@@ -1041,127 +1041,155 @@ BOOL _isColumnWidthUniform;
 
 - (int)vSpacing
 {
-    return self.defaultVSpacing.size;
+    return self.defaultRowSpacing.size;
 }
 
 - (WeViewLayout *)setVSpacing:(int)value
 {
-    if (!self.defaultVSpacing)
+    if (!self.defaultRowSpacing)
     {
-        self.defaultVSpacing = [[WeViewSpacing alloc] init];
+        self.defaultRowSpacing = [[WeViewSpacing alloc] init];
     }
-    self.defaultVSpacing.size = ceilf(value);
+    self.defaultRowSpacing.size = ceilf(value);
     return self;
 }
 
 - (int)hSpacing
 {
-    return self.defaultHSpacing.size;
+    return self.defaultColumnSpacing.size;
 }
 
 - (WeViewLayout *)setHSpacing:(int)value
 {
-    if (!self.defaultHSpacing)
+    if (!self.defaultColumnSpacing)
     {
-        self.defaultHSpacing = [[WeViewSpacing alloc] init];
+        self.defaultColumnSpacing = [[WeViewSpacing alloc] init];
     }
-    self.defaultHSpacing.size = ceilf(value);
+    self.defaultColumnSpacing.size = ceilf(value);
     return self;
 }
 
 #pragma mark - Convenience accessors
 
-- (WeViewGridLayout *)setMarginStretchWeight:(CGFloat)value
+- (CGFloat)leftMarginStretchWeight
+{
+    return self.leftMarginInfo.stretchWeight;
+}
+
+- (WeViewGridLayout *)setLeftMarginStretchWeight:(CGFloat)value
 {
     if (!self.leftMarginInfo)
     {
         self.leftMarginInfo = [[WeViewSpacing alloc] init];
     }
+    self.leftMarginInfo.stretchWeight = value;
+    return self;
+}
+
+- (CGFloat)rightMarginStretchWeight
+{
+    return self.rightMarginInfo.stretchWeight;
+}
+
+- (WeViewGridLayout *)setRightMarginStretchWeight:(CGFloat)value
+{
     if (!self.rightMarginInfo)
     {
         self.rightMarginInfo = [[WeViewSpacing alloc] init];
     }
+    self.rightMarginInfo.stretchWeight = value;
+    return self;
+}
+
+- (CGFloat)topMarginStretchWeight
+{
+    return self.topMarginInfo.stretchWeight;
+}
+
+- (WeViewGridLayout *)setTopMarginStretchWeight:(CGFloat)value
+{
     if (!self.topMarginInfo)
     {
         self.topMarginInfo = [[WeViewSpacing alloc] init];
     }
+    self.topMarginInfo.stretchWeight = value;
+    return self;
+}
+
+- (CGFloat)bottomMarginStretchWeight
+{
+    return self.bottomMarginInfo.stretchWeight;
+}
+
+- (WeViewGridLayout *)setBottomMarginStretchWeight:(CGFloat)value
+{
     if (!self.bottomMarginInfo)
     {
         self.bottomMarginInfo = [[WeViewSpacing alloc] init];
     }
-    self.leftMarginInfo.stretchWeight = value;
-    self.rightMarginInfo.stretchWeight = value;
-    self.topMarginInfo.stretchWeight = value;
     self.bottomMarginInfo.stretchWeight = value;
+    return self;
+}
+
+- (WeViewGridLayout *)setMarginStretchWeight:(CGFloat)value
+{
+    self.leftMarginStretchWeight = value;
+    self.rightMarginStretchWeight = value;
+    self.topMarginStretchWeight = value;
+    self.bottomMarginStretchWeight = value;
     return self;
 }
 
 - (WeViewGridLayout *)setHMarginStretchWeight:(CGFloat)value
 {
-    if (!self.leftMarginInfo)
-    {
-        self.leftMarginInfo = [[WeViewSpacing alloc] init];
-    }
-    if (!self.rightMarginInfo)
-    {
-        self.rightMarginInfo = [[WeViewSpacing alloc] init];
-    }
-    self.leftMarginInfo.stretchWeight = value;
-    self.rightMarginInfo.stretchWeight = value;
+    self.leftMarginStretchWeight = value;
+    self.rightMarginStretchWeight = value;
     return self;
 }
 
 - (WeViewGridLayout *)setVMarginStretchWeight:(CGFloat)value
 {
-    if (!self.topMarginInfo)
-    {
-        self.topMarginInfo = [[WeViewSpacing alloc] init];
-    }
-    if (!self.bottomMarginInfo)
-    {
-        self.bottomMarginInfo = [[WeViewSpacing alloc] init];
-    }
-    self.topMarginInfo.stretchWeight = value;
-    self.bottomMarginInfo.stretchWeight = value;
+    self.topMarginStretchWeight = value;
+    self.bottomMarginStretchWeight = value;
     return self;
 }
 
 - (WeViewGridLayout *)setDefaultSpacing:(WeViewSpacing *)value
 {
-    [self setDefaultHSpacing:[WeViewSpacing spacingWithSize:value.size
-                                              stretchWeight:value.stretchWeight]];
-    [self setDefaultVSpacing:[WeViewSpacing spacingWithSize:value.size
-                                              stretchWeight:value.stretchWeight]];
+    [self setDefaultColumnSpacing:[WeViewSpacing spacingWithSize:value.size
+                                                   stretchWeight:value.stretchWeight]];
+    [self setDefaultRowSpacing:[WeViewSpacing spacingWithSize:value.size
+                                                stretchWeight:value.stretchWeight]];
     return self;
 }
 
 - (WeViewGridLayout *)setDefaultSpacingSize:(int)value
 {
-    if (!self.defaultHSpacing)
+    if (!self.defaultColumnSpacing)
     {
-        self.defaultHSpacing = [[WeViewSpacing alloc] init];
+        self.defaultColumnSpacing = [[WeViewSpacing alloc] init];
     }
-    if (!self.defaultVSpacing)
+    if (!self.defaultRowSpacing)
     {
-        self.defaultVSpacing = [[WeViewSpacing alloc] init];
+        self.defaultRowSpacing = [[WeViewSpacing alloc] init];
     }
-    self.defaultHSpacing.size = value;
-    self.defaultVSpacing.size = value;
+    self.defaultColumnSpacing.size = value;
+    self.defaultRowSpacing.size = value;
     return self;
 }
 
 - (WeViewGridLayout *)setDefaultSpacingStretchWeight:(CGFloat)value
 {
-    if (!self.defaultHSpacing)
+    if (!self.defaultColumnSpacing)
     {
-        self.defaultHSpacing = [[WeViewSpacing alloc] init];
+        self.defaultColumnSpacing = [[WeViewSpacing alloc] init];
     }
-    if (!self.defaultVSpacing)
+    if (!self.defaultRowSpacing)
     {
-        self.defaultVSpacing = [[WeViewSpacing alloc] init];
+        self.defaultRowSpacing = [[WeViewSpacing alloc] init];
     }
-    self.defaultHSpacing.stretchWeight = value;
-    self.defaultVSpacing.stretchWeight = value;
+    self.defaultColumnSpacing.stretchWeight = value;
+    self.defaultRowSpacing.stretchWeight = value;
     return self;
 }
 

@@ -44,10 +44,19 @@
 
 @interface WeViewGridLayout : WeViewLayout
 
+- (CGFloat)leftMarginStretchWeight;
+- (WeViewGridLayout *)setLeftMarginStretchWeight:(CGFloat)value;
+- (CGFloat)rightMarginStretchWeight;
+- (WeViewGridLayout *)setRightMarginStretchWeight:(CGFloat)value;
+- (CGFloat)topMarginStretchWeight;
+- (WeViewGridLayout *)setTopMarginStretchWeight:(CGFloat)value;
+- (CGFloat)bottomMarginStretchWeight;
+- (WeViewGridLayout *)setBottomMarginStretchWeight:(CGFloat)value;
+
 /* CODEGEN MARKER: Properties Start */
 
 // Optional.
-//
+// 
 // The default sizing behavior of all rows.  Only applies to rows for which no row-specific
 // sizing behavior has been specified with
 // rowSizings.
@@ -55,7 +64,7 @@
 - (WeViewGridLayout *)setDefaultRowSizing:(WeViewGridSizing *)value;
 
 // Optional.
-//
+// 
 // The default sizing behavior of all columns.  Only applies to columns for which no
 // column-specific sizing behavior has been specified with
 // columnSizings.
@@ -93,14 +102,14 @@
 // Optional.
 // 
 // The default horizontal spacing between subviews of this view.
-- (WeViewSpacing *)defaultHSpacing;
-- (WeViewGridLayout *)setDefaultHSpacing:(WeViewSpacing *)value;
+- (WeViewSpacing *)defaultColumnSpacing;
+- (WeViewGridLayout *)setDefaultColumnSpacing:(WeViewSpacing *)value;
 
 // Optional.
 // 
 // The default vertical spacing between subviews of this view.
-- (WeViewSpacing *)defaultVSpacing;
-- (WeViewGridLayout *)setDefaultVSpacing:(WeViewSpacing *)value;
+- (WeViewSpacing *)defaultRowSpacing;
+- (WeViewGridLayout *)setDefaultRowSpacing:(WeViewSpacing *)value;
 
 // Optional.
 // 
