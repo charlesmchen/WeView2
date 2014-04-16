@@ -1096,12 +1096,57 @@ BOOL _isColumnWidthUniform;
     return self;
 }
 
+- (WeViewGridLayout *)setHMarginStretchWeight:(CGFloat)value
+{
+    if (!self.leftMarginInfo)
+    {
+        self.leftMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    if (!self.rightMarginInfo)
+    {
+        self.rightMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    self.leftMarginInfo.stretchWeight = value;
+    self.rightMarginInfo.stretchWeight = value;
+    return self;
+}
+
+- (WeViewGridLayout *)setVMarginStretchWeight:(CGFloat)value
+{
+    if (!self.topMarginInfo)
+    {
+        self.topMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    if (!self.bottomMarginInfo)
+    {
+        self.bottomMarginInfo = [[WeViewSpacing alloc] init];
+    }
+    self.topMarginInfo.stretchWeight = value;
+    self.bottomMarginInfo.stretchWeight = value;
+    return self;
+}
+
 - (WeViewGridLayout *)setDefaultSpacing:(WeViewSpacing *)value
 {
     [self setDefaultHSpacing:[WeViewSpacing spacingWithSize:value.size
                                               stretchWeight:value.stretchWeight]];
     [self setDefaultVSpacing:[WeViewSpacing spacingWithSize:value.size
                                               stretchWeight:value.stretchWeight]];
+    return self;
+}
+
+- (WeViewGridLayout *)setDefaultSpacingSize:(int)value
+{
+    if (!self.defaultHSpacing)
+    {
+        self.defaultHSpacing = [[WeViewSpacing alloc] init];
+    }
+    if (!self.defaultVSpacing)
+    {
+        self.defaultVSpacing = [[WeViewSpacing alloc] init];
+    }
+    self.defaultHSpacing.size = value;
+    self.defaultVSpacing.size = value;
     return self;
 }
 

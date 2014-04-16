@@ -38,7 +38,7 @@
 // The horizontal stretch weight of this view. If non-zero, the view is willing to take available
 // space or be cropped if
 // necessary.
-//
+// 
 // Subviews with larger relative stretch weights will be stretched more.
 - (CGFloat)hStretchWeight;
 - (UIView *)setHStretchWeight:(CGFloat)value;
@@ -46,55 +46,55 @@
 // The vertical stretch weight of this view. If non-zero, the view is willing to take available
 // space or be cropped if
 // necessary.
-//
+// 
 // Subviews with larger relative stretch weights will be stretched more.
 - (CGFloat)vStretchWeight;
 - (UIView *)setVStretchWeight:(CGFloat)value;
 
 // An adjustment to the spacing to the left of this view, if any.
-//
+// 
 // This value can be positive or negative.
-//
+// 
 // Only applies to the horizontal, vertical and flow layouts.
 - (int)leftSpacingAdjustment;
 - (UIView *)setLeftSpacingAdjustment:(int)value;
 
 // An adjustment to the spacing above this view, if any.
-//
+// 
 // This value can be positive or negative.
-//
+// 
 // Only applies to the horizontal and vertical layouts.
 - (int)topSpacingAdjustment;
 - (UIView *)setTopSpacingAdjustment:(int)value;
 
 // An adjustment to the spacing to the right of this view, if any.
-//
+// 
 // This value can be positive or negative.
-//
+// 
 // Only applies to the horizontal, vertical and flow layouts.
 - (int)rightSpacingAdjustment;
 - (UIView *)setRightSpacingAdjustment:(int)value;
 
 // An adjustment to the spacing below this view, if any.
-//
+// 
 // This value can be positive or negative.
-//
+// 
 // Only applies to the horizontal and vertical layouts.
 - (int)bottomSpacingAdjustment;
 - (UIView *)setBottomSpacingAdjustment:(int)value;
 
 // This adjustment can be used to manipulate the desired width of a view.
-//
+// 
 // It is added to the desired width reported by the subview.
-//
+// 
 // This value can be negative.
 - (CGFloat)desiredWidthAdjustment;
 - (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
 
 // This adjustment can be used to manipulate the desired height of a view.
-//
+// 
 // It is added to the desired width reported by the subview.
-//
+// 
 // This value can be negative.
 - (CGFloat)desiredHeightAdjustment;
 - (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
@@ -102,17 +102,17 @@
 - (UIView *)setIgnoreDesiredSize:(BOOL)value;
 
 // The horizontal alignment preference of this view within in its layout cell.
-//
+// 
 // This value is optional.  The default value is the contentHAlign of its superview.
-//
+// 
 // cellHAlign should only be used for cells whose alignment differs from its superview's.
 - (HAlign)cellHAlign;
 - (UIView *)setCellHAlign:(HAlign)value;
 
 // The vertical alignment preference of this view within in its layout cell.
-//
+// 
 // This value is optional.  The default value is the contentVAlign of its superview.
-//
+// 
 // cellVAlign should only be used for cells whose alignment differs from its superview's.
 - (VAlign)cellVAlign;
 - (UIView *)setCellVAlign:(VAlign)value;

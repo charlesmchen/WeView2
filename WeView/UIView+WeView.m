@@ -35,77 +35,77 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 // The horizontal stretch weight of this view. If non-zero, the view is willing to take available
 // space or be cropped if
 // necessary.
-//
+// 
 // Subviews with larger relative stretch weights will be stretched more.
 @property (nonatomic) CGFloat hStretchWeight;
 
 // The vertical stretch weight of this view. If non-zero, the view is willing to take available
 // space or be cropped if
 // necessary.
-//
+// 
 // Subviews with larger relative stretch weights will be stretched more.
 @property (nonatomic) CGFloat vStretchWeight;
 
 // An adjustment to the spacing to the left of this view, if any.
-//
+// 
 // This value can be positive or negative.
-//
+// 
 // Only applies to the horizontal, vertical and flow layouts.
 @property (nonatomic) int leftSpacingAdjustment;
 
 // An adjustment to the spacing above this view, if any.
-//
+// 
 // This value can be positive or negative.
-//
+// 
 // Only applies to the horizontal and vertical layouts.
 @property (nonatomic) int topSpacingAdjustment;
 
 // An adjustment to the spacing to the right of this view, if any.
-//
+// 
 // This value can be positive or negative.
-//
+// 
 // Only applies to the horizontal, vertical and flow layouts.
 @property (nonatomic) int rightSpacingAdjustment;
 
 // An adjustment to the spacing below this view, if any.
-//
+// 
 // This value can be positive or negative.
-//
+// 
 // Only applies to the horizontal and vertical layouts.
 @property (nonatomic) int bottomSpacingAdjustment;
 
 // This adjustment can be used to manipulate the desired width of a view.
-//
+// 
 // It is added to the desired width reported by the subview.
-//
+// 
 // This value can be negative.
 @property (nonatomic) CGFloat desiredWidthAdjustment;
 
 // This adjustment can be used to manipulate the desired height of a view.
-//
+// 
 // It is added to the desired width reported by the subview.
-//
+// 
 // This value can be negative.
 @property (nonatomic) CGFloat desiredHeightAdjustment;
 @property (nonatomic) BOOL ignoreDesiredSize;
 
 // The horizontal alignment preference of this view within in its layout cell.
-//
+// 
 // This value is optional.  The default value is the contentHAlign of its superview.
-//
+// 
 // cellHAlign should only be used for cells whose alignment differs from its superview's.
 @property (nonatomic) HAlign cellHAlign;
 
 // The vertical alignment preference of this view within in its layout cell.
-//
+// 
 // This value is optional.  The default value is the contentVAlign of its superview.
-//
+// 
 // cellVAlign should only be used for cells whose alignment differs from its superview's.
 @property (nonatomic) VAlign cellVAlign;
 @property (nonatomic) BOOL hasCellHAlign;
 @property (nonatomic) BOOL hasCellVAlign;
 
-@property (nonatomic) NSString *debugName;
+@property (nonatomic) NSString * debugName;
 
 // Convenience accessor(s) for the minDesiredWidth and minDesiredHeight properties.
 - (CGSize)minDesiredSize;

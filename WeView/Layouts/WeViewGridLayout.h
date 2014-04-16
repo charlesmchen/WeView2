@@ -48,30 +48,6 @@
 
 // Optional.
 //
-// The left margin of the contents of this view.
-- (WeViewSpacing *)leftMarginInfo;
-- (WeViewGridLayout *)setLeftMarginInfo:(WeViewSpacing *)value;
-
-// Optional.
-//
-// The right margin of the contents of this view.
-- (WeViewSpacing *)rightMarginInfo;
-- (WeViewGridLayout *)setRightMarginInfo:(WeViewSpacing *)value;
-
-// Optional.
-//
-// The top margin of the contents of this view.
-- (WeViewSpacing *)topMarginInfo;
-- (WeViewGridLayout *)setTopMarginInfo:(WeViewSpacing *)value;
-
-// Optional.
-//
-// The bottom margin of the contents of this view.
-- (WeViewSpacing *)bottomMarginInfo;
-- (WeViewGridLayout *)setBottomMarginInfo:(WeViewSpacing *)value;
-
-// Optional.
-//
 // The default sizing behavior of all rows.  Only applies to rows for which no row-specific
 // sizing behavior has been specified with
 // rowSizings.
@@ -87,13 +63,13 @@
 - (WeViewGridLayout *)setDefaultColumnSizing:(WeViewGridSizing *)value;
 
 // Optional.
-//
+// 
 // Row-specific sizing behavior.
-//
+// 
 // All contents must be instances of WeViewGridSizing.
-//
+// 
 // The first element of rowSizings applies to the first (top-most row), etc.
-//
+// 
 // Does not need to exactly match the number of rows.  defaultRowSizing applies to any rows
 // without a corresponding element in
 // rowSizings.
@@ -101,13 +77,13 @@
 - (WeViewGridLayout *)setRowSizings:(NSArray *)value;
 
 // Optional.
-//
+// 
 // Column-specific sizing behavior.
-//
+// 
 // All contents must be instances of WeViewGridSizing.
-//
+// 
 // The first element of columnSizings applies to the first (left-most column), etc.
-//
+// 
 // Does not need to exactly match the number of columns.  defaultColumnSizing applies to any
 // columns without a corresponding element in
 // columnSizings.
@@ -115,26 +91,26 @@
 - (WeViewGridLayout *)setColumnSizings:(NSArray *)value;
 
 // Optional.
-//
+// 
 // The default horizontal spacing between subviews of this view.
 - (WeViewSpacing *)defaultHSpacing;
 - (WeViewGridLayout *)setDefaultHSpacing:(WeViewSpacing *)value;
 
 // Optional.
-//
+// 
 // The default vertical spacing between subviews of this view.
 - (WeViewSpacing *)defaultVSpacing;
 - (WeViewGridLayout *)setDefaultVSpacing:(WeViewSpacing *)value;
 
 // Optional.
-//
+// 
 // Specifies the spacing between specific rows.
-//
+// 
 // All contents must be instances of WeViewSpacing.
-//
+// 
 // The first element of rowSpacings applies to the spacing between the first and second rows,
 // etc.
-//
+// 
 // Does not need to exactly match the number of spacings between rows.  defaultVSpacing applies
 // to any spacings without a corresponding element in
 // rowSpacings.
@@ -142,15 +118,15 @@
 - (WeViewGridLayout *)setRowSpacings:(NSArray *)value;
 
 // Optional.
-//
+// 
 // Specifies the spacing between specific columns.
-//
+// 
 // All contents must be instances of WeViewSpacing.
-//
+// 
 // The first element of columnSpacings applies to the spacing between the first and second
 // columns,
 // etc.
-//
+// 
 // Does not need to exactly match the number of spacings between columns.  defaultHSpacing
 // applies to any spacings without a corresponding element in
 // columnSpacings.
@@ -158,13 +134,13 @@
 - (WeViewGridLayout *)setColumnSpacings:(NSArray *)value;
 
 // If YES, all rows will have the same height - the height of the tallest row.
-//
+// 
 // Default is NO.
 - (BOOL)isRowHeightUniform;
 - (WeViewGridLayout *)setIsRowHeightUniform:(BOOL)value;
 
 // If YES, all columns will have the same width - the width of the widest column.
-//
+// 
 // Default is NO.
 - (BOOL)isColumnWidthUniform;
 - (WeViewGridLayout *)setIsColumnWidthUniform:(BOOL)value;
@@ -188,9 +164,11 @@
 #pragma mark - Convenience accessors
 
 - (WeViewGridLayout *)setMarginStretchWeight:(CGFloat)value;
+- (WeViewGridLayout *)setHMarginStretchWeight:(CGFloat)value;
+- (WeViewGridLayout *)setVMarginStretchWeight:(CGFloat)value;
 
 - (WeViewGridLayout *)setDefaultSpacing:(WeViewSpacing *)value;
-
+- (WeViewGridLayout *)setDefaultSpacingSize:(int)value;
 - (WeViewGridLayout *)setDefaultSpacingStretchWeight:(CGFloat)value;
 
 @end

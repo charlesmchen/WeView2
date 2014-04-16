@@ -491,6 +491,11 @@ typedef void (^SetterBlock)(id item);
                                                  view.backgroundColor = [UIColor colorWithWhite:0.75f alpha:1.f];
                                                  view.opaque = NO;
                                              }],
+                             [ViewParameterSetter create:@"1."
+                                             setterBlock:^(UIView *view) {
+                                                 view.backgroundColor = [UIColor colorWithWhite:1.f alpha:1.f];
+                                                 view.opaque = NO;
+                                             }],
                              ] doubleHeight:YES],
 
                             [ViewParameterSimple create:@"border"
@@ -573,6 +578,7 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
+                                 
 
                                 [ViewParameterSimple create:@"cellVAlign"
                                                 getterBlock:^NSString *(id item) {
@@ -593,6 +599,7 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
+                                 
 
                                 [ViewParameterSimple booleanProperty:@"hasCellHAlign"],
 
@@ -740,6 +747,7 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
+                                 
 
                                 [ViewParameterSimple create:@"vAlign"
                                                 getterBlock:^NSString *(id item) {
@@ -760,6 +768,7 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
+                                 
 
                                 [ViewParameterSimple booleanProperty:@"cropSubviewOverflow"],
 
@@ -786,6 +795,7 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
+                                 
 
                                 [ViewParameterSimple booleanProperty:@"debugLayout"],
 
