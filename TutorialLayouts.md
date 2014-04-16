@@ -75,4 +75,4 @@ The Block-based layout can be used for unusual layouts.
 
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="TutorialDesiredSize.html">Tutorial 8: Sizing</a></p>
+<p class="nextLink">Next:  <a href="TutorialGridLayout.html">Tutorial 8: Grid Layout</a></p>

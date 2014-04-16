@@ -3,7 +3,7 @@ permalink: TutorialDiscussion.html
 layout: default
 ---
 
-# Tutorial 10: Discussion
+# Tutorial 11: Discussion
 
 
 <!-- TEMPLATE START -->
@@ -15,4 +15,4 @@ UIViews should always be pixel-aligned.  Many of them (ie. UILabel) don't render
 
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="TutorialConvenience.html">Tutorial 11: Conveniences</a></p>
+<p class="nextLink">Next:  <a href="TutorialConvenience.html">Tutorial 12: Conveniences</a></p>

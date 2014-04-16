@@ -3,7 +3,7 @@ permalink: TutorialConvenience.html
 layout: default
 ---
 
-# Tutorial 11: Conveniences
+# Tutorial 12: Conveniences
 
 
 <!-- TEMPLATE START -->
@@ -72,4 +72,4 @@ The _hCenter_ and _vCenter_ properties let you horizontally center-align two vie
 
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="TutorialIPhoneDemo.html">Tutorial 12: Example</a></p>
+<p class="nextLink">Next:  <a href="TutorialIPhoneDemo.html">Tutorial 13: Example</a></p>
