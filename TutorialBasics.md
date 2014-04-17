@@ -35,7 +35,21 @@ Here is an example WeView that has three subviews: a UILabel, a UIImageView and 
 * **Chaining**  The configuration methods _\[setMargin:\]_ and _\[setSpacing:\]_ are chained.  WeView configuration methods return a reference to the receiver whenever possible to allow chaining, ie. invoking multiple methods on the same instance.
 * **Auto-sizing**  The subviews are layed out at their __desired size__, ie. the size returned by _\[UIView sizeThatFits:\]_.
 * __Order matters__  The subviews are layed out in the order in which they were added to their superview.
-* __Automated Layout__ The WeView takes care of laying out its subviews.  It is not necessary to ever resize or position of any of the subviews. In fact, their existing size and position are ignored by the WeView layout.  
+
+## When & How Does Layout Occur?
+
+Most importantly, layout is automated.  In most cases, you don't need any more code than shown in the example above.  Layout is triggered automatically.  
+
+UIKit provides a mechanism for triggering layout: UIView's **needsLayout** property.  It is a simple "dirty flag" for layout.  UIKit ensures that _\[UIView layoutSubviews\]_ is eventually called whenever **needsLayout** is set.  Layout is needed in the following conditions:
+
+- The **WeView** is resized.
+- The **WeView's** layouts are modified.
+- Subviews are added to or removed from the **WeView**.
+- The state of one a **WeView's** subviews changes in a way that affects layout, ie. that changes that subview's desired size.
+
+**WeView 2** automatically triggers layout in all but the last of these conditions.  In that case, you should trigger layout yourself by setting the **needsLayout** property on the WeView to YES.
+
+Once you've added a subview to a **WeView** with a layout, you should never try to manually change its position or size.  The **WeView** will usually overrule any changes you make to the subview.
 
 <!-- TEMPLATE END -->
 
