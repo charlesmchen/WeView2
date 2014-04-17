@@ -3,7 +3,7 @@ permalink: TutorialGridLayout.html
 layout: default
 ---
 
-# Tutorial 8: Grid Layout
+# Tutorial 9: Grid Layout
 
 
 <!-- TEMPLATE START -->
@@ -144,4 +144,4 @@ The default values apply if no WeViewGridSizing is set using those methods for a
 You can use these properties to "lock" row height or column width to be uniform.  That is, if isRowHeightUniform is set to YES, all rows will have the same height: the height of the tallest row.  
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="TutorialDesiredSize.html">Tutorial 9: Sizing</a></p>
+<p class="nextLink">Next:  <a href="TutorialDesiredSize.html">Tutorial 10: Sizing</a></p>

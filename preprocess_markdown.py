@@ -37,6 +37,7 @@ links = (
   Link('TutorialBasics.md', 'Basics', groupKey='Tutorial'),
   Link('TutorialLayoutModel.md', 'Layout Model', groupKey='Tutorial'),
   Link('TutorialLayoutProperties.md', 'Layout Properties', groupKey='Tutorial'),
+  Link('TutorialSubviewProperties.md', 'Subview Properties', groupKey='Tutorial'),
   Link('TutorialLayouts.md', 'The Layouts', groupKey='Tutorial'),
   Link('TutorialGridLayout.md', 'Grid Layout', groupKey='Tutorial'),
   Link('TutorialDesiredSize.md', 'Sizing', groupKey='Tutorial'),

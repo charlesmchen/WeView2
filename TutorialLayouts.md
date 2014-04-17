@@ -3,10 +3,12 @@ permalink: TutorialLayouts.html
 layout: default
 ---
 
-# Tutorial 7: The Layouts
+# Tutorial 8: The Layouts
 
 
 <!-- TEMPLATE START -->
+
+*Summary: WeViews have a number of built-in layouts, but most layouts can and should be built using just the horizontal and vertical layouts.*
 
 WeView Layouts have two responsibilities:
 
@@ -75,4 +77,4 @@ The Block-based layout can be used for unusual layouts.
 
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="TutorialGridLayout.html">Tutorial 8: Grid Layout</a></p>
+<p class="nextLink">Next:  <a href="TutorialGridLayout.html">Tutorial 9: Grid Layout</a></p>

@@ -19,7 +19,6 @@ The layout process works like this:
 * If the subviews don't fit within the **WeView**'s bounds, they may be cropped.
 * Lastly, subviews are positioned within their cell.
 
-A **WeView** might have multiple layouts.  Each layout operates independently of the others and only one layout applies to any given subview.
 
 ## An Example
 

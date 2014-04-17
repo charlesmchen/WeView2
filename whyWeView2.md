@@ -8,8 +8,11 @@ layout: default
 
 <!-- TEMPLATE START -->
 
-* When using iOS Auto Layout you need to manage considerations such as _constraint priority, constraint sufficiency, constraint conflicts (ie. over-constrained layouts), ambiguous layout, nearest common ancestors_, etc.  These issues also complicate refactoring and redesign.  
-* _Here's a simple code comparison_, based on Apple's sample code that centers a button at the bottom of it's superview bounds with 20pt spacing.
+*Summary: iOS Auto-Layout is complex and unwieldy and yields ugly code.*
+
+* **Conceptual Complexity** When using iOS Auto Layout you need to manage considerations such as _constraint priority, constraint sufficiency, constraint conflicts (ie. over-constrained layouts), ambiguous layout, nearest common ancestors_, etc.  These issues also complicate refactoring and redesign.  
+* **Lack of locality**  iOS Auto Layout is based on a complex constraint-solving system.  The final position and size of any view in the system can be affected by all of the constraints in the system.  Those constraints don't necessarily reside on the view's parent.  It can be difficult to resolve an issue that without understanding the entire view hierarchy.
+* **Code Complexity** _Here's a simple code comparison_, based on Apple's sample code that centers a button at the bottom of it's superview bounds with 20pt spacing.
 
 ![Layout Snapshot](images/snapshot-5B46EB1B-30D4-4FAE-8BC7-D76FA3BBE6CA-34104-00011AA1BCCB403A.png)
 
@@ -25,7 +28,7 @@ Here's the equivalent logic using a _WeView_:
 
 {% gist 6504519 %}
 
-iOS Auto Layout has the advantage of being integrated into Interface Builder, and the Inteface Builder support for iOS Auto Layout has dramatically improved in Xcode 5.  However, as soon as you outgrow what can done in Interface Builder, you must work programmatically and iOS Auto Layout requires verbose, brittle code. 
+iOS Auto Layout has the advantage of being integrated into Interface Builder, and the Inteface Builder support for iOS Auto Layout has dramatically improved in Xcode 5.  However, as soon as you outgrow what can done in Interface Builder, you must work programmatically and iOS Auto Layout requires verbose, brittle code.
 
 _WeView 2 can only be used programmatically, and is designed to yield concise, expressive and maintainable code_.  The benefits of the syntax only become more clear as layouts become more complex.
 

@@ -3,7 +3,7 @@ permalink: TutorialStretch.html
 layout: default
 ---
 
-# Tutorial 10: Stretch
+# Tutorial 11: Stretch
 
 
 <!-- TEMPLATE START -->
@@ -92,7 +92,10 @@ It this example, we have a UILabel and a UIScrollView in a vertical layout.  The
 
 {% gist 6619176 %}
 
+## Spacing and Margin Stretch in Grid Layouts
+
+The Grid Layout supports a number of advanced features, such as stretch of spacing and margins.  See the [Grid Layout section of the tutorial](TutorialGridLayout.html).
 
 <!-- TEMPLATE END -->
 
-<p class="nextLink">Next:  <a href="TutorialDiscussion.html">Tutorial 11: Discussion</a></p>
+<p class="nextLink">Next:  <a href="TutorialDiscussion.html">Tutorial 12: Discussion</a></p>
