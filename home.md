@@ -22,7 +22,7 @@ The WeView 2 library is a tool for auto layout of iOS UIs.
 * WeView 2 is _lightweight_: less than 5k lines of code, no dependencies.
 * WeView 2 is compatible with _iOS 5 and later_.
 * WeView 2 is _free_ and _open source_. It is available under a [permissive license](License.html).
-* WeView 2 is *easy to learn*: if you read the ["Basics" page of the tutorial](TutorialBasics.html), you'll know everything you need to know to get started.
+* WeView 2 is *easy to learn*: if you read the ["Basics" page of the tutorial](TutorialBasics.html), you'll know everything you need to get started.
 
 <!-- TEMPLATE END -->
 
