@@ -8,15 +8,9 @@ layout: default
 
 <!-- TEMPLATE START -->
 
-## Introduction
-
-What size will a subview be in WeView layout?
+What determines how a **WeView 2** layout will size a subview?
 
 The _\[UIView sizeThatFits:(CGSize)size\]_ method returns the _desired size_ for any given view.  A view's _desired size_ reflects the "natural" size for its content.
-
-## Custom UIViews
-
-All built-in UIKit views (ie. UILabel, UIButton) properly report their desired size using _\[UIView sizeThatFits:\]_.  Custom UIViews should also implement that method in order to work properly with **WeView 2**, although you can also manipulate their desired size using methods like _\[UIView setFixedSize:\]_ (see below).
 
 ## Examples
 
@@ -53,12 +47,17 @@ The less horizontal space is available, the greater will be the UILabel's desire
 
 Similary, WeViews that use a _Flow Layout_ wrap their contents like text.
 
-For this reason, the _\[UIView sizeThatFits:(CGSize)size\]_ method has a _size_ parameter that reflects the available space. The width and height of the _size_ parameter should be >= 0.
+## The [UIView sizeThatFits:] Method
 
-If _\[UIView sizeThatFits:(CGSize)size\]_ is called with a size of _CGSizeZero_ (ie. width = 0 and height = 0), a UIView should return its _ideal desired size_.  For a UILabel, this would be the _desired size_ without any text wrap.
+Because **desired size** may depend on the layout context, the _\[UIView sizeThatFits:(CGSize)size\]_ method has a _size_ parameter that reflects the available space. The width and height of the _size_ parameter should be >= 0.
+
+If _\[UIView sizeThatFits:(CGSize)size\]_ is called with a size of _CGSizeZero_ (ie. width = 0 and height = 0), a UIView should return its _ideal desired size_.  This is its desired size in the abstract, outside of any specific layout.  For a UILabel, this would be the _desired size_ without any text wrap.
 
 However, if _\[UIView sizeThatFits:(CGSize)size\]_ is called with a non-zero size, the UIView should return its _desired size_ in the context of the available space.
 
+## Custom UIViews
+
+All built-in UIKit views (ie. UILabel, UIButton) properly report their desired size using _\[UIView sizeThatFits:\]_.  Custom UIViews should also implement that method in order to work properly with **WeView 2**, although you can also manipulate their desired size using methods like _\[UIView setFixedSize:\]_ (see below).
 
 ## Manipulating Desired Size
 
@@ -76,6 +75,10 @@ These methods let you set a maximum or minimum desired width or height.  By sett
 		- (UIView *)setFixedDesiredSize:(CGSize)value;
 
 These methods let you set more than one property at a time.  
+
+## Desired Size Adjustments
+
+*You usually won't need these methods.*
 
 		- (UIView *)setDesiredWidthAdjustment:(CGFloat)value;
 		- (UIView *)setDesiredHeightAdjustment:(CGFloat)value;

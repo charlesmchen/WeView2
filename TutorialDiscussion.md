@@ -18,6 +18,12 @@ A **WeView** can have multiple, separate layouts.  For example, it might use a v
 
 The desired size of a **WeView** is the maximum height and width desired by any of its layouts.
 
+## Modifying Layouts
+
+Usually, you only need to configure layout as you add subviews to a **WeView**.  Occasionally, you may need to alter layout at a later point in time, perhaps after the views have appeared.  This is safe, although you should generally retrigger layout by setting the __needsLayout__ property on any **WeView** whose layout will be affected.  
+
+Re-layout can be animated using CoreAnimation.
+
 <!-- TEMPLATE END -->
 
 <p class="nextLink">Next:  <a href="TutorialConvenience.html">Tutorial 13: Conveniences</a></p>
