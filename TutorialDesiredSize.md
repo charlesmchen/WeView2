@@ -47,7 +47,7 @@ The less horizontal space is available, the greater will be the UILabel's desire
 
 Similary, WeViews that use a _Flow Layout_ wrap their contents like text.
 
-## The [UIView sizeThatFits:] Method
+## The \[UIView sizeThatFits:\] Method
 
 Because **desired size** may depend on the layout context, the _\[UIView sizeThatFits:(CGSize)size\]_ method has a _size_ parameter that reflects the available space. The width and height of the _size_ parameter should be >= 0.
 
