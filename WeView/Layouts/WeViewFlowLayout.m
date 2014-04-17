@@ -180,38 +180,6 @@
 
     int extraVSpace = MAX(0, contentBounds.size.height - totalBodyHeight);
     int vAdjustment = 0;
-//    if (self.spacingStretches && extraVSpace > 0 && rowCount > 1)
-//    {
-//        // Stretch v-spacing between rows if possible.
-//        for (row=0; row < rowCount; row++)
-//        {
-//            int firstCellInRow = subviewCount;
-//            int lastCellInRow = -1;
-//
-//            // Find cells in row.
-//            for (int i=0; i < subviewCount; i++)
-//            {
-//                if (cellRows[i] == row)
-//                {
-//                    firstCellInRow = MIN(firstCellInRow, i);
-//                    lastCellInRow = MAX(lastCellInRow, i);
-//                }
-//            }
-//
-//            WeViewAssert(firstCellInRow < subviewCount);
-//            WeViewAssert(lastCellInRow >= 0);
-//            WeViewAssert(firstCellInRow <= lastCellInRow);
-//
-//            int spacingStretchOffset = extraVSpace * row / (rowCount - 1);
-//            for (int i=firstCellInRow; i <= lastCellInRow; i++)
-//            {
-//                CGRect cell = cellBounds[i];
-//                cell.origin.y += spacingStretchOffset;
-//                cellBounds[i] = cell;
-//            }
-//        }
-//    }
-//    else
     {
         // Align rows vertically.
         switch (self.vAlign)
@@ -263,23 +231,6 @@
         WeViewAssert(rowWidth <= contentBounds.size.width);
         int extraRowSpace = contentBounds.size.width - rowWidth;
         int hAdjustment = 0;
-//        if (self.spacingStretches && extraRowSpace > 0)
-//        {
-//            // Stretch h-spacing between cells in row if possible.
-//            for (int i=firstCellInRow; i <= lastCellInRow; i++)
-//            {
-//                int cellRowIndex = i - firstCellInRow;
-//                int rowViewCount = (lastCellInRow - firstCellInRow) + 1;
-//                if (rowViewCount > 1)
-//                {
-//                    int spacingStretchOffset = extraRowSpace * cellRowIndex / (rowViewCount - 1);
-//                    CGRect cell = cellBounds[i];
-//                    cell.origin.x += spacingStretchOffset;
-//                    cellBounds[i] = cell;
-//                }
-//            }
-//        }
-//        else
         {
             // Align row horizontally.
             switch (self.hAlign)
