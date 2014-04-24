@@ -99,7 +99,8 @@
     NSMutableArray *result = [NSMutableArray array];
     for (UIView *subview in self.subviews)
     {
-        if (self.subviewLayoutMap[subview] == layout)
+        // Don't include hidden views in the layout.
+        if (self.subviewLayoutMap[subview] == layout && !subview.hidden)
         {
             [result addObject:subview];
         }
