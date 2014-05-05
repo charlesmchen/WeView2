@@ -182,6 +182,11 @@ view_propertyGroups = (
                    Property('hasCellVAlign', 'BOOL', ),
                    ),
                   (
+                   Property('skipLayout', 'BOOL',
+                       comments='If YES, this view is ignored by WeViews during layout.',
+                       ),
+                   ),
+                  (
                    Property('debugName', 'NSString *',
                        defaultValue="@\"?\"", ),
                    ),
@@ -821,7 +826,7 @@ generateMembersForSource(gridLayout_propertyGroups, WeViewGridLayout_mFilePath, 
 
 # --------
 
-def generateAccessorsForSource(propertyGroups, customAccessors, filepath, blockStartKey, blockEndKey):
+def generateAccessorsForSource(propertyGroups, customAccessors, filepath, blockStartKey, blockEndKey, isViewCategory=False):
 
     lines = []
     lines.append('')
@@ -837,12 +842,26 @@ def generateAccessorsForSource(propertyGroups, customAccessors, filepath, blockS
             defaultValue = ''
             if property.defaultValue:
                 defaultValue = ' defaultValue:%s' % property.defaultValue
+            if isViewCategory:
+                currentValue = '[self.viewInfo %s]' % property.name
+            else:
+                currentValue = '_%s' % property.name
             lines.append('''
 - (%s)%s
 {
-    return _%s;
-}''' % (property.typeName, property.name, property.name, ))
-            lines.append('''
+    return %s;
+}''' % (property.typeName, property.name, currentValue, ))
+
+            if isViewCategory:
+                lines.append('''
+- (UIView *)set%s:(%s)value
+{
+    [self.viewInfo set%s:value];
+    [self.superview setNeedsLayout];
+    return self;
+}''' % (property.UpperName(), property.typeName, property.UpperName(), ))
+            else:
+                lines.append('''
 - (WeViewLayout *)set%s:(%s)value
 {
     _%s = value;
@@ -853,7 +872,14 @@ def generateAccessorsForSource(propertyGroups, customAccessors, filepath, blockS
     for customAccessor in customAccessors:
         # Getter
         if customAccessor.getterValue:
-            lines.append('''
+            if isViewCategory:
+                lines.append('''
+- (%s)%s
+{
+    return [self.viewInfo %s];
+}''' % (customAccessor.typeName, customAccessor.name, customAccessor.name, ))
+            else:
+                lines.append('''
 - (%s)%s
 {
     return %s;
@@ -869,7 +895,16 @@ def generateAccessorsForSource(propertyGroups, customAccessors, filepath, blockS
                     valueName += customAccessor.setterValues[index]
                 subsetters.append('    [self set%s:%s];' % (UpperName(propertyName), valueName,))
 
-        lines.append('''
+        if isViewCategory:
+            lines.append('''
+- (UIView *)set%s:(%s)value
+{
+%s
+    [self.superview setNeedsLayout];
+    return self;
+}''' % (customAccessor.UpperName(), customAccessor.typeName, '\n'.join(subsetters), ))
+        else:
+            lines.append('''
 - (WeViewLayout *)set%s:(%s)value
 {
 %s
@@ -887,6 +922,7 @@ def generateAccessorsForSource(propertyGroups, customAccessors, filepath, blockS
 
 generateAccessorsForSource(layout_propertyGroups, layout_customAccessors, WeViewLayout_mFilePath, 'Accessors Start', 'Accessors End')
 generateAccessorsForSource(gridLayout_propertyGroups, gridLayout_customAccessors, WeViewGridLayout_mFilePath, 'Accessors Start', 'Accessors End')
+generateAccessorsForSource(view_propertyGroups, view_customAccessors, viewCategorymFilePath, 'Accessors Start', 'Accessors End', isViewCategory=True)
 
 # generatePropertiesForHeader(view_propertyGroups, view_customAccessors, 'UIView *', viewCategoryhFilePath, 'Properties Start', 'Properties End')
 # generatePropertiesForHeader(view_propertyGroups, view_customAccessors, 'void', viewInfohFilePath, 'View Info Properties Start', 'View Info Properties End', synthesize=True)

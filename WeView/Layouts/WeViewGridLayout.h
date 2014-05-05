@@ -56,7 +56,7 @@
 /* CODEGEN MARKER: Properties Start */
 
 // Optional.
-// 
+//
 // The default sizing behavior of all rows.  Only applies to rows for which no row-specific
 // sizing behavior has been specified with
 // rowSizings.
@@ -64,7 +64,7 @@
 - (WeViewGridLayout *)setDefaultRowSizing:(WeViewGridSizing *)value;
 
 // Optional.
-// 
+//
 // The default sizing behavior of all columns.  Only applies to columns for which no
 // column-specific sizing behavior has been specified with
 // columnSizings.
@@ -72,13 +72,13 @@
 - (WeViewGridLayout *)setDefaultColumnSizing:(WeViewGridSizing *)value;
 
 // Optional.
-// 
+//
 // Row-specific sizing behavior.
-// 
+//
 // All contents must be instances of WeViewGridSizing.
-// 
+//
 // The first element of rowSizings applies to the first (top-most row), etc.
-// 
+//
 // Does not need to exactly match the number of rows.  defaultRowSizing applies to any rows
 // without a corresponding element in
 // rowSizings.
@@ -86,13 +86,13 @@
 - (WeViewGridLayout *)setRowSizings:(NSArray *)value;
 
 // Optional.
-// 
+//
 // Column-specific sizing behavior.
-// 
+//
 // All contents must be instances of WeViewGridSizing.
-// 
+//
 // The first element of columnSizings applies to the first (left-most column), etc.
-// 
+//
 // Does not need to exactly match the number of columns.  defaultColumnSizing applies to any
 // columns without a corresponding element in
 // columnSizings.
@@ -100,26 +100,26 @@
 - (WeViewGridLayout *)setColumnSizings:(NSArray *)value;
 
 // Optional.
-// 
+//
 // The default vertical spacing between subviews of this view.
 - (WeViewSpacing *)defaultRowSpacing;
 - (WeViewGridLayout *)setDefaultRowSpacing:(WeViewSpacing *)value;
 
 // Optional.
-// 
+//
 // The default horizontal spacing between subviews of this view.
 - (WeViewSpacing *)defaultColumnSpacing;
 - (WeViewGridLayout *)setDefaultColumnSpacing:(WeViewSpacing *)value;
 
 // Optional.
-// 
+//
 // Specifies the spacing between specific rows.
-// 
+//
 // All contents must be instances of WeViewSpacing.
-// 
+//
 // The first element of rowSpacings applies to the spacing between the first and second rows,
 // etc.
-// 
+//
 // Does not need to exactly match the number of spacings between rows.  defaultVSpacing applies
 // to any spacings without a corresponding element in
 // rowSpacings.
@@ -127,15 +127,15 @@
 - (WeViewGridLayout *)setRowSpacings:(NSArray *)value;
 
 // Optional.
-// 
+//
 // Specifies the spacing between specific columns.
-// 
+//
 // All contents must be instances of WeViewSpacing.
-// 
+//
 // The first element of columnSpacings applies to the spacing between the first and second
 // columns,
 // etc.
-// 
+//
 // Does not need to exactly match the number of spacings between columns.  defaultHSpacing
 // applies to any spacings without a corresponding element in
 // columnSpacings.
@@ -143,13 +143,13 @@
 - (WeViewGridLayout *)setColumnSpacings:(NSArray *)value;
 
 // If YES, all rows will have the same height - the height of the tallest row.
-// 
+//
 // Default is NO.
 - (BOOL)isRowHeightUniform;
 - (WeViewGridLayout *)setIsRowHeightUniform:(BOOL)value;
 
 // If YES, all columns will have the same width - the width of the widest column.
-// 
+//
 // Default is NO.
 - (BOOL)isColumnWidthUniform;
 - (WeViewGridLayout *)setIsColumnWidthUniform:(BOOL)value;

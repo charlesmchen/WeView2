@@ -578,7 +578,6 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
-                                 
 
                                 [ViewParameterSimple create:@"cellVAlign"
                                                 getterBlock:^NSString *(id item) {
@@ -599,11 +598,12 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
-                                 
 
                                 [ViewParameterSimple booleanProperty:@"hasCellHAlign"],
 
                                 [ViewParameterSimple booleanProperty:@"hasCellVAlign"],
+
+                                [ViewParameterSimple booleanProperty:@"skipLayout"],
 
 /* CODEGEN MARKER: View Parameters End */
                             ];
@@ -747,7 +747,6 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
-                                 
 
                                 [ViewParameterSimple create:@"vAlign"
                                                 getterBlock:^NSString *(id item) {
@@ -768,7 +767,6 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
-                                 
 
                                 [ViewParameterSimple booleanProperty:@"cropSubviewOverflow"],
 
@@ -795,7 +793,6 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
-                                 
 
                                 [ViewParameterSimple booleanProperty:@"debugLayout"],
 

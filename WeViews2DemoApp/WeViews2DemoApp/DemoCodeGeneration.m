@@ -609,6 +609,11 @@ haveAnyOfPrefixes:(NSArray *)prefixes
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setHasCellVAlign", FormatBoolean(view.hasCellVAlign)]];
     }
 
+    if (view.skipLayout != virginView.skipLayout)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setSkipLayout", FormatBoolean(view.skipLayout)]];
+    }
+
     // Custom Accessors
 
     if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setVStretchWeight:", @"setHStretchWeight:"]] &&
