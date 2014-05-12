@@ -60,7 +60,7 @@
     CGSize result = CGSizeZero;
     if (self.desiredSizeBlock)
     {
-        int subviewCount = [subviews count];
+        NSUInteger subviewCount = [subviews count];
         for (int i=0; i < subviewCount; i++)
         {
             UIView* subview = subviews[i];
@@ -93,7 +93,7 @@
     }
 
     WeViewAssert(self.layoutBlock);
-    int subviewCount = [subviews count];
+    NSUInteger subviewCount = [subviews count];
     for (int i=0; i < subviewCount; i++)
     {
         UIView* subview = subviews[i];
