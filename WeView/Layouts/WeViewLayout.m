@@ -592,7 +592,7 @@ BOOL _debugMinSize;
     NSArray *adjustments = [self distributeSpace:roundf(totalAdjustment)
                           acrossCellsWithWeights:weights];
     WeViewAssert([values count] == [adjustments count]);
-    int count = [values count];
+    NSUInteger count = [values count];
     for (int i=0; i < count; i++)
     {
         CGFloat newValue = roundf([values[i] floatValue] + [adjustments[i] floatValue] * sign);

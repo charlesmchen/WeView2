@@ -563,13 +563,13 @@ BOOL _isColumnWidthUniform;
         if ([self.maxRowCount intValue] > 0)
         {
             result.rowCount = MIN([self.maxRowCount intValue],
-                                  [subviews count]);
+                                  (int) [subviews count]);
             result.columnCount = ceilf([subviews count] / (CGFloat) MAX(1, result.rowCount));
         }
         else
         {
             result.columnCount = 1;
-            result.rowCount = [subviews count];
+            result.rowCount = (int) [subviews count];
         }
     }
     else
@@ -577,12 +577,12 @@ BOOL _isColumnWidthUniform;
         if ([self.maxColumnCount intValue] > 0)
         {
             result.columnCount = MIN([self.maxColumnCount intValue],
-                                     [subviews count]);
+                                     (int) [subviews count]);
             result.rowCount = ceilf([subviews count] / (CGFloat) MAX(1, result.columnCount));
         }
         else
         {
-            result.columnCount = [subviews count];
+            result.columnCount = (int) [subviews count];
             result.rowCount = 1;
         }
     }

@@ -86,7 +86,7 @@
 {
     WeViewAssert([cellAxisSizes count] == [subviews count]);
     WeViewAssert([cellCrossSizes count] == [subviews count]);
-    int subviewCount = [subviews count];
+    NSUInteger subviewCount = [subviews count];
     BOOL cropSubviewOverflow = [self cropSubviewOverflow];
 
     for (int i=0; i < subviewCount; i++)
@@ -119,7 +119,7 @@
                   isLayingOut:(BOOL)isLayingOut
 {
     BOOL cropSubviewOverflow = [self cropSubviewOverflow] && isLayingOut;
-    int subviewCount = [subviews count];
+    NSUInteger subviewCount = [subviews count];
     CGSize maxTotalSubviewsSize = [self maxTotalSubviewsSize:contentBounds.size
                                                     spacings:spacings
                                                   horizontal:horizontal];
@@ -237,7 +237,7 @@
     }
 
     BOOL horizontal = self.isHorizontal;
-    int subviewCount = [subviews count];
+    NSUInteger subviewCount = [subviews count];
 
     NSMutableArray *spacings = [self getSpacings:subviews
                                       horizontal:horizontal];
@@ -431,7 +431,7 @@
     }
 
     BOOL horizontal = self.isHorizontal;
-    int subviewCount = [subviews count];
+    NSUInteger subviewCount = [subviews count];
 
     NSMutableArray *spacings = [self getSpacings:subviews
                                       horizontal:horizontal];

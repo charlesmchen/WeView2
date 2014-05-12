@@ -46,7 +46,7 @@
               NSStringFromCGSize(guideSize));
     }
 
-    int subviewCount = [subviews count];
+    NSUInteger subviewCount = [subviews count];
 
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:guideSize];
@@ -96,7 +96,7 @@
           maxSubviewSize:(CGSize)maxSubviewSize
                 cropSize:(BOOL)cropSize
 {
-    int subviewCount = [subviews count];
+    NSUInteger subviewCount = [subviews count];
     BOOL cropSubviewOverflow = [self cropSubviewOverflow];
     for (int i=0; i < subviewCount; i++)
     {
@@ -119,7 +119,7 @@
          contentBounds:(CGRect)contentBounds
       findBodySizeOnly:(BOOL)findBodySizeOnly
 {
-    int subviewCount = [subviews count];
+    NSUInteger subviewCount = [subviews count];
 
     // Simulate layout process.
     int x = 0, y = 0;
@@ -204,7 +204,7 @@
 
     for (row=0; row < rowCount; row++)
     {
-        int firstCellInRow = subviewCount;
+        int firstCellInRow = (int) subviewCount;
         int lastCellInRow = -1;
 
         // Find cells in row.
@@ -288,7 +288,7 @@
               NSStringFromCGSize(guideSize));
     }
 
-    int subviewCount = [subviews count];
+    NSUInteger subviewCount = [subviews count];
 
     CGRect contentBounds = [self contentBoundsOfView:view
                                              forSize:guideSize];
