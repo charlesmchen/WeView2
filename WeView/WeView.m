@@ -99,7 +99,8 @@
     NSMutableArray *result = [NSMutableArray array];
     for (UIView *subview in self.subviews)
     {
-        if (self.subviewLayoutMap[subview] == layout)
+        // Skip over skipLayout views when performing layout.
+        if (self.subviewLayoutMap[subview] == layout && !subview.skipLayout)
         {
             [result addObject:subview];
         }
