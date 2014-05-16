@@ -39,7 +39,7 @@
 #define DebugCGRect(__name, __value) NSLog(@"%@: %@", __name, NSStringFromCGRect(__value))
 #endif
 
-#define sqr(a) ((a) * (a))
+#define square(a) ((a) * (a))
 #define clamp01(a) (MAX(0, MIN(1, a)))
 
 #pragma mark - CGPoint
@@ -108,14 +108,14 @@ CGPointAbs(const CGPoint p1)
 CG_INLINE CGFloat
 CGPointDistance(CGPoint p0, CGPoint p1)
 {
-    CGFloat result = sqrtf(sqr(p0.x - p1.x) + sqr(p0.y - p1.y));
+    CGFloat result = sqrtf(square(p0.x - p1.x) + square(p0.y - p1.y));
     return result;
 }
 
 CG_INLINE CGFloat
 CGPointLength(CGPoint p1)
 {
-    return sqrtf(sqr(p1.x) + sqr(p1.y));
+    return sqrtf(square(p1.x) + square(p1.y));
 
 }
 
