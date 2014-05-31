@@ -120,6 +120,7 @@
         [layout layoutContentsOfView:self
                             subviews:layoutSubviews];
     }
+    [super layoutSubviews];
 }
 
 - (void)sizeToFit
