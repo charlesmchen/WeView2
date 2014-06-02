@@ -111,6 +111,9 @@
 
 - (void)layoutSubviews
 {
+    // Clear the "needsLayout" flag.
+    [super layoutSubviews];
+
     NSSet *layouts = [NSSet setWithArray:[self.subviewLayoutMap allValues]];
     for (WeViewLayout *layout in layouts)
     {
@@ -120,7 +123,6 @@
         [layout layoutContentsOfView:self
                             subviews:layoutSubviews];
     }
-    [super layoutSubviews];
 }
 
 - (void)sizeToFit
