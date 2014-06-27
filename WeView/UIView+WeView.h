@@ -212,6 +212,7 @@
 
 - (void)centerHorizontallyInSuperview;
 - (void)centerVerticallyInSuperview;
+- (void)centerInSuperview;
 
 #pragma mark - Misc.
 

@@ -764,13 +764,21 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (void)centerHorizontallyInSuperview
 {
     WeViewAssert(self.superview);
-    self.x = (self.superview.width - self.width) * 0.5f;
+    // Use the superview's bounds, not frame, so that it reflects that view's transform.
+    self.x = (self.superview.bounds.size.width - self.width) * 0.5f;
 }
 
 - (void)centerVerticallyInSuperview
 {
     WeViewAssert(self.superview);
-    self.y = (self.superview.height - self.height) * 0.5f;
+    // Use the superview's bounds, not frame, so that it reflects that view's transform.
+    self.y = (self.superview.bounds.size.height - self.height) * 0.5f;
+}
+
+- (void)centerInSuperview
+{
+    [self centerHorizontallyInSuperview];
+    [self centerVerticallyInSuperview];
 }
 
 #pragma mark - Debug
