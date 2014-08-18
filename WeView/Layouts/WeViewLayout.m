@@ -519,9 +519,18 @@ BOOL _debugMinSize;
         return CGSizeZero;
     }
 
-    CGSize desiredSize = CGSizeAdd([subview sizeThatFits:maxSize],
+    // Incorporate the min and max sizes into what's passed to sizeThatFits. This is important for scenarios
+    // where the min/max size in one direction may affect the resulting desiredSize in the other direction,
+    // e.g. for multiline labels, the min/max width affects the resulting height.
+    CGSize clampedSize = CGSizeCeil(CGSizeMax(CGSizeMax(CGSizeZero,
+                                                        subview.minDesiredSize),
+                                              CGSizeMin(subview.maxDesiredSize,
+                                                        maxSize)));
+
+    CGSize desiredSize = CGSizeAdd([subview sizeThatFits:clampedSize],
                                    [subview desiredSizeAdjustment]);
 
+    // The desiredSize may spill out of the min/max desired size, so post-clamp, as well.
     return CGSizeCeil(CGSizeMax(CGSizeMax(CGSizeZero,
                                           subview.minDesiredSize),
                                 CGSizeMin(subview.maxDesiredSize,
