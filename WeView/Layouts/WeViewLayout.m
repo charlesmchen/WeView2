@@ -519,11 +519,22 @@ BOOL _debugMinSize;
         return CGSizeZero;
     }
 
+    // A curiousity of [UIView sizeThatFits:] is that when the argument is an empty size, the semantics are
+    // "return the desired size in the absence of constraints."  Unfortunately, this is ambiguous with the
+    // actually empty case: "return the desired size inside an empty container".  We assume the former since
+    // it is a core use case.
+    //
+    // TODO: We should this conversion out to [WeView sizeThatFits:], but that will require updating the
+    // layouts to handle this case properly as well.
+    if (CGSizeEqualToSize(maxSize, CGSizeZero))
+    {
+        maxSize = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
+    }
+
     // Incorporate the min and max sizes into what's passed to sizeThatFits. This is important for scenarios
     // where the min/max size in one direction may affect the resulting desiredSize in the other direction,
     // e.g. for multiline labels, the min/max width affects the resulting height.
-    CGSize clampedSize = CGSizeCeil(CGSizeMax(CGSizeMax(CGSizeZero,
-                                                        subview.minDesiredSize),
+    CGSize clampedSize = CGSizeCeil(CGSizeMax(CGSizeZero,
                                               CGSizeMin(subview.maxDesiredSize,
                                                         maxSize)));
 
@@ -531,10 +542,12 @@ BOOL _debugMinSize;
                                    [subview desiredSizeAdjustment]);
 
     // The desiredSize may spill out of the min/max desired size, so post-clamp, as well.
-    return CGSizeCeil(CGSizeMax(CGSizeMax(CGSizeZero,
-                                          subview.minDesiredSize),
-                                CGSizeMin(subview.maxDesiredSize,
-                                          desiredSize)));
+    CGSize result = CGSizeCeil(CGSizeMax(CGSizeMax(CGSizeZero,
+                                                   subview.minDesiredSize),
+                                         CGSizeMin(subview.maxDesiredSize,
+                                                   desiredSize)));
+    
+    return result;
 }
 
 + (NSArray *)distributeSpace:(CGFloat)space
