@@ -46,6 +46,8 @@
 - (void)commonInit
 {
     self.subviewLayoutMap = [NSMutableDictionary dictionary];
+
+    [self setNeedsLayout];
 }
 
 - (id)initWithFrame:(CGRect)frame
