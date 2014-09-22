@@ -177,6 +177,20 @@
     return self;
 }
 
+#pragma mark - Needs Layout
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    [self setNeedsLayout];
+}
+
+- (void)setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    [self setNeedsLayout];
+}
+
 #pragma mark - Custom Layouts
 
 - (WeViewLayout *)addSubviewWithCustomLayout:(UIView *)subview
