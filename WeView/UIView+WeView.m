@@ -643,7 +643,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 - (CGSize)size
 {
-    return self.frame.size;
+    return self.bounds.size;
 }
 
 - (void)setSize:(CGSize)size
@@ -679,7 +679,8 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 - (CGFloat)width
 {
-    return self.frame.size.width;
+    // The bounds reflects the transform; the frame doesn't.
+    return self.bounds.size.width;
 }
 
 - (void)setWidth:(CGFloat)value
@@ -691,7 +692,8 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 - (CGFloat)height
 {
-    return self.frame.size.height;
+    // The bounds reflects the transform; the frame doesn't.
+    return self.bounds.size.height;
 }
 
 - (void)setHeight:(CGFloat)value
