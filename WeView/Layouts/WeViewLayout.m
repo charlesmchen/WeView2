@@ -330,7 +330,7 @@ BOOL _debugMinSize;
 
 /* CODEGEN MARKER: Reset End */
 
-    _cropSubviewOverflow = YES;
+    _cropSubviewOverflow = NO;
 }
 
 #pragma mark - Utility Methods
