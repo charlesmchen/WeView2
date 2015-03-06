@@ -367,43 +367,47 @@
     }
 }
 
-- (void)hAlignIndex:(CGFloat *)index
-         extraSpace:(CGFloat)extraSpace
-               view:(UIView *)view
+- (CGFloat)hAlignIndex:(CGFloat)index
+            extraSpace:(CGFloat)extraSpace
+             superview:(UIView *)superview
+               subview:(UIView *)subview
 {
-    switch ([self hAlign])
+    HAlign cellHAlign = [self subviewCellHAlign:superview
+                                        subview:subview];
+    
+    switch (cellHAlign)
     {
         case H_ALIGN_LEFT:
-            break;
+            return index;
         case H_ALIGN_CENTER:
-            *index = *index + roundf(extraSpace / 2);
-            break;
+            return index + roundf(extraSpace / 2);
         case H_ALIGN_RIGHT:
-            *index = *index + extraSpace;
-            break;
+            return index + extraSpace;
         default:
             WeViewAssert(0);
-            break;
+            return index;
     }
 }
 
-- (void)vAlignIndex:(CGFloat *)index
-         extraSpace:(CGFloat)extraSpace
-               view:(UIView *)view
+- (CGFloat)vAlignIndex:(CGFloat)index
+            extraSpace:(CGFloat)extraSpace
+             superview:(UIView *)superview
+               subview:(UIView *)subview
 {
-    switch ([self vAlign])
+    VAlign cellVAlign = [self subviewCellVAlign:superview
+                                        subview:subview];
+    
+    switch (cellVAlign)
     {
         case V_ALIGN_TOP:
-            break;
+            return index;
         case V_ALIGN_CENTER:
-            *index = *index + roundf(extraSpace / 2);
-            break;
+            return index + roundf(extraSpace / 2);
         case V_ALIGN_BOTTOM:
-            *index = *index + extraSpace;
-            break;
+            return index + extraSpace;
         default:
             WeViewAssert(0);
-            break;
+            return index;
     }
 }
 
@@ -580,49 +584,57 @@
               extraCrossSpace);
     }
 
-    // Honor the axis alignment.
-    if (horizontal)
-    {
-        [self hAlignIndex:&axisIndex
-               extraSpace:extraAxisSpace
-                     view:view];
-        if (!hasCellWithCrossStretch)
-        {
-            [self vAlignIndex:&crossIndex
-                   extraSpace:extraCrossSpace
-                         view:view];
-        }
-    }
-    else
-    {
-        [self vAlignIndex:&axisIndex
-               extraSpace:extraAxisSpace
-                     view:view];
-        if (!hasCellWithCrossStretch)
-        {
-            [self hAlignIndex:&crossIndex
-                   extraSpace:extraCrossSpace
-                         view:view];
-        }
-    }
-
-    if (debugLayout)
-    {
-        NSLog(@"%@ bodyCrossSize: %f, axisIndex: %f, crossIndex: %f",
-              [self indentPrefix:indent + 1],
-              bodyCrossSize,
-              axisIndex,
-              crossIndex);
-    }
-
     // Calculate and apply the subviews' frames.
     CellPositioningMode cellPositioning = [self cellPositioning];
     for (int i=0; i < subviewCount; i++)
     {
         UIView* subview = subviews[i];
-
-        CGRect cellBounds = CGRectMake(horizontal ? axisIndex : crossIndex,
-                                       horizontal ? crossIndex : axisIndex,
+        
+        CGFloat cellAxisIndex = axisIndex;
+        CGFloat cellCrossIndex = crossIndex;
+        
+        // Honor the axis alignment.
+        if (horizontal)
+        {
+            cellAxisIndex = [self hAlignIndex:axisIndex
+                                   extraSpace:extraAxisSpace
+                                    superview:view
+                                      subview:subview];
+            if (!hasCellWithCrossStretch)
+            {
+                cellCrossIndex = [self vAlignIndex:crossIndex
+                                        extraSpace:extraCrossSpace
+                                         superview:view
+                                           subview:subview];
+            }
+        }
+        else
+        {
+            cellAxisIndex = [self vAlignIndex:axisIndex
+                                   extraSpace:extraAxisSpace
+                                    superview:view
+                                      subview:subview];
+            if (!hasCellWithCrossStretch)
+            {
+                cellCrossIndex = [self hAlignIndex:crossIndex
+                                        extraSpace:extraCrossSpace
+                                         superview:view
+                                           subview:subview];
+            }
+        }
+        
+        if (debugLayout)
+        {
+            NSLog(@"%@ - [%d] bodyCrossSize: %f, cellAxisIndex: %f, cellCrossIndex: %f",
+                  [self indentPrefix:indent + 2],
+                  i,
+                  bodyCrossSize,
+                  cellAxisIndex,
+                  cellCrossIndex);
+        }
+        
+        CGRect cellBounds = CGRectMake(horizontal ? cellAxisIndex : cellCrossIndex,
+                                       horizontal ? cellCrossIndex : cellAxisIndex,
                                        horizontal ? [cellAxisSizes[i] floatValue] : bodyCrossSize,
                                        horizontal ? bodyCrossSize : [cellAxisSizes[i] floatValue]);
 
