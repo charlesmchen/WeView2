@@ -349,8 +349,7 @@ BOOL _debugMinSize;
     return self._superview;
 }
 
-- (HAlign)subviewCellHAlign:(UIView *)superview
-                    subview:(UIView *)subview
+- (HAlign)subviewCellHAlign:(UIView *)subview
 {
     if (subview.hasCellHAlign)
     {
@@ -359,8 +358,7 @@ BOOL _debugMinSize;
     return _hAlign;
 }
 
-- (VAlign)subviewCellVAlign:(UIView *)view
-                    subview:(UIView *)subview
+- (VAlign)subviewCellVAlign:(UIView *)subview
 {
     if (subview.hasCellVAlign)
     {
@@ -435,10 +433,8 @@ BOOL _debugMinSize;
             subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
             subview.frame = [self alignSize:subviewSize
                                  withinRect:cellBounds
-                                     hAlign:[self subviewCellHAlign:superview
-                                                            subview:subview]
-                                     vAlign:[self subviewCellVAlign:superview
-                                                            subview:subview]];
+                                     hAlign:[self subviewCellHAlign:subview]
+                                     vAlign:[self subviewCellVAlign:subview]];
             break;
         }
         case CELL_POSITIONING_FILL:
@@ -474,10 +470,8 @@ BOOL _debugMinSize;
                 subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
                 subview.frame = [self alignSize:subviewSize
                                      withinRect:cellBounds
-                                         hAlign:[self subviewCellHAlign:superview
-                                                                subview:subview]
-                                         vAlign:[self subviewCellVAlign:superview
-                                                                subview:subview]];
+                                         hAlign:[self subviewCellHAlign:subview]
+                                         vAlign:[self subviewCellVAlign:subview]];
             }
         }
         default:

@@ -55,6 +55,12 @@
 - (CGSize)desiredItemSize:(UIView *)subview
                   maxSize:(CGSize)maxSize;
 
+// The horizontal alignment of a subview in this layout.
+- (HAlign)subviewCellHAlign:(UIView *)subview;
+
+// The vertical alignment of a subview in this layout.
+- (VAlign)subviewCellVAlign:(UIView *)subview;
+
 + (NSArray *)distributeSpace:(CGFloat)space
       acrossCellsWithWeights:(NSArray *)cellWeights;
 
