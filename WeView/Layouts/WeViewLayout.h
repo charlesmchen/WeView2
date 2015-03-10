@@ -79,12 +79,6 @@
 - (VAlign)vAlign;
 - (WeViewLayout *)setVAlign:(VAlign)value;
 
-// The horizontal alignment of a subview in this layout.
-- (HAlign)subviewCellHAlign:(UIView *)subview;
-
-// The vertical alignment of a subview in this layout.
-- (VAlign)subviewCellVAlign:(UIView *)subview;
-
 // By default, if the content size (ie. the total subview size plus margins and spacing) of a
 // WeView overflows its bounds, subviews are cropped to fit inside the available
 // space.
