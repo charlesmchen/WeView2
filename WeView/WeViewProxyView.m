@@ -1,14 +1,15 @@
 //
-//  WeView.m
+//  WeViewProxyView.m
 //  WeView v2
 //
-//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2015 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
 #import "WeViewProxyView.h"
+#import "UIView+WeView.h"
 
 @interface WeViewProxyView ()
 
@@ -50,7 +51,125 @@
     return [view sizeThatFits:size];
 }
 
-+ (WeViewProxyView*)proxyWithView:(UIView *)view
+/* CODEGEN MARKER: Accessors Start */
+
+- (CGFloat)minDesiredWidth
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view minDesiredWidth];
+}
+
+- (CGFloat)maxDesiredWidth
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view maxDesiredWidth];
+}
+
+- (CGFloat)minDesiredHeight
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view minDesiredHeight];
+}
+
+- (CGFloat)maxDesiredHeight
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view maxDesiredHeight];
+}
+
+- (CGFloat)hStretchWeight
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view hStretchWeight];
+}
+
+- (CGFloat)vStretchWeight
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view vStretchWeight];
+}
+
+- (int)leftSpacingAdjustment
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view leftSpacingAdjustment];
+}
+
+- (int)topSpacingAdjustment
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view topSpacingAdjustment];
+}
+
+- (int)rightSpacingAdjustment
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view rightSpacingAdjustment];
+}
+
+- (int)bottomSpacingAdjustment
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view bottomSpacingAdjustment];
+}
+
+- (CGFloat)desiredWidthAdjustment
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view desiredWidthAdjustment];
+}
+
+- (CGFloat)desiredHeightAdjustment
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view desiredHeightAdjustment];
+}
+
+- (BOOL)ignoreDesiredSize
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view ignoreDesiredSize];
+}
+
+- (HAlign)cellHAlign
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view cellHAlign];
+}
+
+- (VAlign)cellVAlign
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view cellVAlign];
+}
+
+- (BOOL)hasCellHAlign
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view hasCellHAlign];
+}
+
+- (BOOL)hasCellVAlign
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view hasCellVAlign];
+}
+
+- (BOOL)skipLayout
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view skipLayout];
+}
+
+- (NSString *)debugName
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view debugName];
+}
+
+/* CODEGEN MARKER: Accessors End */
+
++ (WeViewProxyView *)proxyWithView:(UIView *)view
 {
     WeViewProxyView *proxy = [[WeViewProxyView alloc] init];
     proxy.strongView = view;
@@ -58,7 +177,7 @@
     return proxy;
 }
 
-+ (WeViewProxyView*)proxyWithWeakReferenceToView:(UIView *)view
++ (WeViewProxyView *)proxyWithWeakReferenceToView:(UIView *)view
 {
     WeViewProxyView *proxy = [[WeViewProxyView alloc] init];
     proxy.weakView = view;

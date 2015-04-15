@@ -1,8 +1,8 @@
 //
-//  WeView.h
+//  WeViewProxyView.h
 //  WeView v2
 //
-//  Copyright (c) 2014 Charles Matthew Chen. All rights reserved.
+//  Copyright (c) 2015 Charles Matthew Chen. All rights reserved.
 //
 //  Distributed under the Apache License v2.0.
 //  http://www.apache.org/licenses/LICENSE-2.0.html
@@ -22,10 +22,10 @@
 
 // A factory method that returns an instance of WeViewProxyView that maintains a strong reference to
 // the other view.
-+ (WeViewProxyView*)proxyWithView:(UIView *)view;
++ (WeViewProxyView *)proxyWithView:(UIView *)view;
 
 // A factory method that returns an instance of WeViewProxyView that maintains a weak reference to
 // the other view.
-+ (WeViewProxyView*)proxyWithWeakReferenceToView:(UIView *)view;
++ (WeViewProxyView *)proxyWithWeakReferenceToView:(UIView *)view;
 
 @end
