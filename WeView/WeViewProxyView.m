@@ -9,6 +9,7 @@
 //
 
 #import "WeViewProxyView.h"
+#import "UIView+WeView.h"
 
 @interface WeViewProxyView ()
 
@@ -48,6 +49,24 @@
 {
     UIView *view = self.isWeakReference ? self.weakView : self.strongView;
     return [view sizeThatFits:size];
+}
+
+- (CGSize)maxDesiredSize
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return view.maxDesiredSize;
+}
+
+- (CGSize)minDesiredSize
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return view.minDesiredSize;
+}
+
+- (CGSize)desiredSizeAdjustment
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return view.desiredSizeAdjustment;
 }
 
 + (WeViewProxyView*)proxyWithView:(UIView *)view
