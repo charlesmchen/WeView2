@@ -10,10 +10,9 @@ if (not os.path.exists(folderPath) or
 
 viewCategoryhFilePath = os.path.join(folderPath, 'UIView+WeView.h')
 viewCategorymFilePath = os.path.join(folderPath, 'UIView+WeView.m')
-viewInfohFilePath = os.path.join(folderPath, 'WeViewViewInfo.h')
-viewInfomFilePath = os.path.join(folderPath, 'WeViewViewInfo.m')
 viewInfohFilePath = viewCategorymFilePath
 viewInfomFilePath = viewCategorymFilePath
+viewProxyFilePath = os.path.join(folderPath, 'WeViewProxyView.m')
 
 ViewEditorController_hFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.h')
 ViewEditorController_mFilePath = os.path.join(folderPath, '..', 'WeViews2DemoApp', 'WeViews2DemoApp', 'ViewEditorController.m')
@@ -424,7 +423,8 @@ def FormatComments(comment):
 
     if not formattedComments:
         return []
-    result = (['',] + ['// %s' % comment for comment in formattedComments])
+    result = (['',] + ['// %s' % comment.strip() for comment in formattedComments])
+    result = [line.strip() for line in result]
     # print '--', result
     return result
 
@@ -1092,6 +1092,25 @@ lines.append('')
 block = '\n'.join(lines)
 
 replaceBlock(DemoCodeGeneration_mFilePath, 'Code Generation Layout Properties Start', 'Code Generation Layout Properties End', block)
+
+# --------
+
+lines = []
+lines.append('')
+for propertyGroup in view_propertyGroups:
+    for property in propertyGroup:
+        lines.append('''
+- (%s)%s
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view %s];
+}''' % (property.typeName, property.name, property.name, ))
+
+lines.append('')
+lines.append('')
+block = '\n'.join(lines)
+
+replaceBlock(viewProxyFilePath, 'Accessors Start', 'Accessors End', block)
 
 # --------
 
