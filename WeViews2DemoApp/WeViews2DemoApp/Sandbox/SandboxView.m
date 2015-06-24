@@ -61,35 +61,13 @@
     {
         [view.layer removeAllAnimations];
     }
-
-    // Smoothly animate layout of the entire view hierarchy.
-    NSMutableDictionary *beforeFrames = [NSMutableDictionary dictionary];
-    NSMutableDictionary *afterFrames = [NSMutableDictionary dictionary];
-    for (UIView *view in collectedViews)
-    {
-        beforeFrames[view] = [NSValue valueWithCGRect:view.frame];
-    }
-    for (UIView *view in collectedViews)
-    {
-        [view layoutSubviews];
-    }
-    for (UIView *view in collectedViews)
-    {
-        afterFrames[view] = [NSValue valueWithCGRect:view.frame];
-    }
-    for (UIView *view in collectedViews)
-    {
-        view.frame = [((NSValue *) beforeFrames[view]) CGRectValue];
-    }
-
     [UIView animateWithDuration:0.35f
                           delay:0.f
-                        options:(UIViewAnimationOptionLayoutSubviews
-                                 | UIViewAnimationOptionBeginFromCurrentState)
+                        options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
                          for (UIView *view in collectedViews)
                          {
-                             view.frame = [((NSValue *) afterFrames[view]) CGRectValue];
+                             [view layoutSubviews];
                          }
                      }
                      completion:^(BOOL finished) {

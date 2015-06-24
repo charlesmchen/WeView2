@@ -11,6 +11,7 @@
 #import "WeView.h"
 #import "WeViewBaseLayoutTests.h"
 #import "WeViewTestView.h"
+#import "UIView+WeView.h"
 
 @implementation WeViewBaseLayoutTests
 
@@ -82,7 +83,7 @@
             toWeView:weView];
 
     [subview resetAllLayoutProperties];
-    subview.minWidth = 200;
+    subview.minDesiredWidth = 200;
     STAssertTrue(CGSizeEqualToSize(subview.desiredSize, subviewSize), @"Unexpected value");
     STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeZero], CGSizeMake(200, 100)), @"Unexpected value");
 
@@ -90,12 +91,12 @@
 
     STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeZero], subviewSize), @"Unexpected value");
 
-    subview.maxWidth = 50;
+    subview.maxDesiredWidth = 50;
     STAssertTrue(CGSizeEqualToSize(subview.desiredSize, subviewSize), @"Unexpected value");
     STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeZero], CGSizeMake(50, 100)), @"Unexpected value");
 
     [subview resetAllLayoutProperties];
-    subview.minHeight = 200;
+    subview.minDesiredWidth = 200;
     STAssertTrue(CGSizeEqualToSize(subview.desiredSize, subviewSize), @"Unexpected value");
     STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeZero], CGSizeMake(100, 200)), @"Unexpected value");
 
@@ -103,7 +104,7 @@
 
     STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeZero], subviewSize), @"Unexpected value");
 
-    subview.maxHeight = 50;
+    subview.maxDesiredWidth = 50;
     STAssertTrue(CGSizeEqualToSize(subview.desiredSize, subviewSize), @"Unexpected value");
     STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeZero], CGSizeMake(100, 50)), @"Unexpected value");
 }
@@ -179,7 +180,7 @@
     [subview resetAllLayoutProperties];
     [layout resetAllProperties];
     subview.desiredSize = CGSizeMake(50, 50);
-    subview.minWidth = 50.9;
+    subview.minDesiredWidth = 50.9;
 
     STAssertTrue(CGSizeEqualToSize([weView sizeThatFits:CGSizeZero], CGSizeMake(51, 50)), @"Unexpected value");
 
