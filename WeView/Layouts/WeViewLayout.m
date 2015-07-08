@@ -522,7 +522,7 @@ BOOL _debugMinSize;
     // layouts to handle this case properly as well.
     if (CGSizeEqualToSize(maxSize, CGSizeZero))
     {
-        maxSize = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
+        maxSize = CGSizeMake(CGFLOAT_MAX * 0.5f, CGFLOAT_MAX * 0.5f);
     }
 
     // Incorporate the min and max sizes into what's passed to sizeThatFits. This is important for scenarios
