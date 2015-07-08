@@ -22,8 +22,9 @@
 {
     if (guideSize.width <= 0) {
         // The "ideal" layout for this view is with its block arranged in a horizontal row.
-        return CGSizeMake(self.blockSize.width * self.blockCount,
-                          self.blockSize.height);
+        CGSize result = CGSizeMake(self.blockSize.width * self.blockCount,
+                                   self.blockSize.height);
+        return result;
     }
     if (self.blockCount < 1) {
         return CGSizeZero;
@@ -37,8 +38,9 @@
     int blocksPerRow = (int)MIN(self.blockCount,
                                 maxBlocksPerRow);
     long long rowCount = (long long)ceilf(self.blockCount / blocksPerRow);
-    return CGSizeMake(self.blockSize.width * blocksPerRow,
-                      self.blockSize.height * rowCount);
+    CGSize result = CGSizeMake(self.blockSize.width * blocksPerRow,
+                               self.blockSize.height * rowCount);
+    return result;
 }
 
 @end

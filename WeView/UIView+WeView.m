@@ -87,7 +87,16 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 //
 // This value can be negative.
 @property (nonatomic) CGFloat desiredHeightAdjustment;
-@property (nonatomic) BOOL ignoreDesiredSize;
+
+// If true, the desired width of this view is ignored.
+//
+// This should usually be set in concert with hStretches.
+@property (nonatomic) BOOL ignoreDesiredWidth;
+
+// If true, the desired height of this view is ignored.
+//
+// This should usually be set in concert with vStretches.
+@property (nonatomic) BOOL ignoreDesiredHeight;
 
 // The horizontal alignment preference of this view within in its layout cell.
 //
@@ -108,7 +117,7 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 // If YES, this view is ignored by WeViews during layout.
 @property (nonatomic) BOOL skipLayout;
 
-@property (nonatomic) NSString *debugName;
+@property (nonatomic) NSString * debugName;
 
 // Convenience accessor(s) for the minDesiredWidth and minDesiredHeight properties.
 - (CGSize)minDesiredSize;
@@ -135,6 +144,9 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 // Convenience accessor(s) for the vStretchWeight and hStretchWeight properties.
 - (void)setStretchWeight:(CGFloat)value;
+
+// Convenience accessor(s) for the ignoreDesiredWidth and ignoreDesiredHeight properties.
+- (void)setIgnoreDesiredSize:(BOOL)value;
 
 /* CODEGEN MARKER: View Info Properties End */
 
@@ -228,6 +240,12 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     [self setHStretchWeight:value];
 }
 
+- (void)setIgnoreDesiredSize:(BOOL)value
+{
+    [self setIgnoreDesiredWidth:value];
+    [self setIgnoreDesiredHeight:value];
+}
+
 /* CODEGEN MARKER: View Info M End */
 
 - (NSString *)formatLayoutDescriptionItem:(NSString *)key
@@ -254,7 +272,8 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     [result appendString:[self formatLayoutDescriptionItem:@"bottomSpacingAdjustment" value:@(self.bottomSpacingAdjustment)]];
     [result appendString:[self formatLayoutDescriptionItem:@"desiredWidthAdjustment" value:@(self.desiredWidthAdjustment)]];
     [result appendString:[self formatLayoutDescriptionItem:@"desiredHeightAdjustment" value:@(self.desiredHeightAdjustment)]];
-    [result appendString:[self formatLayoutDescriptionItem:@"ignoreDesiredSize" value:@(self.ignoreDesiredSize)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"ignoreDesiredWidth" value:@(self.ignoreDesiredWidth)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"ignoreDesiredHeight" value:@(self.ignoreDesiredHeight)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cellHAlign" value:@(self.cellHAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cellVAlign" value:@(self.cellVAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"hasCellHAlign" value:@(self.hasCellHAlign)]];
@@ -437,14 +456,26 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     return self;
 }
 
-- (BOOL)ignoreDesiredSize
+- (BOOL)ignoreDesiredWidth
 {
-    return [self.viewInfo ignoreDesiredSize];
+    return [self.viewInfo ignoreDesiredWidth];
 }
 
-- (UIView *)setIgnoreDesiredSize:(BOOL)value
+- (UIView *)setIgnoreDesiredWidth:(BOOL)value
 {
-    [self.viewInfo setIgnoreDesiredSize:value];
+    [self.viewInfo setIgnoreDesiredWidth:value];
+    [self.superview setNeedsLayout];
+    return self;
+}
+
+- (BOOL)ignoreDesiredHeight
+{
+    return [self.viewInfo ignoreDesiredHeight];
+}
+
+- (UIView *)setIgnoreDesiredHeight:(BOOL)value
+{
+    [self.viewInfo setIgnoreDesiredHeight:value];
     [self.superview setNeedsLayout];
     return self;
 }
@@ -594,6 +625,14 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     return self;
 }
 
+- (UIView *)setIgnoreDesiredSize:(BOOL)value
+{
+    [self setIgnoreDesiredWidth:value];
+    [self setIgnoreDesiredHeight:value];
+    [self.superview setNeedsLayout];
+    return self;
+}
+
 /* CODEGEN MARKER: Accessors End */
 
 - (UIView *)setHStretches
@@ -617,6 +656,18 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 - (UIView *)setIgnoreDesiredSize
 {
     self.ignoreDesiredSize = YES;
+    return self;
+}
+
+- (UIView *)setIgnoreDesiredWidth
+{
+    self.ignoreDesiredWidth = YES;
+    return self;
+}
+
+- (UIView *)setIgnoreDesiredHeight
+{
+    self.ignoreDesiredHeight = YES;
     return self;
 }
 

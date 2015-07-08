@@ -160,7 +160,18 @@ view_propertyGroups = (
                        asserts='%s >= 0',
                        doubleHeight=True,
                         ),
-                   Property('ignoreDesiredSize', 'BOOL', ),
+                   Property('ignoreDesiredWidth', 'BOOL', 
+                       comments=(
+                           'If true, the desired width of this view is ignored.',
+                           'This should usually be set in concert with hStretches.',
+                           ),
+                        ),
+                   Property('ignoreDesiredHeight', 'BOOL', 
+                       comments=(
+                           'If true, the desired height of this view is ignored.',
+                           'This should usually be set in concert with vStretches.',
+                           ),
+                        ),
                    ),
                   (
                    Property('cellHAlign', 'HAlign',
@@ -463,6 +474,8 @@ view_customAccessors = (
                     CustomAccessor('fixedDesiredSize', 'CGSize', ('minDesiredWidth', 'minDesiredHeight', 'maxDesiredWidth', 'maxDesiredHeight',), ('.width', '.height', '.width', '.height',)),
 
                     CustomAccessor('stretchWeight', 'CGFloat', ('vStretchWeight', 'hStretchWeight',)),
+                
+                    CustomAccessor('ignoreDesiredSize', 'BOOL', ('ignoreDesiredWidth', 'ignoreDesiredHeight',)),
                     )
 
 layout_customAccessors = (

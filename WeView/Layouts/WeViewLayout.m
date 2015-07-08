@@ -483,8 +483,11 @@ BOOL _debugMinSize;
 - (CGRect)contentBoundsOfView:(UIView *)view
                       forSize:(CGSize)size
 {
-    int left = ceilf([self leftMargin]);
-    int top = ceilf([self topMargin]);
+    // Do not assume that the margins are smaller than size.
+    int left = floorf(MIN(ceilf([self leftMargin]),
+                          size.width));
+    int top = floorf(MIN(ceilf([self topMargin]),
+                         size.height));
     int right = floorf(size.width - ceilf([self rightMargin]));
     int bottom = floorf(size.height - ceilf([self bottomMargin]));
 
@@ -508,7 +511,8 @@ BOOL _debugMinSize;
 - (CGSize)desiredItemSize:(UIView *)subview
                   maxSize:(CGSize)maxSize
 {
-    if (subview.ignoreDesiredSize)
+    if (subview.ignoreDesiredWidth &&
+        subview.ignoreDesiredHeight)
     {
         return CGSizeZero;
     }
@@ -541,6 +545,15 @@ BOOL _debugMinSize;
                                          CGSizeMin(subview.maxDesiredSize,
                                                    desiredSize)));
     
+    if (subview.ignoreDesiredWidth)
+    {
+        result.width = 0.f;
+    }
+    if (subview.ignoreDesiredHeight)
+    {
+        result.height = 0.f;
+    }
+
     return result;
 }
 

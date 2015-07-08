@@ -125,10 +125,16 @@
     return [view desiredHeightAdjustment];
 }
 
-- (BOOL)ignoreDesiredSize
+- (BOOL)ignoreDesiredWidth
 {
     UIView *view = self.isWeakReference ? self.weakView : self.strongView;
-    return [view ignoreDesiredSize];
+    return [view ignoreDesiredWidth];
+}
+
+- (BOOL)ignoreDesiredHeight
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view ignoreDesiredHeight];
 }
 
 - (HAlign)cellHAlign

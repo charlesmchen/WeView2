@@ -584,9 +584,14 @@ haveAnyOfPrefixes:(NSArray *)prefixes
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setDesiredHeightAdjustment", FormatFloat(view.desiredHeightAdjustment)]];
     }
 
-    if (view.ignoreDesiredSize != virginView.ignoreDesiredSize)
+    if (view.ignoreDesiredWidth != virginView.ignoreDesiredWidth)
     {
-        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setIgnoreDesiredSize", FormatBoolean(view.ignoreDesiredSize)]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setIgnoreDesiredWidth", FormatBoolean(view.ignoreDesiredWidth)]];
+    }
+
+    if (view.ignoreDesiredHeight != virginView.ignoreDesiredHeight)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setIgnoreDesiredHeight", FormatBoolean(view.ignoreDesiredHeight)]];
     }
 
     if (view.cellHAlign != virginView.cellHAlign)
@@ -615,6 +620,13 @@ haveAnyOfPrefixes:(NSArray *)prefixes
     }
 
     // Custom Accessors
+
+    if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setIgnoreDesiredWidth:", @"setIgnoreDesiredHeight:"]] &&
+        view.ignoreDesiredWidth == view.ignoreDesiredHeight)
+    {
+        lines = [self removeLines:lines withPrefixes:@[@"setIgnoreDesiredWidth:", @"setIgnoreDesiredHeight:"]];
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setIgnoreDesiredSize", FormatBoolean(view.ignoreDesiredWidth)]];
+    }
 
     if ([self doDecorations:lines haveLinesWithPrefixes:@[@"setVStretchWeight:", @"setHStretchWeight:"]] &&
         view.vStretchWeight == view.hStretchWeight)

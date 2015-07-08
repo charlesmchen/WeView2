@@ -57,6 +57,8 @@
                        subviews:(NSArray *)subviews
                    thatFitsSize:(CGSize)guideSize
 {
+    guideSize = CGSizeMax(guideSize, CGSizeZero);
+
     CGSize result = CGSizeZero;
     if (self.desiredSizeBlock)
     {
