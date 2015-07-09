@@ -557,7 +557,9 @@ typedef void (^SetterBlock)(id item);
 
                                 [ViewParameterSimple floatProperty:@"desiredHeightAdjustment" doubleHeight:YES],
 
-                                [ViewParameterSimple booleanProperty:@"ignoreDesiredSize"],
+                                [ViewParameterSimple booleanProperty:@"ignoreDesiredWidth"],
+
+                                [ViewParameterSimple booleanProperty:@"ignoreDesiredHeight"],
 
                                 [ViewParameterSimple create:@"cellHAlign"
                                                 getterBlock:^NSString *(id item) {
@@ -578,6 +580,7 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
+                                 
 
                                 [ViewParameterSimple create:@"cellVAlign"
                                                 getterBlock:^NSString *(id item) {
@@ -598,6 +601,7 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
+                                 
 
                                 [ViewParameterSimple booleanProperty:@"hasCellHAlign"],
 
@@ -747,6 +751,7 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
+                                 
 
                                 [ViewParameterSimple create:@"vAlign"
                                                 getterBlock:^NSString *(id item) {
@@ -767,6 +772,7 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
+                                 
 
                                 [ViewParameterSimple booleanProperty:@"cropSubviewOverflow"],
 
@@ -793,6 +799,7 @@ typedef void (^SetterBlock)(id item);
                                                  }],
                                  ]
                                  doubleHeight:YES],
+                                 
 
                                 [ViewParameterSimple booleanProperty:@"debugLayout"],
 

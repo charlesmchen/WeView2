@@ -60,7 +60,7 @@
               FormatCGSize([self insetSizeOfView:view]));
     }
 
-    BOOL hasNonEmptyGuideSize = (MAX(0, guideSize.width) * MAX(guideSize.height, 0)) > 0;
+    BOOL hasNonEmptyGuideSize = (guideSize.width > 0) || (guideSize.height > 0);
 
     CGSize subviewDesiredSizes[subviewCount];
     [self findDesiredSizes:&(subviewDesiredSizes[0])

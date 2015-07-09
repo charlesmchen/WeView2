@@ -98,8 +98,18 @@
 // This value can be negative.
 - (CGFloat)desiredHeightAdjustment;
 - (UIView *)setDesiredHeightAdjustment:(CGFloat)value;
-- (BOOL)ignoreDesiredSize;
-- (UIView *)setIgnoreDesiredSize:(BOOL)value;
+
+// If true, the desired width of this view is ignored.
+//
+// This should usually be set in concert with hStretches.
+- (BOOL)ignoreDesiredWidth;
+- (UIView *)setIgnoreDesiredWidth:(BOOL)value;
+
+// If true, the desired height of this view is ignored.
+//
+// This should usually be set in concert with vStretches.
+- (BOOL)ignoreDesiredHeight;
+- (UIView *)setIgnoreDesiredHeight:(BOOL)value;
 
 // The horizontal alignment preference of this view within in its layout cell.
 //
@@ -154,6 +164,9 @@
 // Convenience accessor(s) for the vStretchWeight and hStretchWeight properties.
 - (UIView *)setStretchWeight:(CGFloat)value;
 
+// Convenience accessor(s) for the ignoreDesiredWidth and ignoreDesiredHeight properties.
+- (UIView *)setIgnoreDesiredSize:(BOOL)value;
+
 /* CODEGEN MARKER: Properties End */
 
 // The layout should stretch this subview horizontally to fit any available space.
@@ -167,6 +180,12 @@
 
 // The layout should ignore this view's desired size.
 - (UIView *)setIgnoreDesiredSize;
+
+// Sets the ignoreDesiredWidth property to YES.
+- (UIView *)setIgnoreDesiredWidth;
+
+// Sets the ignoreDesiredHeight property to YES.
+- (UIView *)setIgnoreDesiredHeight;
 
 // The layout should stretch this subview to fit any available space, ignoring its desired size.
 - (UIView *)setStretchesIgnoringDesiredSize;

@@ -30,8 +30,10 @@
 - (WeView *)addSubview:(UIView *)subview
             withLayout:(WeViewLayout *)layout;
 
-// Add a subview with a custom layout that applies to just that subview.
-- (WeViewLayout *)addSubviewWithCustomLayout:(UIView *)subview;
+// Add a subview with a layout that applies to just that subview.
+- (WeViewLayout *)addSubviewWithLayout:(UIView *)subview;
+
+- (WeViewLayout *)addSubviewWithCustomLayout:(UIView *)subview __attribute__ ((deprecated)); // Use addSubviewWithLayout: instead.
 
 // Add subviews with a horizontal layout that applies to just these subviews.
 - (WeViewLayout *)addSubviewsWithHorizontalLayout:(NSArray *)subviews;

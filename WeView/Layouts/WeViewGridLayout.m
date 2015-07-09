@@ -726,10 +726,7 @@ BOOL _isColumnWidthUniform;
             int column = subviewIdx % columnCount;
             subviewIdx++;
 
-            if (!subview.ignoreDesiredSize)
             {
-                //                CGSize cellSize = CGSizeMake([result.rowSizes[row] floatValue],
-                //                                             [result.columnSizes[column] floatValue]);
                 if ([result.rowAxisLayout cellSizingForIndex:row].fixedSize &&
                     [result.columnAxisLayout cellSizingForIndex:column].fixedSize)
                 {
