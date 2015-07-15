@@ -167,6 +167,9 @@
         }
 
         CGRect cell = CGRectZero;
+        // For right-to-left layouts, reverse the direction of the x-offset.
+        // The "row" will not end up aligned against the origin, but that will be
+        // corrected below.
         cell.origin.x = (self.rightToLeft
                          ? -(xOffset + subviewDesiredSizes[i].width)
                          : +xOffset);
