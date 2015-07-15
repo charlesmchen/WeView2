@@ -16,6 +16,7 @@
 #import "UIView+WeView.h"
 #import "WeViewBlockLayout.h"
 #import "WeViewGridLayout.h"
+#import "WeViewFlowLayout.h"
 
 @class WeViewLayout;
 
@@ -45,7 +46,7 @@
 - (WeViewLayout *)addSubviewsWithStackLayout:(NSArray *)subviews;
 
 // Add subviews with a flow layout that applies to just these subviews.
-- (WeViewLayout *)addSubviewsWithFlowLayout:(NSArray *)subviews;
+- (WeViewFlowLayout *)addSubviewsWithFlowLayout:(NSArray *)subviews;
 
 // Add subviews with a block-based layout that applies to just these subviews.
 //
