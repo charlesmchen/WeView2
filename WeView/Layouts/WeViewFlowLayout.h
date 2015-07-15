@@ -20,4 +20,7 @@
 // Factory method.
 + (WeViewFlowLayout *)flowLayout;
 
+- (WeViewFlowLayout *)setIsRightToLeft;
+- (WeViewFlowLayout *)setIsRightToLeft:(BOOL)value;
+
 @end

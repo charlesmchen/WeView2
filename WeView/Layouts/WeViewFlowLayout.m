@@ -15,6 +15,14 @@
 #import "WeViewLayout+Subclass.h"
 #import "WeViewMacros.h"
 
+@interface WeViewFlowLayout ()
+
+@property (nonatomic) BOOL rightToLeft;
+
+@end
+
+#pragma mark -
+
 @implementation WeViewFlowLayout
 
 + (WeViewFlowLayout *)flowLayout
@@ -122,7 +130,10 @@
     NSUInteger subviewCount = [subviews count];
 
     // Simulate layout process.
-    int x = 0, y = 0;
+    // xOffset is the x value for left-to-right layouts and the inverse
+    // (the distance from the right edge) for right-to-left layouts.
+    int xOffset = 0;
+    int y = 0;
     int rowWidth = 0, rowHeight = 0;
     int itemsInRow = 0;
     int totalBodyWidth = 0;
@@ -136,16 +147,18 @@
         UIView *subview = subviews[i];
         if (lastSubview)
         {
-            x += subview.leftSpacingAdjustment;
+            xOffset += (self.rightToLeft
+                        ? subview.rightSpacingAdjustment
+                        : subview.leftSpacingAdjustment);
         }
 
-        int proposedRowWidth = x + subviewDesiredSizes[i].width;
+        int proposedRowWidth = xOffset + subviewDesiredSizes[i].width;
         if (itemsInRow > 0 &&
             proposedRowWidth > contentBounds.size.width)
         {
             // Overflow; start new row.
             y += rowHeight + vSpacing;
-            x = 0;
+            xOffset = 0;
             itemsInRow = 0;
             rowWidth = 0;
             rowHeight = 0;
@@ -154,16 +167,23 @@
         }
 
         CGRect cell = CGRectZero;
-        cell.origin.x = x;
+        // For right-to-left layouts, reverse the direction of the x-offset.
+        // The "row" will not end up aligned against the origin, but that will be
+        // corrected below.
+        cell.origin.x = (self.rightToLeft
+                         ? -(xOffset + subviewDesiredSizes[i].width)
+                         : +xOffset);
         cell.origin.y = y;
         cell.size = subviewDesiredSizes[i];
         cellBounds[i] = cell;
         cellRows[i] = row;
 
-        rowWidth = x + subviewDesiredSizes[i].width;
+        rowWidth = xOffset + subviewDesiredSizes[i].width;
         rowHeight = MAX(rowHeight, subviewDesiredSizes[i].height);
-        x += subviewDesiredSizes[i].width + hSpacing;
-        x += subview.rightSpacingAdjustment;
+        xOffset += subviewDesiredSizes[i].width + hSpacing;
+        xOffset += (self.rightToLeft
+                    ? subview.leftSpacingAdjustment
+                    : subview.rightSpacingAdjustment);
 
         itemsInRow++;
         totalBodyWidth = MAX(totalBodyWidth, rowWidth);
@@ -220,15 +240,27 @@
         WeViewAssert(firstCellInRow < subviewCount);
         WeViewAssert(lastCellInRow >= 0);
         WeViewAssert(firstCellInRow <= lastCellInRow);
-
+        
         CGFloat rowHeight = 0;
+        CGFloat rowMinX = 0;
         for (int i=firstCellInRow; i <= lastCellInRow; i++)
         {
             rowHeight = MAX(rowHeight, cellBounds[i].size.height);
+            rowMinX = MIN(rowMinX, cellBounds[i].origin.x);
         }
-
-        int rowWidth = cellBounds[lastCellInRow].origin.x + cellBounds[lastCellInRow].size.width;
-        WeViewAssert(rowWidth <= contentBounds.size.width);
+        // Left-align the contents of each row so that the left-most subview in the row has x=0.
+        // This won't be necessary for left-to-right layouts but is essential for right-to-left.
+        for (int i=firstCellInRow; i <= lastCellInRow; i++)
+        {
+            CGRect cell = cellBounds[i];
+            cell.origin.x -= rowMinX;
+            cellBounds[i] = cell;
+        }
+        
+        int rowWidth = (self.rightToLeft
+                        ? (cellBounds[firstCellInRow].origin.x + cellBounds[firstCellInRow].size.width)
+                        : (cellBounds[lastCellInRow].origin.x + cellBounds[lastCellInRow].size.width));
+        // rowWidth might be wider than contentBounds.size.width in the overflow case.
         int extraRowSpace = contentBounds.size.width - rowWidth;
         int hAdjustment = 0;
         {
@@ -340,6 +372,18 @@
                   FormatCGSize(subviewDesiredSizes[i]));
         }
     }
+}
+
+- (WeViewFlowLayout *)setIsRightToLeft {
+    return [self setIsRightToLeft:YES];
+}
+
+- (WeViewFlowLayout *)setIsRightToLeft:(BOOL)value {
+    self.rightToLeft = value;
+    
+    [self propertyChanged];
+    
+    return self;
 }
 
 @end
