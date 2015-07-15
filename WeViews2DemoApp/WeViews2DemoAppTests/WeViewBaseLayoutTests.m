@@ -34,7 +34,7 @@
 {
     // Subclasses should reimplement this method.
     WeViewAssert(0);
-    return [weView addSubviewWithCustomLayout:subview];
+    return [weView addSubviewWithLayout:subview];
 }
 
 - (WeViewLayout *)addSubviews:(NSArray *)subviews

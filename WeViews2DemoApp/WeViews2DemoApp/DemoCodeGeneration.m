@@ -267,7 +267,7 @@ NSString* ReprWeViewSpacing(WeViewSpacing *value)
         {
             return [NSString stringWithFormat:@"[%@ %@:%@]",
                     viewName,
-                    @"addSubviewWithCustomLayout",
+                    @"addSubviewWithLayout",
                     firstSubviewClause];
         }
         else

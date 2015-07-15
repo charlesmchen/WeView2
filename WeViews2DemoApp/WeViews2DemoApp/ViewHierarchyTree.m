@@ -195,7 +195,7 @@
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self.table setStretchesIgnoringDesiredSize];
-    [[self addSubviewWithCustomLayout:self.table]
+    [[self addSubviewWithLayout:self.table]
      setVAlign:V_ALIGN_TOP];
 
     self.table.delegate = self;

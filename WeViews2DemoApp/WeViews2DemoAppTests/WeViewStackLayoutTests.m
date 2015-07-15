@@ -31,7 +31,7 @@
 - (WeViewLayout *)addSubview:(UIView *)subview
                     toWeView:(WeView *)weView
 {
-    return [weView addSubviewWithCustomLayout:subview];
+    return [weView addSubviewWithLayout:subview];
 }
 
 - (WeViewLayout *)addSubviews:(NSArray *)subviews

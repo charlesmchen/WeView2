@@ -161,7 +161,7 @@ typedef struct
 - (void)ensureUniformCellSize
 {
     self.cellSizes = WeViewArrayOfFloatsWithValue(WeViewMaxFloats(self.cellSizes),
-                                                  [self.cellSizes count]);
+                                                  (int) [self.cellSizes count]);
 }
 
 - (NSArray *)axisStretchWeights

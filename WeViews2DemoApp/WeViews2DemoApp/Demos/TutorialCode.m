@@ -51,7 +51,7 @@
     // Add activity indicator.
     UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [activityIndicatorView startAnimating];
-    [bodyView addSubviewWithCustomLayout:activityIndicatorView];
+    [bodyView addSubviewWithLayout:activityIndicatorView];
 }
 
 + (id)buttonWithImageName:(id)ignore

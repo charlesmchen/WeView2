@@ -209,7 +209,7 @@ typedef enum
 
     self.generatedCodePanel = [[WeView alloc] init];
     [self.generatedCodePanel addSubviewWithFillLayout:[[self.generatedCodeView setStretches] setIgnoreDesiredSize]];
-    [[[[self.generatedCodePanel addSubviewWithCustomLayout:logGeneratedCodeButton]
+    [[[[self.generatedCodePanel addSubviewWithLayout:logGeneratedCodeButton]
        setHAlign:H_ALIGN_RIGHT]
       setVAlign:V_ALIGN_BOTTOM]
      setMargin:10];

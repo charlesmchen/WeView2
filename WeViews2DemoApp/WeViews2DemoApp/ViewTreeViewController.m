@@ -65,7 +65,7 @@
     [self.rootView removeAllSubviews];
     self.viewHierarchyTree = [ViewHierarchyTree create:demoModel];
     [self.viewHierarchyTree setStretchesIgnoringDesiredSize];
-    [[self.rootView addSubviewWithCustomLayout:self.viewHierarchyTree]
+    [[self.rootView addSubviewWithLayout:self.viewHierarchyTree]
      setVAlign:V_ALIGN_TOP];
 }
 

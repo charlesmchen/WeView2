@@ -81,7 +81,7 @@ typedef enum
     }
     else if (![self.subviews containsObject:self.modePanel])
     {
-        [[[[self addSubviewWithCustomLayout:self.modePanel]
+        [[[[self addSubviewWithLayout:self.modePanel]
            setMargin:20]
           setHAlign:H_ALIGN_LEFT]
          setVAlign:V_ALIGN_BOTTOM];
@@ -96,7 +96,7 @@ typedef enum
                                                                fontSize:14.f
                                                               textColor:[DemoViewFactory colorWithRGBHex:0x888888]];
 
-        [[[[self addSubviewWithCustomLayout:resizeInstructionsLabel]
+        [[[[self addSubviewWithLayout:resizeInstructionsLabel]
            setMargin:20]
           setHAlign:H_ALIGN_RIGHT]
          setVAlign:V_ALIGN_TOP];
@@ -119,12 +119,12 @@ typedef enum
       setSpacing:10]
      setHAlign:H_ALIGN_LEFT];
 
-    [[[[self addSubviewWithCustomLayout:self.modePanel]
+    [[[[self addSubviewWithLayout:self.modePanel]
        setMargin:20]
       setHAlign:H_ALIGN_LEFT]
      setVAlign:V_ALIGN_BOTTOM];
 
-    [[[[self addSubviewWithCustomLayout:
+    [[[[self addSubviewWithLayout:
        [DemoViewFactory createFlatUIButton:@"i"
                                  textColor:[UIColor colorWithWhite:1.f alpha:1.f]
                                buttonColor:[UIColor colorWithWhite:0.5f alpha:1.f]
@@ -227,7 +227,7 @@ typedef enum
     UIImageView *phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
     WeViewAssert(phoneImageView.image);
     self.phoneContainer = [[WeView alloc] init];
-    [[self.phoneContainer addSubviewWithCustomLayout:phoneImageView]
+    [[self.phoneContainer addSubviewWithLayout:phoneImageView]
      setCropSubviewOverflow:NO];
     self.phoneContainer.fixedDesiredSize = phoneImageView.image.size;
     [[self.phoneContainer addSubview:phoneScreen
@@ -243,9 +243,9 @@ typedef enum
 //    self.phoneContainer.layer.borderColor = [UIColor yellowColor].CGColor;
 //    self.phoneContainer.layer.borderWidth = 1.f;
 
-    [phoneScreen addSubviewWithCustomLayout:self.demoModel.rootView];
+    [phoneScreen addSubviewWithLayout:self.demoModel.rootView];
 
-    [[self addSubviewWithCustomLayout:self.phoneContainer]
+    [[self addSubviewWithLayout:self.phoneContainer]
      setCropSubviewOverflow:NO];
 }
 
@@ -261,7 +261,7 @@ typedef enum
         case SANDBOX_MODE_DEFAULT:
         {
             [demoModel.rootView removeFromSuperview];
-            [self addSubviewWithCustomLayout:demoModel.rootView];
+            [self addSubviewWithLayout:demoModel.rootView];
             break;
         }
         case SANDBOX_MODE_IPHONE_4_PORTRAIT:

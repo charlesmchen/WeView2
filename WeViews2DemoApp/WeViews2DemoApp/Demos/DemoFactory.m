@@ -87,7 +87,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         NSString *imageName = imageNames[arc4random() % [imageNames count]];
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"Images/%@", imageName]];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        [demoModel.rootView addSubviewWithCustomLayout:imageView];
+        [demoModel.rootView addSubviewWithLayout:imageView];
 
         [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         //    result.debugLayout = YES;
@@ -106,7 +106,7 @@ UIColor *UIColorRGB(unsigned int rgb)
     {
         DemoModel *demoModel = [DemoModel create];
 
-        [[[[demoModel.rootView addSubviewWithCustomLayout:[DemoFactory createWrappingLabel]]
+        [[[[demoModel.rootView addSubviewWithLayout:[DemoFactory createWrappingLabel]]
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
@@ -128,7 +128,7 @@ UIColor *UIColorRGB(unsigned int rgb)
     {
         DemoModel *demoModel = [DemoModel create];
 
-        [[[[demoModel.rootView addSubviewWithCustomLayout:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]]]
+        [[[[demoModel.rootView addSubviewWithLayout:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/finder_64.png"]]]
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
@@ -176,7 +176,7 @@ UIColor *UIColorRGB(unsigned int rgb)
     {
         DemoModel *demoModel = [DemoModel create];
 
-        [[[demoModel.rootView addSubviewWithCustomLayout:
+        [[[demoModel.rootView addSubviewWithLayout:
           [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Images/ok_button_up.png"]]]
          setBottomMargin:20]
          setVAlign:V_ALIGN_BOTTOM];
@@ -400,7 +400,7 @@ UIColor *UIColorRGB(unsigned int rgb)
     {
         DemoModel *demoModel = [DemoModel create];
 
-        [demoModel.rootView addSubviewWithCustomLayout:[DemoFactory createWrappingLabel]];
+        [demoModel.rootView addSubviewWithLayout:[DemoFactory createWrappingLabel]];
 
         [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         demoModel.rootView.debugName = demoName;
@@ -419,7 +419,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         DemoModel *demoModel = [DemoModel create];
 
         UIImageView *imageView = [self imageViewWithImageName:@"Images/finder_64.png"];
-        [demoModel.rootView addSubviewWithCustomLayout:imageView];
+        [demoModel.rootView addSubviewWithLayout:imageView];
 
         [DemoFactory assignRandomBackgroundColors:[DemoFactory collectSubviews:demoModel.rootView]];
         demoModel.rootView.debugName = demoName;
@@ -553,7 +553,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         DemoModel *demoModel = [DemoModel create];
 
         WeView *singleViewPanel = [[WeView alloc] init];
-        [[[[singleViewPanel addSubviewWithCustomLayout:[DemoFactory createWrappingLabel]]
+        [[[[singleViewPanel addSubviewWithLayout:[DemoFactory createWrappingLabel]]
            setVMargin:10]
           setHMargin:20]
          setSpacing:5];
@@ -735,7 +735,7 @@ UIColor *UIColorRGB(unsigned int rgb)
 
         WeView *headerView = [[WeView alloc] init];
         headerView.debugName = @"headerView";
-        [[headerView addSubviewWithCustomLayout:[DemoFactory createLabel:@"Thunersee mit Stockhornkette"
+        [[headerView addSubviewWithLayout:[DemoFactory createLabel:@"Thunersee mit Stockhornkette"
                                                                 fontSize:16.f
                                                                textColor:[UIColor colorWithWhite:0.1f
                                                                                            alpha:0.5f]]]
@@ -831,7 +831,7 @@ UIColor *UIColorRGB(unsigned int rgb)
          setVAlign:V_ALIGN_TOP];
         // The background will exceed the backgroundWrapper's bounds, so we need to clip.
         backgroundWrapper.clipsToBounds = YES;
-        [demoModel.rootView addSubviewWithCustomLayout:[backgroundWrapper setStretches]];
+        [demoModel.rootView addSubviewWithLayout:[backgroundWrapper setStretches]];
 
         WeView *headerView = [[WeView alloc] init];
         headerView.backgroundColor = [UIColor colorWithWhite:0.5f alpha:0.5f];
@@ -839,16 +839,16 @@ UIColor *UIColorRGB(unsigned int rgb)
         // Add "title" UILabel to header.
         UILabel *headerLabel = [DemoFactory createLabel:@"Ferdinand Hodler"
                                                fontSize:20.f];
-        [[headerView addSubviewWithCustomLayout:headerLabel]
+        [[headerView addSubviewWithLayout:headerLabel]
          setMargin:5];
         // Add "tag" button to header.
-        [[[[headerView addSubviewWithCustomLayout:[DemoFactory buttonWithImageName:@"Glyphish_Icons/14-tag.png"]]
+        [[[[headerView addSubviewWithLayout:[DemoFactory buttonWithImageName:@"Glyphish_Icons/14-tag.png"]]
            setHMargin:10]
           setVMargin:5]
          setHAlign:H_ALIGN_RIGHT];
 
         // Add header to top of screen.
-        [[demoModel.rootView addSubviewWithCustomLayout:[headerView setHStretches]]
+        [[demoModel.rootView addSubviewWithLayout:[headerView setHStretches]]
          setVAlign:V_ALIGN_TOP];
 
         // Add pillbox buttons to bottom of screen.
@@ -864,7 +864,7 @@ UIColor *UIColorRGB(unsigned int rgb)
          [self createFlatUIPillboxSpacer],
          [self createFlatUIPillboxButton:@"Next"],
          ]];
-        [[[demoModel.rootView addSubviewWithCustomLayout:pillboxButtonsView]
+        [[[demoModel.rootView addSubviewWithLayout:pillboxButtonsView]
           setBottomMargin:25]
          setVAlign:V_ALIGN_BOTTOM];
         //        pillboxButtonsView.layer.borderWidth = 1.f;
@@ -874,7 +874,7 @@ UIColor *UIColorRGB(unsigned int rgb)
         UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [activityIndicatorView startAnimating];
         // No need to set alignment; centering is the default.
-        [demoModel.rootView addSubviewWithCustomLayout:activityIndicatorView];
+        [demoModel.rootView addSubviewWithLayout:activityIndicatorView];
 
         [demoModel.rootView setStretchesIgnoringDesiredSize];
         //        demoModel.rootView.debugName = demoName;
@@ -1139,7 +1139,7 @@ UIColor *UIColorRGB(unsigned int rgb)
 
         UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [activityIndicatorView startAnimating];
-        [bodyView addSubviewWithCustomLayout:activityIndicatorView];
+        [bodyView addSubviewWithLayout:activityIndicatorView];
 
         [demoModel.rootView setStretchesIgnoringDesiredSize];
         demoModel.rootView.debugName = demoName;
