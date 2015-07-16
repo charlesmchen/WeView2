@@ -594,6 +594,16 @@ haveAnyOfPrefixes:(NSArray *)prefixes
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setIgnoreDesiredHeight", FormatBoolean(view.ignoreDesiredHeight)]];
     }
 
+    if (view.xPositionOffset != virginView.xPositionOffset)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setXPositionOffset", FormatInt(view.xPositionOffset)]];
+    }
+
+    if (view.yPositionOffset != virginView.yPositionOffset)
+    {
+        [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setYPositionOffset", FormatInt(view.yPositionOffset)]];
+    }
+
     if (view.cellHAlign != virginView.cellHAlign)
     {
         [lines addObject:[NSString stringWithFormat:@"%@:%@", @"setCellHAlign", ReprHAlign(view.cellHAlign)]];
