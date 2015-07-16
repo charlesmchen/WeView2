@@ -33,7 +33,7 @@ CG_INLINE CGRect FillRectWithSize(CGRect srcRect, CGSize srcSize)
     {
         return srcRect;
     }
-
+    
     CGFloat widthFactor = srcRect.size.width / srcSize.width;
     CGFloat heightFactor = srcRect.size.height / srcSize.height;
     CGFloat factor = MAX(widthFactor, heightFactor);
@@ -50,7 +50,7 @@ CG_INLINE CGRect FitSizeInRect(CGRect srcRect, CGSize srcSize)
     {
         return srcRect;
     }
-
+    
     CGFloat widthFactor = srcRect.size.width / srcSize.width;
     CGFloat heightFactor = srcRect.size.height / srcSize.height;
     CGFloat factor = MIN(widthFactor, heightFactor);
@@ -64,7 +64,7 @@ CG_INLINE CGRect FitSizeInRect(CGRect srcRect, CGSize srcSize)
 
 @interface WeViewLayout ()
 {
-/* CODEGEN MARKER: Members Start */
+    /* CODEGEN MARKER: Members Start */
 
 CGFloat _leftMargin;
 CGFloat _rightMargin;
@@ -100,7 +100,7 @@ BOOL _debugMinSize;
     {
         [self resetAllProperties];
     }
-
+    
     return self;
 }
 
@@ -329,7 +329,7 @@ BOOL _debugMinSize;
     self.debugMinSize = NO;
 
 /* CODEGEN MARKER: Reset End */
-
+    
     _cropSubviewOverflow = NO;
 }
 
@@ -374,7 +374,7 @@ BOOL _debugMinSize;
 {
     CGRect result;
     result.size = size;
-
+    
     switch (hAlign)
     {
         case H_ALIGN_LEFT:
@@ -429,12 +429,15 @@ BOOL _debugMinSize;
             {
                 subviewSize.height = cellBounds.size.height;
             }
-
+            
             subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
-            subview.frame = [self alignSize:subviewSize
-                                 withinRect:cellBounds
-                                     hAlign:[self subviewCellHAlign:subview]
-                                     vAlign:[self subviewCellVAlign:subview]];
+            CGRect subviewFrame = [self alignSize:subviewSize
+                                       withinRect:cellBounds
+                                           hAlign:[self subviewCellHAlign:subview]
+                                           vAlign:[self subviewCellVAlign:subview]];
+            subviewFrame.origin.x += subview.xPositionOffset;
+            subviewFrame.origin.y += subview.yPositionOffset;
+            subview.frame = subviewFrame;
             break;
         }
         case CELL_POSITIONING_FILL:
@@ -442,6 +445,8 @@ BOOL _debugMinSize;
             CGRect subviewFrame = cellBounds;
             subviewFrame.origin = CGPointRound(subviewFrame.origin);
             subviewFrame.size = CGSizeMax(CGSizeZero, CGSizeFloor(subviewFrame.size));
+            subviewFrame.origin.x += subview.xPositionOffset;
+            subviewFrame.origin.y += subview.yPositionOffset;
             subview.frame = subviewFrame;
             break;
         }
@@ -468,10 +473,13 @@ BOOL _debugMinSize;
                     subviewSize = FitSizeInRect(cellBounds, desiredSize).size;
                 }
                 subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
-                subview.frame = [self alignSize:subviewSize
-                                     withinRect:cellBounds
-                                         hAlign:[self subviewCellHAlign:subview]
-                                         vAlign:[self subviewCellVAlign:subview]];
+                CGRect subviewFrame = [self alignSize:subviewSize
+                                           withinRect:cellBounds
+                                               hAlign:[self subviewCellHAlign:subview]
+                                               vAlign:[self subviewCellVAlign:subview]];
+                subviewFrame.origin.x += subview.xPositionOffset;
+                subviewFrame.origin.y += subview.yPositionOffset;
+                subview.frame = subviewFrame;
             }
         }
         default:
@@ -490,7 +498,7 @@ BOOL _debugMinSize;
                          size.height));
     int right = floorf(size.width - ceilf([self rightMargin]));
     int bottom = floorf(size.height - ceilf([self bottomMargin]));
-
+    
     return CGRectMake(left,
                       top,
                       MAX(0, right - left),
@@ -504,7 +512,7 @@ BOOL _debugMinSize;
     int top = ceilf([self topMargin]);
     int right = ceilf([self rightMargin]);
     int bottom = ceilf([self bottomMargin]);
-
+    
     return CGSizeMake(left + right, top + bottom);
 }
 
@@ -516,7 +524,7 @@ BOOL _debugMinSize;
     {
         return CGSizeZero;
     }
-
+    
     // A curiousity of [UIView sizeThatFits:] is that when the argument is an empty size, the semantics are
     // "return the desired size in the absence of constraints."  Unfortunately, this is ambiguous with the
     // actually empty case: "return the desired size inside an empty container".  We assume the former since
@@ -528,17 +536,17 @@ BOOL _debugMinSize;
     {
         maxSize = CGSizeMake(CGFLOAT_MAX * 0.5f, CGFLOAT_MAX * 0.5f);
     }
-
+    
     // Incorporate the min and max sizes into what's passed to sizeThatFits. This is important for scenarios
     // where the min/max size in one direction may affect the resulting desiredSize in the other direction,
     // e.g. for multiline labels, the min/max width affects the resulting height.
     CGSize clampedSize = CGSizeCeil(CGSizeMax(CGSizeZero,
                                               CGSizeMin(subview.maxDesiredSize,
                                                         maxSize)));
-
+    
     CGSize desiredSize = CGSizeAdd([subview sizeThatFits:clampedSize],
                                    [subview desiredSizeAdjustment]);
-
+    
     // The desiredSize may spill out of the min/max desired size, so post-clamp, as well.
     CGSize result = CGSizeCeil(CGSizeMax(CGSizeMax(CGSizeZero,
                                                    subview.minDesiredSize),
@@ -553,7 +561,7 @@ BOOL _debugMinSize;
     {
         result.height = 0.f;
     }
-
+    
     return result;
 }
 
@@ -561,9 +569,9 @@ BOOL _debugMinSize;
       acrossCellsWithWeights:(NSArray *)cellWeights
 {
     // Weighted distribution of space between cells.
-
+    
     WeViewAssert([cellWeights count] > 0);
-
+    
     CGFloat totalCellWeight = 0.f;
     int cellCountWithWeight = 0;
     for (int i=0; i < [cellWeights count]; i++)
@@ -575,19 +583,19 @@ BOOL _debugMinSize;
             cellCountWithWeight++;
         }
     }
-
+    
     WeViewAssert(cellCountWithWeight > 0);
-
+    
     CGFloat spaceRemainder = space;
     int cellRemainder = cellCountWithWeight;
     CGFloat weightRemainder = totalCellWeight;
-
+    
     NSMutableArray *result = [NSMutableArray array];
     for (int i=0; i < [cellWeights count]; i++)
     {
         CGFloat cellWeight = MAX(0.f, [cellWeights[i] floatValue]);
         int cellDistribution = 0;
-
+        
         if (cellWeight > 0 && cellRemainder > 0)
         {
             if (cellRemainder == 1)
@@ -599,7 +607,7 @@ BOOL _debugMinSize;
             {
                 cellDistribution = floorf(spaceRemainder * cellWeight / weightRemainder);
             }
-
+            
             cellRemainder--;
             spaceRemainder -= cellDistribution;
             weightRemainder -= cellWeight;
@@ -607,7 +615,7 @@ BOOL _debugMinSize;
         }
         [result addObject:@(cellDistribution)];
     }
-
+    
     return result;
 }
 

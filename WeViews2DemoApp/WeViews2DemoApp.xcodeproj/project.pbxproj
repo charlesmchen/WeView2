@@ -501,7 +501,7 @@
 		34195F7117CA80A90036F8DC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0611;
 			};
 			buildConfigurationList = 34195F7417CA80A90036F8DC /* Build configuration list for PBXProject "WeViews2DemoApp" */;
 			compatibilityVersion = "Xcode 3.2";

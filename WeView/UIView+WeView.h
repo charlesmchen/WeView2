@@ -111,6 +111,18 @@
 - (BOOL)ignoreDesiredHeight;
 - (UIView *)setIgnoreDesiredHeight:(BOOL)value;
 
+// A relative adjustment to the positioning of this view.
+//
+// This value can be positive or negative.
+- (int)xPositionOffset;
+- (UIView *)setXPositionOffset:(int)value;
+
+// A relative adjustment to the positioning of this view.
+//
+// This value can be positive or negative.
+- (int)yPositionOffset;
+- (UIView *)setYPositionOffset:(int)value;
+
 // The horizontal alignment preference of this view within in its layout cell.
 //
 // This value is optional.  The default value is the contentHAlign of its superview.
@@ -166,6 +178,9 @@
 
 // Convenience accessor(s) for the ignoreDesiredWidth and ignoreDesiredHeight properties.
 - (UIView *)setIgnoreDesiredSize:(BOOL)value;
+
+// Convenience accessor(s) for the xPositionOffset and yPositionOffset properties.
+- (UIView *)setPositionOffset:(CGPoint)value;
 
 /* CODEGEN MARKER: Properties End */
 

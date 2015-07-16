@@ -160,6 +160,8 @@ view_propertyGroups = (
                        asserts='%s >= 0',
                        doubleHeight=True,
                         ),
+                   ),
+                  (
                    Property('ignoreDesiredWidth', 'BOOL', 
                        comments=(
                            'If true, the desired width of this view is ignored.',
@@ -173,6 +175,20 @@ view_propertyGroups = (
                            ),
                         ),
                    ),
+                  (
+                   Property('xPositionOffset', 'int',
+                       comments=(
+                           'A relative adjustment to the positioning of this view.',
+                           'This value can be positive or negative.',
+                           ),
+                       ),
+                   Property('yPositionOffset', 'int',
+                       comments=(
+                           'A relative adjustment to the positioning of this view.',
+                           'This value can be positive or negative.',
+                           ),
+                       ),
+                  ),
                   (
                    Property('cellHAlign', 'HAlign',
                        comments=(
@@ -476,6 +492,8 @@ view_customAccessors = (
                     CustomAccessor('stretchWeight', 'CGFloat', ('vStretchWeight', 'hStretchWeight',)),
                 
                     CustomAccessor('ignoreDesiredSize', 'BOOL', ('ignoreDesiredWidth', 'ignoreDesiredHeight',)),
+                    
+                    CustomAccessor('positionOffset', 'CGPoint', ('xPositionOffset', 'yPositionOffset',), ('.x', '.y',)),
                     )
 
 layout_customAccessors = (

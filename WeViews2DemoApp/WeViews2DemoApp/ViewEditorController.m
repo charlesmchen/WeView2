@@ -561,6 +561,10 @@ typedef void (^SetterBlock)(id item);
 
                                 [ViewParameterSimple booleanProperty:@"ignoreDesiredHeight"],
 
+                                [ViewParameterSimple intProperty:@"xPositionOffset"],
+
+                                [ViewParameterSimple intProperty:@"yPositionOffset"],
+
                                 [ViewParameterSimple create:@"cellHAlign"
                                                 getterBlock:^NSString *(id item) {
                                                     return FormatHAlign(((UIView *) item).cellHAlign);

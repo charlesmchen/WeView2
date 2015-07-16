@@ -98,6 +98,16 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 // This should usually be set in concert with vStretches.
 @property (nonatomic) BOOL ignoreDesiredHeight;
 
+// A relative adjustment to the positioning of this view.
+//
+// This value can be positive or negative.
+@property (nonatomic) int xPositionOffset;
+
+// A relative adjustment to the positioning of this view.
+//
+// This value can be positive or negative.
+@property (nonatomic) int yPositionOffset;
+
 // The horizontal alignment preference of this view within in its layout cell.
 //
 // This value is optional.  The default value is the contentHAlign of its superview.
@@ -147,6 +157,9 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 
 // Convenience accessor(s) for the ignoreDesiredWidth and ignoreDesiredHeight properties.
 - (void)setIgnoreDesiredSize:(BOOL)value;
+
+// Convenience accessor(s) for the xPositionOffset and yPositionOffset properties.
+- (void)setPositionOffset:(CGPoint)value;
 
 /* CODEGEN MARKER: View Info Properties End */
 
@@ -246,6 +259,12 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     [self setIgnoreDesiredHeight:value];
 }
 
+- (void)setPositionOffset:(CGPoint)value
+{
+    [self setXPositionOffset:value.x];
+    [self setYPositionOffset:value.y];
+}
+
 /* CODEGEN MARKER: View Info M End */
 
 - (NSString *)formatLayoutDescriptionItem:(NSString *)key
@@ -274,6 +293,8 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     [result appendString:[self formatLayoutDescriptionItem:@"desiredHeightAdjustment" value:@(self.desiredHeightAdjustment)]];
     [result appendString:[self formatLayoutDescriptionItem:@"ignoreDesiredWidth" value:@(self.ignoreDesiredWidth)]];
     [result appendString:[self formatLayoutDescriptionItem:@"ignoreDesiredHeight" value:@(self.ignoreDesiredHeight)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"xPositionOffset" value:@(self.xPositionOffset)]];
+    [result appendString:[self formatLayoutDescriptionItem:@"yPositionOffset" value:@(self.yPositionOffset)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cellHAlign" value:@(self.cellHAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"cellVAlign" value:@(self.cellVAlign)]];
     [result appendString:[self formatLayoutDescriptionItem:@"hasCellHAlign" value:@(self.hasCellHAlign)]];
@@ -480,6 +501,30 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
     return self;
 }
 
+- (int)xPositionOffset
+{
+    return [self.viewInfo xPositionOffset];
+}
+
+- (UIView *)setXPositionOffset:(int)value
+{
+    [self.viewInfo setXPositionOffset:value];
+    [self.superview setNeedsLayout];
+    return self;
+}
+
+- (int)yPositionOffset
+{
+    return [self.viewInfo yPositionOffset];
+}
+
+- (UIView *)setYPositionOffset:(int)value
+{
+    [self.viewInfo setYPositionOffset:value];
+    [self.superview setNeedsLayout];
+    return self;
+}
+
 - (HAlign)cellHAlign
 {
     return [self.viewInfo cellHAlign];
@@ -629,6 +674,14 @@ static const void *kWeViewKey_ViewInfo = &kWeViewKey_ViewInfo;
 {
     [self setIgnoreDesiredWidth:value];
     [self setIgnoreDesiredHeight:value];
+    [self.superview setNeedsLayout];
+    return self;
+}
+
+- (UIView *)setPositionOffset:(CGPoint)value
+{
+    [self setXPositionOffset:value.x];
+    [self setYPositionOffset:value.y];
     [self.superview setNeedsLayout];
     return self;
 }
