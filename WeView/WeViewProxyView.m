@@ -137,6 +137,18 @@
     return [view ignoreDesiredHeight];
 }
 
+- (int)xPositionOffset
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view xPositionOffset];
+}
+
+- (int)yPositionOffset
+{
+    UIView *view = self.isWeakReference ? self.weakView : self.strongView;
+    return [view yPositionOffset];
+}
+
 - (HAlign)cellHAlign
 {
     UIView *view = self.isWeakReference ? self.weakView : self.strongView;
