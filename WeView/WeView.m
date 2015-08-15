@@ -232,7 +232,7 @@
 
 - (WeViewFlowLayout *)addSubviewsWithFlowLayout:(NSArray *)subviews
 {
-    WeViewLayout *layout = [WeViewFlowLayout flowLayout];
+    WeViewFlowLayout *layout = [WeViewFlowLayout flowLayout];
     [self addSubviews:subviews
            withLayout:layout];
     return layout;
