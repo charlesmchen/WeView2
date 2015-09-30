@@ -42,6 +42,20 @@
 #define SQUARE(a) ((a) * (a))
 #define clamp01(a) (MAX(0, MIN(1, a)))
 
+#ifdef CGFLOAT_IS_DOUBLE
+#define CGFLOAT_ABS fabs
+#define CGFLOAT_ROUND round
+#define CGFLOAT_CEIL ceil
+#define CGFLOAT_FLOOR floor
+#define CGFLOAT_SQRT sqrt
+#else
+#define CGFLOAT_ABS fabsf
+#define CGFLOAT_ROUND roundf
+#define CGFLOAT_CEIL ceilf
+#define CGFLOAT_FLOOR floorf
+#define CGFLOAT_SQRT sqrtf
+#endif
+
 #pragma mark - CGPoint
 
 CG_INLINE CGPoint
@@ -80,42 +94,42 @@ CGPointMax(CGPoint p1, CGPoint p2)
 CG_INLINE CGPoint
 CGPointRound(const CGPoint p1)
 {
-    return CGPointMake(roundf(p1.x),
-                       roundf(p1.y));
+    return CGPointMake(CGFLOAT_ROUND(p1.x),
+                       CGFLOAT_ROUND(p1.y));
 }
 
 CG_INLINE CGPoint
 CGPointCeil(const CGPoint p1)
 {
-    return CGPointMake(ceilf(p1.x),
-                       ceilf(p1.y));
+    return CGPointMake(CGFLOAT_CEIL(p1.x),
+                       CGFLOAT_CEIL(p1.y));
 }
 
 CG_INLINE CGPoint
 CGPointFloor(const CGPoint p1)
 {
-    return CGPointMake(floorf(p1.x),
-                       floorf(p1.y));
+    return CGPointMake(CGFLOAT_FLOOR(p1.x),
+                       CGFLOAT_FLOOR(p1.y));
 }
 
 CG_INLINE CGPoint
 CGPointAbs(const CGPoint p1)
 {
-    return CGPointMake(fabsf(p1.x),
-                       fabsf(p1.y));
+    return CGPointMake(CGFLOAT_ABS(p1.x),
+                       CGFLOAT_ABS(p1.y));
 }
 
 CG_INLINE CGFloat
 CGPointDistance(CGPoint p0, CGPoint p1)
 {
-    CGFloat result = sqrtf(SQUARE(p0.x - p1.x) + SQUARE(p0.y - p1.y));
+    CGFloat result = CGFLOAT_SQRT(SQUARE(p0.x - p1.x) + SQUARE(p0.y - p1.y));
     return result;
 }
 
 CG_INLINE CGFloat
 CGPointLength(CGPoint p1)
 {
-    return sqrtf(SQUARE(p1.x) + SQUARE(p1.y));
+    return CGFLOAT_SQRT(SQUARE(p1.x) + SQUARE(p1.y));
 
 }
 
@@ -233,8 +247,8 @@ CGSizeFitInSize(CGSize r0, CGSize r1)
     CGFloat heightFactor = r1.height / r0.height;
     CGFloat factor = MIN(widthFactor, heightFactor);
     CGSize result;
-    result.width = roundf(r0.width * factor);
-    result.height = roundf(r0.height * factor);
+    result.width = CGFLOAT_ROUND(r0.width * factor);
+    result.height = CGFLOAT_ROUND(r0.height * factor);
     return result;
 }
 
@@ -244,8 +258,8 @@ CG_INLINE CGRect
 CGSizeCenterOnRect(CGSize r0, CGRect r1)
 {
     CGRect result;
-    result.origin.x = roundf(r1.origin.x + (r1.size.width - r0.width) * 0.5f);
-    result.origin.y = roundf(r1.origin.y + (r1.size.height - r0.height) * 0.5f);
+    result.origin.x = CGFLOAT_ROUND(r1.origin.x + (r1.size.width - r0.width) * 0.5f);
+    result.origin.y = CGFLOAT_ROUND(r1.origin.y + (r1.size.height - r0.height) * 0.5f);
     result.size = r0;
     return result;
 }
