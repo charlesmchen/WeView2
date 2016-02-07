@@ -17,6 +17,9 @@
 
 @property (nonatomic) UIView *contentView;
 
+@property (nonatomic) HAlign hAlign;
+@property (nonatomic) VAlign vAlign;
+
 + (WeScrollView *)createVerticalScrollView;
 + (WeScrollView *)createVerticalScrollViewForContentView:(UIView *)contentView;
 

@@ -33,6 +33,8 @@ typedef enum {
     if (self = [super init])
     {
         self.mode = SCROLL_MODE_BOTH;
+        self.hAlign = H_ALIGN_CENTER;
+        self.vAlign = V_ALIGN_CENTER;
     }
     return self;
 }
@@ -153,10 +155,34 @@ typedef enum {
         default:
             return;
     }
-    
+
     self.contentSize = size;
-    
     CGRect contentFrame = CGRectZero;
+
+    // TODO: round/ceil/floor these sizes before doing this math.
+    if (size.width < self.width) {
+        if (self.contentView.hStretchWeight > 0.f) {
+            size.width = self.width;
+        } else {
+            if (self.hAlign == H_ALIGN_CENTER) {
+                contentFrame.origin.x = roundf((self.width - size.width) * 0.5f);
+            } else if (self.hAlign == H_ALIGN_RIGHT) {
+                contentFrame.origin.x = self.width - size.width;
+            }
+        }
+    }
+    if (size.height < self.height) {
+        if (self.contentView.vStretchWeight > 0.f) {
+            size.height = self.height;
+        } else {
+            if (self.vAlign == V_ALIGN_CENTER) {
+                contentFrame.origin.y = roundf((self.height - size.height) * 0.5f);
+            } else if (self.vAlign == V_ALIGN_BOTTOM) {
+                contentFrame.origin.y = self.height - size.height;
+            }
+        }
+    }
+
     contentFrame.size = size;
     _contentView.frame = contentFrame;
     
