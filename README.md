@@ -13,6 +13,6 @@ __TODO__
 
 * We need to add more unit tests.
 * We need to add more comments.
-* We need to need to more strictly distinguish the concepts of "measurement" and "arrangement" in the the layouts, ie. around stretching, ignoring desired size, etc.
+* We need to more strictly distinguish the concepts of "measurement" and "arrangement" in the layouts, ie. around stretching, ignoring desired size, etc.
 * We should elaborate the FAQ.
 * We should provide another tutorial page describing how to break down a design into a WeView hierarchy.
